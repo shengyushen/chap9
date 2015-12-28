@@ -1,0 +1,9 @@
+# $^ all depend files
+# #< first depend file
+# $@ target file
+GPP = g++
+GCC = gcc
+FLEX = flex
+BISON = bison
+
+
