@@ -1,0 +1,8 @@
+main.cmo : verilogast.cmx print_v.cmx
+main.cmx : verilogast.cmx print_v.cmx
+misc.cmo :
+misc.cmx :
+print_v.cmo : verilogast.cmx misc.cmx
+print_v.cmx : verilogast.cmx misc.cmx
+verilogast.cmo :
+verilogast.cmx :
