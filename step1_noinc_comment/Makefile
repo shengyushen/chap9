@@ -4,7 +4,7 @@
 sinclude ../Makefile.setting
 
 # project specific setting
-LEXNAME = step1_noinc
+LEXNAME = step1_noinc_comment
 TARGET = $(LEXNAME).exe
 OBJS = $(LEXNAME).o
 GPPOPT = -std=gnu++11 -g
@@ -18,7 +18,7 @@ $(TARGET) : $(OBJS)
 	$(GPP) $(GPPOPT) -c $<
 
 $(LEXNAME).cpp : $(LEXNAME).lex
-	$(FLEX) -o $@  --warn --c++ --prefix=$(LEXNAME) --yyclass=step1_noincScanner --header-file=$(LEXNAME).h  $<
+	$(FLEX) -o $@  --warn --c++ --prefix=$(LEXNAME) --yyclass=$(LEXNAME)Scanner --header-file=$(LEXNAME).h  $<
 
 clean:
 	rm -f *.exe *.o $(LEXNAME).cpp $(LEXNAME).c $(LEXNAME).h
