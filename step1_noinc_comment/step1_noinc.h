@@ -215,9 +215,17 @@ void step1_noincfree (void *  );
 #include <FlexLexer.h>
 
 int yyFlexLexer::yywrap() { return 1; }
+int yyFlexLexer::yylex()
+	{
+	LexerError( "yyFlexLexer::yylex invoked but %option yyclass used" );
+	return 0;
+	}
+
+#define YY_DECL int step1_noincScanner::yylex()
 
 #ifdef YY_HEADER_EXPORT_START_CONDITIONS
 #define INITIAL 0
+#define comment 1
 
 #endif
 
@@ -282,9 +290,9 @@ static int yy_flex_strlen (yyconst char * );
 #undef YY_DECL
 #endif
 
-#line 56 "step1_noinc.lex"
+#line 78 "step1_noinc.lex"
 
 
-#line 289 "step1_noinc.h"
+#line 297 "step1_noinc.h"
 #undef step1_noincIN_HEADER
 #endif /* step1_noincHEADER_H */

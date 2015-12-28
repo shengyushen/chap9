@@ -336,6 +336,13 @@ typedef unsigned char YY_CHAR;
 #include <FlexLexer.h>
 
 int yyFlexLexer::yywrap() { return 1; }
+int yyFlexLexer::yylex()
+	{
+	LexerError( "yyFlexLexer::yylex invoked but %option yyclass used" );
+	return 0;
+	}
+
+#define YY_DECL int step1_noincScanner::yylex()
 
 /* Done after the current pattern has been matched and before the
  * corresponding action - sets up yytext.
@@ -347,8 +354,8 @@ int yyFlexLexer::yywrap() { return 1; }
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 2
-#define YY_END_OF_BUFFER 3
+#define YY_NUM_RULES 9
+#define YY_END_OF_BUFFER 10
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -356,9 +363,10 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[7] =
+static yyconst flex_int16_t yy_accept[20] =
     {   0,
-        0,    0,    3,    2,    1,    0
+        0,    0,    0,    0,   10,    9,    1,    9,    7,    6,
+        8,    8,    3,    2,    7,    4,    5,    2,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -367,10 +375,10 @@ static yyconst flex_int32_t yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    3,    1,    1,    1,    1,    4,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    5,
+        1,    5,    1,    1,    1,    1,    1,    1,    5,    5,
+        1,    1,    1,    1,    1,    1,    1,    1,    5,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
 
@@ -393,35 +401,45 @@ static yyconst flex_int32_t yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst flex_int32_t yy_meta[3] =
+static yyconst flex_int32_t yy_meta[6] =
     {   0,
-        1,    1
+        1,    2,    3,    4,    5
     } ;
 
-static yyconst flex_int16_t yy_base[7] =
+static yyconst flex_int16_t yy_base[25] =
     {   0,
-        0,    0,    3,    4,    4,    4
+        0,    3,    7,    0,   21,   29,   29,   10,    0,   29,
+        0,    0,   29,    0,    0,   29,   29,    0,   29,   14,
+       19,    2,    0,   24
     } ;
 
-static yyconst flex_int16_t yy_def[7] =
+static yyconst flex_int16_t yy_def[25] =
     {   0,
-        6,    1,    6,    6,    6,    0
+       20,   20,   19,    3,   19,   19,   19,   19,   21,   19,
+       22,   23,   19,   24,   21,   19,   19,   24,    0,   19,
+       19,   19,   19,   19
     } ;
 
-static yyconst flex_int16_t yy_nxt[7] =
+static yyconst flex_int16_t yy_nxt[35] =
     {   0,
-        4,    5,    6,    3,    6,    6
+       19,    7,   17,    8,    7,   16,    8,    9,   10,   11,
+       12,    9,   13,   14,    6,    6,    6,    6,    6,   15,
+       19,   19,   19,   15,   18,   19,   18,   18,    5,   19,
+       19,   19,   19,   19
     } ;
 
-static yyconst flex_int16_t yy_chk[7] =
+static yyconst flex_int16_t yy_chk[35] =
     {   0,
-        1,    1,    3,    6,    6,    6
+        0,    1,   23,    1,    2,   22,    2,    3,    3,    3,
+        3,    3,    8,    8,   20,   20,   20,   20,   20,   21,
+        5,    0,    0,   21,   24,    0,   24,   24,   19,   19,
+       19,   19,   19,   19
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static yyconst flex_int32_t yy_rule_can_match_eol[3] =
+static yyconst flex_int32_t yy_rule_can_match_eol[10] =
     {   0,
-1, 0,     };
+1, 0, 0, 0, 0, 1, 0, 0, 0,     };
 
 /* The intent behind this definition is that it'll catch
  * any uses of REJECT which flex missed.
@@ -436,46 +454,32 @@ static yyconst flex_int32_t yy_rule_can_match_eol[3] =
 	#include<iostream>
 	#include<fstream>
 	#include<stack>
+	#include<assert.h>
 	using namespace std;
-	
-	struct filestatus_t {
-		string filename;
-		size_t linenumber;
-		size_t charnumber;
-	};
-	
-	filestatus_t filestatus;
-	stack<filestatus_t> stk_filestatus;
 
-	void incLineNumber() {
-		filestatus.linenumber++;
-		filestatus.charnumber=0;
-	}
-	void incCharNumber() {
-		filestatus.charnumber++;
-	}
-	void setStatus(string str , size_t lineno) {
-		filestatus.filename=str;
-		filestatus.linenumber=lineno;
-		filestatus.charnumber=0;
-	}
-	void pushStatus() {
-		stk_filestatus.push(filestatus);
-	}
-	void popStatus() {
-		filestatus = stk_filestatus.top();
-		stk_filestatus.pop();
-	}
-	void prt_fatal(string str)  {
-		cerr<<"FATAL : "<<str<<endl<<flush;
-		return;
-	}
-	void print_pos () {
-		cerr<<filestatus.filename << " : " << filestatus.linenumber << " : " << filestatus.charnumber<<endl;
-	}
-#line 477 "step1_noinc.cpp"
+	class step1_noincScanner : public step1_noincFlexLexer {
+	public :
+		int linenumber ;
+		int charnumber ;
+		string filename ;
+		step1_noincScanner(const string & fn , ifstream * pis) :
+			filename{fn},
+			linenumber(0),
+			charnumber(0),
+			step1_noincFlexLexer(pis)
+		{ }
+		int yylex();
+		void print_pos () { cerr<< filename << " : " << linenumber << " : " << charnumber << endl << flush; }
+		void incLineNumber () { linenumber++; charnumber=0 ; }
+		void incCharNumber (int n) { charnumber+=n ; }
+		void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
+	};
+
+
+#line 480 "step1_noinc.cpp"
 
 #define INITIAL 0
+#define comment 1
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -578,10 +582,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 47 "step1_noinc.lex"
+#line 40 "step1_noinc.lex"
 
 
-#line 585 "step1_noinc.cpp"
+#line 589 "step1_noinc.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -634,13 +638,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 7 )
+				if ( yy_current_state >= 20 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 4 );
+		while ( yy_base[yy_current_state] != 29 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -677,19 +681,72 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 49 "step1_noinc.lex"
+#line 42 "step1_noinc.lex"
 {
-	incLineNumber();
-	print_pos();
+	/*counting lines*/
+	this->incLineNumber();
+	ECHO;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 56 "step1_noinc.lex"
+#line 48 "step1_noinc.lex"
+/*discard one line comment*/
+	YY_BREAK
+case 3:
+YY_RULE_SETUP
+#line 50 "step1_noinc.lex"
+{
+	yy_push_state(comment);
+}
+	YY_BREAK
+
+case 4:
+YY_RULE_SETUP
+#line 55 "step1_noinc.lex"
+{
+		yy_pop_state();
+	}
+	YY_BREAK
+case 5:
+YY_RULE_SETUP
+#line 59 "step1_noinc.lex"
+{
+		yy_push_state(comment);
+	}
+	YY_BREAK
+case 6:
+/* rule 6 can match eol */
+YY_RULE_SETUP
+#line 63 "step1_noinc.lex"
+{
+	/*counting lines*/
+		this->incLineNumber();
+	}
+	YY_BREAK
+case 7:
+YY_RULE_SETUP
+#line 68 "step1_noinc.lex"
+{
+		this->incCharNumber(yyleng);
+	}
+	YY_BREAK
+case 8:
+YY_RULE_SETUP
+#line 72 "step1_noinc.lex"
+{
+		this->incCharNumber(yyleng);
+	}
+	YY_BREAK
+
+case 9:
+YY_RULE_SETUP
+#line 78 "step1_noinc.lex"
 ECHO;
 	YY_BREAK
-#line 692 "step1_noinc.cpp"
+#line 748 "step1_noinc.cpp"
 case YY_STATE_EOF(INITIAL):
+case YY_STATE_EOF(comment):
 	yyterminate();
 
 	case YY_END_OF_BUFFER:
@@ -1069,7 +1126,7 @@ int yyFlexLexer::yy_get_next_buffer()
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 7 )
+			if ( yy_current_state >= 20 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1097,11 +1154,11 @@ int yyFlexLexer::yy_get_next_buffer()
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 7 )
+		if ( yy_current_state >= 20 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 6);
+	yy_is_jam = (yy_current_state == 19);
 
 	return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1597,7 +1654,7 @@ void step1_noincfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 56 "step1_noinc.lex"
+#line 78 "step1_noinc.lex"
 
 
 
@@ -1612,11 +1669,12 @@ int main ( int argc, char * argv[] ) {
 		cerr<<"reading file name "<< argv[1] <<endl;
 		ifstream foo( argv[1] );
 		if( ( foo.is_open() ) == false) {
-		   cerr << "FATAL : file doesn't exist\n";
+		   cerr << "FATAL : file doesn't exist\n"<<flush;
 			 return 1;
 		}
-		step1_noincFlexLexer* lexer= new step1_noincFlexLexer(&foo);
-		setStatus ( argv[1] , 1 ) ;
+		step1_noincScanner * lexer= new step1_noincScanner(argv[1],&foo);
+		while(lexer->yylex()!=0) {cout<<"loop"<<endl<<flush;}
+
 		delete lexer;	
 		return 0;
 	} else {
