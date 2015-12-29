@@ -25,10 +25,30 @@
 		void print_pos () { cerr<< filename << " : " << linenumber << " : " << charnumber << endl << flush; }
 		void incLineNumber () { linenumber++; charnumber=0 ; }
 		void incCharNumber (int n) { charnumber+=n ; }
-		void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
 	};
 
+	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
+	void prt_info (string str)  { cerr<<"INOF  : "<<str<<endl<<flush; return; }
+
 	vector<string> includePath;
+	void usage() {
+		cerr<<"step1_noinc_comment [input filenamea] -I [head file dir] -I ..."<<endl;
+		return;
+	}
+	
+	bool testFileExistenceInDir(string dirname_filename) {
+		ifstream foo( dirname_filename );
+		return foo.is_open();
+	}
+	
+	string findFile(string filename) {
+		for(auto & path : includePath) {
+			string dirname_filename=path+filename;
+			if(testFileExistenceInDir(dirname_filename)) 
+				return dirname_filename;
+		}
+		return "";
+	}
 %}
 
 %option noyywrap
@@ -80,11 +100,16 @@ digit [0-9]a
 		s.erase(s.length()-1,1);
 		while(s[0]==' ') {s.erase(0,1);}
 		while(s[s.length()-1]==' ') {s.erase(s.length()-1,1);}
-		cerr << "including " << s << "c" <<endl ;
-
-		/*find files*/
-
-//		step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(argv[argc-1],&foo);
+		
+		string fullpathname = findFile( s );
+		if( "" == fullpathname ) {
+			prt_fatal ( "can not find file " + s ) ;
+		} else  {
+			prt_info ( "using "+fullpathname ) ;
+			ifstream foo( fullpathname );
+			step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(fullpathname,&foo);
+			while(lexer->yylex()!=0);
+		}
 
 		yy_pop_state();
 	}
@@ -104,6 +129,7 @@ digit [0-9]a
 	\n	{
 	/*counting lines*/
 		this->incLineNumber();
+		ECHO;
 	}
 	
 	[^\*\/\n]+	{
@@ -119,21 +145,20 @@ digit [0-9]a
 %%
 
 
-void usage() {
-	cerr<<"step1_noinc_comment [input filenamea] -I [head file dir] -I ..."<<endl;
-	return;
-}
 
 extern char *optarg;
 extern int optind, optopt, opterr;
 int main ( int argc, char * argv[] ) {
+	//adding current dir to includePath
+	includePath.push_back("");
+	//handling options
 	int c;
-
 	while ((c = getopt (argc, argv, "I:")) != -1) {
 		switch (c)
 		{
 		case 'I': {
-			const string pathname{optarg};
+			string pathname{optarg};
+			if(pathname[pathname.length()-1]!='/') pathname.push_back('/');
 			includePath.push_back(pathname);
 			}
 			break;
@@ -154,18 +179,25 @@ int main ( int argc, char * argv[] ) {
 	}
 
 	if(optind<argc-1)  {
-		cerr << "only allow 1 filename" <<endl;
+		prt_fatal ( "only allow 1 filename");
 		usage();
 		return 1;
 	}
 
-	ifstream foo( argv[argc-1] );
-	if( ( foo.is_open() ) == false) {
-	   cerr << "FATAL : file doesn't exist\n"<<flush;
+	//testing existence of file
+	if( false == testFileExistenceInDir(argv[argc-1])) {
+	   prt_fatal ( "input file doesn't exist " ) ;
 		 return 1;
 	}
-	step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(argv[argc-1],&foo);
-	while(lexer->yylex()!=0) {cout<<"loop"<<endl<<flush;}
 
+	ifstream foo( argv[argc-1] );
+	//creating files handler and scanner
+	step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(argv[argc-1],&foo);
+	while(lexer->yylex()!=0) {
+		prt_fatal ("improper return");
+		cout<<"// return here\n"<<flush;
+	}
+
+	return 0;
 }
 
