@@ -17,7 +17,7 @@
 		string filename ;
 		step1_noinc_commentScanner(const string & fn , ifstream * pis) :
 			filename{fn},
-			linenumber(0),
+			linenumber(1),
 			charnumber(0),
 			step1_noinc_commentFlexLexer(pis)
 		{ }
@@ -109,13 +109,15 @@ digit [0-9]a
 			prt_fatal ( "can not find file " + s ) ;
 		} else  {
 			prt_info ( "including "+fullpathname ) ;
-			cout<<"// including "<<fullpathname<<"\n";
+			cout<<"// jumping to "<<fullpathname<<" \n";
+			cout<<"`line 1 "<<fullpathname<<" 1 \n";
 			ifstream foo( fullpathname );
 			step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(fullpathname,&foo);
 			while(lexer->yylex()!=0);
 		}
 
 		cout<<"// going back to "<<filename <<endl;
+		cout<<"`line "<< (linenumber + 1) << " " <<filename<<" 2 \n";
 
 		yy_pop_state();
 	}
