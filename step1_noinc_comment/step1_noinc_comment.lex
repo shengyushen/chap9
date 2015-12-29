@@ -109,11 +109,13 @@ digit [0-9]a
 			prt_fatal ( "can not find file " + s ) ;
 		} else  {
 			prt_info ( "including "+fullpathname ) ;
-			cout<<"// "<<fullpathname<<"\n";
+			cout<<"// including "<<fullpathname<<"\n";
 			ifstream foo( fullpathname );
 			step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(fullpathname,&foo);
 			while(lexer->yylex()!=0);
 		}
+
+		cout<<"// going back to "<<filename <<endl;
 
 		yy_pop_state();
 	}
