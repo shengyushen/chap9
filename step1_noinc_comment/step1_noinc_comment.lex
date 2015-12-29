@@ -62,6 +62,7 @@ digit [0-9]a
 %x comment include
 
 %%
+\r 
 
 \n	{
 	/*counting lines*/
@@ -69,7 +70,7 @@ digit [0-9]a
 	ECHO;
 }
 
-"//"[^\n<<EOF>>]* /*discard one line comment*/
+"//"[^\n]* /*discard one line comment*/
 
 "/*" {
 	yy_push_state(comment);
@@ -80,13 +81,15 @@ digit [0-9]a
 }
 
 <include>{
+	\r 
+
 	\n	{
 		/*counting lines*/
 		this->incLineNumber();
 		ECHO;
 	}
 	
-	"//"[^\n<<EOF>>]* /*discard one line comment*/
+	"//"[^\n]* /*discard one line comment*/
 	
 	"/*" {
 		yy_push_state(comment);
@@ -105,7 +108,8 @@ digit [0-9]a
 		if( "" == fullpathname ) {
 			prt_fatal ( "can not find file " + s ) ;
 		} else  {
-			prt_info ( "using "+fullpathname ) ;
+			prt_info ( "including "+fullpathname ) ;
+			cout<<"// "<<fullpathname<<"\n";
 			ifstream foo( fullpathname );
 			step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(fullpathname,&foo);
 			while(lexer->yylex()!=0);
@@ -125,6 +129,8 @@ digit [0-9]a
 	"/*" {
 		yy_push_state(comment);
 	}
+
+	\r 
 
 	\n	{
 	/*counting lines*/
