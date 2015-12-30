@@ -26,6 +26,7 @@
 		void print_pos () { cerr<< filename << " : " << linenumber << " : " << charnumber << endl << flush; }
 		void incLineNumber () { linenumber++; charnumber=0 ; }
 		void incCharNumber (int n) { charnumber+=n ; }
+		void setPosition(int ln , string fn) {linenumber=ln;filename=fn;}
 	};
 
 	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
@@ -198,7 +199,7 @@
 	}
 	
 	void usage() {
-		cerr<<"step2_nodef [input filenamea] -I [head file dir] -I ..."<<endl;
+		cerr<<"step2_nodef [input filename] -I [head file dir] -I ..."<<endl;
 		return;
 	}
 	
@@ -207,7 +208,8 @@
 		return foo.is_open();
 	}
 
-
+	//related to `line
+	int ln;
 %}
 
 %option noyywrap
@@ -222,8 +224,9 @@ alnum {alpha}|{digit}
 alnum_ {alnum}|[_]
 alpha_ {alpha}|[_]
 identifier {alpha_}{alnum_}*
+useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`celldefine" |"`default_nettype" |"`define" |"`else" |"`endcelldefine" |"`end_keywords" |"`endif" |"`endprotect" |"`endprotected" |"`expand_vectornets" |"`ifdef" |"`include" |"`noaccelerate" |"`noexpand_vectornets" |"`noremove_gatenames" |"`noremove_netnames" |"`nounconnected_drive" |"`pragma" |"`protect" |"`protected" |"`remove_gatenames" |"`remove_netnames" |"`resetall" |"`timescale" |"`unconnected_drive"
 
-%x macro
+%x macro proc_ifdef do_then proc_ifndef line_skip_blank line_number line_skip_blank2 line_filename endofline
 
 %%
 \r 
@@ -240,8 +243,145 @@ identifier {alpha_}{alnum_}*
 	deleteblank(s);
 	cerr<<s<<endl;
 	currentMacroName=s;
-	ECHO;
+//	ECHO;
 	yy_push_state(macro);
+}
+
+  /*"`ifdef" {
+	yy_push_state(proc_ifdef);
+}
+
+"`ifndef" {
+	yy_push_state(proc_ifndef);
+}*/
+
+"`else"|"elsif"|"`endif" {
+	string s(yytext);
+	prt_fatal("mismatched "+s);
+	exit(1);
+}
+
+  /*"`undef"				{
+	yy_push_state(proc_undef);
+}*/
+
+"`accelerate" |
+"`autoexpand_vectornets" |
+"`begin_keywords" |
+"`celldefine" |
+"`default_nettype" |
+"`define" |
+"`endcelldefine" |
+"`end_keywords" |
+"`endprotect" |
+"`endprotected" |
+"`expand_vectornets" |
+"`include" |
+"`noaccelerate" |
+"`noexpand_vectornets" |
+"`noremove_gatenames" |
+"`noremove_netnames" |
+"`nounconnected_drive" |
+"`pragma" |
+"`protect" |
+"`protected" |
+"`remove_gatenames" |
+"`remove_netnames" |
+"`resetall" |
+"`timescale" |
+"`unconnected_drive" {
+	string s(yytext);
+	prt_warning("useless_directive "+s);
+	print_pos ();
+	ECHO;
+}
+
+"`line"			{
+	ECHO;
+	yy_push_state(line_skip_blank);
+}
+
+
+[`]{identifier}{blank}*[(]({blank}*{identifier}{blank}*[,])*{blank}*{identifier}{blank}*[)] {
+	//replacing macros
+	string s(yytext);
+	int lppos = s.find('(',1);
+	int rppos = s.find(')',lppos);
+	string oldbody = s.substr(0,rppos+1);
+	replaceMacro(oldbody);
+	cout<<oldbody;
+}
+
+  /*<proc_ifdef>{
+	{blank}+ 
+	identifier {
+		string s{yytext};
+		if(isInMacro(s)) {
+			yy_pop_state();
+			yy_push_state(do_then);
+		} else {
+			yy_pop_state();
+			yy_push_state(do_else);
+		}
+	}
+
+	. {prt_fatal("improper ifdef statement");exit(1);}
+}
+
+<do_then>{
+	"`else" {
+		
+	}
+} */
+
+<line_skip_blank>{
+	{blank}+ {
+		ECHO;
+		yy_pop_state();
+		yy_push_state(line_number);
+	}
+	. {prt_fatal("improper `line statement");exit(1);}
+}
+
+<line_number>{
+	{digit}+ {
+		sscanf(yytext,"%d",&ln);
+		ECHO;
+		yy_pop_state();
+		yy_push_state(line_skip_blank2);
+	}
+
+	. {prt_fatal("improper `line number");exit(1);}
+}
+
+<line_skip_blank2>{
+	{blank}+ {
+		ECHO;
+		yy_pop_state();
+		yy_push_state(line_filename);
+	}
+	. {prt_fatal("improper `line file name");exit(1);}
+}
+
+<line_filename>{
+	[^\n\t ]+ {
+		string s{yytext};
+		s.erase(0,1);
+		s.pop_back();
+		setPosition(ln,s);
+		ECHO;
+		yy_pop_state();
+		yy_push_state(endofline);
+	}
+	. {prt_fatal("improper `line file name 2");exit(1);}
+}
+
+<endofline>{
+	[^\n]*\n {
+		incLineNumber();
+		ECHO;
+		yy_pop_state();
+	}
 }
 
 <macro>{
@@ -263,7 +403,8 @@ identifier {alpha_}{alnum_}*
 		mb.body = body;
 		insertMacro(currentMacroName,mb);
 		cerr<<"macro body "<<body<<endl;
-		ECHO;
+//		ECHO;
+		incLineNumber();
 		yy_pop_state();
 	}
 
@@ -277,17 +418,19 @@ identifier {alpha_}{alnum_}*
 		mb.body=s;
 		insertMacro(currentMacroName,mb);
 		cerr<<"macro body without param "<<s<<endl;
-		ECHO;
+//		ECHO;
+		incLineNumber();
 		yy_pop_state();
 	}
 
 	\n {
 		cerr<<"macro body without param "<<endl;
-		ECHO;
 		macrobody mb;
 		mb.params.clear();
 		mb.body="";
 		insertMacro(currentMacroName,mb);
+//		ECHO;
+		incLineNumber();
 		yy_pop_state();
 	}
 
