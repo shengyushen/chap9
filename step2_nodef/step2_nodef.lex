@@ -368,7 +368,7 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		string s{yytext};
 		s.erase(0,1);
 		s.pop_back();
-		setPosition(ln,s);
+		setPosition(ln-1,s);
 		ECHO;
 		yy_pop_state();
 		yy_push_state(endofline);
