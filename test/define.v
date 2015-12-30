@@ -14,5 +14,6 @@ assign o2 = `add2 (a,b);
 assign o3 = `add3 (a,b,c);
 
 `x (x1,x2);
+`x
 
 endmodule

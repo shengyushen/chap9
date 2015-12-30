@@ -23,7 +23,8 @@
 			step2_nodefFlexLexer(pis)
 		{ }
 		int yylex();
-		void print_pos () { cerr<< filename << " : " << linenumber << " : " << charnumber << endl << flush; }
+		void print_pos_cerr () { cerr<< filename << " : " << linenumber << " : " << charnumber << endl << flush; }
+		void print_pos_cout () { cout<< "`line "<< (linenumber+1) << " " << filename << " 1" << endl << flush; }
 		void incLineNumber () { linenumber++; charnumber=0 ; }
 		void incCharNumber (int n) { charnumber+=n ; }
 		void setPosition(int ln , string fn) {linenumber=ln;filename=fn;}
@@ -148,7 +149,7 @@
 					auto mp = (macros.find(nm))->second;
 					if((mp.params).size()==0) {
 						//no parameter direct replace
-						body.replace(pos+1,postail-(pos+1)+1,mp.body);
+						body.replace(pos,postail-pos+1,mp.body);
 						last_pos = 0;//restart from head
 					} else {
 						//have parameter
@@ -226,51 +227,66 @@ alpha_ {alpha}|[_]
 identifier {alpha_}{alnum_}*
 useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`celldefine" |"`default_nettype" |"`define" |"`else" |"`endcelldefine" |"`end_keywords" |"`endif" |"`endprotect" |"`endprotected" |"`expand_vectornets" |"`ifdef" |"`include" |"`noaccelerate" |"`noexpand_vectornets" |"`noremove_gatenames" |"`noremove_netnames" |"`nounconnected_drive" |"`pragma" |"`protect" |"`protected" |"`remove_gatenames" |"`remove_netnames" |"`resetall" |"`timescale" |"`unconnected_drive"
 
-%x macro proc_ifdef do_then proc_ifndef line_skip_blank line_number line_skip_blank2 line_filename endofline
+%x macro proc_ifdef do_then proc_ifndef line_skip_blank line_number line_skip_blank2 line_filename endofline proc_undef do_else do_else_in skip_else proc_ifdef_inskip
 
 %%
 \r 
 
 \n	{
-	/*counting lines*/
-	this->incLineNumber();
 	ECHO;
+
+	this->incLineNumber();
 }
 
 "`define"{blank}+{identifier} {
 	string s(yytext);
+
 	s.erase(0,7);
 	deleteblank(s);
 	cerr<<s<<endl;
 	currentMacroName=s;
-//	ECHO;
+
+
 	yy_push_state(macro);
 }
 
-  /*"`ifdef" {
+"`ifdef" {
+	string s(yytext);
+
 	yy_push_state(proc_ifdef);
 }
 
 "`ifndef" {
-	yy_push_state(proc_ifndef);
-}*/
-
-"`else"|"elsif"|"`endif" {
 	string s(yytext);
+
+	yy_push_state(proc_ifndef);
+}
+
+"`else"|"elsif" {
+	string s(yytext);
+
 	prt_fatal("mismatched "+s);
 	exit(1);
 }
 
-  /*"`undef"				{
+"`endif" {
+	string s(yytext);
+
+	prt_fatal("mismatched "+s);
+	exit(1);
+}
+
+"`undef"				{
+	string s(yytext);
+
 	yy_push_state(proc_undef);
-}*/
+}
 
 "`accelerate" |
 "`autoexpand_vectornets" |
 "`begin_keywords" |
 "`celldefine" |
 "`default_nettype" |
-"`define" |
 "`endcelldefine" |
 "`end_keywords" |
 "`endprotect" |
@@ -291,30 +307,71 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 "`timescale" |
 "`unconnected_drive" {
 	string s(yytext);
+	incCharNumber(s.size());
+
 	prt_warning("useless_directive "+s);
-	print_pos ();
+	print_pos_cerr ();
 	ECHO;
 }
 
 "`line"			{
+	string s(yytext);
+
 	ECHO;
 	yy_push_state(line_skip_blank);
 }
 
-
 [`]{identifier}{blank}*[(]({blank}*{identifier}{blank}*[,])*{blank}*{identifier}{blank}*[)] {
 	//replacing macros
 	string s(yytext);
+	int oldsize = s.size();
+
+	cerr<<"wo "<<s<<endl;
 	int lppos = s.find('(',1);
 	int rppos = s.find(')',lppos);
 	string oldbody = s.substr(0,rppos+1);
 	replaceMacro(oldbody);
 	cout<<oldbody;
+	incCharNumber(oldbody.size()-oldsize);
 }
 
-  /*<proc_ifdef>{
+[`]{identifier} {
+	string s(yytext);
+	int oldsize = s.size();
+
+	s.erase(0,1);
+	if(isInMacro(s) == false) {
+		prt_fatal("undefined macro "+s);
+		print_pos_cerr ();
+		exit(1);
+	}
+	//now we have defined
+	auto mp = (macros.find(s))->second;
+	if((mp.params).size()!=0) {
+		prt_fatal("mismatching parameter length of macro "+s);
+		print_pos_cerr ();
+		exit(1);
+	}
+	cout<<mp.body;
+	incCharNumber(mp.body.size()-oldsize);
+}
+
+[ \ta-zA-Z0-9]+ {
+	ECHO;
+	string s(yytext);
+	incCharNumber(s.size());
+}
+
+. {
+	ECHO;
+	string s(yytext);
+	incCharNumber(s.size());
+}
+
+<proc_ifdef>{
 	{blank}+ 
-	identifier {
+
+	{identifier} {
 		string s{yytext};
 		if(isInMacro(s)) {
 			yy_pop_state();
@@ -328,11 +385,149 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 	. {prt_fatal("improper ifdef statement");exit(1);}
 }
 
-<do_then>{
-	"`else" {
-		
+<proc_ifndef>{
+	{blank}+ 
+
+	{identifier} {
+		string s{yytext};
+		if(isInMacro(s)) {
+			yy_pop_state();
+			yy_push_state(do_else);
+		} else {
+			yy_pop_state();
+			yy_push_state(do_then);
+		}
 	}
-} */
+
+	. {prt_fatal("improper ifndef statement");exit(1);}
+}
+
+<do_then>{
+	\r 
+
+	\n {
+		ECHO;
+		incLineNumber();
+	}
+	
+	"`ifdef" {
+		yy_push_state(proc_ifdef);
+	}
+
+	"`ifndef" {
+		yy_push_state(proc_ifndef);
+	}
+
+	"`else" {
+		yy_pop_state();
+		yy_push_state(skip_else);
+	}
+
+	"`elsif" {
+		yy_pop_state();
+		yy_push_state(skip_else);
+	}
+
+	"`endif" {
+		print_pos_cout ();
+		yy_pop_state();
+	}
+
+	"`define"{blank}+{identifier} {
+		string s(yytext);
+		s.erase(0,7);
+		deleteblank(s);
+		cerr<<s<<endl;
+		currentMacroName=s;
+		yy_push_state(macro);
+	}
+	
+	"`undef"				{
+		yy_push_state(proc_undef);
+	}
+
+	"`accelerate" |
+	"`autoexpand_vectornets" |
+	"`begin_keywords" |
+	"`celldefine" |
+	"`default_nettype" |
+	"`endcelldefine" |
+	"`end_keywords" |
+	"`endprotect" |
+	"`endprotected" |
+	"`expand_vectornets" |
+	"`include" |
+	"`noaccelerate" |
+	"`noexpand_vectornets" |
+	"`noremove_gatenames" |
+	"`noremove_netnames" |
+	"`nounconnected_drive" |
+	"`pragma" |
+	"`protect" |
+	"`protected" |
+	"`remove_gatenames" |
+	"`remove_netnames" |
+	"`resetall" |
+	"`timescale" |
+	"`unconnected_drive" {
+		string s(yytext);
+		incCharNumber(s.size());
+		prt_warning("useless_directive "+s);
+		print_pos_cerr ();
+		ECHO;
+	}
+	
+	"`line"			{
+		ECHO;
+		yy_push_state(line_skip_blank);
+	}
+	
+	
+	[`]{identifier}{blank}*[(]({blank}*{identifier}{blank}*[,])*{blank}*{identifier}{blank}*[)] {
+		//replacing macros
+		string s(yytext);
+		int oldsize = s.size();
+		cerr<<"wo "<<s<<endl;
+		int lppos = s.find('(',1);
+		int rppos = s.find(')',lppos);
+		string oldbody = s.substr(0,rppos+1);
+		replaceMacro(oldbody);
+		cout<<oldbody;
+		incCharNumber(oldbody.size()-oldsize);
+	}
+	
+	[`]{identifier} {
+		string s(yytext);
+		int oldsize = s.size();
+		s.erase(0,1);
+		if(isInMacro(s) == false) {
+			prt_fatal("undefined macro "+s);
+			print_pos_cerr ();
+			exit(1);
+		}
+		//now we have defined
+		auto mp = (macros.find(s))->second;
+		if((mp.params).size()!=0) {
+			prt_fatal("mismatching parameter length of macro "+s);
+			print_pos_cerr ();
+			exit(1);
+		}
+		cout<<mp.body;
+		incCharNumber(mp.body.size()-oldsize);
+	}
+	
+	[ \ta-zA-Z0-9]+ {
+		ECHO;
+		string s(yytext);
+		incCharNumber(s.size());
+	}
+	
+	. {
+		ECHO;
+		string s(yytext);
+		incCharNumber(s.size());
+	}
+} 
 
 <line_skip_blank>{
 	{blank}+ {
@@ -373,7 +568,240 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		yy_pop_state();
 		yy_push_state(endofline);
 	}
+
 	. {prt_fatal("improper `line file name 2");exit(1);}
+}
+
+
+<do_else>{
+	\r 
+
+	\n {
+		incLineNumber();
+	}
+
+	"`ifdef"|"`ifndef" {
+		yy_push_state(proc_ifdef_inskip);
+	}
+
+	"`else" {
+		yy_pop_state();
+		yy_push_state(do_else_in);
+	}
+
+	"`elsif" {
+		yy_pop_state();
+		yy_push_state(proc_ifdef);
+	}
+
+	"`endif" {
+		print_pos_cout ();
+		yy_pop_state();
+	}
+
+	[ \ta-zA-Z0-9]+ {
+		string s(yytext);
+		incCharNumber(s.size());
+	}
+	
+	. {
+		string s(yytext);
+		incCharNumber(s.size());
+	}
+	
+}
+
+<do_else_in>{
+	\r 
+
+	\n {
+		ECHO;
+		incLineNumber();
+	}
+
+	"`define"{blank}+{identifier} {
+		string s(yytext);
+		s.erase(0,7);
+		deleteblank(s);
+		cerr<<s<<endl;
+		currentMacroName=s;
+	//	ECHO;
+		yy_push_state(macro);
+	}
+
+	"`ifdef" {
+		yy_push_state(proc_ifdef);
+	}
+
+	"`ifndef" {
+		yy_push_state(proc_ifndef);
+	}
+
+	"`else"|"elsif" {
+		string s(yytext);
+		prt_fatal("mismatched "+s);
+		exit(1);
+	}
+
+	"`endif" {
+		print_pos_cout ();
+		yy_pop_state();
+	}
+
+	"`undef"				{
+		yy_push_state(proc_undef);
+	}
+
+	"`accelerate" |
+	"`autoexpand_vectornets" |
+	"`begin_keywords" |
+	"`celldefine" |
+	"`default_nettype" |
+	"`endcelldefine" |
+	"`end_keywords" |
+	"`endprotect" |
+	"`endprotected" |
+	"`expand_vectornets" |
+	"`include" |
+	"`noaccelerate" |
+	"`noexpand_vectornets" |
+	"`noremove_gatenames" |
+	"`noremove_netnames" |
+	"`nounconnected_drive" |
+	"`pragma" |
+	"`protect" |
+	"`protected" |
+	"`remove_gatenames" |
+	"`remove_netnames" |
+	"`resetall" |
+	"`timescale" |
+	"`unconnected_drive" {
+		string s(yytext);
+		incCharNumber(s.size());
+		prt_warning("useless_directive "+s);
+		print_pos_cerr ();
+		ECHO;
+	}
+
+	"`line"			{
+		ECHO;
+		yy_push_state(line_skip_blank);
+	}
+	
+	[`]{identifier}{blank}*[(]({blank}*{identifier}{blank}*[,])*{blank}*{identifier}{blank}*[)] {
+		//replacing macros
+		string s(yytext);
+		int oldsize = s.size();
+		cerr<<"wo "<<s<<endl;
+		int lppos = s.find('(',1);
+		int rppos = s.find(')',lppos);
+		string oldbody = s.substr(0,rppos+1);
+		replaceMacro(oldbody);
+		cout<<oldbody;
+		incCharNumber(oldbody.size()-oldsize);
+	}
+	
+	[`]{identifier} {
+		string s(yytext);
+		int oldsize = s.size();
+		s.erase(0,1);
+		if(isInMacro(s) == false) {
+			prt_fatal("undefined macro "+s);
+			print_pos_cerr ();
+			exit(1);
+		}
+		//now we have defined
+		auto mp = (macros.find(s))->second;
+		if((mp.params).size()!=0) {
+			prt_fatal("mismatching parameter length of macro "+s);
+			print_pos_cerr ();
+			exit(1);
+		}
+		cout<<mp.body;
+		incCharNumber(mp.body.size()-oldsize);
+	}
+	
+	[ \ta-zA-Z0-9]+ {
+		ECHO;
+		string s(yytext);
+		incCharNumber(s.size());
+	}
+	
+	. {
+		ECHO;
+		string s(yytext);
+		incCharNumber(s.size());
+	}
+	
+}
+
+<skip_else>{
+	\r 
+	
+	\n	{
+		/*counting lines*/
+		this->incLineNumber();
+	}
+
+	"`ifdef"|"`ifndef" {
+		yy_push_state(proc_ifdef_inskip);
+	}
+
+	"`endif" {
+		print_pos_cout ();
+		yy_pop_state();
+	}
+
+	[ \ta-zA-Z0-9]+ {
+		string s(yytext);
+		incCharNumber(s.size());
+	}
+	
+	. {
+		string s(yytext);
+		incCharNumber(s.size());
+	}
+}
+
+<proc_ifdef_inskip>{
+	\r 
+
+	\n {
+		incLineNumber();
+	}
+
+	"`ifdef"|"`ifndef" {
+		yy_push_state(proc_ifdef_inskip);
+	}
+
+	"`endif" {
+		yy_pop_state();
+	}
+
+	[ \ta-zA-Z0-9]+ {
+		string s(yytext);
+	}
+	
+	. {
+		string s(yytext);
+	}
+	
+}
+
+<proc_undef>{
+	{blank}+ 
+	{identifier} {
+		string s{yytext};
+		if(isInMacro(s)) {
+			macros.erase(s);
+			yy_pop_state();
+		} else {
+			prt_warning("undefining macro "+s+" that have been defined");
+			yy_pop_state();
+		}
+	}
+
+	. {prt_fatal("improper undef statement");exit(1);}
 }
 
 <endofline>{
@@ -403,7 +831,6 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		mb.body = body;
 		insertMacro(currentMacroName,mb);
 		cerr<<"macro body "<<body<<endl;
-//		ECHO;
 		incLineNumber();
 		yy_pop_state();
 	}
@@ -418,7 +845,6 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		mb.body=s;
 		insertMacro(currentMacroName,mb);
 		cerr<<"macro body without param "<<s<<endl;
-//		ECHO;
 		incLineNumber();
 		yy_pop_state();
 	}
@@ -429,7 +855,6 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		mb.params.clear();
 		mb.body="";
 		insertMacro(currentMacroName,mb);
-//		ECHO;
 		incLineNumber();
 		yy_pop_state();
 	}
