@@ -7,6 +7,7 @@
 	#include<regex>
 	#include<unistd.h>
 	#include<vector>
+	#include<chrono>
 
 	using namespace std;
 
@@ -28,7 +29,7 @@
 	};
 
 	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
-	void prt_info (string str)  { cerr<<"INOF  : "<<str<<endl<<flush; return; }
+	void prt_info (string str)  { cerr<<"INFO  : "<<str<<endl<<flush; return; }
 
 	vector<string> includePath;
 	void usage() {
@@ -109,15 +110,13 @@ digit [0-9]a
 			prt_fatal ( "can not find file " + s ) ;
 		} else  {
 			prt_info ( "including "+fullpathname ) ;
-			cout<<"// jumping to "<<fullpathname<<" \n";
-			cout<<"`line 1 "<<fullpathname<<" 1 \n";
+			cout<<"\n`line 1 "<<fullpathname<<" 1 \n";
 			ifstream foo( fullpathname );
 			step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(fullpathname,&foo);
 			while(lexer->yylex()!=0);
 		}
 
-		cout<<"// going back to "<<filename <<endl;
-		cout<<"`line "<< (linenumber + 1) << " " <<filename<<" 2 \n";
+		cout<<"\n`line "<< (linenumber + 1) << " " <<filename<<" 2 \n";
 
 		yy_pop_state();
 	}
@@ -159,6 +158,11 @@ digit [0-9]a
 extern char *optarg;
 extern int optind, optopt, opterr;
 int main ( int argc, char * argv[] ) {
+	std::chrono::time_point<std::chrono::system_clock> start, end;
+	start = std::chrono::system_clock::now();
+	std::time_t st_time = std::chrono::system_clock::to_time_t(start);
+	std::cerr << "step1 start computation at " << std::ctime(&st_time);
+
 	//adding current dir to includePath
 	includePath.push_back("");
 	//handling options
@@ -205,8 +209,14 @@ int main ( int argc, char * argv[] ) {
 	step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(argv[argc-1],&foo);
 	while(lexer->yylex()!=0) {
 		prt_fatal ("improper return");
-		cout<<"// return here\n"<<flush;
+		//cout<<"// return here\n"<<flush;
 	}
+
+	end = std::chrono::system_clock::now();
+	std::chrono::duration<double> elapsed_seconds = end-start;
+	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+	std::cerr << "step1 finished computation at " << std::ctime(&end_time)
+	<< "elapsed time: " << elapsed_seconds.count() << "s\n";
 
 	return 0;
 }

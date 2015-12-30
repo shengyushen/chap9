@@ -8,6 +8,7 @@
 	#include<unistd.h>
 	#include<vector>
 	#include<map>
+	#include<chrono>
 
 	using namespace std;
 
@@ -23,7 +24,7 @@
 			step2_nodefFlexLexer(pis)
 		{ }
 		int yylex();
-		void print_pos_cerr () { cerr<< filename << " : " << linenumber << " : " << charnumber << endl << flush; }
+		void print_pos_cerr () { cerr<< "print_pos_cerr " << filename << " : " << linenumber << " : " << charnumber << endl << flush; }
 		void print_pos_cout () { cout<< "`line "<< (linenumber+1) << " " << filename << " 1" << endl << flush; }
 		void incLineNumber () { linenumber++; charnumber=0 ; }
 		void incCharNumber (int n) { charnumber+=n ; }
@@ -132,7 +133,7 @@
 		while(s[0]==' '|| s[0]=='\t')  {s.erase(0,1);}
 		while(s[0]==' '|| s[0]=='\t')  {s.pop_back();}
 	}
-	void replaceMacro(string & body) {
+	void replaceMacro(string & body , string fn, int ln) {
 		size_t last_pos=0;
 		while(last_pos<body.length()) {
 			size_t pos = body.find('`', last_pos);
@@ -157,11 +158,13 @@
 						size_t lppos=body.find('(',postail);
 						if(lppos==string::npos) {
 							prt_fatal("macro "+nm+" should have parameter list with (");
+							cerr<<fn<<" : "<<ln<<endl<<flush;
 							exit(1);
 						}
 						size_t rppos = body.find(')',lppos);
 						if(rppos==string::npos) {
 							prt_fatal("macro "+nm+" should have parameter list with )");
+							cerr<<fn<<" : "<<ln<<endl<<flush;
 							exit(1);
 						}
 
@@ -178,6 +181,7 @@
 						//and mp is the macrobody
 						if((mp.params).size()!=pamvec.size()) {
 							prt_fatal("length of macro "+nm+"'s parameter list are not the same");
+							cerr<<fn<<" : "<<ln<<endl<<flush;
 							exit(1);
 						}
 
@@ -189,7 +193,8 @@
 					}
 				} else {
 					prt_warning("not defined macro "+nm);
-					last_pos = postail +1;
+					cerr<<fn<<" : "<<ln<<endl<<flush;
+					exit(1);
 				}
 			} else {
 				//not an id
@@ -330,7 +335,7 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 	int lppos = s.find('(',1);
 	int rppos = s.find(')',lppos);
 	string oldbody = s.substr(0,rppos+1);
-	replaceMacro(oldbody);
+	replaceMacro(oldbody , filename , linenumber);
 	cout<<oldbody;
 	incCharNumber(oldbody.size()-oldsize);
 }
@@ -491,7 +496,7 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		int lppos = s.find('(',1);
 		int rppos = s.find(')',lppos);
 		string oldbody = s.substr(0,rppos+1);
-		replaceMacro(oldbody);
+		replaceMacro(oldbody , filename , linenumber);
 		cout<<oldbody;
 		incCharNumber(oldbody.size()-oldsize);
 	}
@@ -561,8 +566,6 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 <line_filename>{
 	[^\n\t ]+ {
 		string s{yytext};
-		s.erase(0,1);
-		s.pop_back();
 		setPosition(ln-1,s);
 		ECHO;
 		yy_pop_state();
@@ -696,7 +699,7 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		int lppos = s.find('(',1);
 		int rppos = s.find(')',lppos);
 		string oldbody = s.substr(0,rppos+1);
-		replaceMacro(oldbody);
+		replaceMacro(oldbody , filename , linenumber);
 		cout<<oldbody;
 		incCharNumber(oldbody.size()-oldsize);
 	}
@@ -827,7 +830,7 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		mb.params = vs;
 		string body = s.substr(rppos+1,(s.length()-1-(rppos+1)+1));
 		deleteblank(body);
-		replaceMacro(body);
+		replaceMacro(body , filename , linenumber );
 		mb.body = body;
 		insertMacro(currentMacroName,mb);
 		cerr<<"macro body "<<body<<endl;
@@ -839,7 +842,7 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		string s {yytext};
 		s.pop_back();
 		deleteblank(s);
-		replaceMacro(s);
+		replaceMacro(s , filename , linenumber );
 		macrobody mb;
 		mb.params.clear();
 		mb.body=s;
@@ -869,6 +872,11 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 extern char *optarg;
 extern int optind, optopt, opterr;
 int main ( int argc, char * argv[] ) {
+	std::chrono::time_point<std::chrono::system_clock> start, end;
+	start = std::chrono::system_clock::now();
+	std::time_t st_time = std::chrono::system_clock::to_time_t(start);
+	std::cerr << "step2 start computation at " << std::ctime(&st_time);
+
 	//handling options
 	int c;
 	while ((c = getopt (argc, argv, "D:")) != -1) {
@@ -918,6 +926,11 @@ int main ( int argc, char * argv[] ) {
 		cout<<"// return here\n"<<flush;
 	}
 	
+	end = std::chrono::system_clock::now();
+	std::chrono::duration<double> elapsed_seconds = end-start;
+	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+	std::cerr << "step2 finished computation at " << std::ctime(&end_time)
+	<< "elapsed time: " << elapsed_seconds.count() << "s\n";
 
 	return 0;
 }

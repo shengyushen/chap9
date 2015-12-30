@@ -1,16 +1,6 @@
 #!/bin/bash -v
-
 ulimit -s unlimited
+step1_noinc_comment.exe /1202prj/nr_source/top/nr_all_manifest.v -I /1202prj/common/hss_share/aec_revise -I /1202prj/common/pcs25g/std_ovl >noinclude.v 2>error1
+step2_nodef.exe  noinclude.v > nocomment.v 2>error2
 
-step1_noinc_comment.exe /1202prj/nr_source/top/nr_all_manifest.v -I /1202prj/common/hss_share/aec_revise -I /1202prj/common/pcs25g/std_ovl >noinclude.v 2>>error
-dos2unix noinclude.v
-
-step2_nocomment.exe  noinclude.v > nocomment.v
-
-step3_noprotected.exe  nocomment.v > noprotected.v
-
-step4_nodef.exe  noprotected.v > nodef.v
-
-#OCAMLRUNPARAM=bp checker.exe nodef.v > dd
-checker.exe nodef.v > print.v 2>err
 
