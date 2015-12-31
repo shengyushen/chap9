@@ -28,7 +28,7 @@
 		void print_pos_cout () { cout<< "`line "<< (linenumber+1) << " " << filename << " 1" << endl << flush; }
 		void incLineNumber () { linenumber++; charnumber=0 ; }
 		void incCharNumber (int n) { charnumber+=n ; }
-		void setPosition(int ln , string fn) {linenumber=ln;filename=fn;}
+		void setPosition(int ln , string fn) {linenumber=ln;filename=fn;charnumber=0;}
 	};
 
 	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
@@ -230,7 +230,9 @@ alnum {alpha}|{digit}
 alnum_ {alnum}|[_]
 alpha_ {alpha}|[_]
 identifier {alpha_}{alnum_}*
-useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`celldefine" |"`default_nettype" |"`define" |"`else" |"`endcelldefine" |"`end_keywords" |"`endif" |"`endprotect" |"`endprotected" |"`expand_vectornets" |"`ifdef" |"`include" |"`noaccelerate" |"`noexpand_vectornets" |"`noremove_gatenames" |"`noremove_netnames" |"`nounconnected_drive" |"`pragma" |"`protect" |"`protected" |"`remove_gatenames" |"`remove_netnames" |"`resetall" |"`timescale" |"`unconnected_drive"
+
+useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_distributed"|"`delay_mode_path"|"`delay_mode_unit"|"`delay_mode_zero"|"`accelerate"|"`autoexpand_vectornets"|"`begin_keywords"|"`celldefine"|"`default_nettype"|"`endcelldefine"|"`end_keywords"|"`endprotect"|"`endprotected"|"`expand_vectornets"|"`include"|"`noaccelerate"|"`noexpand_vectornets"|"`noremove_gatenames"|"`noremove_netnames"|"`nounconnected_drive"|"`pragma"|"`protect"|"`protected"|"`remove_gatenames"|"`remove_netnames"|"`resetall"|"`timescale"|"`unconnected_drive"
+
 
 %x macro proc_ifdef do_then proc_ifndef line_skip_blank line_number line_skip_blank2 line_filename endofline proc_undef do_else do_else_in skip_else proc_ifdef_inskip
 
@@ -287,30 +289,7 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 	yy_push_state(proc_undef);
 }
 
-"`accelerate" |
-"`autoexpand_vectornets" |
-"`begin_keywords" |
-"`celldefine" |
-"`default_nettype" |
-"`endcelldefine" |
-"`end_keywords" |
-"`endprotect" |
-"`endprotected" |
-"`expand_vectornets" |
-"`include" |
-"`noaccelerate" |
-"`noexpand_vectornets" |
-"`noremove_gatenames" |
-"`noremove_netnames" |
-"`nounconnected_drive" |
-"`pragma" |
-"`protect" |
-"`protected" |
-"`remove_gatenames" |
-"`remove_netnames" |
-"`resetall" |
-"`timescale" |
-"`unconnected_drive" {
+{useless_directive} {
 	string s(yytext);
 	incCharNumber(s.size());
 
@@ -451,30 +430,7 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		yy_push_state(proc_undef);
 	}
 
-	"`accelerate" |
-	"`autoexpand_vectornets" |
-	"`begin_keywords" |
-	"`celldefine" |
-	"`default_nettype" |
-	"`endcelldefine" |
-	"`end_keywords" |
-	"`endprotect" |
-	"`endprotected" |
-	"`expand_vectornets" |
-	"`include" |
-	"`noaccelerate" |
-	"`noexpand_vectornets" |
-	"`noremove_gatenames" |
-	"`noremove_netnames" |
-	"`nounconnected_drive" |
-	"`pragma" |
-	"`protect" |
-	"`protected" |
-	"`remove_gatenames" |
-	"`remove_netnames" |
-	"`resetall" |
-	"`timescale" |
-	"`unconnected_drive" {
+	{useless_directive} {
 		string s(yytext);
 		incCharNumber(s.size());
 		prt_warning("useless_directive "+s);
@@ -655,30 +611,7 @@ useless_directive "`accelerate" |"`autoexpand_vectornets" |"`begin_keywords" |"`
 		yy_push_state(proc_undef);
 	}
 
-	"`accelerate" |
-	"`autoexpand_vectornets" |
-	"`begin_keywords" |
-	"`celldefine" |
-	"`default_nettype" |
-	"`endcelldefine" |
-	"`end_keywords" |
-	"`endprotect" |
-	"`endprotected" |
-	"`expand_vectornets" |
-	"`include" |
-	"`noaccelerate" |
-	"`noexpand_vectornets" |
-	"`noremove_gatenames" |
-	"`noremove_netnames" |
-	"`nounconnected_drive" |
-	"`pragma" |
-	"`protect" |
-	"`protected" |
-	"`remove_gatenames" |
-	"`remove_netnames" |
-	"`resetall" |
-	"`timescale" |
-	"`unconnected_drive" {
+	{useless_directive} {
 		string s(yytext);
 		incCharNumber(s.size());
 		prt_warning("useless_directive "+s);

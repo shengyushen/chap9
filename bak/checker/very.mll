@@ -307,31 +307,31 @@ rule veriloglex  = parse
 			in
 			UNSIGNED_NUMBER(Lexing.lexeme_start_p lexbuf, Lexing.lexeme_end_p lexbuf, lxm_no_)
 		}
-	| (size? as sz)  decimal_base [' ']* (unsigned_number as lxm) {
+	| (size? as sz)  decimal_base [' '\t]* (unsigned_number as lxm) {
 			let lxm_no_ =  unsigned_numberStr2int lxm
 			and sz_no_  = get_size sz
 			in
 			UNSIGNED_NUMBER_size(Lexing.lexeme_start_p lexbuf, Lexing.lexeme_end_p lexbuf,(sz_no_,lxm_no_))
 		}
-	| (size? )  decimal_base [' ']* x_digit '_'* {
+	| (size? )  decimal_base [' '\t]* x_digit '_'* {
 			assert false
 		}
-	| size?  decimal_base [' ']* z_digit '_'* {
+	| size?  decimal_base [' '\t]* z_digit '_'* {
 			assert false
 		}
-	|	(size? as sz) octal_base [' ']* (octal_value as lxm) {
+	|	(size? as sz) octal_base [' '\t]* (octal_value as lxm) {
 			let lxm_no_ =  string_no_ lxm
 			and sz_no_  = get_size sz
 			in 
 			OCTAL_NUMBER(Lexing.lexeme_start_p lexbuf, Lexing.lexeme_end_p lexbuf ,(sz_no_,lxm_no_))
 		}
-	| (size? as sz) binary_base [' ']* (binary_value as lxm) {
+	| (size? as sz) binary_base [' '\t]* (binary_value as lxm) {
 			let lxm_no_ =  string_no_ lxm
 			and sz_no_  = get_size sz
 			in
 			BINARY_NUMBER(Lexing.lexeme_start_p lexbuf, Lexing.lexeme_end_p lexbuf ,(sz_no_,lxm_no_))
 		}
-	| (size? as sz) hex_base [' ']* (hex_value as lxm ) {
+	| (size? as sz) hex_base [' '\t]* (hex_value as lxm ) {
 			let lxm_no_ =  string_no_ lxm
 			and sz_no_  = get_size sz
 			in
