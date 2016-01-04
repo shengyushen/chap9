@@ -1,0 +1,22 @@
+1	change all lex files to *.lpp and all yacc files to *.ypp
+2	write Makefile.am to show all sub dir
+3	write Makefile.am for each subdir to show the file to build
+4	autoscan : generate a sample file configure.scan and move it to configure.ac
+5	add AM_INIT_MAKE to configure.ac to show the package name
+6	add AC_PROG_YACC an AC_PROG_LEX in configure.ac to check yacc and lex
+7	add options for lex and yacc in Makefile.am
+8	autoreconf --install
+9	./configure
+
+
+
+common problems:
+
+1	in running configure, you may encount :
+
+config.status: error: cannot find input file: `Makefile.in'
+
+you should in clude 
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+after AM_INIT
+
