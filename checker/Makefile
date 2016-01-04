@@ -90,7 +90,7 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_checker_OBJECTS = main.$(OBJEXT) very.$(OBJEXT)
+am_checker_OBJECTS = very.$(OBJEXT) main.$(OBJEXT)
 checker_OBJECTS = $(am_checker_OBJECTS)
 checker_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -252,7 +252,7 @@ mandir = ${datarootdir}/man
 mkdir_p = $(MKDIR_P)
 oldincludedir = /usr/include
 pdfdir = ${docdir}
-prefix = /usr/local
+prefix = /home/syshen/local
 program_transform_name = s,x,x,
 psdir = ${docdir}
 sbindir = ${exec_prefix}/sbin
@@ -264,8 +264,8 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 AM_CXXFLAGS = -std=gnu++11
-AM_LFLAGS = -o very  --warn --c++ --prefix=very --yyclass=veryScanner --header-file=very.h
-checker_SOURCES = main.cpp very.lpp
+AM_LFLAGS = -o very.cpp  --warn --c++ --prefix=very --yyclass=veryScanner --header-file=very.h
+checker_SOURCES = very.lpp main.cpp
 all: all-am
 
 .SUFFIXES:

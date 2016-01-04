@@ -1,7 +1,7 @@
 #!/bin/bash -v
 ulimit -s unlimited
-step1_noinc_comment.exe /1202prj/nr_source/top/nr_all_manifest.v -I /1202prj/common/hss_share/aec_revise -I /1202prj/common/pcs25g/std_ovl >noinclude.v 2>error1
-step2_nodef.exe  noinclude.v > nocomment.v 2>error2
-checker.exe nocomment.v > sdf
+step1_noinc_comment /1202prj/nr_source/top/nr_all_manifest.v -I /1202prj/common/hss_share/aec_revise -I /1202prj/common/pcs25g/std_ovl >noinclude.v 2>error1
+step2_nodef  noinclude.v > nocomment.v 2>error2
+checker nocomment.v > sdf
 
 
