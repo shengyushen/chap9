@@ -92,7 +92,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_checker_OBJECTS = verilog_parser.$(OBJEXT) very.$(OBJEXT) \
-	main.$(OBJEXT)
+	veryscanner.$(OBJEXT) main.$(OBJEXT)
 checker_OBJECTS = $(am_checker_OBJECTS)
 checker_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -176,12 +176,12 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/syshen/mywork/chap9/missing aclocal-1.14
+ACLOCAL = ${SHELL} /home/syshen/chap9/missing aclocal-1.14
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/syshen/mywork/chap9/missing autoconf
-AUTOHEADER = ${SHELL} /home/syshen/mywork/chap9/missing autoheader
-AUTOMAKE = ${SHELL} /home/syshen/mywork/chap9/missing automake-1.14
+AUTOCONF = ${SHELL} /home/syshen/chap9/missing autoconf
+AUTOHEADER = ${SHELL} /home/syshen/chap9/missing autoheader
+AUTOMAKE = ${SHELL} /home/syshen/chap9/missing automake-1.14
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -212,7 +212,7 @@ LEX_OUTPUT_ROOT = lex.yy
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/syshen/mywork/chap9/missing makeinfo
+MAKEINFO = ${SHELL} /home/syshen/chap9/missing makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
 PACKAGE = chap9
@@ -229,10 +229,10 @@ STRIP =
 VERSION = 0.01
 YACC = bison -y
 YFLAGS = 
-abs_builddir = /home/syshen/mywork/chap9/checker
-abs_srcdir = /home/syshen/mywork/chap9/checker
-abs_top_builddir = /home/syshen/mywork/chap9
-abs_top_srcdir = /home/syshen/mywork/chap9
+abs_builddir = /home/syshen/chap9/checker
+abs_srcdir = /home/syshen/chap9/checker
+abs_top_builddir = /home/syshen/chap9
+abs_top_srcdir = /home/syshen/chap9
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -252,7 +252,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/syshen/mywork/chap9/install-sh
+install_sh = ${SHELL} /home/syshen/chap9/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -272,10 +272,10 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-AM_CXXFLAGS = -std=gnu++11
+AM_CXXFLAGS = -std=gnu++11 
 AM_LFLAGS = 
 AM_YFLAGS = -d
-checker_SOURCES = verilog_parser.ypp very.lpp main.cpp
+checker_SOURCES = verilog_parser.ypp very.lpp veryscanner.cpp main.cpp
 all: all-am
 
 .SUFFIXES:
@@ -369,6 +369,7 @@ distclean-compile:
 include ./$(DEPDIR)/main.Po
 include ./$(DEPDIR)/verilog_parser.Po
 include ./$(DEPDIR)/very.Po
+include ./$(DEPDIR)/veryscanner.Po
 
 .cpp.o:
 	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

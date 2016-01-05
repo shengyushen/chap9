@@ -3,53 +3,44 @@
  /*as of writing this, I am using 3.0.2*/
 /*creating .h file*/
 %defines "verilog_parser.h"
+/*new parser class name and its constructor's parameter*/
 %define parser_class_name {verilog_parser}
-
-%define api.token.constructor
-%define api.value.type variant
-%define parse.assert
-
-%code requires
-{
-#include <string>
-class verilog_driver;
-}
-
- /* The parsing context. for yylex*/
-%param { verilog_driver& driver }
-
-%locations
+/*it will automatically creat a copy member of the same name , so we can refer to it latter*/
+/*%parse-param {}  */
 %initial-action
 {
-	/* Initialize the initial location.*/
-	@$.begin.filename = @$.end.filename = &driver.file;
 };
-
+/*defining symbol_type that can be return from lex together with it location using make_<token name>*/
+%define api.token.constructor
+%define api.value.type variant
+/*checking improper syntax structure*/
+%define parse.assert
+/* Enable run-time traces (yydebug).  */
 %define parse.trace
 %define parse.error verbose
+%locations
 
-%code
-{
-# include "verilog_driver.h"
-}
-
- /*%define api.token.prefix {TOK_}*/
- /*we dont need this*/
+%define api.token.prefix {TOK_}
 %token
 END  0  "end of file"
-PLUS    "+"
+OP2_ADD    "+"
 ;
 
 %token <int> UNSIGNED_NUMBER 
 %type  <int> exp
 
-%printer { yyoutput << $$; } <*>;
-
+%code{
+/* this "connects" the bison parser in the driver to the flex scanner class
+ * object. it defines the yylex() function call to pull the next token from the
+ * current lexer object of the driver context. */
+using namespace std;
+extern yy::verilog_parser::symbol_type yylex();
+}
 
 %%
 
 %start st;
-st:  exp  { driver.result = $1; };
+st:  exp  { cout<<"get exp "<<$1<<endl; };
 
 %left "+";
 exp:
@@ -57,7 +48,10 @@ exp "+" exp   { $$ = $1 + $3; }
 | UNSIGNED_NUMBER      { std::swap ($$, $1); };
 
 %%
-
-void yy::verilog_parser::error (const location_type& l, const std::string& m) {
-	driver.error (l, m);
+void
+yy::verilog_parser::error (const location_type& l,
+                          const std::string& m)
+{
+	std::cerr<<"FATAL : "<<m<<std::endl;
+	std::cerr<<l<<std::endl;
 }

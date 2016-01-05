@@ -7,14 +7,6 @@
 #include<unistd.h>
 #include<vector>
 
-#undef yyFlexLexer
-#define yyFlexLexer veryFlexLexer
-//this one define yyFlexLexer, which can be remapped to veryFlexLexer by our define
-#include<FlexLexer.h>
-#include"veryclass.h"
-
-#include "verilog_driver.h"
-
 using namespace std;
 
 bool testFileExistenceInDir(string dirname_filename) {
@@ -24,6 +16,17 @@ bool testFileExistenceInDir(string dirname_filename) {
 
 void usage() {
 	cout<<"Usage : checker.exe [input file]"<<endl;
+}
+
+#undef yyFlexLexer
+#define yyFlexLexer veryFlexLexer
+#include <FlexLexer.h>
+
+#include"veryscanner.h"
+
+veryScanner vs;
+yy::verilog_parser::symbol_type yylex() {
+	return vs.yylex1();
 }
 
 int main ( int argc, char * argv[] ) {
@@ -37,9 +40,15 @@ int main ( int argc, char * argv[] ) {
 	   cerr << "FATAL : input file doesn't exist " <<endl;
 		 return 1;
 	}
-	verilog_driver driver;
-	driver.parse(filename);
 
+	ifstream foo( filename );
+	vs.open(filename , &foo);
+	yy::verilog_parser vp;
+	int res=vp.parse();
+	if(0!=res) {
+		cerr<<"improper structure"<<endl;
+	}
+	
 	return 0;
 }
 

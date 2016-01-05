@@ -19,7 +19,7 @@ public:
 	int result;
 	// Used later to pass the file name to the location tracker.
 	string file;
-	ifstream fin();
+	ifstream fin;
 
 	// Run the parser on file F.
 	// Return 0 on success.

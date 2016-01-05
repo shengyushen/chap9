@@ -7,9 +7,17 @@
 	#include<regex>
 	#include<vector>
 
-	#include"veryclass.h"
-	#include"verilog_driver.h"
+# ifndef YY_NULLPTR
+#  if defined __cplusplus && 201103L <= __cplusplus
+#   define YY_NULLPTR nullptr
+#  else
+#   define YY_NULLPTR 0
+#  endif
+# endif
 
+	#include"veryscanner.h"
+
+	using namespace std;
 	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
 	void prt_info (string str)  { cerr<<"INOF  : "<<str<<endl<<flush; return; }
 	
@@ -19,8 +27,9 @@
 	// The location of the current token.
 	static yy::location loc;
 	#define YY_USER_ACTION \
-		incCharNumber(yyleng);\
 		loc.columns (yyleng);
+	#undef YY_DECL
+	#define YY_DECL yy::verilog_parser::symbol_type veryScanner::yylex1() 
 %}
 
 %option noyywrap
@@ -263,7 +272,7 @@ digit [0-9]
 }
 
 
-"+"		{string s{yytext};cout<<"OP2_ADD "<<s<<endl;return yy::verilog_parser::make_OP2_ADD(loc)}
+"+"		{string s{yytext};cout<<"OP2_ADD "<<s<<endl;return yy::verilog_parser::make_OP2_ADD(loc);}
 "-"		{string s{yytext};cout<<"OP2_SUB "<<s<<endl;}
 "&"		{string s{yytext};cout<<"OP2_AND "<<s<<endl;}
 "|"		{string s{yytext};cout<<"OP2_OR  "<<s<<endl;}
@@ -313,7 +322,8 @@ digit [0-9]
 \r
 
 \n {
-	incLineNumber();
+	loc.lines (yyleng);
+	loc.step ();
 }
 
 
@@ -454,7 +464,6 @@ digit [0-9]
 
 <endofline>{
 	[^\n]*\n {
-		incLineNumber();
 		ECHO;
 		yy_pop_state();
 	}

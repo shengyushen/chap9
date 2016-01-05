@@ -92,7 +92,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_checker_OBJECTS = verilog_parser.$(OBJEXT) very.$(OBJEXT) \
-	main.$(OBJEXT)
+	veryscanner.$(OBJEXT) main.$(OBJEXT)
 checker_OBJECTS = $(am_checker_OBJECTS)
 checker_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -272,10 +272,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CXXFLAGS = -std=gnu++11
+AM_CXXFLAGS = -std=gnu++11 
 AM_LFLAGS = 
 AM_YFLAGS = -d
-checker_SOURCES = verilog_parser.ypp very.lpp main.cpp
+checker_SOURCES = verilog_parser.ypp very.lpp veryscanner.cpp main.cpp
 all: all-am
 
 .SUFFIXES:
@@ -369,6 +369,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/verilog_parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/very.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/veryscanner.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
