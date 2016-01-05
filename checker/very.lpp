@@ -8,18 +8,31 @@
 	#include<vector>
 
 	#include"veryclass.h"
+	#include"verilog_driver.h"
 
 	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
 	void prt_info (string str)  { cerr<<"INOF  : "<<str<<endl<<flush; return; }
 	
 	string stringssy_string;
 	unsigned int ln;
+
+	// The location of the current token.
+	static yy::location loc;
 	#define YY_USER_ACTION \
-		incCharNumber(yyleng);
+		incCharNumber(yyleng);\
+		loc.columns (yyleng);
 %}
 
 %option noyywrap
 %option yylineno
+%option nounput batch debug noinput
+ /*these are command line transfer to here*/
+%option outfile="very.cpp"
+%option warn
+%option c++
+%option prefix="very"
+%option yyclass="veryScanner"
+%option header-file="very.h"
 
 
   /*A.8.7 Numbers */
@@ -69,6 +82,11 @@ digit [0-9]
 %x line_skip_blank line_number line_skip_blank2 line_filename endofline stringssy
 
 %%
+
+%{
+  // Code run each time yylex is called.
+  loc.step ();
+%}
 
 {blank}+ 
 
@@ -207,7 +225,10 @@ digit [0-9]
 	unsigned int lxm_no_;
 	sscanf(yytext,"%d",&lxm_no_);
 	cout<<"UNSIGNED_NUMBER "<<lxm_no_<<endl;
+	return yy::verilog_parser::make_UNSIGNED_NUMBER(lxm_no_,loc);
 }
+
+<<EOF>>    return yy::verilog_parser::make_END(loc);
 
 
 {size}?{decimal_base}{blank}*{unsigned_number} {
@@ -242,7 +263,7 @@ digit [0-9]
 }
 
 
-"+"		{string s{yytext};cout<<"OP2_ADD "<<s<<endl;}
+"+"		{string s{yytext};cout<<"OP2_ADD "<<s<<endl;return yy::verilog_parser::make_OP2_ADD(loc)}
 "-"		{string s{yytext};cout<<"OP2_SUB "<<s<<endl;}
 "&"		{string s{yytext};cout<<"OP2_AND "<<s<<endl;}
 "|"		{string s{yytext};cout<<"OP2_OR  "<<s<<endl;}

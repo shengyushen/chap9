@@ -220,7 +220,13 @@
 
 %option noyywrap
 %option yylineno
-
+ /*these are command line transfer to here*/
+%option outfile="step2_nodef.cpp"
+%option warn
+%option c++
+%option prefix="step2_nodef"
+%option yyclass="step2_nodefScanner"
+%option header-file="step2_nodef.h"
 
 string \"[^\n"]+\"
 alpha [A-Za-z]

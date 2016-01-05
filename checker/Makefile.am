@@ -1,4 +1,7 @@
 AM_CXXFLAGS = -std=gnu++11
-AM_LFLAGS = -o very.cpp  --warn --c++ --prefix=very --yyclass=veryScanner --header-file=very.h
+AM_LFLAGS = 
+AM_YFLAGS = -d
 bin_PROGRAMS = checker
-checker_SOURCES = very.lpp main.cpp
+checker_SOURCES = verilog_parser.ypp very.lpp main.cpp
+clean-local:
+	-rm -f very.cpp very.h verilog_parser.cpp verilog_parser.h location.hh position.hh stack.hh

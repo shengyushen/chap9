@@ -54,7 +54,13 @@
 
 %option noyywrap
 %option yylineno
-
+ /*these are command line transfer to here*/
+%option outfile="step1_noinc_comment.cpp"
+%option warn
+%option c++
+%option prefix="step1_noinc_comment"
+%option yyclass="step1_noinc_commentScanner"
+%option header-file="step1_noinc_comment.h"
 
 string \"[^\n"]+\"
 alpha [A-Za-z]

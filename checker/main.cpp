@@ -13,6 +13,8 @@
 #include<FlexLexer.h>
 #include"veryclass.h"
 
+#include "verilog_driver.h"
+
 using namespace std;
 
 bool testFileExistenceInDir(string dirname_filename) {
@@ -35,13 +37,8 @@ int main ( int argc, char * argv[] ) {
 	   cerr << "FATAL : input file doesn't exist " <<endl;
 		 return 1;
 	}
-	ifstream foo( filename );
-	//creating files handler and scanner
-	veryScanner * lexer= new veryScanner( filename ,&foo);
-	while(lexer->yylex()!=0) {
-		cerr<<"improper return"<<endl;
-		cout<<"// return here\n"<<flush;
-	}
+	verilog_driver driver;
+	driver.parse(filename);
 
 	return 0;
 }
