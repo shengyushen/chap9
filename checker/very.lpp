@@ -25,8 +25,7 @@
 	unsigned int ln;
 
 	// The location of the current token.
-	#define YY_USER_ACTION \
-		loc.columns (yyleng);
+	 #define YY_USER_ACTION loc.step (); loc.columns(yyleng);
 	#undef YY_DECL
 	#define YY_DECL yy::verilog_parser::symbol_type veryScanner::yylex1() 
 %}
@@ -93,7 +92,7 @@ digit [0-9]
 
 %{
   // Code run each time yylex is called.
-  loc.step ();
+	//this is not precise, I use YY_USER_ACTION above instead
 %}
 
 {blank}+ 
@@ -321,7 +320,7 @@ digit [0-9]
 \r
 
 \n {
-	loc.lines (yyleng);
+	loc.lines (1);
 	loc.step ();
 }
 
