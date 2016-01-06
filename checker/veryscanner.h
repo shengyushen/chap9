@@ -13,22 +13,15 @@
 	using namespace std;
 	class veryScanner : public veryFlexLexer {
 	public :
-		int linenumber ;
-		int charnumber ;
-		string filename ;
+		yy::location loc;
 		veryScanner() {}
-		veryScanner(const string & fn , ifstream * pis) :
-			filename{fn},
-			linenumber(1),
-			charnumber(0),
+		veryScanner( string * fn , ifstream * pis) :
+			loc{fn},
 			veryFlexLexer(pis)
 		{ }
 
-		void open(const string & fn , ifstream * pis);
+		void open( string * fn , ifstream * pis);
 		void print_pos () ;
-		void incLineNumber () ;
-		void incCharNumber (int n);
-		void setPosition(int ln , string fn) ;
 		int yylex() ;
 		yy::verilog_parser::symbol_type yylex1();
 	};

@@ -42,8 +42,8 @@ int main ( int argc, char * argv[] ) {
 	}
 
 	ifstream foo( filename );
-	vs.open(filename , &foo);
-	yy::verilog_parser vp;
+	vs.open(&filename , &foo);
+	yy::verilog_parser vp(&filename);
 	int res=vp.parse();
 	if(0!=res) {
 		cerr<<"improper structure"<<endl;

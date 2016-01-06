@@ -6,9 +6,10 @@
 /*new parser class name and its constructor's parameter*/
 %define parser_class_name {verilog_parser}
 /*it will automatically creat a copy member of the same name , so we can refer to it latter*/
-/*%parse-param {}  */
+%parse-param { std::string * filename}  
 %initial-action
 {
+	@$.initialize (filename);
 };
 /*defining symbol_type that can be return from lex together with it location using make_<token name>*/
 %define api.token.constructor
@@ -40,11 +41,15 @@ extern yy::verilog_parser::symbol_type yylex();
 %%
 
 %start st;
-st:  exp  { cout<<"get exp "<<$1<<endl; };
+st:  exp  { cerr<<"get exp "<<$1<<" at "<<@1<<endl; };
 
 %left "+";
 exp:
-exp "+" exp   { $$ = $1 + $3; }
+exp "+" exp   { 
+	$$ = $1 + $3; 
+	cerr<< "exp1 at " << (@1) <<endl;
+	cerr<< "exp3 at " << (@3) <<endl;
+}
 | UNSIGNED_NUMBER      { std::swap ($$, $1); };
 
 %%

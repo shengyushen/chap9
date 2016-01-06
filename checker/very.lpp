@@ -25,7 +25,6 @@
 	unsigned int ln;
 
 	// The location of the current token.
-	static yy::location loc;
 	#define YY_USER_ACTION \
 		loc.columns (yyleng);
 	#undef YY_DECL
@@ -447,7 +446,7 @@ digit [0-9]
 <line_filename>{
 	[^\n\t ]+ {
 		string s{yytext};
-		setPosition(ln-1,s);
+		loc.initialize(&s,ln-1,1);
 		ECHO;
 		yy_pop_state();
 		yy_push_state(endofline);
