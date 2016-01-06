@@ -22,13 +22,225 @@
 %locations
 
 %define api.token.prefix {TOK_}
+
+
+%token END  0  "end of file";
+
+%token KEY_ALWAYS;
+%token KEY_AND;
+%token KEY_ASSIGN;
+%token KEY_AUTOMATIC;
+%token KEY_BEGIN;
+%token KEY_BUF;
+%token KEY_BUFIF0;
+%token KEY_BUFIF1;
+%token KEY_CASE;
+%token KEY_CASEX;
+%token KEY_CASEZ;
+%token KEY_CELL;
+%token KEY_CMOS;
+%token KEY_CONFIG;
+%token KEY_DEASSIGN;
+%token KEY_DEFAULT;
+%token KEY_DEFPARAM;
+%token KEY_DESIGN;
+%token KEY_DISABLE;
+%token KEY_EDGE;
+%token KEY_ELSE;
+%token KEY_END;
+%token KEY_ENDCASE;
+%token KEY_ENDCONFIG;
+%token KEY_ENDFUNCTION;
+%token KEY_ENDGENERATE;
+%token KEY_ENDMODULE;
+%token KEY_ENDPRIMITIVE;
+%token KEY_ENDSPECIFY;
+%token KEY_ENDTABLE;
+%token KEY_ENDTASK;
+%token KEY_EVENT;
+%token KEY_FOR;
+%token KEY_FORCE;
+%token KEY_FOREVER;
+%token KEY_FORK;
+%token KEY_FUNCTION;
+%token KEY_GENERATE;
+%token KEY_GENVAR;
+%token KEY_HIGHZ0;
+%token KEY_HIGHZ1;
+%token KEY_IF;
+%token KEY_IFNONE;
+%token KEY_INCDIR;
+%token KEY_INCLUDE;
+%token KEY_INITIAL;
+%token KEY_INOUT;
+%token KEY_INPUT;
+%token KEY_INSTANCE;
+%token KEY_INTEGER;
+%token KEY_JOIN;
+%token KEY_LARGE;
+%token KEY_LIBLIST;
+%token KEY_LIBRARY;
+%token KEY_LOCALPARAM;
+%token KEY_MACROMODULE;
+%token KEY_MEDIUM;
+%token KEY_MODULE;
+%token KEY_NAND;
+%token KEY_NEGEDGE;
+%token KEY_NMOS;
+%token KEY_NOR;
+%token KEY_NOSHOWCANCELLED;
+%token KEY_NOT;
+%token KEY_NOTIF0;
+%token KEY_NOTIF1;
+%token KEY_OR;
+%token KEY_OUTPUT;
+%token KEY_PARAMETER;
+%token KEY_PMOS;
+%token KEY_POSEDGE;
+%token KEY_PRIMITIVE;
+%token KEY_PULL0;
+%token KEY_PULL1;
+%token KEY_PULLDOWN;
+%token KEY_PULLUP;
+%token KEY_PULSESTYLE_ONEVENT;
+%token KEY_PULSESTYLE_ONDETECT;
+%token KEY_RCMOS;
+%token KEY_REAL;
+%token KEY_REALTIME;
+%token KEY_REG;
+%token KEY_RELEASE;
+%token KEY_REPEAT;
+%token KEY_RNMOS;
+%token KEY_RPMOS;
+%token KEY_RTRAN;
+%token KEY_RTRANIF0;
+%token KEY_RTRANIF1;
+%token KEY_SCALARED;
+%token KEY_SHOWCANCELLED;
+%token KEY_SIGNED;
+%token KEY_SMALL;
+%token KEY_SPECIFY;
+%token KEY_SPECPARAM;
+%token KEY_STRONG0;
+%token KEY_STRONG1;
+%token KEY_SUPPLY0;
+%token KEY_SUPPLY1;
+%token KEY_TABLE;
+%token KEY_TASK;
+%token KEY_TIME;
+%token KEY_TRAN;
+%token KEY_TRANIF0;
+%token KEY_TRANIF1;
+%token KEY_TRI;
+%token KEY_TRI0;
+%token KEY_TRI1;
+%token KEY_TRIAND;
+%token KEY_TRIOR;
+%token KEY_TRIREG;
+%token KEY_UNSIGNED;
+%token KEY_USE;
+%token KEY_UWIRE;
+%token KEY_VECTORED;
+%token KEY_WAIT;
+%token KEY_WAND;
+%token KEY_WEAK0;
+%token KEY_WEAK1;
+%token KEY_WHILE;
+%token KEY_WIRE;
+%token KEY_WOR;
+%token KEY_XNOR;
+%token KEY_XOR;
+%token KEY_PATHPULSE;
+
+
 %token
-END  0  "end of file"
-OP2_ADD    "+"
+/*op for both unary and binary*/
+OP2_ADD                      "+"	 
+OP2_SUB                      "-"	 
+OP2_AND                      "&"	 
+OP2_OR                       "|"	 
+OP2_XOR                      "^"	 
+OP2_XNOR                     /*it have two representation*/
+/*ops for unary*/
+OP1_LOGIC_NEG                "!"	 
+OP1_BITWISE_NEG              "~"	
+OP1_REDUCE_NAND              "~&"
+OP1_REDUCE_NOR               "~|"
+/*ops for binary*/
+OP2_MULTIPLE                 "*"		
+OP2_DIV                      "/"		
+OP2_MOD                      "%"		
+OP2_EQU2                     "=="	
+OP2_NEQ2                     "!="	
+OP2_EQU3                     "==="	
+OP2_NEQ3                     "!=="	
+OP2_AND2                     "&&"	
+OP2_OR2                      "||"	
+OP2_POWER                    "**"	
+OP2_LT                       "<"		
+OP2_LE                       "<="	
+OP2_GT                       ">"		
+OP2_GE                       ">="	
+OP2_LOGICAL_RIGHTSHIFT       ">>"	
+OP2_LOGICAL_LEFTSHIFT        "<<"	
+OP2_ARITHMETIC_RIGHTSHIFT    ">>>"	
+OP2_ARITHMETIC_LEFTSHIFT     "<<<"	
+OP2_QUESTION                 "?"		
+/*other*/
+LPARENT                      "("	
+LPARENTSTART                 "(*"
+RPARENT                      ")"	
+RPARENTSTART                 "*)"
+COMMA                        ","	
+SEMICOLON                    ";"	
+COLON                        ":"	
+LSQUARE                      "["	
+RSQUARE                      "]"	
+EQU1                         "="	
+LBRACE                       "{"	
+RBRACE                       "}"	
+PERIOD                       "."	
+AT                           "@"	
+JING                         "#"	
+ADDRANGE                     "+:"
+SUBRANGE                     "-:"
+DOLLOR                       "$"	
+IMPLY                        "->"
+IMPLY2                       "=>"
+IMPLYSTART                   "*>"
 ;
 
-%token <int> UNSIGNED_NUMBER 
-%type  <int> exp
+%token <unsigned int> UNSIGNED_NUMBER;
+%token <unsigned int , unsigned int> UNSIGNED_NUMBER_size
+%token <unsigned int,string> OCTAL_NUMBER
+%token <unsigned int,string> BINARY_NUMBER
+%token <unsigned int,string> HEX_NUMBER
+%token <string> REAL_NUMBER
+/*A.8.8 Strings*/
+%token <string> STRING
+/*A.9.3 Identifiers*/
+%token <string> ESCAPED_IDENTIFIER
+%token <string> SIMPLE_IDENTIFIER
+%token SYSTEM_TASK_FUNCTION_IDENTIFIER
+
+%right OP2_QUESTION COLON
+%left  OP2_OR2
+%left  OP2_AND2
+%left  OP2_OR
+%left  OP2_XOR OP2_XNOR
+%left  OP2_AND
+%left  OP2_EQU2 OP2_NEQ2 OP2_EQU3 OP2_NEQ3
+%left  OP2_LT OP2_LE OP2_GT OP2_GE
+%left  OP2_LOGICAL_LEFTSHIFT OP2_LOGICAL_RIGHTSHIFT OP2_ARITHMETIC_LEFTSHIFT OP2_ARITHMETIC_RIGHTSHIFT
+%left  OP2_ADD OP2_SUB
+%left  OP2_MULTIPLE OP2_DIV OP2_MOD
+%left  OP2_POWER
+/*unary only operator*/
+%left  OP1_LOGIC_NEG  OP1_BITWISE_NEG OP1_REDUCE_NAND OP1_REDUCE_NOR
+/*unary operator symbol that maybe used as binary operator*/
+%nonassoc   OP1_ADD OP1_SUB OP1_AND OP1_OR OP1_XOR OP1_XNOR
+
+%type <Verilogast.description list> source_text
 
 %code{
 /* this "connects" the bison parser in the driver to the flex scanner class
@@ -40,12 +252,17 @@ extern yy::verilog_parser::symbol_type yylex();
 
 %%
 
-%start st;
+%start source_text
+
+
+
+
 st:  exp  { cerr<<"get exp "<<$1<<" at "<<@1<<endl; };
 
 %left "+";
 exp:
 exp "+" exp   { 
+	//see!! we can use "+" to replace OP2_ADD
 	$$ = $1 + $3; 
 	cerr<< "exp1 at " << (@1) <<endl;
 	cerr<< "exp3 at " << (@3) <<endl;
