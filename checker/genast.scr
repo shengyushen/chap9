@@ -1,0 +1,4 @@
+awk -f genast.awk verilogast.ml > haha.h
+tac haha.h > haha1.h
+sed 's/;/;\n/g' haha1.h > haha2.h
+

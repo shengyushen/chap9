@@ -290,7 +290,7 @@ digit [0-9]
 	deleteblank(numstr);
 	unsigned int num =stoul(numstr);
 
-	return yy::verilog_parser::make_UNSIGNED_NUMBER_size(sz,num,loc);
+	return yy::verilog_parser::make_UNSIGNED_NUMBER_size(std::make_tuple(sz,num),loc);
 }
 
 
@@ -319,7 +319,7 @@ digit [0-9]
 	string numstr =s.substr(numpos,(s.size()-1-numpos+1));
 	deleteblank(numstr);
 
-	return yy::verilog_parser::make_OCTAL_NUMBER(sz,numstr,loc);
+	return yy::verilog_parser::make_OCTAL_NUMBER(std::make_tuple(sz,numstr),loc);
 }
 
 {size}?{binary_base}{blank}*{binary_value} {
@@ -339,7 +339,7 @@ digit [0-9]
 	string numstr =s.substr(numpos,(s.size()-1-numpos+1));
 	deleteblank(numstr);
 
-	return yy::verilog_parser::make_BINARY_NUMBER(sz,numstr,loc);
+	return yy::verilog_parser::make_BINARY_NUMBER(std::make_tuple(sz,numstr),loc);
 }
 
 
@@ -360,7 +360,7 @@ digit [0-9]
 	string numstr =s.substr(numpos,(s.size()-1-numpos+1));
 	deleteblank(numstr);
 
-	return yy::verilog_parser::make_HEX_NUMBER(sz,numstr,loc);
+	return yy::verilog_parser::make_HEX_NUMBER(std::make_tuple(sz,numstr),loc);
 }
 
 
