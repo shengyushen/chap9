@@ -1,5 +1,5 @@
 function disp_error() {
-	print "error in";
+	print "\nerror in";
 	print;
 	exit 1;
 }
@@ -17,9 +17,9 @@ BEGIN {cnt=1;}
 		}
 		if($1=="and") {
 			# handle previous setting
-			printf "typedef std::tuple< ";
+			printf "typedef boost::variant < ";
 			for(i=1;i<cnt;i=i+1) {
-				printf typename;
+				printf "tailtype_" typename;
 				printf i;
 				if(i!=(cnt-1))  {
 					printf " , ";
@@ -32,9 +32,9 @@ BEGIN {cnt=1;}
 		cnt=1;
 	} else if ($1==";;") {
 		# handle previous setting
-			printf "typedef std::tuple< ";
+			printf "typedef boost::variant < ";
 			for(i=1;i<cnt;i=i+1) {
-				printf typename;
+				printf "tailtype_" typename;
 				printf i;
 				if(i!=(cnt-1))  {
 					printf " , ";
@@ -53,8 +53,8 @@ BEGIN {cnt=1;}
 					sss=sprintf("%s %s",sss,$i);
 				}
 				asz=split(sss,arr,"*");
-				printf "typedef std::tuple<";
-				printf $1;
+				printf "typedef std::tuple <";
+				printf " headtype_" $1;
 				for(x=1;x<=asz;x=x+1) {
 					printf " , ";
 					
@@ -72,15 +72,15 @@ BEGIN {cnt=1;}
 					}
 				}
 				printf " > ";
-				printf typename ;
+				printf "tailtype_" typename ;
 				printf cnt " ;";
 				cnt=cnt+1;
 			} else if(NF==1 ) {
 				# we have no parameter
-				printf "typedef std::tuple<";
-				printf $1;
+				printf "typedef std::tuple <";
+				printf " headtype_" $1;
 				printf " > ";
-				printf typename ;
+				printf "tailtype_" typename ;
 				printf cnt " ;";
 				cnt=cnt+1;
 			} else {
@@ -96,8 +96,8 @@ BEGIN {cnt=1;}
 					sss=sprintf("%s %s",sss,$i);
 				}
 				asz=split(sss,arr,"*");
-				printf "typedef std::tuple<";
-				printf $2;
+				printf "typedef std::tuple <";
+				printf " headtype_" $2;
 				for(x=1;x<=asz;x=x+1) {
 					printf " , ";
 
@@ -115,15 +115,15 @@ BEGIN {cnt=1;}
 					}
 				}
 				printf " > ";
-				printf typename ;
+				printf "tailtype_" typename ;
 				printf cnt " ;";
 				cnt=cnt+1;
 			} else if(NF==2) {
 				# we have no parameter
-				printf "typedef std::tuple<";
-				printf $2;
+				printf "typedef std::tuple <";
+				printf " headtype_" $2;
 				printf " > ";
-				printf typename ;
+				printf "tailtype_" typename ;
 				printf cnt " ;";
 				cnt=cnt+1;
 			} else {

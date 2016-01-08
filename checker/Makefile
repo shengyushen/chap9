@@ -599,7 +599,7 @@ uninstall-am: uninstall-binPROGRAMS
 	uninstall-am uninstall-binPROGRAMS
 
 clean-local:
-	-rm -f very.cpp very.h verilog_parser.cpp verilog_parser.h location.hh position.hh stack.hh
+	-rm -f very.cpp very.h verilog_parser.cpp verilog_parser.h location.hh position.hh stack.hh haha*
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

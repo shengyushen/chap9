@@ -4,4 +4,4 @@ AM_YFLAGS = -d
 bin_PROGRAMS = checker
 checker_SOURCES = verilog_parser.ypp very.lpp veryscanner.cpp main.cpp
 clean-local:
-	-rm -f very.cpp very.h verilog_parser.cpp verilog_parser.h location.hh position.hh stack.hh
+	-rm -f very.cpp very.h verilog_parser.cpp verilog_parser.h location.hh position.hh stack.hh haha*
