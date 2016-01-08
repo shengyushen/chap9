@@ -241,6 +241,258 @@ IMPLYSTART                   "*>"
 %nonassoc   OP1_ADD OP1_SUB OP1_AND OP1_OR OP1_XOR OP1_XNOR
 
 %type <std::list<Verilogast::description>> source_text
+%type <std::list<Verilogast::description>> description_list
+%type <Verilogast::description> description
+
+%type <Verilogast::module_declaration> module_declaration
+
+%type <std::list<Verilogast::attribute_instance>>  attribute_instance_list
+%type <Verilogast::attribute_instance>  attribute_instance
+
+%type <Verilogast::identifier>  module_identifier
+%type <Verilogast::identifier>  port_identifier
+%type <Verilogast::identifier>  net_identifier
+%type <Verilogast::identifier>  parameter_identifier
+%type <Verilogast::identifier>  real_identifier
+%type <Verilogast::identifier>  variable_identifier
+%type <Verilogast::identifier>  event_identifier
+%type <Verilogast::identifier>  identifier
+%type <Verilogast::identifier>  function_identifier
+%type <Verilogast::identifier>  task_identifier
+%type <Verilogast::identifier>  module_instance_identifier
+%type <Verilogast::identifier>  genvar_identifier
+%type <Verilogast::identifier>  generate_block_identifier
+%type <Verilogast::identifier>  colon_generate_block_identifier_opt
+%type <Verilogast::identifier>  block_identifier
+%type <std::list<Verilogast::identifier>>  list_of_genvar_identifiers
+%type <std::list<Verilogast::identifier>>  comma_genvar_identifier_list
+%type <std::list<Verilogast::identifier>>  list_of_port_identifiers
+%type <std::list<Verilogast::identifier>>  comma_port_identifier_list
+
+%type <std::list<Verilogast::parameter_declaration_gen>> module_parameter_port_list_opt
+%type <std::list<Verilogast::parameter_declaration_gen>> module_parameter_port_list
+%type <std::list<Verilogast::parameter_declaration_gen>> comma_parameter_declaration_list
+%type <Verilogast::parameter_declaration_gen> parameter_declaration_gen
+
+%type <Verilogast::port_expression> port_expression_opt
+%type <Verilogast::port_expression> port_expression
+
+%type <std::list<Verilogast::port>> list_of_ports
+%type <std::list<Verilogast::port>> comma_port_list
+%type <Verilogast::port> port
+
+%type <std::list<Verilogast::module_item>> module_item_list
+%type <std::list<Verilogast::module_item>> module_or_generate_item_list
+%type <Verilogast::module_item> module_item
+%type <Verilogast::module_item> module_or_generate_item
+%type <Verilogast::module_item> non_port_module_item
+
+%type <Verilogast::module_keyword>  module_keyword
+
+%type <Verilogast::io_type>   io_type
+%type <Verilogast::netreg_type>    netreg_type
+%type <Verilogast::signedReplaced>    signed_opt
+%type <Verilogast::range>    range_opt
+%type <Verilogast::range>    range
+%type <Verilogast::expression>    equ1_expression_opt
+
+%type <Verilogast::port_reference>    port_reference
+%type <std::list<Verilogast::port_reference>>    comma_port_reference_list
+
+%type <std::list<Verilogast::range_expression>> lsquare_range_expression_rsquare_opt
+%type <std::list<Verilogast::range_expression>> lsquare_range_expression_rsquare
+
+%type <Verilogast::inout_declaration>   inout_declaration
+%type <Verilogast::input_declaration>   input_declaration
+%type <Verilogast::output_declaration>   output_declaration
+%type <Verilogast::port_declaration>   port_declaration
+%type <Verilogast::net_declaration>   net_declaration
+%type <Verilogast::reg_declaration>   reg_declaration
+%type <Verilogast::integer_declaration>   integer_declaration
+%type <Verilogast::real_declaration>   real_declaration
+%type <Verilogast::time_declaration>   time_declaration
+%type <Verilogast::realtime_declaration>   realtime_declaration
+%type <Verilogast::event_declaration>   event_declaration
+%type <Verilogast::genvar_declaration>   genvar_declaration
+%type <Verilogast::task_declaration>   task_declaration
+%type <Verilogast::function_declaration>   function_declaration
+%type <Verilogast::local_parameter_declaration>   local_parameter_declaration
+%type <Verilogast::parameter_override>   parameter_override
+%type <Verilogast::continuous_assign>  continuous_assign 
+%type <Verilogast::module_instantiation>   module_instantiation
+%type <Verilogast::initial_construct>   initial_construct
+%type <Verilogast::always_construct>   always_construct
+%type <Verilogast::loop_generate_construct>   loop_generate_construct
+%type <Verilogast::conditional_generate_construct>   conditional_generate_construct
+
+%type <Verilogast::generate_region>    generate_region
+%type <Verilogast::parameter_declaration>    parameter_declaration
+
+%type <std::list<Verilogast::defparam_assignment>>  list_of_defparam_assignments
+%type <std::list<Verilogast::defparam_assignment>>  comma_defparam_assignment_list
+%type <Verilogast::defparam_assignment>  defparam_assignment
+%type <std::list<Verilogast::param_assignment>>  list_of_param_assignments
+%type <std::list<Verilogast::param_assignment>>  comma_param_assignment_list
+%type <Verilogast::param_assignment>  param_assignment
+
+%type <Verilogast::parameter_type>    parameter_type
+%type <Verilogast::parameter_type>    parameter_type_opt
+
+%type <std::list<Verilogast::real_type>>  list_of_real_identifiers
+%type <std::list<Verilogast::real_type>>  comma_real_type_list
+%type <Verilogast::real_type>  real_type
+
+%type <Verilogast::net_type>   net_type_opt
+%type <Verilogast::net_type>   net_type
+
+
+%type <Verilogast::port_identifier_equ1_expression_opt>   port_identifier_equ1_expression_opt
+%type <std::list<Verilogast::port_identifier_equ1_expression_opt>>   list_of_variable_port_identifiers
+%type <std::list<Verilogast::port_identifier_equ1_expression_opt>>   comma_port_identifier_equ1_expression_opt_list
+
+%type <Verilogast::output_variable_type>    output_variable_type
+
+%type <Verilogast::event_identifier_dimension_list>    event_identifier_dimension_list
+%type <std::list<Verilogast::event_identifier_dimension_list>>    list_of_event_identifiers
+%type <std::list<Verilogast::event_identifier_dimension_list>>    comma_event_identifier_dimension_list_list
+
+%type <Verilogast::variable_type>    variable_type
+%type <std::list<Verilogast::variable_type>>    list_of_variable_identifiers
+%type <std::list<Verilogast::variable_type>>    comma_variable_type_list
+
+%type <Verilogast::drive_strength>    drive_strength_opt
+%type <Verilogast::drive_strength>    drive_strength
+
+%type <Verilogast::delay3>    delay3_opt
+%type <Verilogast::delay3>    delay3
+
+%type <Verilogast::vectored_scalared>    vectored_scalared_opt
+
+%type <std::list<Verilogast::net_identifier_dimension_list>>    list_of_net_identifiers
+%type <std::list<Verilogast::net_identifier_dimension_list>>    comma_net_identifier_dimension_list_list
+%type <Verilogast::net_identifier_dimension_list>    net_identifier_dimension_list
+
+%type <std::list<Verilogast::net_decl_assignment>>    list_of_net_decl_assignments
+%type <std::list<Verilogast::net_decl_assignment>>    comma_net_decl_assignment_list
+%type <Verilogast::net_decl_assignment>    net_decl_assignment
+
+%type <std::list<Verilogast::dimension>>    dimension_list
+%type <Verilogast::dimension>    dimension
+
+%type <Verilogast::expression>    expression
+%type <Verilogast::expression>    expression_opt
+%type <Verilogast::expression>    dimension_expression
+%type <Verilogast::expression>    ordered_parameter_assignment
+%type <std::list<Verilogast::expression>>    comma_ordered_parameter_assignment_list
+%type <std::list<Verilogast::expression>>    comma_expression_list
+
+%type <Verilogast::strength>    strength0
+%type <Verilogast::strength>    strength1
+%type <Verilogast::delay_value>    delay_value
+
+%type <Verilogast::mintypmax_expression>    mintypmax_expression
+%type <Verilogast::mintypmax_expression>    mintypmax_expression_opt
+
+%type <Verilogast::hierarchical_identifier>    hierarchical_identifier
+%type <Verilogast::automatic>    automatic_opt
+%type <Verilogast::function_range_or_type>    function_range_or_type
+%type <Verilogast::function_item_declaration>    function_item_declaration
+%type <Verilogast::function_item_declaration>    function_item_declaration_list
+%type <Verilogast::statement>    function_statement
+%type <Verilogast::statement>    statement_or_null
+%type <Verilogast::statement>    statement
+
+%type <std::list<Verilogast::attribute_instance_list_tf_input_declaration>>    function_port_list
+%type <std::list<Verilogast::attribute_instance_list_tf_input_declaration>>    comma_attribute_instance_list_tf_input_declaration_list
+%type <Verilogast::attribute_instance_list_tf_input_declaration>    attribute_instance_list_tf_input_declaration
+
+%type <Verilogast::tf_io_declaration_gen>   tf_io_declaration_gen
+
+%type <Verilogast::block_item_declaration>   block_item_declaration
+%type <Verilogast::tf_input_declaration>   tf_input_declaration
+%type <Verilogast::tf_output_declaration>   tf_output_declaration
+%type <Verilogast::tf_inout_declaration>   tf_inout_declaration
+
+%type <std::list<Verilogast::task_port_item>>    task_port_list
+%type <std::list<Verilogast::task_port_item>>    comma_task_port_item_list
+%type <Verilogast::task_port_item>    task_port_item
+
+%type <std::list<Verilogast::task_item_declaration>>    task_item_declaration_list
+%type <Verilogast::task_item_declaration>    task_item_declaration
+
+%type <Verilogast::reg>    reg_opt
+
+%type <Verilogast::task_port_type>    task_port_type
+
+%type <std::list<Verilogast::block_variable_type>>    list_of_block_variable_identifiers
+%type <std::list<Verilogast::block_variable_type>>    comma_block_variable_type_list
+%type <Verilogast::block_variable_type>    block_variable_type
+
+%type <std::list<Verilogast::block_real_type>>    list_of_block_real_identifiers
+%type <std::list<Verilogast::block_real_type>>    comma_block_real_type_list
+%type <Verilogast::block_real_type>    block_real_type
+
+%type <Verilogast::parameter_value_assignment>    parameter_value_assignment_opt
+%type <Verilogast::parameter_value_assignment>    parameter_value_assignment
+%type <Verilogast::parameter_value_assignment>    list_of_parameter_assignments
+
+%type <Verilogast::module_instance>    module_instance
+%type <std::list<Verilogast::module_instance>>    comma_module_instance_list
+
+%type <Verilogast::named_parameter_assignment>   named_parameter_assignment 
+%type <std::list<Verilogast::named_parameter_assignment>>   comma_named_parameter_assignment_list 
+
+%type <Verilogast::name_of_module_instance>   name_of_module_instance
+%type <Verilogast::list_of_port_connections>   list_of_port_connections
+%type <Verilogast::ordered_port_connection>   ordered_port_connection
+%type <std::list<Verilogast::ordered_port_connection>>   comma_ordered_port_connection_list
+
+%type <Verilogast::named_port_connection>   named_port_connection
+%type <std::list<Verilogast::named_port_connection>>   comma_named_port_connection_list
+
+%type <Verilogast::genvar_initialization>   genvar_initialization
+%type <Verilogast::genvar_iteration>   genvar_iteration
+%type <Verilogast::generate_block>   generate_block
+%type <Verilogast::generate_block>   generate_block_or_null
+%type <Verilogast::generate_block>   else_generate_block_or_null_opt
+
+%type <Verilogast::if_generate_construct>   if_generate_construct
+%type <Verilogast::case_generate_construct>   case_generate_construct
+%type <Verilogast::case_generate_item>   case_generate_item
+%type <std::list<Verilogast::case_generate_item>>   case_generate_item_list
+%type <Verilogast::colon_opt>   colon_opt
+
+%type <Verilogast::net_assignment>   net_assignment
+%type <std::list<Verilogast::net_assignment>>   list_of_net_assignments
+%type <std::list<Verilogast::net_assignment>>   comma_net_assignment_list
+
+%type <Verilogast::net_lvalue>   net_lvalue
+
+%type <Verilogast::delay_or_event_control>   delay_or_event_control_opt
+%type <Verilogast::delay_or_event_control>   delay_or_event_control
+
+%type <Verilogast::blocking_assignment>   blocking_assignment
+%type <Verilogast::nonblocking_assignment>   nonblocking_assignment
+
+%type <Verilogast::procedural_continuous_assignments>   procedural_continuous_assignments
+
+%type <Verilogast::par_block>   par_block
+%type <Verilogast::seq_block>   seq_block
+%type <Verilogast::colon_block_identifier>   colon_block_identifier_opt
+
+%type <std::list<Verilogast::statement_or_block_item>>   statement_or_block_item_list
+%type <Verilogast::statement_or_block_item>   statement_or_block_item
+
+%type <Verilogast::case_statement>   case_statement
+%type <Verilogast::conditional_statement>   conditional_statement
+%type <Verilogast::disable_statement>   disable_statement
+%type <Verilogast::event_trigger>   event_trigger
+%type <Verilogast::loop_statement>   loop_statement
+%type <Verilogast::procedural_timing_control_statement>   procedural_timing_control_statement
+%type <Verilogast::system_task_enable>   system_task_enable
+%type <Verilogast::task_enable>    task_enable
+%type <Verilogast::wait_statement>    wait_statement
+%type <Verilogast::delay_control>    delay_control
 
 %code{
 /* this "connects" the bison parser in the driver to the flex scanner class
@@ -256,7 +508,7 @@ extern yy::verilog_parser::symbol_type yylex();
 
 %%
 
-%start source_text
+%start source_text;
 
 
 /*rules*/
@@ -345,8 +597,8 @@ module_item_list :
 ;
 
 module_keyword : 
-		KEY_MODULE			{$$=$1;}
-	|	KEY_MACROMODULE	{$$=$1;}
+		KEY_MODULE			{$$=0;}
+	|	KEY_MACROMODULE	{$$=0;}
 ;
 /*non_port_module_item_list :
 	{[]}
@@ -510,7 +762,7 @@ module_item :
 ;
 
 non_port_module_item :
-	module_or_generate_item {$1}
+	module_or_generate_item {$$=$1}
 	| generate_region {
 		$$=T_module_item__generate_region($1);}
 /*	| specify_block {

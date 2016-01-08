@@ -1,11 +1,11 @@
 namespace Verilogast {
 
-typedef std::tuple < headtype_T_tf_io_declaration_gen1 ,  io_type , reg , signed , range , identifier > tailtype_tf_io_declaration_gen1 ;
+typedef std::tuple < headtype_T_tf_io_declaration_gen1 ,  io_type , reg , signedReplaced , range , identifier > tailtype_tf_io_declaration_gen1 ;
 tailtype_tf_io_declaration_gen1
 T_tf_io_declaration_gen1 ( 
  io_type  i1 ,
  reg  i2 ,
- signed  i3 ,
+ signedReplaced  i3 ,
  range  i4 ,
  identifier i5
 ) { 
@@ -118,12 +118,12 @@ T_netreg_type__KEY_TIME (  ) {
 typedef boost::variant < tailtype_netreg_type1 , tailtype_netreg_type2 , tailtype_netreg_type3 , tailtype_netreg_type4 , tailtype_netreg_type5 , tailtype_netreg_type6 , tailtype_netreg_type7 , tailtype_netreg_type8 , tailtype_netreg_type9 , tailtype_netreg_type10 , tailtype_netreg_type11 , tailtype_netreg_type12 , tailtype_netreg_type13 , tailtype_netreg_type14 , tailtype_netreg_type15 > netreg_type ;
 
 
-typedef std::tuple < headtype_T_io_declaration_net ,  io_type , netreg_type , signed , range , port_identifier_equ1_expression_opt > tailtype_io_declaration1 ;
+typedef std::tuple < headtype_T_io_declaration_net ,  io_type , netreg_type , signedReplaced , range , port_identifier_equ1_expression_opt > tailtype_io_declaration1 ;
 tailtype_io_declaration1
 T_io_declaration_net ( 
  io_type  i1 ,
  netreg_type  i2 ,
- signed  i3 ,
+ signedReplaced  i3 ,
  range  i4 ,
  port_identifier_equ1_expression_opt i5
 ) { 
@@ -2950,11 +2950,11 @@ T_block_variable_type (
 typedef boost::variant < tailtype_block_variable_type1 > block_variable_type ;
 
 
-typedef std::tuple < headtype_T_block_item_declaration_reg , std::list< attribute_instance> , signed , range , std::list< block_variable_type> > tailtype_block_item_declaration1 ;
+typedef std::tuple < headtype_T_block_item_declaration_reg , std::list< attribute_instance> , signedReplaced , range , std::list< block_variable_type> > tailtype_block_item_declaration1 ;
 tailtype_block_item_declaration1
 T_block_item_declaration_reg ( 
  std::list< attribute_instance>  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  range  i3 ,
  std::list< block_variable_type> i4
 ) { 
@@ -3042,11 +3042,11 @@ T_task_port_type_time (  ) {
 typedef boost::variant < tailtype_task_port_type1 , tailtype_task_port_type2 , tailtype_task_port_type3 , tailtype_task_port_type4 > task_port_type ;
 
 
-typedef std::tuple < headtype_T_tf_inout_declaration_reg ,  reg , signed , range , std::list< identifier> > tailtype_tf_inout_declaration1 ;
+typedef std::tuple < headtype_T_tf_inout_declaration_reg ,  reg , signedReplaced , range , std::list< identifier> > tailtype_tf_inout_declaration1 ;
 tailtype_tf_inout_declaration1
 T_tf_inout_declaration_reg ( 
  reg  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  range  i3 ,
  std::list< identifier> i4
 ) { 
@@ -3063,11 +3063,11 @@ T_tf_inout_declaration_type (
 typedef boost::variant < tailtype_tf_inout_declaration1 , tailtype_tf_inout_declaration2 > tf_inout_declaration ;
 
 
-typedef std::tuple < headtype_T_tf_output_declaration_reg ,  reg , signed , range , std::list< identifier> > tailtype_tf_output_declaration1 ;
+typedef std::tuple < headtype_T_tf_output_declaration_reg ,  reg , signedReplaced , range , std::list< identifier> > tailtype_tf_output_declaration1 ;
 tailtype_tf_output_declaration1
 T_tf_output_declaration_reg ( 
  reg  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  range  i3 ,
  std::list< identifier> i4
 ) { 
@@ -3084,11 +3084,11 @@ T_tf_output_declaration_type (
 typedef boost::variant < tailtype_tf_output_declaration1 , tailtype_tf_output_declaration2 > tf_output_declaration ;
 
 
-typedef std::tuple < headtype_T_tf_input_declaration_reg ,  reg , signed , range , std::list< identifier> > tailtype_tf_input_declaration1 ;
+typedef std::tuple < headtype_T_tf_input_declaration_reg ,  reg , signedReplaced , range , std::list< identifier> > tailtype_tf_input_declaration1 ;
 tailtype_tf_input_declaration1
 T_tf_input_declaration_reg ( 
  reg  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  range  i3 ,
  std::list< identifier> i4
 ) { 
@@ -3192,10 +3192,10 @@ tailtype_function_range_or_type1
 T_function_range_or_type_NOSPEC (  ) { 
  return std::make_tuple ( headtype_T_function_range_or_type_NOSPEC  ) ; 
 } 
-typedef std::tuple < headtype_T_function_range_or_type ,  signed , range > tailtype_function_range_or_type2 ;
+typedef std::tuple < headtype_T_function_range_or_type ,  signedReplaced , range > tailtype_function_range_or_type2 ;
 tailtype_function_range_or_type2
 T_function_range_or_type ( 
- signed  i1 ,
+ signedReplaced  i1 ,
  range i2
 ) { 
   return std::make_tuple ( headtype_T_function_range_or_type  i1 ,  i2 ) ; 
@@ -3685,10 +3685,10 @@ T_time_declaration (
 typedef boost::variant < tailtype_time_declaration1 > time_declaration ;
 
 
-typedef std::tuple < headtype_T_reg_declaration ,  signed , range , std::list< variable_type> > tailtype_reg_declaration1 ;
+typedef std::tuple < headtype_T_reg_declaration ,  signedReplaced , range , std::list< variable_type> > tailtype_reg_declaration1 ;
 tailtype_reg_declaration1
 T_reg_declaration ( 
- signed  i1 ,
+ signedReplaced  i1 ,
  range  i2 ,
  std::list< variable_type> i3
 ) { 
@@ -3735,90 +3735,90 @@ tailtype_vectored_scalared3
 typedef boost::variant < tailtype_vectored_scalared1 , tailtype_vectored_scalared2 , tailtype_vectored_scalared3 > vectored_scalared ;
 
 
-typedef std::tuple < headtype_T_net_declaration_net_type1 ,  net_type , signed , delay3 , std::list< net_identifier_dimension_list> > tailtype_net_declaration1 ;
+typedef std::tuple < headtype_T_net_declaration_net_type1 ,  net_type , signedReplaced , delay3 , std::list< net_identifier_dimension_list> > tailtype_net_declaration1 ;
 tailtype_net_declaration1
 T_net_declaration_net_type1 ( 
  net_type  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  delay3  i3 ,
  std::list< net_identifier_dimension_list> i4
 ) { 
   return std::make_tuple ( headtype_T_net_declaration_net_type1  i1 ,  i2 ,  i3 ,  i4 ) ; 
 } 
-typedef std::tuple < headtype_T_net_declaration_net_type2 ,  net_type , drive_strength , signed , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration2 ;
+typedef std::tuple < headtype_T_net_declaration_net_type2 ,  net_type , drive_strength , signedReplaced , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration2 ;
 tailtype_net_declaration2
 T_net_declaration_net_type2 ( 
  net_type  i1 ,
  drive_strength  i2 ,
- signed  i3 ,
+ signedReplaced  i3 ,
  delay3  i4 ,
  std::list< net_decl_assignment> i5
 ) { 
   return std::make_tuple ( headtype_T_net_declaration_net_type2  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
 } 
-typedef std::tuple < headtype_T_net_declaration_net_type3 ,  net_type , drive_strength , vectored_scalared , signed , range , delay3 , std::list< net_identifier_dimension_list> > tailtype_net_declaration3 ;
+typedef std::tuple < headtype_T_net_declaration_net_type3 ,  net_type , drive_strength , vectored_scalared , signedReplaced , range , delay3 , std::list< net_identifier_dimension_list> > tailtype_net_declaration3 ;
 tailtype_net_declaration3
 T_net_declaration_net_type3 ( 
  net_type  i1 ,
  drive_strength  i2 ,
  vectored_scalared  i3 ,
- signed  i4 ,
+ signedReplaced  i4 ,
  range  i5 ,
  delay3  i6 ,
  std::list< net_identifier_dimension_list> i7
 ) { 
   return std::make_tuple ( headtype_T_net_declaration_net_type3  i1 ,  i2 ,  i3 ,  i4 ,  i5 ,  i6 ,  i7 ) ; 
 } 
-typedef std::tuple < headtype_T_net_declaration_net_type4 ,  net_type , drive_strength , vectored_scalared , signed , range , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration4 ;
+typedef std::tuple < headtype_T_net_declaration_net_type4 ,  net_type , drive_strength , vectored_scalared , signedReplaced , range , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration4 ;
 tailtype_net_declaration4
 T_net_declaration_net_type4 ( 
  net_type  i1 ,
  drive_strength  i2 ,
  vectored_scalared  i3 ,
- signed  i4 ,
+ signedReplaced  i4 ,
  range  i5 ,
  delay3  i6 ,
  std::list< net_decl_assignment> i7
 ) { 
   return std::make_tuple ( headtype_T_net_declaration_net_type4  i1 ,  i2 ,  i3 ,  i4 ,  i5 ,  i6 ,  i7 ) ; 
 } 
-typedef std::tuple < headtype_T_net_declaration_trireg_1 ,  charge_strength , signed , delay3 , std::list< net_identifier_dimension_list> > tailtype_net_declaration5 ;
+typedef std::tuple < headtype_T_net_declaration_trireg_1 ,  charge_strength , signedReplaced , delay3 , std::list< net_identifier_dimension_list> > tailtype_net_declaration5 ;
 tailtype_net_declaration5
 T_net_declaration_trireg_1 ( 
  charge_strength  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  delay3  i3 ,
  std::list< net_identifier_dimension_list> i4
 ) { 
   return std::make_tuple ( headtype_T_net_declaration_trireg_1  i1 ,  i2 ,  i3 ,  i4 ) ; 
 } 
-typedef std::tuple < headtype_T_net_declaration_trireg_2 ,  drive_strength , signed , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration6 ;
+typedef std::tuple < headtype_T_net_declaration_trireg_2 ,  drive_strength , signedReplaced , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration6 ;
 tailtype_net_declaration6
 T_net_declaration_trireg_2 ( 
  drive_strength  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  delay3  i3 ,
  std::list< net_decl_assignment> i4
 ) { 
   return std::make_tuple ( headtype_T_net_declaration_trireg_2  i1 ,  i2 ,  i3 ,  i4 ) ; 
 } 
-typedef std::tuple < headtype_T_net_declaration_trireg_3 ,  charge_strength , vectored_scalared , signed , range , delay3 > tailtype_net_declaration7 ;
+typedef std::tuple < headtype_T_net_declaration_trireg_3 ,  charge_strength , vectored_scalared , signedReplaced , range , delay3 > tailtype_net_declaration7 ;
 tailtype_net_declaration7
 T_net_declaration_trireg_3 ( 
  charge_strength  i1 ,
  vectored_scalared  i2 ,
- signed  i3 ,
+ signedReplaced  i3 ,
  range  i4 ,
  delay3 i5
 ) { 
   return std::make_tuple ( headtype_T_net_declaration_trireg_3  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
 } 
-typedef std::tuple < headtype_T_net_declaration_trireg_4 ,  drive_strength , vectored_scalared , signed , range , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration8 ;
+typedef std::tuple < headtype_T_net_declaration_trireg_4 ,  drive_strength , vectored_scalared , signedReplaced , range , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration8 ;
 tailtype_net_declaration8
 T_net_declaration_trireg_4 ( 
  drive_strength  i1 ,
  vectored_scalared  i2 ,
- signed  i3 ,
+ signedReplaced  i3 ,
  range  i4 ,
  delay3  i5 ,
  std::list< net_decl_assignment> i6
@@ -3861,20 +3861,20 @@ T_output_variable_type_TIME (  ) {
 typedef boost::variant < tailtype_output_variable_type1 , tailtype_output_variable_type2 > output_variable_type ;
 
 
-typedef std::tuple < headtype_T_output_declaration_net ,  net_type , signed , range , std::list< identifier> > tailtype_output_declaration1 ;
+typedef std::tuple < headtype_T_output_declaration_net ,  net_type , signedReplaced , range , std::list< identifier> > tailtype_output_declaration1 ;
 tailtype_output_declaration1
 T_output_declaration_net ( 
  net_type  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  range  i3 ,
  std::list< identifier> i4
 ) { 
   return std::make_tuple ( headtype_T_output_declaration_net  i1 ,  i2 ,  i3 ,  i4 ) ; 
 } 
-typedef std::tuple < headtype_|T_output_declaration_reg ,  signed , range , std::list< port_identifier_equ1_expression_opt> > tailtype_output_declaration2 ;
+typedef std::tuple < headtype_|T_output_declaration_reg ,  signedReplaced , range , std::list< port_identifier_equ1_expression_opt> > tailtype_output_declaration2 ;
 tailtype_output_declaration2
 |T_output_declaration_reg ( 
- signed  i1 ,
+ signedReplaced  i1 ,
  range  i2 ,
  std::list< port_identifier_equ1_expression_opt> i3
 ) { 
@@ -3891,11 +3891,11 @@ tailtype_output_declaration3
 typedef boost::variant < tailtype_output_declaration1 , tailtype_output_declaration2 , tailtype_output_declaration3 > output_declaration ;
 
 
-typedef std::tuple < headtype_T_input_declaration ,  net_type , signed , range , std::list< identifier> > tailtype_input_declaration1 ;
+typedef std::tuple < headtype_T_input_declaration ,  net_type , signedReplaced , range , std::list< identifier> > tailtype_input_declaration1 ;
 tailtype_input_declaration1
 T_input_declaration ( 
  net_type  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  range  i3 ,
  std::list< identifier> i4
 ) { 
@@ -3904,11 +3904,11 @@ T_input_declaration (
 typedef boost::variant < tailtype_input_declaration1 > input_declaration ;
 
 
-typedef std::tuple < headtype_T_inout_declaration ,  net_type , signed , range , std::list< identifier> > tailtype_inout_declaration1 ;
+typedef std::tuple < headtype_T_inout_declaration ,  net_type , signedReplaced , range , std::list< identifier> > tailtype_inout_declaration1 ;
 tailtype_inout_declaration1
 T_inout_declaration ( 
  net_type  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  range  i3 ,
  std::list< identifier> i4
 ) { 
@@ -3956,10 +3956,10 @@ T_specparam_declaration (
 typedef boost::variant < tailtype_specparam_declaration1 > specparam_declaration ;
 
 
-typedef std::tuple < headtype_T_parameter_declaration_1 ,  signed , range , std::list< param_assignment> > tailtype_parameter_declaration1 ;
+typedef std::tuple < headtype_T_parameter_declaration_1 ,  signedReplaced , range , std::list< param_assignment> > tailtype_parameter_declaration1 ;
 tailtype_parameter_declaration1
 T_parameter_declaration_1 ( 
- signed  i1 ,
+ signedReplaced  i1 ,
  range  i2 ,
  std::list< param_assignment> i3
 ) { 
@@ -3976,11 +3976,11 @@ T_parameter_declaration_2 (
 typedef boost::variant < tailtype_parameter_declaration1 , tailtype_parameter_declaration2 > parameter_declaration ;
 
 
-typedef std::tuple < headtype_T_parameter_declaration_gen_1 ,  parameter_type , signed , range , param_assignment > tailtype_parameter_declaration_gen1 ;
+typedef std::tuple < headtype_T_parameter_declaration_gen_1 ,  parameter_type , signedReplaced , range , param_assignment > tailtype_parameter_declaration_gen1 ;
 tailtype_parameter_declaration_gen1
 T_parameter_declaration_gen_1 ( 
  parameter_type  i1 ,
- signed  i2 ,
+ signedReplaced  i2 ,
  range  i3 ,
  param_assignment i4
 ) { 
@@ -3989,10 +3989,10 @@ T_parameter_declaration_gen_1 (
 typedef boost::variant < tailtype_parameter_declaration_gen1 > parameter_declaration_gen ;
 
 
-typedef std::tuple < headtype_T_local_parameter_declaration_1 ,  signed , range , std::list< param_assignment> > tailtype_local_parameter_declaration1 ;
+typedef std::tuple < headtype_T_local_parameter_declaration_1 ,  signedReplaced , range , std::list< param_assignment> > tailtype_local_parameter_declaration1 ;
 tailtype_local_parameter_declaration1
 T_local_parameter_declaration_1 ( 
- signed  i1 ,
+ signedReplaced  i1 ,
  range  i2 ,
  std::list< param_assignment> i3
 ) { 
@@ -4019,7 +4019,7 @@ tailtype_signed2
 T_signed_TRUE (  ) { 
  return std::make_tuple ( headtype_T_signed_TRUE  ) ; 
 } 
-typedef boost::variant < tailtype_signed1 , tailtype_signed2 > signed ;
+typedef boost::variant < tailtype_signed1 , tailtype_signed2 > signedReplaced ;
 
 
 typedef std::tuple < headtype_T_colon_config_opt_FALSE > tailtype_colon_config_opt1 ;
@@ -4377,12 +4377,12 @@ T_port_exp (
 ) { 
   return std::make_tuple ( headtype_T_port_exp  i1 ,  i2 ) ; 
 } 
-typedef std::tuple < headtype_T_port_net ,  io_type , netreg_type , signed , range , port_expression , expression > tailtype_port2 ;
+typedef std::tuple < headtype_T_port_net ,  io_type , netreg_type , signedReplaced , range , port_expression , expression > tailtype_port2 ;
 tailtype_port2
 T_port_net ( 
  io_type  i1 ,
  netreg_type  i2 ,
- signed  i3 ,
+ signedReplaced  i3 ,
  range  i4 ,
  port_expression  i5 ,
  expression i6
