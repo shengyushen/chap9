@@ -1,4432 +1,8016 @@
 namespace Verilogast {
-
-typedef std::tuple < headtype_T_tf_io_declaration_gen1 ,  io_type , reg , signedReplaced , range , identifier > tailtype_tf_io_declaration_gen1 ;
-tailtype_tf_io_declaration_gen1
-T_tf_io_declaration_gen1 ( 
- io_type  i1 ,
- reg  i2 ,
- signedReplaced  i3 ,
- range  i4 ,
- identifier i5
-) { 
-  return std::make_tuple ( headtype_T_tf_io_declaration_gen1  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef std::tuple < headtype_T_tf_io_declaration_gen2 ,  io_type , task_port_type , identifier > tailtype_tf_io_declaration_gen2 ;
-tailtype_tf_io_declaration_gen2
-T_tf_io_declaration_gen2 ( 
- io_type  i1 ,
- task_port_type  i2 ,
- identifier i3
-) { 
-  return std::make_tuple ( headtype_T_tf_io_declaration_gen2  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_tf_io_declaration_gen1 , tailtype_tf_io_declaration_gen2 > tf_io_declaration_gen ;
-
-
-typedef std::tuple < headtype_T_statement_or_block_item_statement ,  statement > tailtype_statement_or_block_item1 ;
-tailtype_statement_or_block_item1
-T_statement_or_block_item_statement ( 
- statement i1
-) { 
-  return std::make_tuple ( headtype_T_statement_or_block_item_statement  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_or_block_item_block ,  block_item_declaration > tailtype_statement_or_block_item2 ;
-tailtype_statement_or_block_item2
-T_statement_or_block_item_block ( 
- block_item_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_statement_or_block_item_block  i1 ) ; 
-} 
-typedef boost::variant < tailtype_statement_or_block_item1 , tailtype_statement_or_block_item2 > statement_or_block_item ;
-
-
-typedef std::tuple < headtype_T_netreg_type__NOSPEC > tailtype_netreg_type1 ;
-tailtype_netreg_type1
-T_netreg_type__NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_SUPPLY0 > tailtype_netreg_type2 ;
-tailtype_netreg_type2
-T_netreg_type__KEY_SUPPLY0 (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_SUPPLY0  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_SUPPLY1 > tailtype_netreg_type3 ;
-tailtype_netreg_type3
-T_netreg_type__KEY_SUPPLY1 (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_SUPPLY1  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_TRI > tailtype_netreg_type4 ;
-tailtype_netreg_type4
-T_netreg_type__KEY_TRI (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_TRI  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_TRIAND > tailtype_netreg_type5 ;
-tailtype_netreg_type5
-T_netreg_type__KEY_TRIAND (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_TRIAND  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_TRIOR > tailtype_netreg_type6 ;
-tailtype_netreg_type6
-T_netreg_type__KEY_TRIOR (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_TRIOR  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_TRI0 > tailtype_netreg_type7 ;
-tailtype_netreg_type7
-T_netreg_type__KEY_TRI0 (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_TRI0  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_TRI1 > tailtype_netreg_type8 ;
-tailtype_netreg_type8
-T_netreg_type__KEY_TRI1 (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_TRI1  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_UWIRE > tailtype_netreg_type9 ;
-tailtype_netreg_type9
-T_netreg_type__KEY_UWIRE (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_UWIRE  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_WIRE > tailtype_netreg_type10 ;
-tailtype_netreg_type10
-T_netreg_type__KEY_WIRE (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_WIRE  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_WAND > tailtype_netreg_type11 ;
-tailtype_netreg_type11
-T_netreg_type__KEY_WAND (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_WAND  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_WOR > tailtype_netreg_type12 ;
-tailtype_netreg_type12
-T_netreg_type__KEY_WOR (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_WOR  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_REG > tailtype_netreg_type13 ;
-tailtype_netreg_type13
-T_netreg_type__KEY_REG (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_REG  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_INTEGER > tailtype_netreg_type14 ;
-tailtype_netreg_type14
-T_netreg_type__KEY_INTEGER (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_INTEGER  ) ; 
-} 
-typedef std::tuple < headtype_T_netreg_type__KEY_TIME > tailtype_netreg_type15 ;
-tailtype_netreg_type15
-T_netreg_type__KEY_TIME (  ) { 
- return std::make_tuple ( headtype_T_netreg_type__KEY_TIME  ) ; 
-} 
-typedef boost::variant < tailtype_netreg_type1 , tailtype_netreg_type2 , tailtype_netreg_type3 , tailtype_netreg_type4 , tailtype_netreg_type5 , tailtype_netreg_type6 , tailtype_netreg_type7 , tailtype_netreg_type8 , tailtype_netreg_type9 , tailtype_netreg_type10 , tailtype_netreg_type11 , tailtype_netreg_type12 , tailtype_netreg_type13 , tailtype_netreg_type14 , tailtype_netreg_type15 > netreg_type ;
-
-
-typedef std::tuple < headtype_T_io_declaration_net ,  io_type , netreg_type , signedReplaced , range , port_identifier_equ1_expression_opt > tailtype_io_declaration1 ;
-tailtype_io_declaration1
-T_io_declaration_net ( 
- io_type  i1 ,
- netreg_type  i2 ,
- signedReplaced  i3 ,
- range  i4 ,
- port_identifier_equ1_expression_opt i5
-) { 
-  return std::make_tuple ( headtype_T_io_declaration_net  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef boost::variant < tailtype_io_declaration1 > io_declaration ;
-
-
-typedef std::tuple < headtype_T_io_type_NOSPEC > tailtype_io_type1 ;
-tailtype_io_type1
-T_io_type_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_io_type_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_io_type_output > tailtype_io_type2 ;
-tailtype_io_type2
-T_io_type_output (  ) { 
- return std::make_tuple ( headtype_T_io_type_output  ) ; 
-} 
-typedef std::tuple < headtype_T_io_type_input > tailtype_io_type3 ;
-tailtype_io_type3
-T_io_type_input (  ) { 
- return std::make_tuple ( headtype_T_io_type_input  ) ; 
-} 
-typedef std::tuple < headtype_T_io_type_inout > tailtype_io_type4 ;
-tailtype_io_type4
-T_io_type_inout (  ) { 
- return std::make_tuple ( headtype_T_io_type_inout  ) ; 
-} 
-typedef boost::variant < tailtype_io_type1 , tailtype_io_type2 , tailtype_io_type3 , tailtype_io_type4 > io_type ;
-
-
-typedef std::tuple < headtype_T_system_function_identifier ,  string > tailtype_system_function_identifier1 ;
-tailtype_system_function_identifier1
-T_system_function_identifier ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_system_function_identifier  i1 ) ; 
-} 
-typedef boost::variant < tailtype_system_function_identifier1 > system_function_identifier ;
-
-
-typedef std::tuple < headtype_T_string ,  string > tailtype_string_typedef1 ;
-tailtype_string_typedef1
-T_string ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_string  i1 ) ; 
-} 
-typedef boost::variant < tailtype_string_typedef1 > string_typedef ;
-
-
-typedef std::tuple < headtype_T_identifier_NOSPEC > tailtype_identifier1 ;
-tailtype_identifier1
-T_identifier_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_identifier_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_identifier ,  string > tailtype_identifier2 ;
-tailtype_identifier2
-T_identifier ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_identifier  i1 ) ; 
-} 
-typedef boost::variant < tailtype_identifier1 , tailtype_identifier2 > identifier ;
-
-
-typedef std::tuple < headtype_T_edge_symbol_SIMID ,  string > tailtype_edge_symbol1 ;
-tailtype_edge_symbol1
-T_edge_symbol_SIMID ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_edge_symbol_SIMID  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_edge_symbol_MUL > tailtype_edge_symbol2 ;
-tailtype_edge_symbol2
-T_edge_symbol_MUL (  ) { 
- return std::make_tuple ( headtype_T_edge_symbol_MUL  ) ; 
-} 
-typedef boost::variant < tailtype_edge_symbol1 , tailtype_edge_symbol2 > edge_symbol ;
-
-
-typedef std::tuple < headtype_T_next_state_UNSIGNED_NUMBER ,  int > tailtype_next_state1 ;
-tailtype_next_state1
-T_next_state_UNSIGNED_NUMBER ( 
- int i1
-) { 
-  return std::make_tuple ( headtype_T_next_state_UNSIGNED_NUMBER  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_next_state_SIMID ,  string > tailtype_next_state2 ;
-tailtype_next_state2
-T_next_state_SIMID ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_next_state_SIMID  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_next_state_SUB > tailtype_next_state3 ;
-tailtype_next_state3
-T_next_state_SUB (  ) { 
- return std::make_tuple ( headtype_T_next_state_SUB  ) ; 
-} 
-typedef boost::variant < tailtype_next_state1 , tailtype_next_state2 , tailtype_next_state3 > next_state ;
-
-
-typedef std::tuple < headtype_T_current_state_UNSIGNED_NUMBER ,  int > tailtype_current_state1 ;
-tailtype_current_state1
-T_current_state_UNSIGNED_NUMBER ( 
- int i1
-) { 
-  return std::make_tuple ( headtype_T_current_state_UNSIGNED_NUMBER  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_current_state_SIMID ,  string > tailtype_current_state2 ;
-tailtype_current_state2
-T_current_state_SIMID ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_current_state_SIMID  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_current_state_OP2_QUESTION > tailtype_current_state3 ;
-tailtype_current_state3
-T_current_state_OP2_QUESTION (  ) { 
- return std::make_tuple ( headtype_T_current_state_OP2_QUESTION  ) ; 
-} 
-typedef boost::variant < tailtype_current_state1 , tailtype_current_state2 , tailtype_current_state3 > current_state ;
-
-
-typedef std::tuple < headtype_T_number_UNSIGNED_NUMBER ,  int > tailtype_number1 ;
-tailtype_number1
-T_number_UNSIGNED_NUMBER ( 
- int i1
-) { 
-  return std::make_tuple ( headtype_T_number_UNSIGNED_NUMBER  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_number_UNSIGNED_NUMBER_size ,  (int , int) > tailtype_number2 ;
-tailtype_number2
-T_number_UNSIGNED_NUMBER_size ( 
- (int  i1 ,
- int) i2
-) { 
-  return std::make_tuple ( headtype_T_number_UNSIGNED_NUMBER_size  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_number_OCTAL_NUMBER ,  (int , string) > tailtype_number3 ;
-tailtype_number3
-T_number_OCTAL_NUMBER ( 
- (int  i1 ,
- string) i2
-) { 
-  return std::make_tuple ( headtype_T_number_OCTAL_NUMBER  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_number_BINARY_NUMBER ,  (int , string) > tailtype_number4 ;
-tailtype_number4
-T_number_BINARY_NUMBER ( 
- (int  i1 ,
- string) i2
-) { 
-  return std::make_tuple ( headtype_T_number_BINARY_NUMBER  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_number_HEX_NUMBER ,  (int , string) > tailtype_number5 ;
-tailtype_number5
-T_number_HEX_NUMBER ( 
- (int  i1 ,
- string) i2
-) { 
-  return std::make_tuple ( headtype_T_number_HEX_NUMBER  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_number_REAL_NUMBER ,  string > tailtype_number6 ;
-tailtype_number6
-T_number_REAL_NUMBER ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_number_REAL_NUMBER  i1 ) ; 
-} 
-typedef boost::variant < tailtype_number1 , tailtype_number2 , tailtype_number3 , tailtype_number4 , tailtype_number5 , tailtype_number6 > number ;
-
-
-typedef std::tuple < headtype_T_output_symbol_UNSIGNED_NUMBER ,  int > tailtype_output_symbol1 ;
-tailtype_output_symbol1
-T_output_symbol_UNSIGNED_NUMBER ( 
- int i1
-) { 
-  return std::make_tuple ( headtype_T_output_symbol_UNSIGNED_NUMBER  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_output_symbol_SIMID ,  string > tailtype_output_symbol2 ;
-tailtype_output_symbol2
-T_output_symbol_SIMID ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_output_symbol_SIMID  i1 ) ; 
-} 
-typedef boost::variant < tailtype_output_symbol1 , tailtype_output_symbol2 > output_symbol ;
-
-
-typedef std::tuple < headtype_T_level_symbol_UNSIGNED_NUMBER ,  int > tailtype_level_symbol1 ;
-tailtype_level_symbol1
-T_level_symbol_UNSIGNED_NUMBER ( 
- int i1
-) { 
-  return std::make_tuple ( headtype_T_level_symbol_UNSIGNED_NUMBER  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_level_symbol_SIMID ,  string > tailtype_level_symbol2 ;
-tailtype_level_symbol2
-T_level_symbol_SIMID ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_level_symbol_SIMID  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_level_symbol_QUESTION > tailtype_level_symbol3 ;
-tailtype_level_symbol3
-T_level_symbol_QUESTION (  ) { 
- return std::make_tuple ( headtype_T_level_symbol_QUESTION  ) ; 
-} 
-typedef boost::variant < tailtype_level_symbol1 , tailtype_level_symbol2 , tailtype_level_symbol3 > level_symbol ;
-
-
-typedef std::tuple < headtype_T_binary_module_path_operator_EQU2 > tailtype_binary_module_path_operator1 ;
-tailtype_binary_module_path_operator1
-T_binary_module_path_operator_EQU2 (  ) { 
- return std::make_tuple ( headtype_T_binary_module_path_operator_EQU2  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_module_path_operator_NEQ2 > tailtype_binary_module_path_operator2 ;
-tailtype_binary_module_path_operator2
-T_binary_module_path_operator_NEQ2 (  ) { 
- return std::make_tuple ( headtype_T_binary_module_path_operator_NEQ2  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_module_path_operator_AND2 > tailtype_binary_module_path_operator3 ;
-tailtype_binary_module_path_operator3
-T_binary_module_path_operator_AND2 (  ) { 
- return std::make_tuple ( headtype_T_binary_module_path_operator_AND2  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_module_path_operator_OR2 > tailtype_binary_module_path_operator4 ;
-tailtype_binary_module_path_operator4
-T_binary_module_path_operator_OR2 (  ) { 
- return std::make_tuple ( headtype_T_binary_module_path_operator_OR2  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_module_path_operator_AND1 > tailtype_binary_module_path_operator5 ;
-tailtype_binary_module_path_operator5
-T_binary_module_path_operator_AND1 (  ) { 
- return std::make_tuple ( headtype_T_binary_module_path_operator_AND1  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_module_path_operator_OR1 > tailtype_binary_module_path_operator6 ;
-tailtype_binary_module_path_operator6
-T_binary_module_path_operator_OR1 (  ) { 
- return std::make_tuple ( headtype_T_binary_module_path_operator_OR1  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_module_path_operator_XOR > tailtype_binary_module_path_operator7 ;
-tailtype_binary_module_path_operator7
-T_binary_module_path_operator_XOR (  ) { 
- return std::make_tuple ( headtype_T_binary_module_path_operator_XOR  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_module_path_operator_XNOR > tailtype_binary_module_path_operator8 ;
-tailtype_binary_module_path_operator8
-T_binary_module_path_operator_XNOR (  ) { 
- return std::make_tuple ( headtype_T_binary_module_path_operator_XNOR  ) ; 
-} 
-typedef boost::variant < tailtype_binary_module_path_operator1 , tailtype_binary_module_path_operator2 , tailtype_binary_module_path_operator3 , tailtype_binary_module_path_operator4 , tailtype_binary_module_path_operator5 , tailtype_binary_module_path_operator6 , tailtype_binary_module_path_operator7 , tailtype_binary_module_path_operator8 > binary_module_path_operator ;
-
-
-typedef std::tuple < headtype_T_unary_module_path_operator_GANTANHAO > tailtype_unary_module_path_operator1 ;
-tailtype_unary_module_path_operator1
-T_unary_module_path_operator_GANTANHAO (  ) { 
- return std::make_tuple ( headtype_T_unary_module_path_operator_GANTANHAO  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_module_path_operator_BOLANGHAO > tailtype_unary_module_path_operator2 ;
-tailtype_unary_module_path_operator2
-T_unary_module_path_operator_BOLANGHAO (  ) { 
- return std::make_tuple ( headtype_T_unary_module_path_operator_BOLANGHAO  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_module_path_operator_AND > tailtype_unary_module_path_operator3 ;
-tailtype_unary_module_path_operator3
-T_unary_module_path_operator_AND (  ) { 
- return std::make_tuple ( headtype_T_unary_module_path_operator_AND  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_module_path_operator_NAND > tailtype_unary_module_path_operator4 ;
-tailtype_unary_module_path_operator4
-T_unary_module_path_operator_NAND (  ) { 
- return std::make_tuple ( headtype_T_unary_module_path_operator_NAND  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_module_path_operator_OR > tailtype_unary_module_path_operator5 ;
-tailtype_unary_module_path_operator5
-T_unary_module_path_operator_OR (  ) { 
- return std::make_tuple ( headtype_T_unary_module_path_operator_OR  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_module_path_operator_NOR > tailtype_unary_module_path_operator6 ;
-tailtype_unary_module_path_operator6
-T_unary_module_path_operator_NOR (  ) { 
- return std::make_tuple ( headtype_T_unary_module_path_operator_NOR  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_module_path_operator_XOR > tailtype_unary_module_path_operator7 ;
-tailtype_unary_module_path_operator7
-T_unary_module_path_operator_XOR (  ) { 
- return std::make_tuple ( headtype_T_unary_module_path_operator_XOR  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_module_path_operator_XNOR > tailtype_unary_module_path_operator8 ;
-tailtype_unary_module_path_operator8
-T_unary_module_path_operator_XNOR (  ) { 
- return std::make_tuple ( headtype_T_unary_module_path_operator_XNOR  ) ; 
-} 
-typedef boost::variant < tailtype_unary_module_path_operator1 , tailtype_unary_module_path_operator2 , tailtype_unary_module_path_operator3 , tailtype_unary_module_path_operator4 , tailtype_unary_module_path_operator5 , tailtype_unary_module_path_operator6 , tailtype_unary_module_path_operator7 , tailtype_unary_module_path_operator8 > unary_module_path_operator ;
-
-
-typedef std::tuple < headtype_T_binary_operator_MUL > tailtype_binary_operator1 ;
-tailtype_binary_operator1
-T_binary_operator_MUL (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_MUL  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_DIV > tailtype_binary_operator2 ;
-tailtype_binary_operator2
-T_binary_operator_DIV (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_DIV  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_MOD > tailtype_binary_operator3 ;
-tailtype_binary_operator3
-T_binary_operator_MOD (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_MOD  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_EQU2 > tailtype_binary_operator4 ;
-tailtype_binary_operator4
-T_binary_operator_EQU2 (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_EQU2  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_NEQ2 > tailtype_binary_operator5 ;
-tailtype_binary_operator5
-T_binary_operator_NEQ2 (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_NEQ2  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_EQU3 > tailtype_binary_operator6 ;
-tailtype_binary_operator6
-T_binary_operator_EQU3 (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_EQU3  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_NEQ3 > tailtype_binary_operator7 ;
-tailtype_binary_operator7
-T_binary_operator_NEQ3 (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_NEQ3  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_POWER > tailtype_binary_operator8 ;
-tailtype_binary_operator8
-T_binary_operator_POWER (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_POWER  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_LT > tailtype_binary_operator9 ;
-tailtype_binary_operator9
-T_binary_operator_LT (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_LT  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_LE > tailtype_binary_operator10 ;
-tailtype_binary_operator10
-T_binary_operator_LE (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_LE  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_GT > tailtype_binary_operator11 ;
-tailtype_binary_operator11
-T_binary_operator_GT (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_GT  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_GE > tailtype_binary_operator12 ;
-tailtype_binary_operator12
-T_binary_operator_GE (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_GE  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_LOGICAL_RIGHTSHIFT > tailtype_binary_operator13 ;
-tailtype_binary_operator13
-T_binary_operator_LOGICAL_RIGHTSHIFT (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_LOGICAL_RIGHTSHIFT  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_LOGICAL_LEFTSHIFT > tailtype_binary_operator14 ;
-tailtype_binary_operator14
-T_binary_operator_LOGICAL_LEFTSHIFT (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_LOGICAL_LEFTSHIFT  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_ARITHMETIC_RIGHTSHIFT > tailtype_binary_operator15 ;
-tailtype_binary_operator15
-T_binary_operator_ARITHMETIC_RIGHTSHIFT (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_ARITHMETIC_RIGHTSHIFT  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_ARITHMETIC_LEFTSHIFT > tailtype_binary_operator16 ;
-tailtype_binary_operator16
-T_binary_operator_ARITHMETIC_LEFTSHIFT (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_ARITHMETIC_LEFTSHIFT  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_ADD > tailtype_binary_operator17 ;
-tailtype_binary_operator17
-T_binary_operator_ADD (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_ADD  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_SUB > tailtype_binary_operator18 ;
-tailtype_binary_operator18
-T_binary_operator_SUB (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_SUB  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_AND > tailtype_binary_operator19 ;
-tailtype_binary_operator19
-T_binary_operator_AND (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_AND  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_OR > tailtype_binary_operator20 ;
-tailtype_binary_operator20
-T_binary_operator_OR (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_OR  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_AND2 > tailtype_binary_operator21 ;
-tailtype_binary_operator21
-T_binary_operator_AND2 (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_AND2  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_OR2 > tailtype_binary_operator22 ;
-tailtype_binary_operator22
-T_binary_operator_OR2 (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_OR2  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_XOR > tailtype_binary_operator23 ;
-tailtype_binary_operator23
-T_binary_operator_XOR (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_XOR  ) ; 
-} 
-typedef std::tuple < headtype_T_binary_operator_XNOR > tailtype_binary_operator24 ;
-tailtype_binary_operator24
-T_binary_operator_XNOR (  ) { 
- return std::make_tuple ( headtype_T_binary_operator_XNOR  ) ; 
-} 
-typedef boost::variant < tailtype_binary_operator1 , tailtype_binary_operator2 , tailtype_binary_operator3 , tailtype_binary_operator4 , tailtype_binary_operator5 , tailtype_binary_operator6 , tailtype_binary_operator7 , tailtype_binary_operator8 , tailtype_binary_operator9 , tailtype_binary_operator10 , tailtype_binary_operator11 , tailtype_binary_operator12 , tailtype_binary_operator13 , tailtype_binary_operator14 , tailtype_binary_operator15 , tailtype_binary_operator16 , tailtype_binary_operator17 , tailtype_binary_operator18 , tailtype_binary_operator19 , tailtype_binary_operator20 , tailtype_binary_operator21 , tailtype_binary_operator22 , tailtype_binary_operator23 , tailtype_binary_operator24 > binary_operator ;
-
-
-typedef std::tuple < headtype_T_unary_operator_LOGIC_NEG > tailtype_unary_operator1 ;
-tailtype_unary_operator1
-T_unary_operator_LOGIC_NEG (  ) { 
- return std::make_tuple ( headtype_T_unary_operator_LOGIC_NEG  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_operator_BITWISE_NEG > tailtype_unary_operator2 ;
-tailtype_unary_operator2
-T_unary_operator_BITWISE_NEG (  ) { 
- return std::make_tuple ( headtype_T_unary_operator_BITWISE_NEG  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_operator_REDUCE_NOR > tailtype_unary_operator3 ;
-tailtype_unary_operator3
-T_unary_operator_REDUCE_NOR (  ) { 
- return std::make_tuple ( headtype_T_unary_operator_REDUCE_NOR  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_operator_REDUCE_NAND > tailtype_unary_operator4 ;
-tailtype_unary_operator4
-T_unary_operator_REDUCE_NAND (  ) { 
- return std::make_tuple ( headtype_T_unary_operator_REDUCE_NAND  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_operator_ADD > tailtype_unary_operator5 ;
-tailtype_unary_operator5
-T_unary_operator_ADD (  ) { 
- return std::make_tuple ( headtype_T_unary_operator_ADD  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_operator_SUB > tailtype_unary_operator6 ;
-tailtype_unary_operator6
-T_unary_operator_SUB (  ) { 
- return std::make_tuple ( headtype_T_unary_operator_SUB  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_operator_REDUCE_AND > tailtype_unary_operator7 ;
-tailtype_unary_operator7
-T_unary_operator_REDUCE_AND (  ) { 
- return std::make_tuple ( headtype_T_unary_operator_REDUCE_AND  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_operator_REDUCE_OR > tailtype_unary_operator8 ;
-tailtype_unary_operator8
-T_unary_operator_REDUCE_OR (  ) { 
- return std::make_tuple ( headtype_T_unary_operator_REDUCE_OR  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_operator_REDUCE_XOR > tailtype_unary_operator9 ;
-tailtype_unary_operator9
-T_unary_operator_REDUCE_XOR (  ) { 
- return std::make_tuple ( headtype_T_unary_operator_REDUCE_XOR  ) ; 
-} 
-typedef std::tuple < headtype_T_unary_operator_REDUCE_XNOR > tailtype_unary_operator10 ;
-tailtype_unary_operator10
-T_unary_operator_REDUCE_XNOR (  ) { 
- return std::make_tuple ( headtype_T_unary_operator_REDUCE_XNOR  ) ; 
-} 
-typedef boost::variant < tailtype_unary_operator1 , tailtype_unary_operator2 , tailtype_unary_operator3 , tailtype_unary_operator4 , tailtype_unary_operator5 , tailtype_unary_operator6 , tailtype_unary_operator7 , tailtype_unary_operator8 , tailtype_unary_operator9 , tailtype_unary_operator10 > unary_operator ;
-
-
-typedef std::tuple < headtype_T_edge_identifier_NOSPEC > tailtype_edge_identifier1 ;
-tailtype_edge_identifier1
-T_edge_identifier_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_edge_identifier_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_edge_identifier_POS > tailtype_edge_identifier2 ;
-tailtype_edge_identifier2
-T_edge_identifier_POS (  ) { 
- return std::make_tuple ( headtype_T_edge_identifier_POS  ) ; 
-} 
-typedef std::tuple < headtype_T_edge_identifier_NEG > tailtype_edge_identifier3 ;
-tailtype_edge_identifier3
-T_edge_identifier_NEG (  ) { 
- return std::make_tuple ( headtype_T_edge_identifier_NEG  ) ; 
-} 
-typedef boost::variant < tailtype_edge_identifier1 , tailtype_edge_identifier2 , tailtype_edge_identifier3 > edge_identifier ;
-
-
-typedef std::tuple < headtype_T_polarity_operator_NOSPEC > tailtype_polarity_operator1 ;
-tailtype_polarity_operator1
-T_polarity_operator_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_polarity_operator_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_polarity_operator_ADD > tailtype_polarity_operator2 ;
-tailtype_polarity_operator2
-T_polarity_operator_ADD (  ) { 
- return std::make_tuple ( headtype_T_polarity_operator_ADD  ) ; 
-} 
-typedef std::tuple < headtype_T_polarity_operator_SUB > tailtype_polarity_operator3 ;
-tailtype_polarity_operator3
-T_polarity_operator_SUB (  ) { 
- return std::make_tuple ( headtype_T_polarity_operator_SUB  ) ; 
-} 
-typedef boost::variant < tailtype_polarity_operator1 , tailtype_polarity_operator2 , tailtype_polarity_operator3 > polarity_operator ;
-
-
-typedef std::tuple < headtype_T_identifier_lsq_expression_rsq ,  identifier , std::list< range_expression> > tailtype_identifier_lsq_expression_rsq1 ;
-tailtype_identifier_lsq_expression_rsq1
-T_identifier_lsq_expression_rsq ( 
- identifier  i1 ,
- std::list< range_expression> i2
-) { 
-  return std::make_tuple ( headtype_T_identifier_lsq_expression_rsq  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_identifier_lsq_expression_rsq1 > identifier_lsq_expression_rsq ;
-
-
-typedef std::tuple < headtype_T_hierarchical_identifier , std::list< identifier_lsq_expression_rsq> > tailtype_hierarchical_identifier1 ;
-tailtype_hierarchical_identifier1
-T_hierarchical_identifier ( 
- std::list< identifier_lsq_expression_rsq> i1
-) { 
-  return std::make_tuple ( headtype_T_hierarchical_identifier  i1 ) ; 
-} 
-typedef boost::variant < tailtype_hierarchical_identifier1 > hierarchical_identifier ;
-
-
-typedef std::tuple < headtype_T_attr_spec ,  identifier , expression > tailtype_attr_spec1 ;
-tailtype_attr_spec1
-T_attr_spec ( 
- identifier  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_attr_spec  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_attr_spec1 > attr_spec ;
-
-
-typedef std::tuple < headtype_T_attribute_instance , std::list< attr_spec> > tailtype_attribute_instance1 ;
-tailtype_attribute_instance1
-T_attribute_instance ( 
- std::list< attr_spec> i1
-) { 
-  return std::make_tuple ( headtype_T_attribute_instance  i1 ) ; 
-} 
-typedef boost::variant < tailtype_attribute_instance1 > attribute_instance ;
-
-
-typedef std::tuple < headtype_T_delay_value_UNSIGNED_NUMBER ,  int > tailtype_delay_value1 ;
-tailtype_delay_value1
-T_delay_value_UNSIGNED_NUMBER ( 
- int i1
-) { 
-  return std::make_tuple ( headtype_T_delay_value_UNSIGNED_NUMBER  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_delay_value_REAL_NUMBER ,  string > tailtype_delay_value2 ;
-tailtype_delay_value2
-T_delay_value_REAL_NUMBER ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_delay_value_REAL_NUMBER  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_delay_value_id ,  identifier > tailtype_delay_value3 ;
-tailtype_delay_value3
-T_delay_value_id ( 
- identifier i1
-) { 
-  return std::make_tuple ( headtype_T_delay_value_id  i1 ) ; 
-} 
-typedef boost::variant < tailtype_delay_value1 , tailtype_delay_value2 , tailtype_delay_value3 > delay_value ;
-
-
-typedef std::tuple < headtype_T_net_lvalue_id ,  hierarchical_identifier > tailtype_net_lvalue1 ;
-tailtype_net_lvalue1
-T_net_lvalue_id ( 
- hierarchical_identifier i1
-) { 
-  return std::make_tuple ( headtype_T_net_lvalue_id  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_net_lvalue_idexp ,  hierarchical_identifier , std::list< expression> , range_expression > tailtype_net_lvalue2 ;
-tailtype_net_lvalue2
-T_net_lvalue_idexp ( 
- hierarchical_identifier  i1 ,
- std::list< expression>  i2 ,
- range_expression i3
-) { 
-  return std::make_tuple ( headtype_T_net_lvalue_idexp  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_T_net_lvalue_lvlist , std::list< net_lvalue> > tailtype_net_lvalue3 ;
-tailtype_net_lvalue3
-T_net_lvalue_lvlist ( 
- std::list< net_lvalue> i1
-) { 
-  return std::make_tuple ( headtype_T_net_lvalue_lvlist  i1 ) ; 
-} 
-typedef boost::variant < tailtype_net_lvalue1 , tailtype_net_lvalue2 , tailtype_net_lvalue3 > net_lvalue ;
-
-
-typedef std::tuple < headtype_T_primary_num ,  number > tailtype_primary1 ;
-tailtype_primary1
-T_primary_num ( 
- number i1
-) { 
-  return std::make_tuple ( headtype_T_primary_num  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_primary_id ,  hierarchical_identifier > tailtype_primary2 ;
-tailtype_primary2
-T_primary_id ( 
- hierarchical_identifier i1
-) { 
-  return std::make_tuple ( headtype_T_primary_id  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_primary_concat ,  concatenation > tailtype_primary3 ;
-tailtype_primary3
-T_primary_concat ( 
- concatenation i1
-) { 
-  return std::make_tuple ( headtype_T_primary_concat  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_primary_mulcon ,  multiple_concatenation > tailtype_primary4 ;
-tailtype_primary4
-T_primary_mulcon ( 
- multiple_concatenation i1
-) { 
-  return std::make_tuple ( headtype_T_primary_mulcon  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_primary_func ,  function_call > tailtype_primary5 ;
-tailtype_primary5
-T_primary_func ( 
- function_call i1
-) { 
-  return std::make_tuple ( headtype_T_primary_func  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_primary_sysfunc ,  system_function_call > tailtype_primary6 ;
-tailtype_primary6
-T_primary_sysfunc ( 
- system_function_call i1
-) { 
-  return std::make_tuple ( headtype_T_primary_sysfunc  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_primary_mintypmax ,  mintypmax_expression > tailtype_primary7 ;
-tailtype_primary7
-T_primary_mintypmax ( 
- mintypmax_expression i1
-) { 
-  return std::make_tuple ( headtype_T_primary_mintypmax  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_primary_string ,  string > tailtype_primary8 ;
-tailtype_primary8
-T_primary_string ( 
- string i1
-) { 
-  return std::make_tuple ( headtype_T_primary_string  i1 ) ; 
-} 
-typedef boost::variant < tailtype_primary1 , tailtype_primary2 , tailtype_primary3 , tailtype_primary4 , tailtype_primary5 , tailtype_primary6 , tailtype_primary7 , tailtype_primary8 > primary ;
-
-
-typedef std::tuple < headtype_T_module_path_primary_num ,  number > tailtype_module_path_primary1 ;
-tailtype_module_path_primary1
-T_module_path_primary_num ( 
- number i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_primary_num  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_path_primary_id ,  identifier > tailtype_module_path_primary2 ;
-tailtype_module_path_primary2
-T_module_path_primary_id ( 
- identifier i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_primary_id  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_path_primary_concat ,  module_path_concatenation > tailtype_module_path_primary3 ;
-tailtype_module_path_primary3
-T_module_path_primary_concat ( 
- module_path_concatenation i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_primary_concat  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_path_primary_mul_concat ,  module_path_multiple_concatenation > tailtype_module_path_primary4 ;
-tailtype_module_path_primary4
-T_module_path_primary_mul_concat ( 
- module_path_multiple_concatenation i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_primary_mul_concat  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_path_primary_func ,  function_call > tailtype_module_path_primary5 ;
-tailtype_module_path_primary5
-T_module_path_primary_func ( 
- function_call i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_primary_func  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_path_primary_sysfunc ,  system_function_call > tailtype_module_path_primary6 ;
-tailtype_module_path_primary6
-T_module_path_primary_sysfunc ( 
- system_function_call i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_primary_sysfunc  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_path_primary_mintypmax ,  module_path_mintypmax_expression > tailtype_module_path_primary7 ;
-tailtype_module_path_primary7
-T_module_path_primary_mintypmax ( 
- module_path_mintypmax_expression i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_primary_mintypmax  i1 ) ; 
-} 
-typedef boost::variant < tailtype_module_path_primary1 , tailtype_module_path_primary2 , tailtype_module_path_primary3 , tailtype_module_path_primary4 , tailtype_module_path_primary5 , tailtype_module_path_primary6 , tailtype_module_path_primary7 > module_path_primary ;
-
-
-typedef std::tuple < headtype_expression > tailtype_base_expression1 ;
-tailtype_base_expression1
-expression (  ) { 
- return std::make_tuple ( headtype_expression  ) ; 
-} 
-typedef boost::variant < tailtype_base_expression1 > base_expression ;
-
-
-typedef std::tuple < headtype_T_range_expression_NOSPEC > tailtype_range_expression1 ;
-tailtype_range_expression1
-T_range_expression_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_range_expression_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_range_expression_1 ,  expression > tailtype_range_expression2 ;
-tailtype_range_expression2
-T_range_expression_1 ( 
- expression i1
-) { 
-  return std::make_tuple ( headtype_T_range_expression_1  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_range_expression_2 ,  msb_expression , lsb_expression > tailtype_range_expression3 ;
-tailtype_range_expression3
-T_range_expression_2 ( 
- msb_expression  i1 ,
- lsb_expression i2
-) { 
-  return std::make_tuple ( headtype_T_range_expression_2  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_range_expression_addrange ,  base_expression , width_expression > tailtype_range_expression4 ;
-tailtype_range_expression4
-T_range_expression_addrange ( 
- base_expression  i1 ,
- width_expression i2
-) { 
-  return std::make_tuple ( headtype_T_range_expression_addrange  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_range_expression_subrange ,  base_expression , width_expression > tailtype_range_expression5 ;
-tailtype_range_expression5
-T_range_expression_subrange ( 
- base_expression  i1 ,
- width_expression i2
-) { 
-  return std::make_tuple ( headtype_T_range_expression_subrange  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_range_expression1 , tailtype_range_expression2 , tailtype_range_expression3 , tailtype_range_expression4 , tailtype_range_expression5 > range_expression ;
-
-
-typedef std::tuple < headtype_T_module_path_mintypmax_expression_1 ,  module_path_expression > tailtype_module_path_mintypmax_expression1 ;
-tailtype_module_path_mintypmax_expression1
-T_module_path_mintypmax_expression_1 ( 
- module_path_expression i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_mintypmax_expression_1  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_path_mintypmax_expression_3 ,  module_path_expression , module_path_expression , module_path_expression > tailtype_module_path_mintypmax_expression2 ;
-tailtype_module_path_mintypmax_expression2
-T_module_path_mintypmax_expression_3 ( 
- module_path_expression  i1 ,
- module_path_expression  i2 ,
- module_path_expression i3
-) { 
-  return std::make_tuple ( headtype_T_module_path_mintypmax_expression_3  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_module_path_mintypmax_expression1 , tailtype_module_path_mintypmax_expression2 > module_path_mintypmax_expression ;
-
-
-typedef std::tuple < headtype_T_module_path_expression_prim ,  module_path_primary > tailtype_module_path_expression1 ;
-tailtype_module_path_expression1
-T_module_path_expression_prim ( 
- module_path_primary i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_expression_prim  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_path_expression_op1 ,  unary_operator , std::list< attribute_instance> , module_path_primary > tailtype_module_path_expression2 ;
-tailtype_module_path_expression2
-T_module_path_expression_op1 ( 
- unary_operator  i1 ,
- std::list< attribute_instance>  i2 ,
- module_path_primary i3
-) { 
-  return std::make_tuple ( headtype_T_module_path_expression_op1  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_T_module_path_expression_op2 ,  module_path_expression , binary_module_path_operator , std::list< attribute_instance> , module_path_expression > tailtype_module_path_expression3 ;
-tailtype_module_path_expression3
-T_module_path_expression_op2 ( 
- module_path_expression  i1 ,
- binary_module_path_operator  i2 ,
- std::list< attribute_instance>  i3 ,
- module_path_expression i4
-) { 
-  return std::make_tuple ( headtype_T_module_path_expression_op2  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_module_path_expression_sel ,  module_path_conditional_expression > tailtype_module_path_expression4 ;
-tailtype_module_path_expression4
-T_module_path_expression_sel ( 
- module_path_conditional_expression i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_expression_sel  i1 ) ; 
-} 
-typedef boost::variant < tailtype_module_path_expression1 , tailtype_module_path_expression2 , tailtype_module_path_expression3 , tailtype_module_path_expression4 > module_path_expression ;
-
-
-typedef std::tuple < headtype_T_module_path_conditional_expression ,  module_path_expression , std::list< attribute_instance> , module_path_expression , module_path_expression > tailtype_module_path_conditional_expression1 ;
-tailtype_module_path_conditional_expression1
-T_module_path_conditional_expression ( 
- module_path_expression  i1 ,
- std::list< attribute_instance>  i2 ,
- module_path_expression  i3 ,
- module_path_expression i4
-) { 
-  return std::make_tuple ( headtype_T_module_path_conditional_expression  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_module_path_conditional_expression1 > module_path_conditional_expression ;
-
-
-typedef std::tuple < headtype_T_mintypmax_expression_NOSPEC > tailtype_mintypmax_expression1 ;
-tailtype_mintypmax_expression1
-T_mintypmax_expression_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_mintypmax_expression_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_mintypmax_expression_1 ,  expression > tailtype_mintypmax_expression2 ;
-tailtype_mintypmax_expression2
-T_mintypmax_expression_1 ( 
- expression i1
-) { 
-  return std::make_tuple ( headtype_T_mintypmax_expression_1  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_mintypmax_expression_3 ,  expression , expression , expression > tailtype_mintypmax_expression3 ;
-tailtype_mintypmax_expression3
-T_mintypmax_expression_3 ( 
- expression  i1 ,
- expression  i2 ,
- expression i3
-) { 
-  return std::make_tuple ( headtype_T_mintypmax_expression_3  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_mintypmax_expression1 , tailtype_mintypmax_expression2 , tailtype_mintypmax_expression3 > mintypmax_expression ;
-
-
-typedef std::tuple < headtype_T_expression_NOSPEC > tailtype_expression1 ;
-tailtype_expression1
-T_expression_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_expression_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_expression_prim ,  primary > tailtype_expression2 ;
-tailtype_expression2
-T_expression_prim ( 
- primary i1
-) { 
-  return std::make_tuple ( headtype_T_expression_prim  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_expression_op1 ,  unary_operator , std::list< attribute_instance> , primary > tailtype_expression3 ;
-tailtype_expression3
-T_expression_op1 ( 
- unary_operator  i1 ,
- std::list< attribute_instance>  i2 ,
- primary i3
-) { 
-  return std::make_tuple ( headtype_T_expression_op1  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_T_expression_op2 ,  expression , binary_operator , std::list< attribute_instance> , expression > tailtype_expression4 ;
-tailtype_expression4
-T_expression_op2 ( 
- expression  i1 ,
- binary_operator  i2 ,
- std::list< attribute_instance>  i3 ,
- expression i4
-) { 
-  return std::make_tuple ( headtype_T_expression_op2  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_expression_condition ,  conditional_expression > tailtype_expression5 ;
-tailtype_expression5
-T_expression_condition ( 
- conditional_expression i1
-) { 
-  return std::make_tuple ( headtype_T_expression_condition  i1 ) ; 
-} 
-typedef boost::variant < tailtype_expression1 , tailtype_expression2 , tailtype_expression3 , tailtype_expression4 , tailtype_expression5 > expression ;
-
-
-typedef std::tuple < headtype_expression > tailtype_width_expression1 ;
-tailtype_width_expression1
-expression (  ) { 
- return std::make_tuple ( headtype_expression  ) ; 
-} 
-typedef boost::variant < tailtype_width_expression1 > width_expression ;
-
-
-typedef std::tuple < headtype_expression > tailtype_lsb_expression1 ;
-tailtype_lsb_expression1
-expression (  ) { 
- return std::make_tuple ( headtype_expression  ) ; 
-} 
-typedef boost::variant < tailtype_lsb_expression1 > lsb_expression ;
-
-
-typedef std::tuple < headtype_expression > tailtype_msb_expression1 ;
-tailtype_msb_expression1
-expression (  ) { 
- return std::make_tuple ( headtype_expression  ) ; 
-} 
-typedef boost::variant < tailtype_msb_expression1 > msb_expression ;
-
-
-typedef std::tuple < headtype_T_conditional_expression ,  expression , std::list< attribute_instance> , expression , expression > tailtype_conditional_expression1 ;
-tailtype_conditional_expression1
-T_conditional_expression ( 
- expression  i1 ,
- std::list< attribute_instance>  i2 ,
- expression  i3 ,
- expression i4
-) { 
-  return std::make_tuple ( headtype_T_conditional_expression  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_conditional_expression1 > conditional_expression ;
-
-
-typedef std::tuple < headtype_T_system_function_call ,  system_function_identifier , std::list< expression> > tailtype_system_function_call1 ;
-tailtype_system_function_call1
-T_system_function_call ( 
- system_function_identifier  i1 ,
- std::list< expression> i2
-) { 
-  return std::make_tuple ( headtype_T_system_function_call  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_system_function_call1 > system_function_call ;
-
-
-typedef std::tuple < headtype_T_function_call ,  hierarchical_identifier , std::list< attribute_instance> , std::list< expression> > tailtype_function_call1 ;
-tailtype_function_call1
-T_function_call ( 
- hierarchical_identifier  i1 ,
- std::list< attribute_instance>  i2 ,
- std::list< expression> i3
-) { 
-  return std::make_tuple ( headtype_T_function_call  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_function_call1 > function_call ;
-
-
-typedef std::tuple < headtype_T_multiple_concatenation ,  expression , concatenation > tailtype_multiple_concatenation1 ;
-tailtype_multiple_concatenation1
-T_multiple_concatenation ( 
- expression  i1 ,
- concatenation i2
-) { 
-  return std::make_tuple ( headtype_T_multiple_concatenation  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_multiple_concatenation1 > multiple_concatenation ;
-
-
-typedef std::tuple < headtype_T_module_path_concatenation , std::list< module_path_expression> > tailtype_module_path_concatenation1 ;
-tailtype_module_path_concatenation1
-T_module_path_concatenation ( 
- std::list< module_path_expression> i1
-) { 
-  return std::make_tuple ( headtype_T_module_path_concatenation  i1 ) ; 
-} 
-typedef boost::variant < tailtype_module_path_concatenation1 > module_path_concatenation ;
-
-
-typedef std::tuple < headtype_T_module_path_multiple_concatenation ,  expression , module_path_concatenation > tailtype_module_path_multiple_concatenation1 ;
-tailtype_module_path_multiple_concatenation1
-T_module_path_multiple_concatenation ( 
- expression  i1 ,
- module_path_concatenation i2
-) { 
-  return std::make_tuple ( headtype_T_module_path_multiple_concatenation  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_module_path_multiple_concatenation1 > module_path_multiple_concatenation ;
-
-
-typedef std::tuple < headtype_T_concatenation , std::list< expression> > tailtype_concatenation1 ;
-tailtype_concatenation1
-T_concatenation ( 
- std::list< expression> i1
-) { 
-  return std::make_tuple ( headtype_T_concatenation  i1 ) ; 
-} 
-typedef boost::variant < tailtype_concatenation1 > concatenation ;
-
-
-typedef std::tuple < headtype_T_state_dependent_path_declaration_simple ,  module_path_expression , simple_path_declaration > tailtype_state_dependent_path_declaration1 ;
-tailtype_state_dependent_path_declaration1
-T_state_dependent_path_declaration_simple ( 
- module_path_expression  i1 ,
- simple_path_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_state_dependent_path_declaration_simple  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_state_dependent_path_declaration_edge ,  module_path_expression , edge_sensitive_path_declaration > tailtype_state_dependent_path_declaration2 ;
-tailtype_state_dependent_path_declaration2
-T_state_dependent_path_declaration_edge ( 
- module_path_expression  i1 ,
- edge_sensitive_path_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_state_dependent_path_declaration_edge  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_state_dependent_path_declaration_ifnone ,  simple_path_declaration > tailtype_state_dependent_path_declaration3 ;
-tailtype_state_dependent_path_declaration3
-T_state_dependent_path_declaration_ifnone ( 
- simple_path_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_state_dependent_path_declaration_ifnone  i1 ) ; 
-} 
-typedef boost::variant < tailtype_state_dependent_path_declaration1 , tailtype_state_dependent_path_declaration2 , tailtype_state_dependent_path_declaration3 > state_dependent_path_declaration ;
-
-
-typedef std::tuple < headtype_T_full_edge_sensitive_path_description ,  edge_identifier , std::list< specify_input_terminal_descriptor> , std::list< specify_output_terminal_descriptor> , polarity_operator , expression > tailtype_full_edge_sensitive_path_description1 ;
-tailtype_full_edge_sensitive_path_description1
-T_full_edge_sensitive_path_description ( 
- edge_identifier  i1 ,
- std::list< specify_input_terminal_descriptor>  i2 ,
- std::list< specify_output_terminal_descriptor>  i3 ,
- polarity_operator  i4 ,
- expression i5
-) { 
-  return std::make_tuple ( headtype_T_full_edge_sensitive_path_description  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef boost::variant < tailtype_full_edge_sensitive_path_description1 > full_edge_sensitive_path_description ;
-
-
-typedef std::tuple < headtype_T_parallel_edge_sensitive_path_description ,  edge_identifier , specify_input_terminal_descriptor , specify_output_terminal_descriptor , polarity_operator , expression > tailtype_parallel_edge_sensitive_path_description1 ;
-tailtype_parallel_edge_sensitive_path_description1
-T_parallel_edge_sensitive_path_description ( 
- edge_identifier  i1 ,
- specify_input_terminal_descriptor  i2 ,
- specify_output_terminal_descriptor  i3 ,
- polarity_operator  i4 ,
- expression i5
-) { 
-  return std::make_tuple ( headtype_T_parallel_edge_sensitive_path_description  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef boost::variant < tailtype_parallel_edge_sensitive_path_description1 > parallel_edge_sensitive_path_description ;
-
-
-typedef std::tuple < headtype_T_edge_sensitive_path_declaration_parallel ,  parallel_edge_sensitive_path_description , list_of_path_delay_expressions > tailtype_edge_sensitive_path_declaration1 ;
-tailtype_edge_sensitive_path_declaration1
-T_edge_sensitive_path_declaration_parallel ( 
- parallel_edge_sensitive_path_description  i1 ,
- list_of_path_delay_expressions i2
-) { 
-  return std::make_tuple ( headtype_T_edge_sensitive_path_declaration_parallel  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_edge_sensitive_path_declaration_full ,  full_edge_sensitive_path_description , list_of_path_delay_expressions > tailtype_edge_sensitive_path_declaration2 ;
-tailtype_edge_sensitive_path_declaration2
-T_edge_sensitive_path_declaration_full ( 
- full_edge_sensitive_path_description  i1 ,
- list_of_path_delay_expressions i2
-) { 
-  return std::make_tuple ( headtype_T_edge_sensitive_path_declaration_full  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_edge_sensitive_path_declaration1 , tailtype_edge_sensitive_path_declaration2 > edge_sensitive_path_declaration ;
-
-
-typedef std::tuple < headtype_T_list_of_mintypmax_expressions_1 ,  mintypmax_expression > tailtype_list_of_path_delay_expressions1 ;
-tailtype_list_of_path_delay_expressions1
-T_list_of_mintypmax_expressions_1 ( 
- mintypmax_expression i1
-) { 
-  return std::make_tuple ( headtype_T_list_of_mintypmax_expressions_1  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_list_of_mintypmax_expressions_2 ,  mintypmax_expression , mintypmax_expression > tailtype_list_of_path_delay_expressions2 ;
-tailtype_list_of_path_delay_expressions2
-T_list_of_mintypmax_expressions_2 ( 
- mintypmax_expression  i1 ,
- mintypmax_expression i2
-) { 
-  return std::make_tuple ( headtype_T_list_of_mintypmax_expressions_2  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_list_of_mintypmax_expressions_3 ,  mintypmax_expression , mintypmax_expression , mintypmax_expression > tailtype_list_of_path_delay_expressions3 ;
-tailtype_list_of_path_delay_expressions3
-T_list_of_mintypmax_expressions_3 ( 
- mintypmax_expression  i1 ,
- mintypmax_expression  i2 ,
- mintypmax_expression i3
-) { 
-  return std::make_tuple ( headtype_T_list_of_mintypmax_expressions_3  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_T_list_of_mintypmax_expressions_6 ,  mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression > tailtype_list_of_path_delay_expressions4 ;
-tailtype_list_of_path_delay_expressions4
-T_list_of_mintypmax_expressions_6 ( 
- mintypmax_expression  i1 ,
- mintypmax_expression  i2 ,
- mintypmax_expression  i3 ,
- mintypmax_expression  i4 ,
- mintypmax_expression  i5 ,
- mintypmax_expression i6
-) { 
-  return std::make_tuple ( headtype_T_list_of_mintypmax_expressions_6  i1 ,  i2 ,  i3 ,  i4 ,  i5 ,  i6 ) ; 
-} 
-typedef std::tuple < headtype_T_list_of_mintypmax_expressions_12 ,  mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression , mintypmax_expression > tailtype_list_of_path_delay_expressions5 ;
-tailtype_list_of_path_delay_expressions5
-T_list_of_mintypmax_expressions_12 ( 
- mintypmax_expression  i1 ,
- mintypmax_expression  i2 ,
- mintypmax_expression  i3 ,
- mintypmax_expression  i4 ,
- mintypmax_expression  i5 ,
- mintypmax_expression  i6 ,
- mintypmax_expression  i7 ,
- mintypmax_expression  i8 ,
- mintypmax_expression  i9 ,
- mintypmax_expression  i10 ,
- mintypmax_expression  i11 ,
- mintypmax_expression i12
-) { 
-  return std::make_tuple ( headtype_T_list_of_mintypmax_expressions_12  i1 ,  i2 ,  i3 ,  i4 ,  i5 ,  i6 ,  i7 ,  i8 ,  i9 ,  i10 ,  i11 ,  i12 ) ; 
-} 
-typedef boost::variant < tailtype_list_of_path_delay_expressions1 , tailtype_list_of_path_delay_expressions2 , tailtype_list_of_path_delay_expressions3 , tailtype_list_of_path_delay_expressions4 , tailtype_list_of_path_delay_expressions5 > list_of_path_delay_expressions ;
-
-
-typedef std::tuple < headtype_T_specify_output_terminal_descriptor ,  identifier , range_expression > tailtype_specify_output_terminal_descriptor1 ;
-tailtype_specify_output_terminal_descriptor1
-T_specify_output_terminal_descriptor ( 
- identifier  i1 ,
- range_expression i2
-) { 
-  return std::make_tuple ( headtype_T_specify_output_terminal_descriptor  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_specify_output_terminal_descriptor1 > specify_output_terminal_descriptor ;
-
-
-typedef std::tuple < headtype_T_specify_input_terminal_descriptor ,  identifier , range_expression > tailtype_specify_input_terminal_descriptor1 ;
-tailtype_specify_input_terminal_descriptor1
-T_specify_input_terminal_descriptor ( 
- identifier  i1 ,
- range_expression i2
-) { 
-  return std::make_tuple ( headtype_T_specify_input_terminal_descriptor  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_specify_input_terminal_descriptor1 > specify_input_terminal_descriptor ;
-
-
-typedef std::tuple < headtype_T_full_path_description , std::list< specify_input_terminal_descriptor> , polarity_operator , std::list< specify_output_terminal_descriptor> > tailtype_full_path_description1 ;
-tailtype_full_path_description1
-T_full_path_description ( 
- std::list< specify_input_terminal_descriptor>  i1 ,
- polarity_operator  i2 ,
- std::list< specify_output_terminal_descriptor> i3
-) { 
-  return std::make_tuple ( headtype_T_full_path_description  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_full_path_description1 > full_path_description ;
-
-
-typedef std::tuple < headtype_T_parallel_path_description ,  specify_input_terminal_descriptor , polarity_operator , specify_output_terminal_descriptor > tailtype_parallel_path_description1 ;
-tailtype_parallel_path_description1
-T_parallel_path_description ( 
- specify_input_terminal_descriptor  i1 ,
- polarity_operator  i2 ,
- specify_output_terminal_descriptor i3
-) { 
-  return std::make_tuple ( headtype_T_parallel_path_description  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_parallel_path_description1 > parallel_path_description ;
-
-
-typedef std::tuple < headtype_T_simple_path_declaration_parallel ,  parallel_path_description , list_of_path_delay_expressions > tailtype_simple_path_declaration1 ;
-tailtype_simple_path_declaration1
-T_simple_path_declaration_parallel ( 
- parallel_path_description  i1 ,
- list_of_path_delay_expressions i2
-) { 
-  return std::make_tuple ( headtype_T_simple_path_declaration_parallel  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_simple_path_declaration_full ,  full_path_description , list_of_path_delay_expressions > tailtype_simple_path_declaration2 ;
-tailtype_simple_path_declaration2
-T_simple_path_declaration_full ( 
- full_path_description  i1 ,
- list_of_path_delay_expressions i2
-) { 
-  return std::make_tuple ( headtype_T_simple_path_declaration_full  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_simple_path_declaration1 , tailtype_simple_path_declaration2 > simple_path_declaration ;
-
-
-typedef std::tuple < headtype_T_path_declaration_simple ,  simple_path_declaration > tailtype_path_declaration1 ;
-tailtype_path_declaration1
-T_path_declaration_simple ( 
- simple_path_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_path_declaration_simple  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_path_declaration_edge ,  edge_sensitive_path_declaration > tailtype_path_declaration2 ;
-tailtype_path_declaration2
-T_path_declaration_edge ( 
- edge_sensitive_path_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_path_declaration_edge  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_path_declaration_state ,  state_dependent_path_declaration > tailtype_path_declaration3 ;
-tailtype_path_declaration3
-T_path_declaration_state ( 
- state_dependent_path_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_path_declaration_state  i1 ) ; 
-} 
-typedef boost::variant < tailtype_path_declaration1 , tailtype_path_declaration2 , tailtype_path_declaration3 > path_declaration ;
-
-
-typedef std::tuple < headtype_T_showcancelled_declaration_show , std::list< specify_output_terminal_descriptor> > tailtype_showcancelled_declaration1 ;
-tailtype_showcancelled_declaration1
-T_showcancelled_declaration_show ( 
- std::list< specify_output_terminal_descriptor> i1
-) { 
-  return std::make_tuple ( headtype_T_showcancelled_declaration_show  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_showcancelled_declaration_noshow , std::list< specify_output_terminal_descriptor> > tailtype_showcancelled_declaration2 ;
-tailtype_showcancelled_declaration2
-T_showcancelled_declaration_noshow ( 
- std::list< specify_output_terminal_descriptor> i1
-) { 
-  return std::make_tuple ( headtype_T_showcancelled_declaration_noshow  i1 ) ; 
-} 
-typedef boost::variant < tailtype_showcancelled_declaration1 , tailtype_showcancelled_declaration2 > showcancelled_declaration ;
-
-
-typedef std::tuple < headtype_T_pulsestyle_declaration_oneevent , std::list< specify_output_terminal_descriptor> > tailtype_pulsestyle_declaration1 ;
-tailtype_pulsestyle_declaration1
-T_pulsestyle_declaration_oneevent ( 
- std::list< specify_output_terminal_descriptor> i1
-) { 
-  return std::make_tuple ( headtype_T_pulsestyle_declaration_oneevent  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_pulsestyle_declaration_onedetect , std::list< specify_output_terminal_descriptor> > tailtype_pulsestyle_declaration2 ;
-tailtype_pulsestyle_declaration2
-T_pulsestyle_declaration_onedetect ( 
- std::list< specify_output_terminal_descriptor> i1
-) { 
-  return std::make_tuple ( headtype_T_pulsestyle_declaration_onedetect  i1 ) ; 
-} 
-typedef boost::variant < tailtype_pulsestyle_declaration1 , tailtype_pulsestyle_declaration2 > pulsestyle_declaration ;
-
-
-typedef std::tuple < headtype_T_specify_item_specparam ,  specparam_declaration > tailtype_specify_item1 ;
-tailtype_specify_item1
-T_specify_item_specparam ( 
- specparam_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_specify_item_specparam  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_specify_item_pulsestyle ,  pulsestyle_declaration > tailtype_specify_item2 ;
-tailtype_specify_item2
-T_specify_item_pulsestyle ( 
- pulsestyle_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_specify_item_pulsestyle  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_specify_item_showcancelled ,  showcancelled_declaration > tailtype_specify_item3 ;
-tailtype_specify_item3
-T_specify_item_showcancelled ( 
- showcancelled_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_specify_item_showcancelled  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_specify_item_path ,  path_declaration > tailtype_specify_item4 ;
-tailtype_specify_item4
-T_specify_item_path ( 
- path_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_specify_item_path  i1 ) ; 
-} 
-typedef boost::variant < tailtype_specify_item1 , tailtype_specify_item2 , tailtype_specify_item3 , tailtype_specify_item4 > specify_item ;
-
-
-typedef std::tuple < headtype_T_specify_block , std::list< specify_item> > tailtype_specify_block1 ;
-tailtype_specify_block1
-T_specify_block ( 
- std::list< specify_item> i1
-) { 
-  return std::make_tuple ( headtype_T_specify_block  i1 ) ; 
-} 
-typedef boost::variant < tailtype_specify_block1 > specify_block ;
-
-
-typedef std::tuple < headtype_T_task_enable ,  hierarchical_identifier , std::list< expression> > tailtype_task_enable1 ;
-tailtype_task_enable1
-T_task_enable ( 
- hierarchical_identifier  i1 ,
- std::list< expression> i2
-) { 
-  return std::make_tuple ( headtype_T_task_enable  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_task_enable1 > task_enable ;
-
-
-typedef std::tuple < headtype_T_system_task_enable ,  system_function_identifier , std::list< expression> > tailtype_system_task_enable1 ;
-tailtype_system_task_enable1
-T_system_task_enable ( 
- system_function_identifier  i1 ,
- std::list< expression> i2
-) { 
-  return std::make_tuple ( headtype_T_system_task_enable  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_system_task_enable1 > system_task_enable ;
-
-
-typedef std::tuple < headtype_T_loop_statement_forever ,  statement > tailtype_loop_statement1 ;
-tailtype_loop_statement1
-T_loop_statement_forever ( 
- statement i1
-) { 
-  return std::make_tuple ( headtype_T_loop_statement_forever  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_loop_statement_repeat ,  expression , statement > tailtype_loop_statement2 ;
-tailtype_loop_statement2
-T_loop_statement_repeat ( 
- expression  i1 ,
- statement i2
-) { 
-  return std::make_tuple ( headtype_T_loop_statement_repeat  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_loop_statement_while ,  expression , statement > tailtype_loop_statement3 ;
-tailtype_loop_statement3
-T_loop_statement_while ( 
- expression  i1 ,
- statement i2
-) { 
-  return std::make_tuple ( headtype_T_loop_statement_while  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_loop_statement_for ,  net_assignment , expression , net_assignment , statement > tailtype_loop_statement4 ;
-tailtype_loop_statement4
-T_loop_statement_for ( 
- net_assignment  i1 ,
- expression  i2 ,
- net_assignment  i3 ,
- statement i4
-) { 
-  return std::make_tuple ( headtype_T_loop_statement_for  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_loop_statement1 , tailtype_loop_statement2 , tailtype_loop_statement3 , tailtype_loop_statement4 > loop_statement ;
-
-
-typedef std::tuple < headtype_T_colon_opt_false > tailtype_colon_opt1 ;
-tailtype_colon_opt1
-T_colon_opt_false (  ) { 
- return std::make_tuple ( headtype_T_colon_opt_false  ) ; 
-} 
-typedef std::tuple < headtype_T_colon_opt_true > tailtype_colon_opt2 ;
-tailtype_colon_opt2
-T_colon_opt_true (  ) { 
- return std::make_tuple ( headtype_T_colon_opt_true  ) ; 
-} 
-typedef boost::variant < tailtype_colon_opt1 , tailtype_colon_opt2 > colon_opt ;
-
-
-typedef std::tuple < headtype_T_case_item , std::list< expression> , statement > tailtype_case_item1 ;
-tailtype_case_item1
-T_case_item ( 
- std::list< expression>  i1 ,
- statement i2
-) { 
-  return std::make_tuple ( headtype_T_case_item  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_case_item_default ,  colon_opt , statement > tailtype_case_item2 ;
-tailtype_case_item2
-T_case_item_default ( 
- colon_opt  i1 ,
- statement i2
-) { 
-  return std::make_tuple ( headtype_T_case_item_default  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_case_item1 , tailtype_case_item2 > case_item ;
-
-
-typedef std::tuple < headtype_T_case_statement_case ,  expression , std::list< case_item> > tailtype_case_statement1 ;
-tailtype_case_statement1
-T_case_statement_case ( 
- expression  i1 ,
- std::list< case_item> i2
-) { 
-  return std::make_tuple ( headtype_T_case_statement_case  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_case_statement_casez ,  expression , std::list< case_item> > tailtype_case_statement2 ;
-tailtype_case_statement2
-T_case_statement_casez ( 
- expression  i1 ,
- std::list< case_item> i2
-) { 
-  return std::make_tuple ( headtype_T_case_statement_casez  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_case_statement_casex ,  expression , std::list< case_item> > tailtype_case_statement3 ;
-tailtype_case_statement3
-T_case_statement_casex ( 
- expression  i1 ,
- std::list< case_item> i2
-) { 
-  return std::make_tuple ( headtype_T_case_statement_casex  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_case_statement1 , tailtype_case_statement2 , tailtype_case_statement3 > case_statement ;
-
-
-typedef std::tuple < headtype_T_elseif ,  expression , statement > tailtype_else_if_lp_expression_rp_statement_or_null1 ;
-tailtype_else_if_lp_expression_rp_statement_or_null1
-T_elseif ( 
- expression  i1 ,
- statement i2
-) { 
-  return std::make_tuple ( headtype_T_elseif  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_else_if_lp_expression_rp_statement_or_null1 > else_if_lp_expression_rp_statement_or_null ;
-
-
-typedef std::tuple < headtype_T_conditional_statement_ifelse ,  expression , statement , statement > tailtype_conditional_statement1 ;
-tailtype_conditional_statement1
-T_conditional_statement_ifelse ( 
- expression  i1 ,
- statement  i2 ,
- statement i3
-) { 
-  return std::make_tuple ( headtype_T_conditional_statement_ifelse  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_T_conditional_statement_ifelseif ,  expression , statement , std::list< else_if_lp_expression_rp_statement_or_null> , statement > tailtype_conditional_statement2 ;
-tailtype_conditional_statement2
-T_conditional_statement_ifelseif ( 
- expression  i1 ,
- statement  i2 ,
- std::list< else_if_lp_expression_rp_statement_or_null>  i3 ,
- statement i4
-) { 
-  return std::make_tuple ( headtype_T_conditional_statement_ifelseif  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_conditional_statement1 , tailtype_conditional_statement2 > conditional_statement ;
-
-
-typedef std::tuple < headtype_T_wait_statement ,  expression , statement > tailtype_wait_statement1 ;
-tailtype_wait_statement1
-T_wait_statement ( 
- expression  i1 ,
- statement i2
-) { 
-  return std::make_tuple ( headtype_T_wait_statement  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_wait_statement1 > wait_statement ;
-
-
-typedef std::tuple < headtype_T_procedural_timing_control_statement ,  procedural_timing_control , statement > tailtype_procedural_timing_control_statement1 ;
-tailtype_procedural_timing_control_statement1
-T_procedural_timing_control_statement ( 
- procedural_timing_control  i1 ,
- statement i2
-) { 
-  return std::make_tuple ( headtype_T_procedural_timing_control_statement  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_procedural_timing_control_statement1 > procedural_timing_control_statement ;
-
-
-typedef std::tuple < headtype_T_procedural_timing_control_delay ,  delay_control > tailtype_procedural_timing_control1 ;
-tailtype_procedural_timing_control1
-T_procedural_timing_control_delay ( 
- delay_control i1
-) { 
-  return std::make_tuple ( headtype_T_procedural_timing_control_delay  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_procedural_timing_control_event ,  event_control > tailtype_procedural_timing_control2 ;
-tailtype_procedural_timing_control2
-T_procedural_timing_control_event ( 
- event_control i1
-) { 
-  return std::make_tuple ( headtype_T_procedural_timing_control_event  i1 ) ; 
-} 
-typedef boost::variant < tailtype_procedural_timing_control1 , tailtype_procedural_timing_control2 > procedural_timing_control ;
-
-
-typedef std::tuple < headtype_T_event_expression_exp ,  expression > tailtype_event_expression1 ;
-tailtype_event_expression1
-T_event_expression_exp ( 
- expression i1
-) { 
-  return std::make_tuple ( headtype_T_event_expression_exp  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_event_expression_pos ,  expression > tailtype_event_expression2 ;
-tailtype_event_expression2
-T_event_expression_pos ( 
- expression i1
-) { 
-  return std::make_tuple ( headtype_T_event_expression_pos  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_event_expression_neg ,  expression > tailtype_event_expression3 ;
-tailtype_event_expression3
-T_event_expression_neg ( 
- expression i1
-) { 
-  return std::make_tuple ( headtype_T_event_expression_neg  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_event_expression_or ,  event_expression , event_expression > tailtype_event_expression4 ;
-tailtype_event_expression4
-T_event_expression_or ( 
- event_expression  i1 ,
- event_expression i2
-) { 
-  return std::make_tuple ( headtype_T_event_expression_or  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_event_expression1 , tailtype_event_expression2 , tailtype_event_expression3 , tailtype_event_expression4 > event_expression ;
-
-
-typedef std::tuple < headtype_T_event_trigger ,  hierarchical_identifier > tailtype_event_trigger1 ;
-tailtype_event_trigger1
-T_event_trigger ( 
- hierarchical_identifier i1
-) { 
-  return std::make_tuple ( headtype_T_event_trigger  i1 ) ; 
-} 
-typedef boost::variant < tailtype_event_trigger1 > event_trigger ;
-
-
-typedef std::tuple < headtype_T_event_control_eventid ,  hierarchical_identifier > tailtype_event_control1 ;
-tailtype_event_control1
-T_event_control_eventid ( 
- hierarchical_identifier i1
-) { 
-  return std::make_tuple ( headtype_T_event_control_eventid  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_event_control_event_exp , std::list< event_expression> > tailtype_event_control2 ;
-tailtype_event_control2
-T_event_control_event_exp ( 
- std::list< event_expression> i1
-) { 
-  return std::make_tuple ( headtype_T_event_control_event_exp  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_event_control_start > tailtype_event_control3 ;
-tailtype_event_control3
-T_event_control_start (  ) { 
- return std::make_tuple ( headtype_T_event_control_start  ) ; 
-} 
-typedef boost::variant < tailtype_event_control1 , tailtype_event_control2 , tailtype_event_control3 > event_control ;
-
-
-typedef std::tuple < headtype_T_disable_statement ,  hierarchical_identifier > tailtype_disable_statement1 ;
-tailtype_disable_statement1
-T_disable_statement ( 
- hierarchical_identifier i1
-) { 
-  return std::make_tuple ( headtype_T_disable_statement  i1 ) ; 
-} 
-typedef boost::variant < tailtype_disable_statement1 > disable_statement ;
-
-
-typedef std::tuple < headtype_T_delay_or_event_control_NOSPEC > tailtype_delay_or_event_control1 ;
-tailtype_delay_or_event_control1
-T_delay_or_event_control_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_delay_or_event_control_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_delay_or_event_control_delay_control ,  delay_control > tailtype_delay_or_event_control2 ;
-tailtype_delay_or_event_control2
-T_delay_or_event_control_delay_control ( 
- delay_control i1
-) { 
-  return std::make_tuple ( headtype_T_delay_or_event_control_delay_control  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_delay_or_event_control_event_control ,  event_control > tailtype_delay_or_event_control3 ;
-tailtype_delay_or_event_control3
-T_delay_or_event_control_event_control ( 
- event_control i1
-) { 
-  return std::make_tuple ( headtype_T_delay_or_event_control_event_control  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_delay_or_event_control_3 ,  expression , event_control > tailtype_delay_or_event_control4 ;
-tailtype_delay_or_event_control4
-T_delay_or_event_control_3 ( 
- expression  i1 ,
- event_control i2
-) { 
-  return std::make_tuple ( headtype_T_delay_or_event_control_3  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_delay_or_event_control1 , tailtype_delay_or_event_control2 , tailtype_delay_or_event_control3 , tailtype_delay_or_event_control4 > delay_or_event_control ;
-
-
-typedef std::tuple < headtype_T_delay_control_delay_value ,  delay_value > tailtype_delay_control1 ;
-tailtype_delay_control1
-T_delay_control_delay_value ( 
- delay_value i1
-) { 
-  return std::make_tuple ( headtype_T_delay_control_delay_value  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_delay_control_mintypmax_expression ,  mintypmax_expression > tailtype_delay_control2 ;
-tailtype_delay_control2
-T_delay_control_mintypmax_expression ( 
- mintypmax_expression i1
-) { 
-  return std::make_tuple ( headtype_T_delay_control_mintypmax_expression  i1 ) ; 
-} 
-typedef boost::variant < tailtype_delay_control1 , tailtype_delay_control2 > delay_control ;
-
-
-typedef std::tuple < headtype_T_statement_NOSPEC , std::list< attribute_instance> > tailtype_statement1 ;
-tailtype_statement1
-T_statement_NOSPEC ( 
- std::list< attribute_instance> i1
-) { 
-  return std::make_tuple ( headtype_T_statement_NOSPEC  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_blocking_assignment , std::list< attribute_instance> , blocking_assignment > tailtype_statement2 ;
-tailtype_statement2
-T_statement_blocking_assignment ( 
- std::list< attribute_instance>  i1 ,
- blocking_assignment i2
-) { 
-  return std::make_tuple ( headtype_T_statement_blocking_assignment  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_case_statement , std::list< attribute_instance> , case_statement > tailtype_statement3 ;
-tailtype_statement3
-T_statement_case_statement ( 
- std::list< attribute_instance>  i1 ,
- case_statement i2
-) { 
-  return std::make_tuple ( headtype_T_statement_case_statement  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_conditional_statement , std::list< attribute_instance> , conditional_statement > tailtype_statement4 ;
-tailtype_statement4
-T_statement_conditional_statement ( 
- std::list< attribute_instance>  i1 ,
- conditional_statement i2
-) { 
-  return std::make_tuple ( headtype_T_statement_conditional_statement  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_disable_statement , std::list< attribute_instance> , disable_statement > tailtype_statement5 ;
-tailtype_statement5
-T_statement_disable_statement ( 
- std::list< attribute_instance>  i1 ,
- disable_statement i2
-) { 
-  return std::make_tuple ( headtype_T_statement_disable_statement  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_event_trigger , std::list< attribute_instance> , event_trigger > tailtype_statement6 ;
-tailtype_statement6
-T_statement_event_trigger ( 
- std::list< attribute_instance>  i1 ,
- event_trigger i2
-) { 
-  return std::make_tuple ( headtype_T_statement_event_trigger  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_loop_statement , std::list< attribute_instance> , loop_statement > tailtype_statement7 ;
-tailtype_statement7
-T_statement_loop_statement ( 
- std::list< attribute_instance>  i1 ,
- loop_statement i2
-) { 
-  return std::make_tuple ( headtype_T_statement_loop_statement  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_nonblocking_assignment , std::list< attribute_instance> , nonblocking_assignment > tailtype_statement8 ;
-tailtype_statement8
-T_statement_nonblocking_assignment ( 
- std::list< attribute_instance>  i1 ,
- nonblocking_assignment i2
-) { 
-  return std::make_tuple ( headtype_T_statement_nonblocking_assignment  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_par_block , std::list< attribute_instance> , par_block > tailtype_statement9 ;
-tailtype_statement9
-T_statement_par_block ( 
- std::list< attribute_instance>  i1 ,
- par_block i2
-) { 
-  return std::make_tuple ( headtype_T_statement_par_block  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_procedural_continuous_assignments , std::list< attribute_instance> , procedural_continuous_assignments > tailtype_statement10 ;
-tailtype_statement10
-T_statement_procedural_continuous_assignments ( 
- std::list< attribute_instance>  i1 ,
- procedural_continuous_assignments i2
-) { 
-  return std::make_tuple ( headtype_T_statement_procedural_continuous_assignments  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_procedural_timing_control_statement , std::list< attribute_instance> , procedural_timing_control_statement > tailtype_statement11 ;
-tailtype_statement11
-T_statement_procedural_timing_control_statement ( 
- std::list< attribute_instance>  i1 ,
- procedural_timing_control_statement i2
-) { 
-  return std::make_tuple ( headtype_T_statement_procedural_timing_control_statement  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_seq_block , std::list< attribute_instance> , seq_block > tailtype_statement12 ;
-tailtype_statement12
-T_statement_seq_block ( 
- std::list< attribute_instance>  i1 ,
- seq_block i2
-) { 
-  return std::make_tuple ( headtype_T_statement_seq_block  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_system_task_enable , std::list< attribute_instance> , system_task_enable > tailtype_statement13 ;
-tailtype_statement13
-T_statement_system_task_enable ( 
- std::list< attribute_instance>  i1 ,
- system_task_enable i2
-) { 
-  return std::make_tuple ( headtype_T_statement_system_task_enable  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_task_enable , std::list< attribute_instance> , task_enable > tailtype_statement14 ;
-tailtype_statement14
-T_statement_task_enable ( 
- std::list< attribute_instance>  i1 ,
- task_enable i2
-) { 
-  return std::make_tuple ( headtype_T_statement_task_enable  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_statement_wait_statement , std::list< attribute_instance> , wait_statement > tailtype_statement15 ;
-tailtype_statement15
-T_statement_wait_statement ( 
- std::list< attribute_instance>  i1 ,
- wait_statement i2
-) { 
-  return std::make_tuple ( headtype_T_statement_wait_statement  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_statement1 , tailtype_statement2 , tailtype_statement3 , tailtype_statement4 , tailtype_statement5 , tailtype_statement6 , tailtype_statement7 , tailtype_statement8 , tailtype_statement9 , tailtype_statement10 , tailtype_statement11 , tailtype_statement12 , tailtype_statement13 , tailtype_statement14 , tailtype_statement15 > statement ;
-
-
-typedef std::tuple < headtype_T_seq_block ,  colon_block_identifier , std::list< statement_or_block_item> > tailtype_seq_block1 ;
-tailtype_seq_block1
-T_seq_block ( 
- colon_block_identifier  i1 ,
- std::list< statement_or_block_item> i2
-) { 
-  return std::make_tuple ( headtype_T_seq_block  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_seq_block1 > seq_block ;
-
-
-typedef std::tuple < headtype_T_colon_block_identifier_NOSPEC > tailtype_colon_block_identifier1 ;
-tailtype_colon_block_identifier1
-T_colon_block_identifier_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_colon_block_identifier_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_colon_block_identifier ,  identifier > tailtype_colon_block_identifier2 ;
-tailtype_colon_block_identifier2
-T_colon_block_identifier ( 
- identifier i1
-) { 
-  return std::make_tuple ( headtype_T_colon_block_identifier  i1 ) ; 
-} 
-typedef boost::variant < tailtype_colon_block_identifier1 , tailtype_colon_block_identifier2 > colon_block_identifier ;
-
-
-typedef std::tuple < headtype_T_par_block ,  colon_block_identifier , std::list< statement_or_block_item> > tailtype_par_block1 ;
-tailtype_par_block1
-T_par_block ( 
- colon_block_identifier  i1 ,
- std::list< statement_or_block_item> i2
-) { 
-  return std::make_tuple ( headtype_T_par_block  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_par_block1 > par_block ;
-
-
-typedef std::tuple < headtype_T_procedural_continuous_assignments_assign ,  net_assignment > tailtype_procedural_continuous_assignments1 ;
-tailtype_procedural_continuous_assignments1
-T_procedural_continuous_assignments_assign ( 
- net_assignment i1
-) { 
-  return std::make_tuple ( headtype_T_procedural_continuous_assignments_assign  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_procedural_continuous_assignments_deassign ,  net_lvalue > tailtype_procedural_continuous_assignments2 ;
-tailtype_procedural_continuous_assignments2
-T_procedural_continuous_assignments_deassign ( 
- net_lvalue i1
-) { 
-  return std::make_tuple ( headtype_T_procedural_continuous_assignments_deassign  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_procedural_continuous_assignments_force1 ,  net_assignment > tailtype_procedural_continuous_assignments3 ;
-tailtype_procedural_continuous_assignments3
-T_procedural_continuous_assignments_force1 ( 
- net_assignment i1
-) { 
-  return std::make_tuple ( headtype_T_procedural_continuous_assignments_force1  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_procedural_continuous_assignments_force2 ,  net_assignment > tailtype_procedural_continuous_assignments4 ;
-tailtype_procedural_continuous_assignments4
-T_procedural_continuous_assignments_force2 ( 
- net_assignment i1
-) { 
-  return std::make_tuple ( headtype_T_procedural_continuous_assignments_force2  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_procedural_continuous_assignments_release1 ,  net_lvalue > tailtype_procedural_continuous_assignments5 ;
-tailtype_procedural_continuous_assignments5
-T_procedural_continuous_assignments_release1 ( 
- net_lvalue i1
-) { 
-  return std::make_tuple ( headtype_T_procedural_continuous_assignments_release1  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_procedural_continuous_assignments_release2 ,  net_lvalue > tailtype_procedural_continuous_assignments6 ;
-tailtype_procedural_continuous_assignments6
-T_procedural_continuous_assignments_release2 ( 
- net_lvalue i1
-) { 
-  return std::make_tuple ( headtype_T_procedural_continuous_assignments_release2  i1 ) ; 
-} 
-typedef boost::variant < tailtype_procedural_continuous_assignments1 , tailtype_procedural_continuous_assignments2 , tailtype_procedural_continuous_assignments3 , tailtype_procedural_continuous_assignments4 , tailtype_procedural_continuous_assignments5 , tailtype_procedural_continuous_assignments6 > procedural_continuous_assignments ;
-
-
-typedef std::tuple < headtype_T_nonblocking_assignment ,  net_lvalue , delay_or_event_control , expression > tailtype_nonblocking_assignment1 ;
-tailtype_nonblocking_assignment1
-T_nonblocking_assignment ( 
- net_lvalue  i1 ,
- delay_or_event_control  i2 ,
- expression i3
-) { 
-  return std::make_tuple ( headtype_T_nonblocking_assignment  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_nonblocking_assignment1 > nonblocking_assignment ;
-
-
-typedef std::tuple < headtype_T_blocking_assignment ,  net_lvalue , delay_or_event_control , expression > tailtype_blocking_assignment1 ;
-tailtype_blocking_assignment1
-T_blocking_assignment ( 
- net_lvalue  i1 ,
- delay_or_event_control  i2 ,
- expression i3
-) { 
-  return std::make_tuple ( headtype_T_blocking_assignment  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_blocking_assignment1 > blocking_assignment ;
-
-
-typedef std::tuple < headtype_T_always_construct ,  statement > tailtype_always_construct1 ;
-tailtype_always_construct1
-T_always_construct ( 
- statement i1
-) { 
-  return std::make_tuple ( headtype_T_always_construct  i1 ) ; 
-} 
-typedef boost::variant < tailtype_always_construct1 > always_construct ;
-
-
-typedef std::tuple < headtype_T_initial_construct ,  statement > tailtype_initial_construct1 ;
-tailtype_initial_construct1
-T_initial_construct ( 
- statement i1
-) { 
-  return std::make_tuple ( headtype_T_initial_construct  i1 ) ; 
-} 
-typedef boost::variant < tailtype_initial_construct1 > initial_construct ;
-
-
-typedef std::tuple < headtype_T_net_assignment ,  net_lvalue , expression > tailtype_net_assignment1 ;
-tailtype_net_assignment1
-T_net_assignment ( 
- net_lvalue  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_net_assignment  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_net_assignment1 > net_assignment ;
-
-
-typedef std::tuple < headtype_T_continuous_assign ,  drive_strength , delay3 , std::list< net_assignment> > tailtype_continuous_assign1 ;
-tailtype_continuous_assign1
-T_continuous_assign ( 
- drive_strength  i1 ,
- delay3  i2 ,
- std::list< net_assignment> i3
-) { 
-  return std::make_tuple ( headtype_T_continuous_assign  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_continuous_assign1 > continuous_assign ;
-
-
-typedef std::tuple < headtype_T_name_of_udp_instance_NOSPEC > tailtype_name_of_udp_instance1 ;
-tailtype_name_of_udp_instance1
-T_name_of_udp_instance_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_name_of_udp_instance_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_name_of_udp_instance ,  identifier , range > tailtype_name_of_udp_instance2 ;
-tailtype_name_of_udp_instance2
-T_name_of_udp_instance ( 
- identifier  i1 ,
- range i2
-) { 
-  return std::make_tuple ( headtype_T_name_of_udp_instance  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_name_of_udp_instance1 , tailtype_name_of_udp_instance2 > name_of_udp_instance ;
-
-
-typedef std::tuple < headtype_T_udp_instance ,  name_of_udp_instance , net_lvalue , std::list< expression> > tailtype_udp_instance1 ;
-tailtype_udp_instance1
-T_udp_instance ( 
- name_of_udp_instance  i1 ,
- net_lvalue  i2 ,
- std::list< expression> i3
-) { 
-  return std::make_tuple ( headtype_T_udp_instance  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_udp_instance1 > udp_instance ;
-
-
-typedef std::tuple < headtype_T_udp_instantiation ,  identifier , drive_strength , delay2 , std::list< udp_instance> > tailtype_udp_instantiation1 ;
-tailtype_udp_instantiation1
-T_udp_instantiation ( 
- identifier  i1 ,
- drive_strength  i2 ,
- delay2  i3 ,
- std::list< udp_instance> i4
-) { 
-  return std::make_tuple ( headtype_T_udp_instantiation  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_udp_instantiation1 > udp_instantiation ;
-
-
-typedef std::tuple < headtype_T_edge_indicator_level ,  level_symbol , level_symbol > tailtype_edge_indicator1 ;
-tailtype_edge_indicator1
-T_edge_indicator_level ( 
- level_symbol  i1 ,
- level_symbol i2
-) { 
-  return std::make_tuple ( headtype_T_edge_indicator_level  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_edge_indicator_edge ,  edge_symbol > tailtype_edge_indicator2 ;
-tailtype_edge_indicator2
-T_edge_indicator_edge ( 
- edge_symbol i1
-) { 
-  return std::make_tuple ( headtype_T_edge_indicator_edge  i1 ) ; 
-} 
-typedef boost::variant < tailtype_edge_indicator1 , tailtype_edge_indicator2 > edge_indicator ;
-
-
-typedef std::tuple < headtype_T_edge_input_list , std::list< level_symbol> , edge_indicator , std::list< level_symbol> > tailtype_edge_input_list1 ;
-tailtype_edge_input_list1
-T_edge_input_list ( 
- std::list< level_symbol>  i1 ,
- edge_indicator  i2 ,
- std::list< level_symbol> i3
-) { 
-  return std::make_tuple ( headtype_T_edge_input_list  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_edge_input_list1 > edge_input_list ;
-
-
-typedef std::tuple < headtype_T_seq_input_list_level , std::list< level_symbol> > tailtype_seq_input_list1 ;
-tailtype_seq_input_list1
-T_seq_input_list_level ( 
- std::list< level_symbol> i1
-) { 
-  return std::make_tuple ( headtype_T_seq_input_list_level  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_seq_input_list_edge ,  edge_input_list > tailtype_seq_input_list2 ;
-tailtype_seq_input_list2
-T_seq_input_list_edge ( 
- edge_input_list i1
-) { 
-  return std::make_tuple ( headtype_T_seq_input_list_edge  i1 ) ; 
-} 
-typedef boost::variant < tailtype_seq_input_list1 , tailtype_seq_input_list2 > seq_input_list ;
-
-
-typedef std::tuple < headtype_T_sequential_entry ,  seq_input_list , current_state , next_state > tailtype_sequential_entry1 ;
-tailtype_sequential_entry1
-T_sequential_entry ( 
- seq_input_list  i1 ,
- current_state  i2 ,
- next_state i3
-) { 
-  return std::make_tuple ( headtype_T_sequential_entry  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_sequential_entry1 > sequential_entry ;
-
-
-typedef std::tuple < headtype_T_init_val_bin ,  (int , string) > tailtype_init_val1 ;
-tailtype_init_val1
-T_init_val_bin ( 
- (int  i1 ,
- string) i2
-) { 
-  return std::make_tuple ( headtype_T_init_val_bin  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_init_val_unsigned ,  int > tailtype_init_val2 ;
-tailtype_init_val2
-T_init_val_unsigned ( 
- int i1
-) { 
-  return std::make_tuple ( headtype_T_init_val_unsigned  i1 ) ; 
-} 
-typedef boost::variant < tailtype_init_val1 , tailtype_init_val2 > init_val ;
-
-
-typedef std::tuple < headtype_T_udp_initial_statement_NOSPEC > tailtype_udp_initial_statement1 ;
-tailtype_udp_initial_statement1
-T_udp_initial_statement_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_udp_initial_statement_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_udp_initial_statement ,  identifier , init_val > tailtype_udp_initial_statement2 ;
-tailtype_udp_initial_statement2
-T_udp_initial_statement ( 
- identifier  i1 ,
- init_val i2
-) { 
-  return std::make_tuple ( headtype_T_udp_initial_statement  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_udp_initial_statement1 , tailtype_udp_initial_statement2 > udp_initial_statement ;
-
-
-typedef std::tuple < headtype_T_sequential_body ,  udp_initial_statement , std::list< sequential_entry> > tailtype_sequential_body1 ;
-tailtype_sequential_body1
-T_sequential_body ( 
- udp_initial_statement  i1 ,
- std::list< sequential_entry> i2
-) { 
-  return std::make_tuple ( headtype_T_sequential_body  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_sequential_body1 > sequential_body ;
-
-
-typedef std::tuple < headtype_T_combinational_entry , std::list< level_symbol> , output_symbol > tailtype_combinational_entry1 ;
-tailtype_combinational_entry1
-T_combinational_entry ( 
- std::list< level_symbol>  i1 ,
- output_symbol i2
-) { 
-  return std::make_tuple ( headtype_T_combinational_entry  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_combinational_entry1 > combinational_entry ;
-
-
-typedef std::tuple < headtype_T_udp_body_comb , std::list< combinational_entry> > tailtype_udp_body1 ;
-tailtype_udp_body1
-T_udp_body_comb ( 
- std::list< combinational_entry> i1
-) { 
-  return std::make_tuple ( headtype_T_udp_body_comb  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_udp_body_seq ,  sequential_body > tailtype_udp_body2 ;
-tailtype_udp_body2
-T_udp_body_seq ( 
- sequential_body i1
-) { 
-  return std::make_tuple ( headtype_T_udp_body_seq  i1 ) ; 
-} 
-typedef boost::variant < tailtype_udp_body1 , tailtype_udp_body2 > udp_body ;
-
-
-typedef std::tuple < headtype_T_udp_reg_declaration , std::list< attribute_instance> , identifier > tailtype_udp_reg_declaration1 ;
-tailtype_udp_reg_declaration1
-T_udp_reg_declaration ( 
- std::list< attribute_instance>  i1 ,
- identifier i2
-) { 
-  return std::make_tuple ( headtype_T_udp_reg_declaration  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_udp_reg_declaration1 > udp_reg_declaration ;
-
-
-typedef std::tuple < headtype_T_udp_input_declaration , std::list< attribute_instance> , std::list< identifier> > tailtype_udp_input_declaration1 ;
-tailtype_udp_input_declaration1
-T_udp_input_declaration ( 
- std::list< attribute_instance>  i1 ,
- std::list< identifier> i2
-) { 
-  return std::make_tuple ( headtype_T_udp_input_declaration  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_udp_input_declaration1 > udp_input_declaration ;
-
-
-typedef std::tuple < headtype_T_udp_output_declaration_output , std::list< attribute_instance> , identifier > tailtype_udp_output_declaration1 ;
-tailtype_udp_output_declaration1
-T_udp_output_declaration_output ( 
- std::list< attribute_instance>  i1 ,
- identifier i2
-) { 
-  return std::make_tuple ( headtype_T_udp_output_declaration_output  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_udp_output_declaration_reg , std::list< attribute_instance> , identifier , expression > tailtype_udp_output_declaration2 ;
-tailtype_udp_output_declaration2
-T_udp_output_declaration_reg ( 
- std::list< attribute_instance>  i1 ,
- identifier  i2 ,
- expression i3
-) { 
-  return std::make_tuple ( headtype_T_udp_output_declaration_reg  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_udp_output_declaration1 , tailtype_udp_output_declaration2 > udp_output_declaration ;
-
-
-typedef std::tuple < headtype_T_udp_port_declaration_out ,  udp_output_declaration > tailtype_udp_port_declaration1 ;
-tailtype_udp_port_declaration1
-T_udp_port_declaration_out ( 
- udp_output_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_udp_port_declaration_out  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_udp_port_declaration_input ,  udp_input_declaration > tailtype_udp_port_declaration2 ;
-tailtype_udp_port_declaration2
-T_udp_port_declaration_input ( 
- udp_input_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_udp_port_declaration_input  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_udp_port_declaration_reg ,  udp_reg_declaration > tailtype_udp_port_declaration3 ;
-tailtype_udp_port_declaration3
-T_udp_port_declaration_reg ( 
- udp_reg_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_udp_port_declaration_reg  i1 ) ; 
-} 
-typedef boost::variant < tailtype_udp_port_declaration1 , tailtype_udp_port_declaration2 , tailtype_udp_port_declaration3 > udp_port_declaration ;
-
-
-typedef std::tuple < headtype_T_udp_declaration_port_list ,  udp_output_declaration , std::list< udp_input_declaration> > tailtype_udp_declaration_port_list1 ;
-tailtype_udp_declaration_port_list1
-T_udp_declaration_port_list ( 
- udp_output_declaration  i1 ,
- std::list< udp_input_declaration> i2
-) { 
-  return std::make_tuple ( headtype_T_udp_declaration_port_list  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_udp_declaration_port_list1 > udp_declaration_port_list ;
-
-
-typedef std::tuple < headtype_T_udp_port_list ,  identifier , std::list< identifier> > tailtype_udp_port_list1 ;
-tailtype_udp_port_list1
-T_udp_port_list ( 
- identifier  i1 ,
- std::list< identifier> i2
-) { 
-  return std::make_tuple ( headtype_T_udp_port_list  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_udp_port_list1 > udp_port_list ;
-
-
-typedef std::tuple < headtype_T_udp_declaration_1 , std::list< attribute_instance> , identifier , udp_port_list , std::list< udp_port_declaration> , udp_body > tailtype_udp_declaration1 ;
-tailtype_udp_declaration1
-T_udp_declaration_1 ( 
- std::list< attribute_instance>  i1 ,
- identifier  i2 ,
- udp_port_list  i3 ,
- std::list< udp_port_declaration>  i4 ,
- udp_body i5
-) { 
-  return std::make_tuple ( headtype_T_udp_declaration_1  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef std::tuple < headtype_T_udp_declaration_2 , std::list< attribute_instance> , identifier , udp_declaration_port_list , udp_body > tailtype_udp_declaration2 ;
-tailtype_udp_declaration2
-T_udp_declaration_2 ( 
- std::list< attribute_instance>  i1 ,
- identifier  i2 ,
- udp_declaration_port_list  i3 ,
- udp_body i4
-) { 
-  return std::make_tuple ( headtype_T_udp_declaration_2  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_udp_declaration1 , tailtype_udp_declaration2 > udp_declaration ;
-
-
-typedef std::tuple < headtype_T_generate_block_NOSPEC > tailtype_generate_block1 ;
-tailtype_generate_block1
-T_generate_block_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_generate_block_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_generate_block_mgi ,  module_item > tailtype_generate_block2 ;
-tailtype_generate_block2
-T_generate_block_mgi ( 
- module_item i1
-) { 
-  return std::make_tuple ( headtype_T_generate_block_mgi  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_generate_block_begin ,  identifier , std::list< module_item> > tailtype_generate_block3 ;
-tailtype_generate_block3
-T_generate_block_begin ( 
- identifier  i1 ,
- std::list< module_item> i2
-) { 
-  return std::make_tuple ( headtype_T_generate_block_begin  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_generate_block1 , tailtype_generate_block2 , tailtype_generate_block3 > generate_block ;
-
-
-typedef std::tuple < headtype_T_if_generate_construct ,  expression , generate_block , generate_block > tailtype_if_generate_construct1 ;
-tailtype_if_generate_construct1
-T_if_generate_construct ( 
- expression  i1 ,
- generate_block  i2 ,
- generate_block i3
-) { 
-  return std::make_tuple ( headtype_T_if_generate_construct  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_if_generate_construct1 > if_generate_construct ;
-
-
-typedef std::tuple < headtype_T_case_generate_item_case , std::list< expression> , generate_block > tailtype_case_generate_item1 ;
-tailtype_case_generate_item1
-T_case_generate_item_case ( 
- std::list< expression>  i1 ,
- generate_block i2
-) { 
-  return std::make_tuple ( headtype_T_case_generate_item_case  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_case_generate_item_default ,  generate_block > tailtype_case_generate_item2 ;
-tailtype_case_generate_item2
-T_case_generate_item_default ( 
- generate_block i1
-) { 
-  return std::make_tuple ( headtype_T_case_generate_item_default  i1 ) ; 
-} 
-typedef boost::variant < tailtype_case_generate_item1 , tailtype_case_generate_item2 > case_generate_item ;
-
-
-typedef std::tuple < headtype_T_case_generate_construct ,  expression , std::list< case_generate_item> > tailtype_case_generate_construct1 ;
-tailtype_case_generate_construct1
-T_case_generate_construct ( 
- expression  i1 ,
- std::list< case_generate_item> i2
-) { 
-  return std::make_tuple ( headtype_T_case_generate_construct  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_case_generate_construct1 > case_generate_construct ;
-
-
-typedef std::tuple < headtype_T_conditional_generate_construct_if ,  if_generate_construct > tailtype_conditional_generate_construct1 ;
-tailtype_conditional_generate_construct1
-T_conditional_generate_construct_if ( 
- if_generate_construct i1
-) { 
-  return std::make_tuple ( headtype_T_conditional_generate_construct_if  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_conditional_generate_construct_case ,  case_generate_construct > tailtype_conditional_generate_construct2 ;
-tailtype_conditional_generate_construct2
-T_conditional_generate_construct_case ( 
- case_generate_construct i1
-) { 
-  return std::make_tuple ( headtype_T_conditional_generate_construct_case  i1 ) ; 
-} 
-typedef boost::variant < tailtype_conditional_generate_construct1 , tailtype_conditional_generate_construct2 > conditional_generate_construct ;
-
-
-typedef std::tuple < headtype_T_genvar_iteration ,  identifier , expression > tailtype_genvar_iteration1 ;
-tailtype_genvar_iteration1
-T_genvar_iteration ( 
- identifier  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_genvar_iteration  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_genvar_iteration1 > genvar_iteration ;
-
-
-typedef std::tuple < headtype_T_genvar_initialization ,  identifier , expression > tailtype_genvar_initialization1 ;
-tailtype_genvar_initialization1
-T_genvar_initialization ( 
- identifier  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_genvar_initialization  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_genvar_initialization1 > genvar_initialization ;
-
-
-typedef std::tuple < headtype_T_loop_generate_construct ,  genvar_initialization , expression , genvar_iteration , generate_block > tailtype_loop_generate_construct1 ;
-tailtype_loop_generate_construct1
-T_loop_generate_construct ( 
- genvar_initialization  i1 ,
- expression  i2 ,
- genvar_iteration  i3 ,
- generate_block i4
-) { 
-  return std::make_tuple ( headtype_T_loop_generate_construct  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_loop_generate_construct1 > loop_generate_construct ;
-
-
-typedef std::tuple < headtype_T_genvar_declaration , std::list< identifier> > tailtype_genvar_declaration1 ;
-tailtype_genvar_declaration1
-T_genvar_declaration ( 
- std::list< identifier> i1
-) { 
-  return std::make_tuple ( headtype_T_genvar_declaration  i1 ) ; 
-} 
-typedef boost::variant < tailtype_genvar_declaration1 > genvar_declaration ;
-
-
-typedef std::tuple < headtype_T_generate_region , std::list< module_item> > tailtype_generate_region1 ;
-tailtype_generate_region1
-T_generate_region ( 
- std::list< module_item> i1
-) { 
-  return std::make_tuple ( headtype_T_generate_region  i1 ) ; 
-} 
-typedef boost::variant < tailtype_generate_region1 > generate_region ;
-
-
-typedef std::tuple < headtype_T_named_port_connection , std::list< attribute_instance> , identifier , expression > tailtype_named_port_connection1 ;
-tailtype_named_port_connection1
-T_named_port_connection ( 
- std::list< attribute_instance>  i1 ,
- identifier  i2 ,
- expression i3
-) { 
-  return std::make_tuple ( headtype_T_named_port_connection  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_named_port_connection1 > named_port_connection ;
-
-
-typedef std::tuple < headtype_T_ordered_port_connection , std::list< attribute_instance> , expression > tailtype_ordered_port_connection1 ;
-tailtype_ordered_port_connection1
-T_ordered_port_connection ( 
- std::list< attribute_instance>  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_ordered_port_connection  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_ordered_port_connection1 > ordered_port_connection ;
-
-
-typedef std::tuple < headtype_T_list_of_port_connections_ordered , std::list< ordered_port_connection> > tailtype_list_of_port_connections1 ;
-tailtype_list_of_port_connections1
-T_list_of_port_connections_ordered ( 
- std::list< ordered_port_connection> i1
-) { 
-  return std::make_tuple ( headtype_T_list_of_port_connections_ordered  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_list_of_port_connections_named , std::list< named_port_connection> > tailtype_list_of_port_connections2 ;
-tailtype_list_of_port_connections2
-T_list_of_port_connections_named ( 
- std::list< named_port_connection> i1
-) { 
-  return std::make_tuple ( headtype_T_list_of_port_connections_named  i1 ) ; 
-} 
-typedef boost::variant < tailtype_list_of_port_connections1 , tailtype_list_of_port_connections2 > list_of_port_connections ;
-
-
-typedef std::tuple < headtype_T_named_parameter_assignment ,  identifier , mintypmax_expression > tailtype_named_parameter_assignment1 ;
-tailtype_named_parameter_assignment1
-T_named_parameter_assignment ( 
- identifier  i1 ,
- mintypmax_expression i2
-) { 
-  return std::make_tuple ( headtype_T_named_parameter_assignment  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_named_parameter_assignment1 > named_parameter_assignment ;
-
-
-typedef std::tuple < headtype_T_parameter_value_assignment_NOSPEC > tailtype_parameter_value_assignment1 ;
-tailtype_parameter_value_assignment1
-T_parameter_value_assignment_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_parameter_value_assignment_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_parameter_value_assignment_order , std::list< expression> > tailtype_parameter_value_assignment2 ;
-tailtype_parameter_value_assignment2
-T_parameter_value_assignment_order ( 
- std::list< expression> i1
-) { 
-  return std::make_tuple ( headtype_T_parameter_value_assignment_order  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_parameter_value_assignment_named , std::list< named_parameter_assignment> > tailtype_parameter_value_assignment3 ;
-tailtype_parameter_value_assignment3
-T_parameter_value_assignment_named ( 
- std::list< named_parameter_assignment> i1
-) { 
-  return std::make_tuple ( headtype_T_parameter_value_assignment_named  i1 ) ; 
-} 
-typedef boost::variant < tailtype_parameter_value_assignment1 , tailtype_parameter_value_assignment2 , tailtype_parameter_value_assignment3 > parameter_value_assignment ;
-
-
-typedef std::tuple < headtype_T_name_of_module_instance ,  identifier , range > tailtype_name_of_module_instance1 ;
-tailtype_name_of_module_instance1
-T_name_of_module_instance ( 
- identifier  i1 ,
- range i2
-) { 
-  return std::make_tuple ( headtype_T_name_of_module_instance  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_name_of_module_instance1 > name_of_module_instance ;
-
-
-typedef std::tuple < headtype_T_module_instance ,  name_of_module_instance , list_of_port_connections > tailtype_module_instance1 ;
-tailtype_module_instance1
-T_module_instance ( 
- name_of_module_instance  i1 ,
- list_of_port_connections i2
-) { 
-  return std::make_tuple ( headtype_T_module_instance  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_module_instance1 > module_instance ;
-
-
-typedef std::tuple < headtype_T_module_instantiation ,  identifier , parameter_value_assignment , std::list< module_instance> > tailtype_module_instantiation1 ;
-tailtype_module_instantiation1
-T_module_instantiation ( 
- identifier  i1 ,
- parameter_value_assignment  i2 ,
- std::list< module_instance> i3
-) { 
-  return std::make_tuple ( headtype_T_module_instantiation  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_module_instantiation1 > module_instantiation ;
-
-
-typedef std::tuple < headtype_T_pass_switchtype_TRAN > tailtype_pass_switchtype1 ;
-tailtype_pass_switchtype1
-T_pass_switchtype_TRAN (  ) { 
- return std::make_tuple ( headtype_T_pass_switchtype_TRAN  ) ; 
-} 
-typedef std::tuple < headtype_T_pass_switchtype_RTRAN > tailtype_pass_switchtype2 ;
-tailtype_pass_switchtype2
-T_pass_switchtype_RTRAN (  ) { 
- return std::make_tuple ( headtype_T_pass_switchtype_RTRAN  ) ; 
-} 
-typedef boost::variant < tailtype_pass_switchtype1 , tailtype_pass_switchtype2 > pass_switchtype ;
-
-
-typedef std::tuple < headtype_T_pass_en_switchtype_TRANIF0 > tailtype_pass_en_switchtype1 ;
-tailtype_pass_en_switchtype1
-T_pass_en_switchtype_TRANIF0 (  ) { 
- return std::make_tuple ( headtype_T_pass_en_switchtype_TRANIF0  ) ; 
-} 
-typedef std::tuple < headtype_T_pass_en_switchtype_TRANIF1 > tailtype_pass_en_switchtype2 ;
-tailtype_pass_en_switchtype2
-T_pass_en_switchtype_TRANIF1 (  ) { 
- return std::make_tuple ( headtype_T_pass_en_switchtype_TRANIF1  ) ; 
-} 
-typedef std::tuple < headtype_T_pass_en_switchtype_RTRANIF1 > tailtype_pass_en_switchtype3 ;
-tailtype_pass_en_switchtype3
-T_pass_en_switchtype_RTRANIF1 (  ) { 
- return std::make_tuple ( headtype_T_pass_en_switchtype_RTRANIF1  ) ; 
-} 
-typedef std::tuple < headtype_T_pass_en_switchtype_RTRANIF0 > tailtype_pass_en_switchtype4 ;
-tailtype_pass_en_switchtype4
-T_pass_en_switchtype_RTRANIF0 (  ) { 
- return std::make_tuple ( headtype_T_pass_en_switchtype_RTRANIF0  ) ; 
-} 
-typedef boost::variant < tailtype_pass_en_switchtype1 , tailtype_pass_en_switchtype2 , tailtype_pass_en_switchtype3 , tailtype_pass_en_switchtype4 > pass_en_switchtype ;
-
-
-typedef std::tuple < headtype_T_n_output_gatetype_BUF > tailtype_n_output_gatetype1 ;
-tailtype_n_output_gatetype1
-T_n_output_gatetype_BUF (  ) { 
- return std::make_tuple ( headtype_T_n_output_gatetype_BUF  ) ; 
-} 
-typedef std::tuple < headtype_T_n_output_gatetype_NOT > tailtype_n_output_gatetype2 ;
-tailtype_n_output_gatetype2
-T_n_output_gatetype_NOT (  ) { 
- return std::make_tuple ( headtype_T_n_output_gatetype_NOT  ) ; 
-} 
-typedef boost::variant < tailtype_n_output_gatetype1 , tailtype_n_output_gatetype2 > n_output_gatetype ;
-
-
-typedef std::tuple < headtype_T_n_input_gatetype_AND > tailtype_n_input_gatetype1 ;
-tailtype_n_input_gatetype1
-T_n_input_gatetype_AND (  ) { 
- return std::make_tuple ( headtype_T_n_input_gatetype_AND  ) ; 
-} 
-typedef std::tuple < headtype_T_n_input_gatetype_NAND > tailtype_n_input_gatetype2 ;
-tailtype_n_input_gatetype2
-T_n_input_gatetype_NAND (  ) { 
- return std::make_tuple ( headtype_T_n_input_gatetype_NAND  ) ; 
-} 
-typedef std::tuple < headtype_T_n_input_gatetype_OR > tailtype_n_input_gatetype3 ;
-tailtype_n_input_gatetype3
-T_n_input_gatetype_OR (  ) { 
- return std::make_tuple ( headtype_T_n_input_gatetype_OR  ) ; 
-} 
-typedef std::tuple < headtype_T_n_input_gatetype_NOR > tailtype_n_input_gatetype4 ;
-tailtype_n_input_gatetype4
-T_n_input_gatetype_NOR (  ) { 
- return std::make_tuple ( headtype_T_n_input_gatetype_NOR  ) ; 
-} 
-typedef std::tuple < headtype_T_n_input_gatetype_XOR > tailtype_n_input_gatetype5 ;
-tailtype_n_input_gatetype5
-T_n_input_gatetype_XOR (  ) { 
- return std::make_tuple ( headtype_T_n_input_gatetype_XOR  ) ; 
-} 
-typedef std::tuple < headtype_T_n_input_gatetype_XNOR > tailtype_n_input_gatetype6 ;
-tailtype_n_input_gatetype6
-T_n_input_gatetype_XNOR (  ) { 
- return std::make_tuple ( headtype_T_n_input_gatetype_XNOR  ) ; 
-} 
-typedef boost::variant < tailtype_n_input_gatetype1 , tailtype_n_input_gatetype2 , tailtype_n_input_gatetype3 , tailtype_n_input_gatetype4 , tailtype_n_input_gatetype5 , tailtype_n_input_gatetype6 > n_input_gatetype ;
-
-
-typedef std::tuple < headtype_T_mos_switchtype_NMOS > tailtype_mos_switchtype1 ;
-tailtype_mos_switchtype1
-T_mos_switchtype_NMOS (  ) { 
- return std::make_tuple ( headtype_T_mos_switchtype_NMOS  ) ; 
-} 
-typedef std::tuple < headtype_T_mos_switchtype_PMOS > tailtype_mos_switchtype2 ;
-tailtype_mos_switchtype2
-T_mos_switchtype_PMOS (  ) { 
- return std::make_tuple ( headtype_T_mos_switchtype_PMOS  ) ; 
-} 
-typedef std::tuple < headtype_T_mos_switchtype_RNMOS > tailtype_mos_switchtype3 ;
-tailtype_mos_switchtype3
-T_mos_switchtype_RNMOS (  ) { 
- return std::make_tuple ( headtype_T_mos_switchtype_RNMOS  ) ; 
-} 
-typedef std::tuple < headtype_T_mos_switchtype_RPMOS > tailtype_mos_switchtype4 ;
-tailtype_mos_switchtype4
-T_mos_switchtype_RPMOS (  ) { 
- return std::make_tuple ( headtype_T_mos_switchtype_RPMOS  ) ; 
-} 
-typedef boost::variant < tailtype_mos_switchtype1 , tailtype_mos_switchtype2 , tailtype_mos_switchtype3 , tailtype_mos_switchtype4 > mos_switchtype ;
-
-
-typedef std::tuple < headtype_T_enable_gatetype__BUFIF0 > tailtype_enable_gatetype1 ;
-tailtype_enable_gatetype1
-T_enable_gatetype__BUFIF0 (  ) { 
- return std::make_tuple ( headtype_T_enable_gatetype__BUFIF0  ) ; 
-} 
-typedef std::tuple < headtype_T_enable_gatetype__BUFIF1 > tailtype_enable_gatetype2 ;
-tailtype_enable_gatetype2
-T_enable_gatetype__BUFIF1 (  ) { 
- return std::make_tuple ( headtype_T_enable_gatetype__BUFIF1  ) ; 
-} 
-typedef std::tuple < headtype_T_enable_gatetype__NOTIF0 > tailtype_enable_gatetype3 ;
-tailtype_enable_gatetype3
-T_enable_gatetype__NOTIF0 (  ) { 
- return std::make_tuple ( headtype_T_enable_gatetype__NOTIF0  ) ; 
-} 
-typedef std::tuple < headtype_T_enable_gatetype__NOTIF1 > tailtype_enable_gatetype4 ;
-tailtype_enable_gatetype4
-T_enable_gatetype__NOTIF1 (  ) { 
- return std::make_tuple ( headtype_T_enable_gatetype__NOTIF1  ) ; 
-} 
-typedef boost::variant < tailtype_enable_gatetype1 , tailtype_enable_gatetype2 , tailtype_enable_gatetype3 , tailtype_enable_gatetype4 > enable_gatetype ;
-
-
-typedef std::tuple < headtype_T_cmos_switchtype_CMOS > tailtype_cmos_switchtype1 ;
-tailtype_cmos_switchtype1
-T_cmos_switchtype_CMOS (  ) { 
- return std::make_tuple ( headtype_T_cmos_switchtype_CMOS  ) ; 
-} 
-typedef std::tuple < headtype_T_cmos_switchtype_RCMOS > tailtype_cmos_switchtype2 ;
-tailtype_cmos_switchtype2
-T_cmos_switchtype_RCMOS (  ) { 
- return std::make_tuple ( headtype_T_cmos_switchtype_RCMOS  ) ; 
-} 
-typedef boost::variant < tailtype_cmos_switchtype1 , tailtype_cmos_switchtype2 > cmos_switchtype ;
-
-
-typedef std::tuple < headtype_T_pullup_strength_NOSPEC > tailtype_pullup_strength1 ;
-tailtype_pullup_strength1
-T_pullup_strength_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_pullup_strength_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_pullup_strength01 ,  strength , strength > tailtype_pullup_strength2 ;
-tailtype_pullup_strength2
-T_pullup_strength01 ( 
- strength  i1 ,
- strength i2
-) { 
-  return std::make_tuple ( headtype_T_pullup_strength01  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_pullup_strength10 ,  strength , strength > tailtype_pullup_strength3 ;
-tailtype_pullup_strength3
-T_pullup_strength10 ( 
- strength  i1 ,
- strength i2
-) { 
-  return std::make_tuple ( headtype_T_pullup_strength10  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_pullup_strength1 ,  strength > tailtype_pullup_strength4 ;
-tailtype_pullup_strength4
-T_pullup_strength1 ( 
- strength i1
-) { 
-  return std::make_tuple ( headtype_T_pullup_strength1  i1 ) ; 
-} 
-typedef boost::variant < tailtype_pullup_strength1 , tailtype_pullup_strength2 , tailtype_pullup_strength3 , tailtype_pullup_strength4 > pullup_strength ;
-
-
-typedef std::tuple < headtype_T_pulldown_strength_NOSPEC > tailtype_pulldown_strength1 ;
-tailtype_pulldown_strength1
-T_pulldown_strength_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_pulldown_strength_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_pulldown_strength01 ,  strength , strength > tailtype_pulldown_strength2 ;
-tailtype_pulldown_strength2
-T_pulldown_strength01 ( 
- strength  i1 ,
- strength i2
-) { 
-  return std::make_tuple ( headtype_T_pulldown_strength01  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_pulldown_strength10 ,  strength , strength > tailtype_pulldown_strength3 ;
-tailtype_pulldown_strength3
-T_pulldown_strength10 ( 
- strength  i1 ,
- strength i2
-) { 
-  return std::make_tuple ( headtype_T_pulldown_strength10  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_pulldown_strength0 ,  strength > tailtype_pulldown_strength4 ;
-tailtype_pulldown_strength4
-T_pulldown_strength0 ( 
- strength i1
-) { 
-  return std::make_tuple ( headtype_T_pulldown_strength0  i1 ) ; 
-} 
-typedef boost::variant < tailtype_pulldown_strength1 , tailtype_pulldown_strength2 , tailtype_pulldown_strength3 , tailtype_pulldown_strength4 > pulldown_strength ;
-
-
-typedef std::tuple < headtype_T_name_of_gate_instance_NOSPEC > tailtype_name_of_gate_instance1 ;
-tailtype_name_of_gate_instance1
-T_name_of_gate_instance_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_name_of_gate_instance_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_name_of_gate_instance ,  identifier , range > tailtype_name_of_gate_instance2 ;
-tailtype_name_of_gate_instance2
-T_name_of_gate_instance ( 
- identifier  i1 ,
- range i2
-) { 
-  return std::make_tuple ( headtype_T_name_of_gate_instance  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_name_of_gate_instance1 , tailtype_name_of_gate_instance2 > name_of_gate_instance ;
-
-
-typedef std::tuple < headtype_T_pull_gate_instance ,  name_of_gate_instance , net_lvalue > tailtype_pull_gate_instance1 ;
-tailtype_pull_gate_instance1
-T_pull_gate_instance ( 
- name_of_gate_instance  i1 ,
- net_lvalue i2
-) { 
-  return std::make_tuple ( headtype_T_pull_gate_instance  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_pull_gate_instance1 > pull_gate_instance ;
-
-
-typedef std::tuple < headtype_T_pass_enable_switch_instance ,  name_of_gate_instance , net_lvalue , net_lvalue , expression > tailtype_pass_enable_switch_instance1 ;
-tailtype_pass_enable_switch_instance1
-T_pass_enable_switch_instance ( 
- name_of_gate_instance  i1 ,
- net_lvalue  i2 ,
- net_lvalue  i3 ,
- expression i4
-) { 
-  return std::make_tuple ( headtype_T_pass_enable_switch_instance  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_pass_enable_switch_instance1 > pass_enable_switch_instance ;
-
-
-typedef std::tuple < headtype_T_pass_switch_instance ,  name_of_gate_instance , net_lvalue , net_lvalue > tailtype_pass_switch_instance1 ;
-tailtype_pass_switch_instance1
-T_pass_switch_instance ( 
- name_of_gate_instance  i1 ,
- net_lvalue  i2 ,
- net_lvalue i3
-) { 
-  return std::make_tuple ( headtype_T_pass_switch_instance  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_pass_switch_instance1 > pass_switch_instance ;
-
-
-typedef std::tuple < headtype_T_n_output_gate_instance ,  name_of_gate_instance , net_lvalue , std::list< net_lvalue> , expression > tailtype_n_output_gate_instance1 ;
-tailtype_n_output_gate_instance1
-T_n_output_gate_instance ( 
- name_of_gate_instance  i1 ,
- net_lvalue  i2 ,
- std::list< net_lvalue>  i3 ,
- expression i4
-) { 
-  return std::make_tuple ( headtype_T_n_output_gate_instance  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_n_output_gate_instance1 > n_output_gate_instance ;
-
-
-typedef std::tuple < headtype_T_n_input_gate_instance ,  name_of_gate_instance , net_lvalue , expression , std::list< expression> > tailtype_n_input_gate_instance1 ;
-tailtype_n_input_gate_instance1
-T_n_input_gate_instance ( 
- name_of_gate_instance  i1 ,
- net_lvalue  i2 ,
- expression  i3 ,
- std::list< expression> i4
-) { 
-  return std::make_tuple ( headtype_T_n_input_gate_instance  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_n_input_gate_instance1 > n_input_gate_instance ;
-
-
-typedef std::tuple < headtype_T_mos_switch_instance ,  name_of_gate_instance , net_lvalue , expression , expression > tailtype_mos_switch_instance1 ;
-tailtype_mos_switch_instance1
-T_mos_switch_instance ( 
- name_of_gate_instance  i1 ,
- net_lvalue  i2 ,
- expression  i3 ,
- expression i4
-) { 
-  return std::make_tuple ( headtype_T_mos_switch_instance  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_mos_switch_instance1 > mos_switch_instance ;
-
-
-typedef std::tuple < headtype_T_enable_gate_instance ,  name_of_gate_instance , net_lvalue , expression , expression > tailtype_enable_gate_instance1 ;
-tailtype_enable_gate_instance1
-T_enable_gate_instance ( 
- name_of_gate_instance  i1 ,
- net_lvalue  i2 ,
- expression  i3 ,
- expression i4
-) { 
-  return std::make_tuple ( headtype_T_enable_gate_instance  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_enable_gate_instance1 > enable_gate_instance ;
-
-
-typedef std::tuple < headtype_T_cmos_switch_instance ,  name_of_gate_instance , net_lvalue , expression , expression , expression > tailtype_cmos_switch_instance1 ;
-tailtype_cmos_switch_instance1
-T_cmos_switch_instance ( 
- name_of_gate_instance  i1 ,
- net_lvalue  i2 ,
- expression  i3 ,
- expression  i4 ,
- expression i5
-) { 
-  return std::make_tuple ( headtype_T_cmos_switch_instance  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef boost::variant < tailtype_cmos_switch_instance1 > cmos_switch_instance ;
-
-
-typedef std::tuple < headtype_T_gate_instantiation_cmos ,  cmos_switchtype , delay3 , std::list< cmos_switch_instance> > tailtype_gate_instantiation1 ;
-tailtype_gate_instantiation1
-T_gate_instantiation_cmos ( 
- cmos_switchtype  i1 ,
- delay3  i2 ,
- std::list< cmos_switch_instance> i3
-) { 
-  return std::make_tuple ( headtype_T_gate_instantiation_cmos  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_T_gate_instantiation_enable ,  enable_gatetype , drive_strength , delay3 , std::list< enable_gate_instance> > tailtype_gate_instantiation2 ;
-tailtype_gate_instantiation2
-T_gate_instantiation_enable ( 
- enable_gatetype  i1 ,
- drive_strength  i2 ,
- delay3  i3 ,
- std::list< enable_gate_instance> i4
-) { 
-  return std::make_tuple ( headtype_T_gate_instantiation_enable  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_gate_instantiation_mos ,  mos_switchtype , delay3 , std::list< mos_switch_instance> > tailtype_gate_instantiation3 ;
-tailtype_gate_instantiation3
-T_gate_instantiation_mos ( 
- mos_switchtype  i1 ,
- delay3  i2 ,
- std::list< mos_switch_instance> i3
-) { 
-  return std::make_tuple ( headtype_T_gate_instantiation_mos  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_T_gate_instantiation_input ,  n_input_gatetype , drive_strength , delay2 , std::list< n_input_gate_instance> > tailtype_gate_instantiation4 ;
-tailtype_gate_instantiation4
-T_gate_instantiation_input ( 
- n_input_gatetype  i1 ,
- drive_strength  i2 ,
- delay2  i3 ,
- std::list< n_input_gate_instance> i4
-) { 
-  return std::make_tuple ( headtype_T_gate_instantiation_input  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_gate_instantiation_output ,  n_output_gatetype , drive_strength , delay2 , std::list< n_output_gate_instance> > tailtype_gate_instantiation5 ;
-tailtype_gate_instantiation5
-T_gate_instantiation_output ( 
- n_output_gatetype  i1 ,
- drive_strength  i2 ,
- delay2  i3 ,
- std::list< n_output_gate_instance> i4
-) { 
-  return std::make_tuple ( headtype_T_gate_instantiation_output  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_gate_instantiation_pass_en ,  pass_en_switchtype , delay2 , std::list< pass_enable_switch_instance> > tailtype_gate_instantiation6 ;
-tailtype_gate_instantiation6
-T_gate_instantiation_pass_en ( 
- pass_en_switchtype  i1 ,
- delay2  i2 ,
- std::list< pass_enable_switch_instance> i3
-) { 
-  return std::make_tuple ( headtype_T_gate_instantiation_pass_en  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_T_gate_instantiation_pass ,  pass_switchtype , std::list< pass_switch_instance> > tailtype_gate_instantiation7 ;
-tailtype_gate_instantiation7
-T_gate_instantiation_pass ( 
- pass_switchtype  i1 ,
- std::list< pass_switch_instance> i2
-) { 
-  return std::make_tuple ( headtype_T_gate_instantiation_pass  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_gate_instantiation_pulldown ,  pulldown_strength , std::list< pull_gate_instance> > tailtype_gate_instantiation8 ;
-tailtype_gate_instantiation8
-T_gate_instantiation_pulldown ( 
- pulldown_strength  i1 ,
- std::list< pull_gate_instance> i2
-) { 
-  return std::make_tuple ( headtype_T_gate_instantiation_pulldown  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_gate_instantiation_pullup ,  pullup_strength , std::list< pull_gate_instance> > tailtype_gate_instantiation9 ;
-tailtype_gate_instantiation9
-T_gate_instantiation_pullup ( 
- pullup_strength  i1 ,
- std::list< pull_gate_instance> i2
-) { 
-  return std::make_tuple ( headtype_T_gate_instantiation_pullup  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_gate_instantiation1 , tailtype_gate_instantiation2 , tailtype_gate_instantiation3 , tailtype_gate_instantiation4 , tailtype_gate_instantiation5 , tailtype_gate_instantiation6 , tailtype_gate_instantiation7 , tailtype_gate_instantiation8 , tailtype_gate_instantiation9 > gate_instantiation ;
-
-
-typedef std::tuple < headtype_T_block_real_type ,  identifier , std::list< dimension> > tailtype_block_real_type1 ;
-tailtype_block_real_type1
-T_block_real_type ( 
- identifier  i1 ,
- std::list< dimension> i2
-) { 
-  return std::make_tuple ( headtype_T_block_real_type  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_block_real_type1 > block_real_type ;
-
-
-typedef std::tuple < headtype_T_block_variable_type ,  identifier , std::list< dimension> > tailtype_block_variable_type1 ;
-tailtype_block_variable_type1
-T_block_variable_type ( 
- identifier  i1 ,
- std::list< dimension> i2
-) { 
-  return std::make_tuple ( headtype_T_block_variable_type  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_block_variable_type1 > block_variable_type ;
-
-
-typedef std::tuple < headtype_T_block_item_declaration_reg , std::list< attribute_instance> , signedReplaced , range , std::list< block_variable_type> > tailtype_block_item_declaration1 ;
-tailtype_block_item_declaration1
-T_block_item_declaration_reg ( 
- std::list< attribute_instance>  i1 ,
- signedReplaced  i2 ,
- range  i3 ,
- std::list< block_variable_type> i4
-) { 
-  return std::make_tuple ( headtype_T_block_item_declaration_reg  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_block_item_declaration_integer , std::list< attribute_instance> , std::list< block_variable_type> > tailtype_block_item_declaration2 ;
-tailtype_block_item_declaration2
-T_block_item_declaration_integer ( 
- std::list< attribute_instance>  i1 ,
- std::list< block_variable_type> i2
-) { 
-  return std::make_tuple ( headtype_T_block_item_declaration_integer  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_block_item_declaration_time , std::list< attribute_instance> , std::list< block_variable_type> > tailtype_block_item_declaration3 ;
-tailtype_block_item_declaration3
-T_block_item_declaration_time ( 
- std::list< attribute_instance>  i1 ,
- std::list< block_variable_type> i2
-) { 
-  return std::make_tuple ( headtype_T_block_item_declaration_time  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_block_item_declaration_real , std::list< attribute_instance> , std::list< block_real_type> > tailtype_block_item_declaration4 ;
-tailtype_block_item_declaration4
-T_block_item_declaration_real ( 
- std::list< attribute_instance>  i1 ,
- std::list< block_real_type> i2
-) { 
-  return std::make_tuple ( headtype_T_block_item_declaration_real  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_block_item_declaration_realtime , std::list< attribute_instance> , std::list< block_real_type> > tailtype_block_item_declaration5 ;
-tailtype_block_item_declaration5
-T_block_item_declaration_realtime ( 
- std::list< attribute_instance>  i1 ,
- std::list< block_real_type> i2
-) { 
-  return std::make_tuple ( headtype_T_block_item_declaration_realtime  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_block_item_declaration_event , std::list< attribute_instance> , event_declaration > tailtype_block_item_declaration6 ;
-tailtype_block_item_declaration6
-T_block_item_declaration_event ( 
- std::list< attribute_instance>  i1 ,
- event_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_block_item_declaration_event  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_block_item_declaration_local_param , std::list< attribute_instance> , local_parameter_declaration > tailtype_block_item_declaration7 ;
-tailtype_block_item_declaration7
-T_block_item_declaration_local_param ( 
- std::list< attribute_instance>  i1 ,
- local_parameter_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_block_item_declaration_local_param  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_block_item_declaration_param , std::list< attribute_instance> , parameter_declaration > tailtype_block_item_declaration8 ;
-tailtype_block_item_declaration8
-T_block_item_declaration_param ( 
- std::list< attribute_instance>  i1 ,
- parameter_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_block_item_declaration_param  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_block_item_declaration1 , tailtype_block_item_declaration2 , tailtype_block_item_declaration3 , tailtype_block_item_declaration4 , tailtype_block_item_declaration5 , tailtype_block_item_declaration6 , tailtype_block_item_declaration7 , tailtype_block_item_declaration8 > block_item_declaration ;
-
-
-typedef std::tuple < headtype_T_task_port_type_integer > tailtype_task_port_type1 ;
-tailtype_task_port_type1
-T_task_port_type_integer (  ) { 
- return std::make_tuple ( headtype_T_task_port_type_integer  ) ; 
-} 
-typedef std::tuple < headtype_T_task_port_type_real > tailtype_task_port_type2 ;
-tailtype_task_port_type2
-T_task_port_type_real (  ) { 
- return std::make_tuple ( headtype_T_task_port_type_real  ) ; 
-} 
-typedef std::tuple < headtype_T_task_port_type_realtime > tailtype_task_port_type3 ;
-tailtype_task_port_type3
-T_task_port_type_realtime (  ) { 
- return std::make_tuple ( headtype_T_task_port_type_realtime  ) ; 
-} 
-typedef std::tuple < headtype_T_task_port_type_time > tailtype_task_port_type4 ;
-tailtype_task_port_type4
-T_task_port_type_time (  ) { 
- return std::make_tuple ( headtype_T_task_port_type_time  ) ; 
-} 
-typedef boost::variant < tailtype_task_port_type1 , tailtype_task_port_type2 , tailtype_task_port_type3 , tailtype_task_port_type4 > task_port_type ;
-
-
-typedef std::tuple < headtype_T_tf_inout_declaration_reg ,  reg , signedReplaced , range , std::list< identifier> > tailtype_tf_inout_declaration1 ;
-tailtype_tf_inout_declaration1
-T_tf_inout_declaration_reg ( 
- reg  i1 ,
- signedReplaced  i2 ,
- range  i3 ,
- std::list< identifier> i4
-) { 
-  return std::make_tuple ( headtype_T_tf_inout_declaration_reg  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_tf_inout_declaration_type ,  task_port_type , std::list< identifier> > tailtype_tf_inout_declaration2 ;
-tailtype_tf_inout_declaration2
-T_tf_inout_declaration_type ( 
- task_port_type  i1 ,
- std::list< identifier> i2
-) { 
-  return std::make_tuple ( headtype_T_tf_inout_declaration_type  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_tf_inout_declaration1 , tailtype_tf_inout_declaration2 > tf_inout_declaration ;
-
-
-typedef std::tuple < headtype_T_tf_output_declaration_reg ,  reg , signedReplaced , range , std::list< identifier> > tailtype_tf_output_declaration1 ;
-tailtype_tf_output_declaration1
-T_tf_output_declaration_reg ( 
- reg  i1 ,
- signedReplaced  i2 ,
- range  i3 ,
- std::list< identifier> i4
-) { 
-  return std::make_tuple ( headtype_T_tf_output_declaration_reg  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_tf_output_declaration_type ,  task_port_type , std::list< identifier> > tailtype_tf_output_declaration2 ;
-tailtype_tf_output_declaration2
-T_tf_output_declaration_type ( 
- task_port_type  i1 ,
- std::list< identifier> i2
-) { 
-  return std::make_tuple ( headtype_T_tf_output_declaration_type  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_tf_output_declaration1 , tailtype_tf_output_declaration2 > tf_output_declaration ;
-
-
-typedef std::tuple < headtype_T_tf_input_declaration_reg ,  reg , signedReplaced , range , std::list< identifier> > tailtype_tf_input_declaration1 ;
-tailtype_tf_input_declaration1
-T_tf_input_declaration_reg ( 
- reg  i1 ,
- signedReplaced  i2 ,
- range  i3 ,
- std::list< identifier> i4
-) { 
-  return std::make_tuple ( headtype_T_tf_input_declaration_reg  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_tf_input_declaration_type ,  task_port_type , std::list< identifier> > tailtype_tf_input_declaration2 ;
-tailtype_tf_input_declaration2
-T_tf_input_declaration_type ( 
- task_port_type  i1 ,
- std::list< identifier> i2
-) { 
-  return std::make_tuple ( headtype_T_tf_input_declaration_type  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_tf_input_declaration1 , tailtype_tf_input_declaration2 > tf_input_declaration ;
-
-
-typedef std::tuple < headtype_T_reg_false > tailtype_reg1 ;
-tailtype_reg1
-T_reg_false (  ) { 
- return std::make_tuple ( headtype_T_reg_false  ) ; 
-} 
-typedef std::tuple < headtype_T_reg_true > tailtype_reg2 ;
-tailtype_reg2
-T_reg_true (  ) { 
- return std::make_tuple ( headtype_T_reg_true  ) ; 
-} 
-typedef boost::variant < tailtype_reg1 , tailtype_reg2 > reg ;
-
-
-typedef std::tuple < headtype_T_task_port_item_input , std::list< attribute_instance> , tf_io_declaration_gen > tailtype_task_port_item1 ;
-tailtype_task_port_item1
-T_task_port_item_input ( 
- std::list< attribute_instance>  i1 ,
- tf_io_declaration_gen i2
-) { 
-  return std::make_tuple ( headtype_T_task_port_item_input  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_task_port_item1 > task_port_item ;
-
-
-typedef std::tuple < headtype_T_task_item_declaration_block ,  block_item_declaration > tailtype_task_item_declaration1 ;
-tailtype_task_item_declaration1
-T_task_item_declaration_block ( 
- block_item_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_task_item_declaration_block  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_task_item_declaration_input , std::list< attribute_instance> , tf_input_declaration > tailtype_task_item_declaration2 ;
-tailtype_task_item_declaration2
-T_task_item_declaration_input ( 
- std::list< attribute_instance>  i1 ,
- tf_input_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_task_item_declaration_input  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_task_item_declaration_output , std::list< attribute_instance> , tf_output_declaration > tailtype_task_item_declaration3 ;
-tailtype_task_item_declaration3
-T_task_item_declaration_output ( 
- std::list< attribute_instance>  i1 ,
- tf_output_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_task_item_declaration_output  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_task_item_declaration_inout , std::list< attribute_instance> , tf_inout_declaration > tailtype_task_item_declaration4 ;
-tailtype_task_item_declaration4
-T_task_item_declaration_inout ( 
- std::list< attribute_instance>  i1 ,
- tf_inout_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_task_item_declaration_inout  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_task_item_declaration1 , tailtype_task_item_declaration2 , tailtype_task_item_declaration3 , tailtype_task_item_declaration4 > task_item_declaration ;
-
-
-typedef std::tuple < headtype_T_task_declaration1 ,  automatic , identifier , std::list< task_item_declaration> , statement > tailtype_task_declaration1 ;
-tailtype_task_declaration1
-T_task_declaration1 ( 
- automatic  i1 ,
- identifier  i2 ,
- std::list< task_item_declaration>  i3 ,
- statement i4
-) { 
-  return std::make_tuple ( headtype_T_task_declaration1  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_task_declaration2 ,  automatic , identifier , std::list< task_port_item> , std::list< task_item_declaration> , statement > tailtype_task_declaration2 ;
-tailtype_task_declaration2
-T_task_declaration2 ( 
- automatic  i1 ,
- identifier  i2 ,
- std::list< task_port_item>  i3 ,
- std::list< task_item_declaration>  i4 ,
- statement i5
-) { 
-  return std::make_tuple ( headtype_T_task_declaration2  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef boost::variant < tailtype_task_declaration1 , tailtype_task_declaration2 > task_declaration ;
-
-
-typedef std::tuple < headtype_T_function_range_or_type_NOSPEC > tailtype_function_range_or_type1 ;
-tailtype_function_range_or_type1
-T_function_range_or_type_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_function_range_or_type_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_function_range_or_type ,  signedReplaced , range > tailtype_function_range_or_type2 ;
-tailtype_function_range_or_type2
-T_function_range_or_type ( 
- signedReplaced  i1 ,
- range i2
-) { 
-  return std::make_tuple ( headtype_T_function_range_or_type  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_function_range_or_type_INTEGER > tailtype_function_range_or_type3 ;
-tailtype_function_range_or_type3
-T_function_range_or_type_INTEGER (  ) { 
- return std::make_tuple ( headtype_T_function_range_or_type_INTEGER  ) ; 
-} 
-typedef std::tuple < headtype_T_function_range_or_type_REAL > tailtype_function_range_or_type4 ;
-tailtype_function_range_or_type4
-T_function_range_or_type_REAL (  ) { 
- return std::make_tuple ( headtype_T_function_range_or_type_REAL  ) ; 
-} 
-typedef std::tuple < headtype_T_function_range_or_type_REALTIME > tailtype_function_range_or_type5 ;
-tailtype_function_range_or_type5
-T_function_range_or_type_REALTIME (  ) { 
- return std::make_tuple ( headtype_T_function_range_or_type_REALTIME  ) ; 
-} 
-typedef std::tuple < headtype_T_function_range_or_type_TIME > tailtype_function_range_or_type6 ;
-tailtype_function_range_or_type6
-T_function_range_or_type_TIME (  ) { 
- return std::make_tuple ( headtype_T_function_range_or_type_TIME  ) ; 
-} 
-typedef boost::variant < tailtype_function_range_or_type1 , tailtype_function_range_or_type2 , tailtype_function_range_or_type3 , tailtype_function_range_or_type4 , tailtype_function_range_or_type5 , tailtype_function_range_or_type6 > function_range_or_type ;
-
-
-typedef std::tuple < headtype_T_attribute_instance_list_tf_input_declaration , std::list< attribute_instance> , tf_io_declaration_gen > tailtype_attribute_instance_list_tf_input_declaration1 ;
-tailtype_attribute_instance_list_tf_input_declaration1
-T_attribute_instance_list_tf_input_declaration ( 
- std::list< attribute_instance>  i1 ,
- tf_io_declaration_gen i2
-) { 
-  return std::make_tuple ( headtype_T_attribute_instance_list_tf_input_declaration  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_attribute_instance_list_tf_input_declaration1 > attribute_instance_list_tf_input_declaration ;
-
-
-typedef std::tuple < headtype_T_function_item_declaration_block ,  block_item_declaration > tailtype_function_item_declaration1 ;
-tailtype_function_item_declaration1
-T_function_item_declaration_block ( 
- block_item_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_function_item_declaration_block  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_function_item_declaration_input , std::list< attribute_instance> , tf_input_declaration > tailtype_function_item_declaration2 ;
-tailtype_function_item_declaration2
-T_function_item_declaration_input ( 
- std::list< attribute_instance>  i1 ,
- tf_input_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_function_item_declaration_input  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_function_item_declaration1 , tailtype_function_item_declaration2 > function_item_declaration ;
-
-
-typedef std::tuple < headtype_T_function_declaration_1 ,  automatic , function_range_or_type , identifier , std::list< function_item_declaration> , statement > tailtype_function_declaration1 ;
-tailtype_function_declaration1
-T_function_declaration_1 ( 
- automatic  i1 ,
- function_range_or_type  i2 ,
- identifier  i3 ,
- std::list< function_item_declaration>  i4 ,
- statement i5
-) { 
-  return std::make_tuple ( headtype_T_function_declaration_1  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef std::tuple < headtype_T_function_declaration_2 ,  automatic , function_range_or_type , identifier , std::list< attribute_instance_list_tf_input_declaration> , std::list< function_item_declaration> , statement > tailtype_function_declaration2 ;
-tailtype_function_declaration2
-T_function_declaration_2 ( 
- automatic  i1 ,
- function_range_or_type  i2 ,
- identifier  i3 ,
- std::list< attribute_instance_list_tf_input_declaration>  i4 ,
- std::list< function_item_declaration>  i5 ,
- statement i6
-) { 
-  return std::make_tuple ( headtype_T_function_declaration_2  i1 ,  i2 ,  i3 ,  i4 ,  i5 ,  i6 ) ; 
-} 
-typedef boost::variant < tailtype_function_declaration1 , tailtype_function_declaration2 > function_declaration ;
-
-
-typedef std::tuple < headtype_T_automatic_false > tailtype_automatic1 ;
-tailtype_automatic1
-T_automatic_false (  ) { 
- return std::make_tuple ( headtype_T_automatic_false  ) ; 
-} 
-typedef std::tuple < headtype_T_automatic_true > tailtype_automatic2 ;
-tailtype_automatic2
-T_automatic_true (  ) { 
- return std::make_tuple ( headtype_T_automatic_true  ) ; 
-} 
-typedef boost::variant < tailtype_automatic1 , tailtype_automatic2 > automatic ;
-
-
-typedef std::tuple < headtype_T_range_NOSPEC > tailtype_range1 ;
-tailtype_range1
-T_range_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_range_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_range ,  expression , expression > tailtype_range2 ;
-tailtype_range2
-T_range ( 
- expression  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_range  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_range1 , tailtype_range2 > range ;
-
-
-typedef std::tuple < headtype_T_dimension ,  expression , expression > tailtype_dimension1 ;
-tailtype_dimension1
-T_dimension ( 
- expression  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_dimension  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_dimension1 > dimension ;
-
-
-typedef std::tuple < headtype_T_specparam_assignment ,  identifier , mintypmax_expression > tailtype_specparam_assignment1 ;
-tailtype_specparam_assignment1
-T_specparam_assignment ( 
- identifier  i1 ,
- mintypmax_expression i2
-) { 
-  return std::make_tuple ( headtype_T_specparam_assignment  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_specparam_assignment_pulse1 ,  mintypmax_expression , mintypmax_expression > tailtype_specparam_assignment2 ;
-tailtype_specparam_assignment2
-T_specparam_assignment_pulse1 ( 
- mintypmax_expression  i1 ,
- mintypmax_expression i2
-) { 
-  return std::make_tuple ( headtype_T_specparam_assignment_pulse1  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_specparam_assignment_pulse2 ,  specify_input_terminal_descriptor , specify_output_terminal_descriptor , mintypmax_expression , mintypmax_expression > tailtype_specparam_assignment3 ;
-tailtype_specparam_assignment3
-T_specparam_assignment_pulse2 ( 
- specify_input_terminal_descriptor  i1 ,
- specify_output_terminal_descriptor  i2 ,
- mintypmax_expression  i3 ,
- mintypmax_expression i4
-) { 
-  return std::make_tuple ( headtype_T_specparam_assignment_pulse2  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_specparam_assignment1 , tailtype_specparam_assignment2 , tailtype_specparam_assignment3 > specparam_assignment ;
-
-
-typedef std::tuple < headtype_T_param_assignment ,  identifier , mintypmax_expression > tailtype_param_assignment1 ;
-tailtype_param_assignment1
-T_param_assignment ( 
- identifier  i1 ,
- mintypmax_expression i2
-) { 
-  return std::make_tuple ( headtype_T_param_assignment  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_param_assignment1 > param_assignment ;
-
-
-typedef std::tuple < headtype_T_net_decl_assignment ,  identifier , expression > tailtype_net_decl_assignment1 ;
-tailtype_net_decl_assignment1
-T_net_decl_assignment ( 
- identifier  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_net_decl_assignment  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_net_decl_assignment1 > net_decl_assignment ;
-
-
-typedef std::tuple < headtype_T_defparam_assignment ,  hierarchical_identifier , mintypmax_expression > tailtype_defparam_assignment1 ;
-tailtype_defparam_assignment1
-T_defparam_assignment ( 
- hierarchical_identifier  i1 ,
- mintypmax_expression i2
-) { 
-  return std::make_tuple ( headtype_T_defparam_assignment  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_defparam_assignment1 > defparam_assignment ;
-
-
-typedef std::tuple < headtype_T_port_identifier_equ1_expression_opt ,  identifier , expression > tailtype_port_identifier_equ1_expression_opt1 ;
-tailtype_port_identifier_equ1_expression_opt1
-T_port_identifier_equ1_expression_opt ( 
- identifier  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_port_identifier_equ1_expression_opt  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_port_identifier_equ1_expression_opt1 > port_identifier_equ1_expression_opt ;
-
-
-typedef std::tuple < headtype_T_net_identifier_dimension_list ,  identifier , std::list< dimension> > tailtype_net_identifier_dimension_list1 ;
-tailtype_net_identifier_dimension_list1
-T_net_identifier_dimension_list ( 
- identifier  i1 ,
- std::list< dimension> i2
-) { 
-  return std::make_tuple ( headtype_T_net_identifier_dimension_list  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_net_identifier_dimension_list1 > net_identifier_dimension_list ;
-
-
-typedef std::tuple < headtype_T_event_identifier_dimension_list ,  identifier , std::list< dimension> > tailtype_event_identifier_dimension_list1 ;
-tailtype_event_identifier_dimension_list1
-T_event_identifier_dimension_list ( 
- identifier  i1 ,
- std::list< dimension> i2
-) { 
-  return std::make_tuple ( headtype_T_event_identifier_dimension_list  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_event_identifier_dimension_list1 > event_identifier_dimension_list ;
-
-
-typedef std::tuple < headtype_T_delay2_NOSPEC > tailtype_delay21 ;
-tailtype_delay21
-T_delay2_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_delay2_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_delay2_1 ,  delay_value > tailtype_delay22 ;
-tailtype_delay22
-T_delay2_1 ( 
- delay_value i1
-) { 
-  return std::make_tuple ( headtype_T_delay2_1  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_delay2_minmax1 ,  mintypmax_expression > tailtype_delay23 ;
-tailtype_delay23
-T_delay2_minmax1 ( 
- mintypmax_expression i1
-) { 
-  return std::make_tuple ( headtype_T_delay2_minmax1  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_delay2_minmax2 ,  mintypmax_expression , mintypmax_expression > tailtype_delay24 ;
-tailtype_delay24
-T_delay2_minmax2 ( 
- mintypmax_expression  i1 ,
- mintypmax_expression i2
-) { 
-  return std::make_tuple ( headtype_T_delay2_minmax2  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_delay21 , tailtype_delay22 , tailtype_delay23 , tailtype_delay24 > delay2 ;
-
-
-typedef std::tuple < headtype_T_delay3_NOSPEC > tailtype_delay31 ;
-tailtype_delay31
-T_delay3_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_delay3_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_delay3_1 ,  delay_value > tailtype_delay32 ;
-tailtype_delay32
-T_delay3_1 ( 
- delay_value i1
-) { 
-  return std::make_tuple ( headtype_T_delay3_1  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_delay3_minmax1 ,  mintypmax_expression > tailtype_delay33 ;
-tailtype_delay33
-T_delay3_minmax1 ( 
- mintypmax_expression i1
-) { 
-  return std::make_tuple ( headtype_T_delay3_minmax1  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_delay3_minmax2 ,  mintypmax_expression , mintypmax_expression > tailtype_delay34 ;
-tailtype_delay34
-T_delay3_minmax2 ( 
- mintypmax_expression  i1 ,
- mintypmax_expression i2
-) { 
-  return std::make_tuple ( headtype_T_delay3_minmax2  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_delay3_minmax3 ,  mintypmax_expression , mintypmax_expression , mintypmax_expression > tailtype_delay35 ;
-tailtype_delay35
-T_delay3_minmax3 ( 
- mintypmax_expression  i1 ,
- mintypmax_expression  i2 ,
- mintypmax_expression i3
-) { 
-  return std::make_tuple ( headtype_T_delay3_minmax3  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_delay31 , tailtype_delay32 , tailtype_delay33 , tailtype_delay34 , tailtype_delay35 > delay3 ;
-
-
-typedef std::tuple < headtype_T_charge_strength_NOSPEC > tailtype_charge_strength1 ;
-tailtype_charge_strength1
-T_charge_strength_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_charge_strength_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_charge_strength__small > tailtype_charge_strength2 ;
-tailtype_charge_strength2
-T_charge_strength__small (  ) { 
- return std::make_tuple ( headtype_T_charge_strength__small  ) ; 
-} 
-typedef std::tuple < headtype_T_charge_strength__medium > tailtype_charge_strength3 ;
-tailtype_charge_strength3
-T_charge_strength__medium (  ) { 
- return std::make_tuple ( headtype_T_charge_strength__medium  ) ; 
-} 
-typedef std::tuple < headtype_T_charge_strength__large > tailtype_charge_strength4 ;
-tailtype_charge_strength4
-T_charge_strength__large (  ) { 
- return std::make_tuple ( headtype_T_charge_strength__large  ) ; 
-} 
-typedef boost::variant < tailtype_charge_strength1 , tailtype_charge_strength2 , tailtype_charge_strength3 , tailtype_charge_strength4 > charge_strength ;
-
-
-typedef std::tuple < headtype_T_drive_strength_NOSPEC > tailtype_drive_strength1 ;
-tailtype_drive_strength1
-T_drive_strength_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_drive_strength_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_drive_strength ,  strength , strength > tailtype_drive_strength2 ;
-tailtype_drive_strength2
-T_drive_strength ( 
- strength  i1 ,
- strength i2
-) { 
-  return std::make_tuple ( headtype_T_drive_strength  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_drive_strength1 , tailtype_drive_strength2 > drive_strength ;
-
-
-typedef std::tuple < headtype_KEY_HIGHZ0 > tailtype_strength1 ;
-tailtype_strength1
-KEY_HIGHZ0 (  ) { 
- return std::make_tuple ( headtype_KEY_HIGHZ0  ) ; 
-} 
-typedef std::tuple < headtype_KEY_HIGHZ1 > tailtype_strength2 ;
-tailtype_strength2
-KEY_HIGHZ1 (  ) { 
- return std::make_tuple ( headtype_KEY_HIGHZ1  ) ; 
-} 
-typedef std::tuple < headtype_KEY_SUPPLY0 > tailtype_strength3 ;
-tailtype_strength3
-KEY_SUPPLY0 (  ) { 
- return std::make_tuple ( headtype_KEY_SUPPLY0  ) ; 
-} 
-typedef std::tuple < headtype_KEY_STRONG0 > tailtype_strength4 ;
-tailtype_strength4
-KEY_STRONG0 (  ) { 
- return std::make_tuple ( headtype_KEY_STRONG0  ) ; 
-} 
-typedef std::tuple < headtype_KEY_PULL0 > tailtype_strength5 ;
-tailtype_strength5
-KEY_PULL0 (  ) { 
- return std::make_tuple ( headtype_KEY_PULL0  ) ; 
-} 
-typedef std::tuple < headtype_KEY_WEAK0 > tailtype_strength6 ;
-tailtype_strength6
-KEY_WEAK0 (  ) { 
- return std::make_tuple ( headtype_KEY_WEAK0  ) ; 
-} 
-typedef std::tuple < headtype_KEY_SUPPLY1 > tailtype_strength7 ;
-tailtype_strength7
-KEY_SUPPLY1 (  ) { 
- return std::make_tuple ( headtype_KEY_SUPPLY1  ) ; 
-} 
-typedef std::tuple < headtype_KEY_STRONG1 > tailtype_strength8 ;
-tailtype_strength8
-KEY_STRONG1 (  ) { 
- return std::make_tuple ( headtype_KEY_STRONG1  ) ; 
-} 
-typedef std::tuple < headtype_KEY_PULL1 > tailtype_strength9 ;
-tailtype_strength9
-KEY_PULL1 (  ) { 
- return std::make_tuple ( headtype_KEY_PULL1  ) ; 
-} 
-typedef std::tuple < headtype_KEY_WEAK1 > tailtype_strength10 ;
-tailtype_strength10
-KEY_WEAK1 (  ) { 
- return std::make_tuple ( headtype_KEY_WEAK1  ) ; 
-} 
-typedef boost::variant < tailtype_strength1 , tailtype_strength2 , tailtype_strength3 , tailtype_strength4 , tailtype_strength5 , tailtype_strength6 , tailtype_strength7 , tailtype_strength8 , tailtype_strength9 , tailtype_strength10 > strength ;
-
-
-typedef std::tuple < headtype_T_variable_type_noass ,  identifier , std::list< dimension> > tailtype_variable_type1 ;
-tailtype_variable_type1
-T_variable_type_noass ( 
- identifier  i1 ,
- std::list< dimension> i2
-) { 
-  return std::make_tuple ( headtype_T_variable_type_noass  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_variable_type_ass ,  identifier , expression > tailtype_variable_type2 ;
-tailtype_variable_type2
-T_variable_type_ass ( 
- identifier  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_variable_type_ass  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_variable_type1 , tailtype_variable_type2 > variable_type ;
-
-
-typedef std::tuple < headtype_T_real_type_noass ,  identifier , std::list< dimension> > tailtype_real_type1 ;
-tailtype_real_type1
-T_real_type_noass ( 
- identifier  i1 ,
- std::list< dimension> i2
-) { 
-  return std::make_tuple ( headtype_T_real_type_noass  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_real_type_ass ,  identifier , expression > tailtype_real_type2 ;
-tailtype_real_type2
-T_real_type_ass ( 
- identifier  i1 ,
- expression i2
-) { 
-  return std::make_tuple ( headtype_T_real_type_ass  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_real_type1 , tailtype_real_type2 > real_type ;
-
-
-typedef std::tuple < headtype_T_net_type_NOSPEC > tailtype_net_type1 ;
-tailtype_net_type1
-T_net_type_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_net_type_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_SUPPLY0 > tailtype_net_type2 ;
-tailtype_net_type2
-T_net_type__KEY_SUPPLY0 (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_SUPPLY0  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_SUPPLY1 > tailtype_net_type3 ;
-tailtype_net_type3
-T_net_type__KEY_SUPPLY1 (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_SUPPLY1  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_TRI > tailtype_net_type4 ;
-tailtype_net_type4
-T_net_type__KEY_TRI (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_TRI  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_TRIAND > tailtype_net_type5 ;
-tailtype_net_type5
-T_net_type__KEY_TRIAND (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_TRIAND  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_TRIOR > tailtype_net_type6 ;
-tailtype_net_type6
-T_net_type__KEY_TRIOR (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_TRIOR  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_TRI0 > tailtype_net_type7 ;
-tailtype_net_type7
-T_net_type__KEY_TRI0 (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_TRI0  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_TRI1 > tailtype_net_type8 ;
-tailtype_net_type8
-T_net_type__KEY_TRI1 (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_TRI1  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_UWIRE > tailtype_net_type9 ;
-tailtype_net_type9
-T_net_type__KEY_UWIRE (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_UWIRE  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_WIRE > tailtype_net_type10 ;
-tailtype_net_type10
-T_net_type__KEY_WIRE (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_WIRE  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_WAND > tailtype_net_type11 ;
-tailtype_net_type11
-T_net_type__KEY_WAND (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_WAND  ) ; 
-} 
-typedef std::tuple < headtype_T_net_type__KEY_WOR > tailtype_net_type12 ;
-tailtype_net_type12
-T_net_type__KEY_WOR (  ) { 
- return std::make_tuple ( headtype_T_net_type__KEY_WOR  ) ; 
-} 
-typedef boost::variant < tailtype_net_type1 , tailtype_net_type2 , tailtype_net_type3 , tailtype_net_type4 , tailtype_net_type5 , tailtype_net_type6 , tailtype_net_type7 , tailtype_net_type8 , tailtype_net_type9 , tailtype_net_type10 , tailtype_net_type11 , tailtype_net_type12 > net_type ;
-
-
-typedef std::tuple < headtype_T_time_declaration , std::list< variable_type> > tailtype_time_declaration1 ;
-tailtype_time_declaration1
-T_time_declaration ( 
- std::list< variable_type> i1
-) { 
-  return std::make_tuple ( headtype_T_time_declaration  i1 ) ; 
-} 
-typedef boost::variant < tailtype_time_declaration1 > time_declaration ;
-
-
-typedef std::tuple < headtype_T_reg_declaration ,  signedReplaced , range , std::list< variable_type> > tailtype_reg_declaration1 ;
-tailtype_reg_declaration1
-T_reg_declaration ( 
- signedReplaced  i1 ,
- range  i2 ,
- std::list< variable_type> i3
-) { 
-  return std::make_tuple ( headtype_T_reg_declaration  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_reg_declaration1 > reg_declaration ;
-
-
-typedef std::tuple < headtype_T_realtime_declaration , std::list< real_type> > tailtype_realtime_declaration1 ;
-tailtype_realtime_declaration1
-T_realtime_declaration ( 
- std::list< real_type> i1
-) { 
-  return std::make_tuple ( headtype_T_realtime_declaration  i1 ) ; 
-} 
-typedef boost::variant < tailtype_realtime_declaration1 > realtime_declaration ;
-
-
-typedef std::tuple < headtype_T_real_declaration , std::list< real_type> > tailtype_real_declaration1 ;
-tailtype_real_declaration1
-T_real_declaration ( 
- std::list< real_type> i1
-) { 
-  return std::make_tuple ( headtype_T_real_declaration  i1 ) ; 
-} 
-typedef boost::variant < tailtype_real_declaration1 > real_declaration ;
-
-
-typedef std::tuple < headtype_T_vectored_scalared_NOSPEC > tailtype_vectored_scalared1 ;
-tailtype_vectored_scalared1
-T_vectored_scalared_NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_vectored_scalared_NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_|T_vectored_scalared_vectored > tailtype_vectored_scalared2 ;
-tailtype_vectored_scalared2
-|T_vectored_scalared_vectored (  ) { 
- return std::make_tuple ( headtype_|T_vectored_scalared_vectored  ) ; 
-} 
-typedef std::tuple < headtype_|T_vectored_scalared_scalared > tailtype_vectored_scalared3 ;
-tailtype_vectored_scalared3
-|T_vectored_scalared_scalared (  ) { 
- return std::make_tuple ( headtype_|T_vectored_scalared_scalared  ) ; 
-} 
-typedef boost::variant < tailtype_vectored_scalared1 , tailtype_vectored_scalared2 , tailtype_vectored_scalared3 > vectored_scalared ;
-
-
-typedef std::tuple < headtype_T_net_declaration_net_type1 ,  net_type , signedReplaced , delay3 , std::list< net_identifier_dimension_list> > tailtype_net_declaration1 ;
-tailtype_net_declaration1
-T_net_declaration_net_type1 ( 
- net_type  i1 ,
- signedReplaced  i2 ,
- delay3  i3 ,
- std::list< net_identifier_dimension_list> i4
-) { 
-  return std::make_tuple ( headtype_T_net_declaration_net_type1  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_net_declaration_net_type2 ,  net_type , drive_strength , signedReplaced , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration2 ;
-tailtype_net_declaration2
-T_net_declaration_net_type2 ( 
- net_type  i1 ,
- drive_strength  i2 ,
- signedReplaced  i3 ,
- delay3  i4 ,
- std::list< net_decl_assignment> i5
-) { 
-  return std::make_tuple ( headtype_T_net_declaration_net_type2  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef std::tuple < headtype_T_net_declaration_net_type3 ,  net_type , drive_strength , vectored_scalared , signedReplaced , range , delay3 , std::list< net_identifier_dimension_list> > tailtype_net_declaration3 ;
-tailtype_net_declaration3
-T_net_declaration_net_type3 ( 
- net_type  i1 ,
- drive_strength  i2 ,
- vectored_scalared  i3 ,
- signedReplaced  i4 ,
- range  i5 ,
- delay3  i6 ,
- std::list< net_identifier_dimension_list> i7
-) { 
-  return std::make_tuple ( headtype_T_net_declaration_net_type3  i1 ,  i2 ,  i3 ,  i4 ,  i5 ,  i6 ,  i7 ) ; 
-} 
-typedef std::tuple < headtype_T_net_declaration_net_type4 ,  net_type , drive_strength , vectored_scalared , signedReplaced , range , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration4 ;
-tailtype_net_declaration4
-T_net_declaration_net_type4 ( 
- net_type  i1 ,
- drive_strength  i2 ,
- vectored_scalared  i3 ,
- signedReplaced  i4 ,
- range  i5 ,
- delay3  i6 ,
- std::list< net_decl_assignment> i7
-) { 
-  return std::make_tuple ( headtype_T_net_declaration_net_type4  i1 ,  i2 ,  i3 ,  i4 ,  i5 ,  i6 ,  i7 ) ; 
-} 
-typedef std::tuple < headtype_T_net_declaration_trireg_1 ,  charge_strength , signedReplaced , delay3 , std::list< net_identifier_dimension_list> > tailtype_net_declaration5 ;
-tailtype_net_declaration5
-T_net_declaration_trireg_1 ( 
- charge_strength  i1 ,
- signedReplaced  i2 ,
- delay3  i3 ,
- std::list< net_identifier_dimension_list> i4
-) { 
-  return std::make_tuple ( headtype_T_net_declaration_trireg_1  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_net_declaration_trireg_2 ,  drive_strength , signedReplaced , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration6 ;
-tailtype_net_declaration6
-T_net_declaration_trireg_2 ( 
- drive_strength  i1 ,
- signedReplaced  i2 ,
- delay3  i3 ,
- std::list< net_decl_assignment> i4
-) { 
-  return std::make_tuple ( headtype_T_net_declaration_trireg_2  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_T_net_declaration_trireg_3 ,  charge_strength , vectored_scalared , signedReplaced , range , delay3 > tailtype_net_declaration7 ;
-tailtype_net_declaration7
-T_net_declaration_trireg_3 ( 
- charge_strength  i1 ,
- vectored_scalared  i2 ,
- signedReplaced  i3 ,
- range  i4 ,
- delay3 i5
-) { 
-  return std::make_tuple ( headtype_T_net_declaration_trireg_3  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef std::tuple < headtype_T_net_declaration_trireg_4 ,  drive_strength , vectored_scalared , signedReplaced , range , delay3 , std::list< net_decl_assignment> > tailtype_net_declaration8 ;
-tailtype_net_declaration8
-T_net_declaration_trireg_4 ( 
- drive_strength  i1 ,
- vectored_scalared  i2 ,
- signedReplaced  i3 ,
- range  i4 ,
- delay3  i5 ,
- std::list< net_decl_assignment> i6
-) { 
-  return std::make_tuple ( headtype_T_net_declaration_trireg_4  i1 ,  i2 ,  i3 ,  i4 ,  i5 ,  i6 ) ; 
-} 
-typedef boost::variant < tailtype_net_declaration1 , tailtype_net_declaration2 , tailtype_net_declaration3 , tailtype_net_declaration4 , tailtype_net_declaration5 , tailtype_net_declaration6 , tailtype_net_declaration7 , tailtype_net_declaration8 > net_declaration ;
-
-
-typedef std::tuple < headtype_T_integer_declaration , std::list< variable_type> > tailtype_integer_declaration1 ;
-tailtype_integer_declaration1
-T_integer_declaration ( 
- std::list< variable_type> i1
-) { 
-  return std::make_tuple ( headtype_T_integer_declaration  i1 ) ; 
-} 
-typedef boost::variant < tailtype_integer_declaration1 > integer_declaration ;
-
-
-typedef std::tuple < headtype_T_event_declaration , std::list< event_identifier_dimension_list> > tailtype_event_declaration1 ;
-tailtype_event_declaration1
-T_event_declaration ( 
- std::list< event_identifier_dimension_list> i1
-) { 
-  return std::make_tuple ( headtype_T_event_declaration  i1 ) ; 
-} 
-typedef boost::variant < tailtype_event_declaration1 > event_declaration ;
-
-
-typedef std::tuple < headtype_T_output_variable_type_INTEGER > tailtype_output_variable_type1 ;
-tailtype_output_variable_type1
-T_output_variable_type_INTEGER (  ) { 
- return std::make_tuple ( headtype_T_output_variable_type_INTEGER  ) ; 
-} 
-typedef std::tuple < headtype_T_output_variable_type_TIME > tailtype_output_variable_type2 ;
-tailtype_output_variable_type2
-T_output_variable_type_TIME (  ) { 
- return std::make_tuple ( headtype_T_output_variable_type_TIME  ) ; 
-} 
-typedef boost::variant < tailtype_output_variable_type1 , tailtype_output_variable_type2 > output_variable_type ;
-
-
-typedef std::tuple < headtype_T_output_declaration_net ,  net_type , signedReplaced , range , std::list< identifier> > tailtype_output_declaration1 ;
-tailtype_output_declaration1
-T_output_declaration_net ( 
- net_type  i1 ,
- signedReplaced  i2 ,
- range  i3 ,
- std::list< identifier> i4
-) { 
-  return std::make_tuple ( headtype_T_output_declaration_net  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef std::tuple < headtype_|T_output_declaration_reg ,  signedReplaced , range , std::list< port_identifier_equ1_expression_opt> > tailtype_output_declaration2 ;
-tailtype_output_declaration2
-|T_output_declaration_reg ( 
- signedReplaced  i1 ,
- range  i2 ,
- std::list< port_identifier_equ1_expression_opt> i3
-) { 
-  return std::make_tuple ( headtype_|T_output_declaration_reg  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_|T_output_declaration_var ,  output_variable_type , std::list< port_identifier_equ1_expression_opt> > tailtype_output_declaration3 ;
-tailtype_output_declaration3
-|T_output_declaration_var ( 
- output_variable_type  i1 ,
- std::list< port_identifier_equ1_expression_opt> i2
-) { 
-  return std::make_tuple ( headtype_|T_output_declaration_var  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_output_declaration1 , tailtype_output_declaration2 , tailtype_output_declaration3 > output_declaration ;
-
-
-typedef std::tuple < headtype_T_input_declaration ,  net_type , signedReplaced , range , std::list< identifier> > tailtype_input_declaration1 ;
-tailtype_input_declaration1
-T_input_declaration ( 
- net_type  i1 ,
- signedReplaced  i2 ,
- range  i3 ,
- std::list< identifier> i4
-) { 
-  return std::make_tuple ( headtype_T_input_declaration  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_input_declaration1 > input_declaration ;
-
-
-typedef std::tuple < headtype_T_inout_declaration ,  net_type , signedReplaced , range , std::list< identifier> > tailtype_inout_declaration1 ;
-tailtype_inout_declaration1
-T_inout_declaration ( 
- net_type  i1 ,
- signedReplaced  i2 ,
- range  i3 ,
- std::list< identifier> i4
-) { 
-  return std::make_tuple ( headtype_T_inout_declaration  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_inout_declaration1 > inout_declaration ;
-
-
-typedef std::tuple < headtype_T_parameter_type__NOSPEC > tailtype_parameter_type1 ;
-tailtype_parameter_type1
-T_parameter_type__NOSPEC (  ) { 
- return std::make_tuple ( headtype_T_parameter_type__NOSPEC  ) ; 
-} 
-typedef std::tuple < headtype_T_parameter_type__INTEGER > tailtype_parameter_type2 ;
-tailtype_parameter_type2
-T_parameter_type__INTEGER (  ) { 
- return std::make_tuple ( headtype_T_parameter_type__INTEGER  ) ; 
-} 
-typedef std::tuple < headtype_T_parameter_type__REAL > tailtype_parameter_type3 ;
-tailtype_parameter_type3
-T_parameter_type__REAL (  ) { 
- return std::make_tuple ( headtype_T_parameter_type__REAL  ) ; 
-} 
-typedef std::tuple < headtype_T_parameter_type__REALTIME > tailtype_parameter_type4 ;
-tailtype_parameter_type4
-T_parameter_type__REALTIME (  ) { 
- return std::make_tuple ( headtype_T_parameter_type__REALTIME  ) ; 
-} 
-typedef std::tuple < headtype_T_parameter_type__TIME > tailtype_parameter_type5 ;
-tailtype_parameter_type5
-T_parameter_type__TIME (  ) { 
- return std::make_tuple ( headtype_T_parameter_type__TIME  ) ; 
-} 
-typedef boost::variant < tailtype_parameter_type1 , tailtype_parameter_type2 , tailtype_parameter_type3 , tailtype_parameter_type4 , tailtype_parameter_type5 > parameter_type ;
-
-
-typedef std::tuple < headtype_T_specparam_declaration ,  range , std::list< specparam_assignment> > tailtype_specparam_declaration1 ;
-tailtype_specparam_declaration1
-T_specparam_declaration ( 
- range  i1 ,
- std::list< specparam_assignment> i2
-) { 
-  return std::make_tuple ( headtype_T_specparam_declaration  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_specparam_declaration1 > specparam_declaration ;
-
-
-typedef std::tuple < headtype_T_parameter_declaration_1 ,  signedReplaced , range , std::list< param_assignment> > tailtype_parameter_declaration1 ;
-tailtype_parameter_declaration1
-T_parameter_declaration_1 ( 
- signedReplaced  i1 ,
- range  i2 ,
- std::list< param_assignment> i3
-) { 
-  return std::make_tuple ( headtype_T_parameter_declaration_1  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_T_parameter_declaration_2 ,  parameter_type , std::list< param_assignment> > tailtype_parameter_declaration2 ;
-tailtype_parameter_declaration2
-T_parameter_declaration_2 ( 
- parameter_type  i1 ,
- std::list< param_assignment> i2
-) { 
-  return std::make_tuple ( headtype_T_parameter_declaration_2  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_parameter_declaration1 , tailtype_parameter_declaration2 > parameter_declaration ;
-
-
-typedef std::tuple < headtype_T_parameter_declaration_gen_1 ,  parameter_type , signedReplaced , range , param_assignment > tailtype_parameter_declaration_gen1 ;
-tailtype_parameter_declaration_gen1
-T_parameter_declaration_gen_1 ( 
- parameter_type  i1 ,
- signedReplaced  i2 ,
- range  i3 ,
- param_assignment i4
-) { 
-  return std::make_tuple ( headtype_T_parameter_declaration_gen_1  i1 ,  i2 ,  i3 ,  i4 ) ; 
-} 
-typedef boost::variant < tailtype_parameter_declaration_gen1 > parameter_declaration_gen ;
-
-
-typedef std::tuple < headtype_T_local_parameter_declaration_1 ,  signedReplaced , range , std::list< param_assignment> > tailtype_local_parameter_declaration1 ;
-tailtype_local_parameter_declaration1
-T_local_parameter_declaration_1 ( 
- signedReplaced  i1 ,
- range  i2 ,
- std::list< param_assignment> i3
-) { 
-  return std::make_tuple ( headtype_T_local_parameter_declaration_1  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef std::tuple < headtype_T_local_parameter_declaration_2 ,  parameter_type , std::list< param_assignment> > tailtype_local_parameter_declaration2 ;
-tailtype_local_parameter_declaration2
-T_local_parameter_declaration_2 ( 
- parameter_type  i1 ,
- std::list< param_assignment> i2
-) { 
-  return std::make_tuple ( headtype_T_local_parameter_declaration_2  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_local_parameter_declaration1 , tailtype_local_parameter_declaration2 > local_parameter_declaration ;
-
-
-typedef std::tuple < headtype_T_signed_FALSE > tailtype_signed1 ;
-tailtype_signed1
-T_signed_FALSE (  ) { 
- return std::make_tuple ( headtype_T_signed_FALSE  ) ; 
-} 
-typedef std::tuple < headtype_T_signed_TRUE > tailtype_signed2 ;
-tailtype_signed2
-T_signed_TRUE (  ) { 
- return std::make_tuple ( headtype_T_signed_TRUE  ) ; 
-} 
-typedef boost::variant < tailtype_signed1 , tailtype_signed2 > signedReplaced ;
-
-
-typedef std::tuple < headtype_T_colon_config_opt_FALSE > tailtype_colon_config_opt1 ;
-tailtype_colon_config_opt1
-T_colon_config_opt_FALSE (  ) { 
- return std::make_tuple ( headtype_T_colon_config_opt_FALSE  ) ; 
-} 
-typedef std::tuple < headtype_T_colon_config_opt_TRUE > tailtype_colon_config_opt2 ;
-tailtype_colon_config_opt2
-T_colon_config_opt_TRUE (  ) { 
- return std::make_tuple ( headtype_T_colon_config_opt_TRUE  ) ; 
-} 
-typedef boost::variant < tailtype_colon_config_opt1 , tailtype_colon_config_opt2 > colon_config_opt ;
-
-
-typedef std::tuple < headtype_T_use_clause ,  library_identifier_period_opt_cell_identifier , colon_config_opt > tailtype_use_clause1 ;
-tailtype_use_clause1
-T_use_clause ( 
- library_identifier_period_opt_cell_identifier  i1 ,
- colon_config_opt i2
-) { 
-  return std::make_tuple ( headtype_T_use_clause  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_use_clause1 > use_clause ;
-
-
-typedef std::tuple < headtype_T_config_rule_statement__default , std::list< identifier> > tailtype_config_rule_statement1 ;
-tailtype_config_rule_statement1
-T_config_rule_statement__default ( 
- std::list< identifier> i1
-) { 
-  return std::make_tuple ( headtype_T_config_rule_statement__default  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_config_rule_statement__inst_lib , std::list< identifier> , std::list< identifier> > tailtype_config_rule_statement2 ;
-tailtype_config_rule_statement2
-T_config_rule_statement__inst_lib ( 
- std::list< identifier>  i1 ,
- std::list< identifier> i2
-) { 
-  return std::make_tuple ( headtype_T_config_rule_statement__inst_lib  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_config_rule_statement__inst_use , std::list< identifier> , use_clause > tailtype_config_rule_statement3 ;
-tailtype_config_rule_statement3
-T_config_rule_statement__inst_use ( 
- std::list< identifier>  i1 ,
- use_clause i2
-) { 
-  return std::make_tuple ( headtype_T_config_rule_statement__inst_use  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_config_rule_statement__cell_lib ,  library_identifier_period_opt_cell_identifier , std::list< identifier> > tailtype_config_rule_statement4 ;
-tailtype_config_rule_statement4
-T_config_rule_statement__cell_lib ( 
- library_identifier_period_opt_cell_identifier  i1 ,
- std::list< identifier> i2
-) { 
-  return std::make_tuple ( headtype_T_config_rule_statement__cell_lib  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_config_rule_statement__cell_use ,  library_identifier_period_opt_cell_identifier , use_clause > tailtype_config_rule_statement5 ;
-tailtype_config_rule_statement5
-T_config_rule_statement__cell_use ( 
- library_identifier_period_opt_cell_identifier  i1 ,
- use_clause i2
-) { 
-  return std::make_tuple ( headtype_T_config_rule_statement__cell_use  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_config_rule_statement1 , tailtype_config_rule_statement2 , tailtype_config_rule_statement3 , tailtype_config_rule_statement4 , tailtype_config_rule_statement5 > config_rule_statement ;
-
-
-typedef std::tuple < headtype_T_lib_cell_identifier ,  identifier , identifier > tailtype_library_identifier_period_opt_cell_identifier1 ;
-tailtype_library_identifier_period_opt_cell_identifier1
-T_lib_cell_identifier ( 
- identifier  i1 ,
- identifier i2
-) { 
-  return std::make_tuple ( headtype_T_lib_cell_identifier  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_library_identifier_period_opt_cell_identifier1 > library_identifier_period_opt_cell_identifier ;
-
-
-typedef std::tuple < headtype_T_design_statement , std::list< library_identifier_period_opt_cell_identifier> > tailtype_design_statement1 ;
-tailtype_design_statement1
-T_design_statement ( 
- std::list< library_identifier_period_opt_cell_identifier> i1
-) { 
-  return std::make_tuple ( headtype_T_design_statement  i1 ) ; 
-} 
-typedef boost::variant < tailtype_design_statement1 > design_statement ;
-
-
-typedef std::tuple < headtype_T_config_declaration ,  identifier , design_statement , std::list< config_rule_statement> > tailtype_config_declaration1 ;
-tailtype_config_declaration1
-T_config_declaration ( 
- identifier  i1 ,
- design_statement  i2 ,
- std::list< config_rule_statement> i3
-) { 
-  return std::make_tuple ( headtype_T_config_declaration  i1 ,  i2 ,  i3 ) ; 
-} 
-typedef boost::variant < tailtype_config_declaration1 > config_declaration ;
-
-
-typedef std::tuple < headtype_T_module_item__port_declaration ,  port_declaration > tailtype_module_item1 ;
-tailtype_module_item1
-T_module_item__port_declaration ( 
- port_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_module_item__port_declaration  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__generate_region ,  generate_region > tailtype_module_item2 ;
-tailtype_module_item2
-T_module_item__generate_region ( 
- generate_region i1
-) { 
-  return std::make_tuple ( headtype_T_module_item__generate_region  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__specify_block ,  specify_block > tailtype_module_item3 ;
-tailtype_module_item3
-T_module_item__specify_block ( 
- specify_block i1
-) { 
-  return std::make_tuple ( headtype_T_module_item__specify_block  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__parameter_declaration , std::list< attribute_instance> , parameter_declaration > tailtype_module_item4 ;
-tailtype_module_item4
-T_module_item__parameter_declaration ( 
- std::list< attribute_instance>  i1 ,
- parameter_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__parameter_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__specparam_declaration , std::list< attribute_instance> , specparam_declaration > tailtype_module_item5 ;
-tailtype_module_item5
-T_module_item__specparam_declaration ( 
- std::list< attribute_instance>  i1 ,
- specparam_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__specparam_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__net_declaration , std::list< attribute_instance> , net_declaration > tailtype_module_item6 ;
-tailtype_module_item6
-T_module_item__net_declaration ( 
- std::list< attribute_instance>  i1 ,
- net_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__net_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__reg_declaration , std::list< attribute_instance> , reg_declaration > tailtype_module_item7 ;
-tailtype_module_item7
-T_module_item__reg_declaration ( 
- std::list< attribute_instance>  i1 ,
- reg_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__reg_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__integer_declaration , std::list< attribute_instance> , integer_declaration > tailtype_module_item8 ;
-tailtype_module_item8
-T_module_item__integer_declaration ( 
- std::list< attribute_instance>  i1 ,
- integer_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__integer_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__real_declaration , std::list< attribute_instance> , real_declaration > tailtype_module_item9 ;
-tailtype_module_item9
-T_module_item__real_declaration ( 
- std::list< attribute_instance>  i1 ,
- real_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__real_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__time_declaration , std::list< attribute_instance> , time_declaration > tailtype_module_item10 ;
-tailtype_module_item10
-T_module_item__time_declaration ( 
- std::list< attribute_instance>  i1 ,
- time_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__time_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__realtime_declaration , std::list< attribute_instance> , realtime_declaration > tailtype_module_item11 ;
-tailtype_module_item11
-T_module_item__realtime_declaration ( 
- std::list< attribute_instance>  i1 ,
- realtime_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__realtime_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__event_declaration , std::list< attribute_instance> , event_declaration > tailtype_module_item12 ;
-tailtype_module_item12
-T_module_item__event_declaration ( 
- std::list< attribute_instance>  i1 ,
- event_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__event_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__genvar_declaration , std::list< attribute_instance> , genvar_declaration > tailtype_module_item13 ;
-tailtype_module_item13
-T_module_item__genvar_declaration ( 
- std::list< attribute_instance>  i1 ,
- genvar_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__genvar_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__task_declaration , std::list< attribute_instance> , task_declaration > tailtype_module_item14 ;
-tailtype_module_item14
-T_module_item__task_declaration ( 
- std::list< attribute_instance>  i1 ,
- task_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__task_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__function_declaration , std::list< attribute_instance> , function_declaration > tailtype_module_item15 ;
-tailtype_module_item15
-T_module_item__function_declaration ( 
- std::list< attribute_instance>  i1 ,
- function_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__function_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__local_parameter_declaration , std::list< attribute_instance> , local_parameter_declaration > tailtype_module_item16 ;
-tailtype_module_item16
-T_module_item__local_parameter_declaration ( 
- std::list< attribute_instance>  i1 ,
- local_parameter_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__local_parameter_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__parameter_override , std::list< attribute_instance> , std::list< defparam_assignment> > tailtype_module_item17 ;
-tailtype_module_item17
-T_module_item__parameter_override ( 
- std::list< attribute_instance>  i1 ,
- std::list< defparam_assignment> i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__parameter_override  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__continuous_assign , std::list< attribute_instance> , continuous_assign > tailtype_module_item18 ;
-tailtype_module_item18
-T_module_item__continuous_assign ( 
- std::list< attribute_instance>  i1 ,
- continuous_assign i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__continuous_assign  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__gate_instantiation , std::list< attribute_instance> , gate_instantiation > tailtype_module_item19 ;
-tailtype_module_item19
-T_module_item__gate_instantiation ( 
- std::list< attribute_instance>  i1 ,
- gate_instantiation i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__gate_instantiation  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__udp_instantiation , std::list< attribute_instance> , udp_instantiation > tailtype_module_item20 ;
-tailtype_module_item20
-T_module_item__udp_instantiation ( 
- std::list< attribute_instance>  i1 ,
- udp_instantiation i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__udp_instantiation  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__module_instantiation , std::list< attribute_instance> , module_instantiation > tailtype_module_item21 ;
-tailtype_module_item21
-T_module_item__module_instantiation ( 
- std::list< attribute_instance>  i1 ,
- module_instantiation i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__module_instantiation  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__initial_construct , std::list< attribute_instance> , initial_construct > tailtype_module_item22 ;
-tailtype_module_item22
-T_module_item__initial_construct ( 
- std::list< attribute_instance>  i1 ,
- initial_construct i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__initial_construct  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__always_construct , std::list< attribute_instance> , always_construct > tailtype_module_item23 ;
-tailtype_module_item23
-T_module_item__always_construct ( 
- std::list< attribute_instance>  i1 ,
- always_construct i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__always_construct  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__loop_generate_construct , std::list< attribute_instance> , loop_generate_construct > tailtype_module_item24 ;
-tailtype_module_item24
-T_module_item__loop_generate_construct ( 
- std::list< attribute_instance>  i1 ,
- loop_generate_construct i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__loop_generate_construct  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_module_item__conditional_generate_construct , std::list< attribute_instance> , conditional_generate_construct > tailtype_module_item25 ;
-tailtype_module_item25
-T_module_item__conditional_generate_construct ( 
- std::list< attribute_instance>  i1 ,
- conditional_generate_construct i2
-) { 
-  return std::make_tuple ( headtype_T_module_item__conditional_generate_construct  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_module_item1 , tailtype_module_item2 , tailtype_module_item3 , tailtype_module_item4 , tailtype_module_item5 , tailtype_module_item6 , tailtype_module_item7 , tailtype_module_item8 , tailtype_module_item9 , tailtype_module_item10 , tailtype_module_item11 , tailtype_module_item12 , tailtype_module_item13 , tailtype_module_item14 , tailtype_module_item15 , tailtype_module_item16 , tailtype_module_item17 , tailtype_module_item18 , tailtype_module_item19 , tailtype_module_item20 , tailtype_module_item21 , tailtype_module_item22 , tailtype_module_item23 , tailtype_module_item24 , tailtype_module_item25 > module_item ;
-
-
-typedef std::tuple < headtype_T_port_declaration__inout_declaration , std::list< attribute_instance> , inout_declaration > tailtype_port_declaration1 ;
-tailtype_port_declaration1
-T_port_declaration__inout_declaration ( 
- std::list< attribute_instance>  i1 ,
- inout_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_port_declaration__inout_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_port_declaration__input_declaration , std::list< attribute_instance> , input_declaration > tailtype_port_declaration2 ;
-tailtype_port_declaration2
-T_port_declaration__input_declaration ( 
- std::list< attribute_instance>  i1 ,
- input_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_port_declaration__input_declaration  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_port_declaration__output_declaration , std::list< attribute_instance> , output_declaration > tailtype_port_declaration3 ;
-tailtype_port_declaration3
-T_port_declaration__output_declaration ( 
- std::list< attribute_instance>  i1 ,
- output_declaration i2
-) { 
-  return std::make_tuple ( headtype_T_port_declaration__output_declaration  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_port_declaration1 , tailtype_port_declaration2 , tailtype_port_declaration3 > port_declaration ;
-
-
-typedef std::tuple < headtype_T_port_reference ,  identifier , range_expression > tailtype_port_reference1 ;
-tailtype_port_reference1
-T_port_reference ( 
- identifier  i1 ,
- range_expression i2
-) { 
-  return std::make_tuple ( headtype_T_port_reference  i1 ,  i2 ) ; 
-} 
-typedef boost::variant < tailtype_port_reference1 > port_reference ;
-
-
-typedef std::tuple < headtype_T_port_expression , std::list< port_reference> > tailtype_port_expression1 ;
-tailtype_port_expression1
-T_port_expression ( 
- std::list< port_reference> i1
-) { 
-  return std::make_tuple ( headtype_T_port_expression  i1 ) ; 
-} 
-typedef boost::variant < tailtype_port_expression1 > port_expression ;
-
-
-typedef std::tuple < headtype_T_port_exp ,  identifier , port_expression > tailtype_port1 ;
-tailtype_port1
-T_port_exp ( 
- identifier  i1 ,
- port_expression i2
-) { 
-  return std::make_tuple ( headtype_T_port_exp  i1 ,  i2 ) ; 
-} 
-typedef std::tuple < headtype_T_port_net ,  io_type , netreg_type , signedReplaced , range , port_expression , expression > tailtype_port2 ;
-tailtype_port2
-T_port_net ( 
- io_type  i1 ,
- netreg_type  i2 ,
- signedReplaced  i3 ,
- range  i4 ,
- port_expression  i5 ,
- expression i6
-) { 
-  return std::make_tuple ( headtype_T_port_net  i1 ,  i2 ,  i3 ,  i4 ,  i5 ,  i6 ) ; 
-} 
-typedef boost::variant < tailtype_port1 , tailtype_port2 > port ;
-
-
-typedef std::tuple < headtype_T_module_declaration__1 , std::list< attribute_instance> , identifier , std::list< parameter_declaration_gen> , std::list< port> , std::list< module_item> > tailtype_module_declaration1 ;
-tailtype_module_declaration1
-T_module_declaration__1 ( 
- std::list< attribute_instance>  i1 ,
- identifier  i2 ,
- std::list< parameter_declaration_gen>  i3 ,
- std::list< port>  i4 ,
- std::list< module_item> i5
-) { 
-  return std::make_tuple ( headtype_T_module_declaration__1  i1 ,  i2 ,  i3 ,  i4 ,  i5 ) ; 
-} 
-typedef boost::variant < tailtype_module_declaration1 > module_declaration ;
-
-
-typedef std::tuple < headtype_T_description__module_declaration ,  module_declaration > tailtype_description1 ;
-tailtype_description1
-T_description__module_declaration ( 
- module_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_description__module_declaration  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_description__udp_declaration ,  udp_declaration > tailtype_description2 ;
-tailtype_description2
-T_description__udp_declaration ( 
- udp_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_description__udp_declaration  i1 ) ; 
-} 
-typedef std::tuple < headtype_T_description__config_declaration ,  config_declaration > tailtype_description3 ;
-tailtype_description3
-T_description__config_declaration ( 
- config_declaration i1
-) { 
-  return std::make_tuple ( headtype_T_description__config_declaration  i1 ) ; 
-} 
-typedef boost::variant < tailtype_description1 , tailtype_description2 , tailtype_description3 > description ;
-
+class T_description__module_declaration;
+typedef class T_description__module_declaration T_description__module_declaration ;
+class T_description__udp_declaration;
+typedef class T_description__udp_declaration T_description__udp_declaration ;
+class T_description__config_declaration;
+typedef class T_description__config_declaration T_description__config_declaration ;
+class T_module_declaration__1;
+typedef class T_module_declaration__1 T_module_declaration__1 ;
+class T_port_exp;
+typedef class T_port_exp T_port_exp ;
+class T_port_net;
+typedef class T_port_net T_port_net ;
+class T_port_expression;
+typedef class T_port_expression T_port_expression ;
+class T_port_reference;
+typedef class T_port_reference T_port_reference ;
+class T_port_declaration__inout_declaration;
+typedef class T_port_declaration__inout_declaration T_port_declaration__inout_declaration ;
+class T_port_declaration__input_declaration;
+typedef class T_port_declaration__input_declaration T_port_declaration__input_declaration ;
+class T_port_declaration__output_declaration;
+typedef class T_port_declaration__output_declaration T_port_declaration__output_declaration ;
+class T_module_item__port_declaration;
+typedef class T_module_item__port_declaration T_module_item__port_declaration ;
+class T_module_item__generate_region;
+typedef class T_module_item__generate_region T_module_item__generate_region ;
+class T_module_item__specify_block;
+typedef class T_module_item__specify_block T_module_item__specify_block ;
+class T_module_item__parameter_declaration;
+typedef class T_module_item__parameter_declaration T_module_item__parameter_declaration ;
+class T_module_item__specparam_declaration;
+typedef class T_module_item__specparam_declaration T_module_item__specparam_declaration ;
+class T_module_item__net_declaration;
+typedef class T_module_item__net_declaration T_module_item__net_declaration ;
+class T_module_item__reg_declaration;
+typedef class T_module_item__reg_declaration T_module_item__reg_declaration ;
+class T_module_item__integer_declaration;
+typedef class T_module_item__integer_declaration T_module_item__integer_declaration ;
+class T_module_item__real_declaration;
+typedef class T_module_item__real_declaration T_module_item__real_declaration ;
+class T_module_item__time_declaration;
+typedef class T_module_item__time_declaration T_module_item__time_declaration ;
+class T_module_item__realtime_declaration;
+typedef class T_module_item__realtime_declaration T_module_item__realtime_declaration ;
+class T_module_item__event_declaration;
+typedef class T_module_item__event_declaration T_module_item__event_declaration ;
+class T_module_item__genvar_declaration;
+typedef class T_module_item__genvar_declaration T_module_item__genvar_declaration ;
+class T_module_item__task_declaration;
+typedef class T_module_item__task_declaration T_module_item__task_declaration ;
+class T_module_item__function_declaration;
+typedef class T_module_item__function_declaration T_module_item__function_declaration ;
+class T_module_item__local_parameter_declaration;
+typedef class T_module_item__local_parameter_declaration T_module_item__local_parameter_declaration ;
+class T_module_item__parameter_override;
+typedef class T_module_item__parameter_override T_module_item__parameter_override ;
+class T_module_item__continuous_assign;
+typedef class T_module_item__continuous_assign T_module_item__continuous_assign ;
+class T_module_item__gate_instantiation;
+typedef class T_module_item__gate_instantiation T_module_item__gate_instantiation ;
+class T_module_item__udp_instantiation;
+typedef class T_module_item__udp_instantiation T_module_item__udp_instantiation ;
+class T_module_item__module_instantiation;
+typedef class T_module_item__module_instantiation T_module_item__module_instantiation ;
+class T_module_item__initial_construct;
+typedef class T_module_item__initial_construct T_module_item__initial_construct ;
+class T_module_item__always_construct;
+typedef class T_module_item__always_construct T_module_item__always_construct ;
+class T_module_item__loop_generate_construct;
+typedef class T_module_item__loop_generate_construct T_module_item__loop_generate_construct ;
+class T_module_item__conditional_generate_construct;
+typedef class T_module_item__conditional_generate_construct T_module_item__conditional_generate_construct ;
+class T_config_declaration;
+typedef class T_config_declaration T_config_declaration ;
+class T_design_statement;
+typedef class T_design_statement T_design_statement ;
+class T_lib_cell_identifier;
+typedef class T_lib_cell_identifier T_lib_cell_identifier ;
+class T_config_rule_statement__default;
+typedef class T_config_rule_statement__default T_config_rule_statement__default ;
+class T_config_rule_statement__inst_lib;
+typedef class T_config_rule_statement__inst_lib T_config_rule_statement__inst_lib ;
+class T_config_rule_statement__inst_use;
+typedef class T_config_rule_statement__inst_use T_config_rule_statement__inst_use ;
+class T_config_rule_statement__cell_lib;
+typedef class T_config_rule_statement__cell_lib T_config_rule_statement__cell_lib ;
+class T_config_rule_statement__cell_use;
+typedef class T_config_rule_statement__cell_use T_config_rule_statement__cell_use ;
+class T_use_clause;
+typedef class T_use_clause T_use_clause ;
+class T_local_parameter_declaration_1;
+typedef class T_local_parameter_declaration_1 T_local_parameter_declaration_1 ;
+class T_local_parameter_declaration_2;
+typedef class T_local_parameter_declaration_2 T_local_parameter_declaration_2 ;
+class T_parameter_declaration_gen_1;
+typedef class T_parameter_declaration_gen_1 T_parameter_declaration_gen_1 ;
+class T_parameter_declaration_1;
+typedef class T_parameter_declaration_1 T_parameter_declaration_1 ;
+class T_parameter_declaration_2;
+typedef class T_parameter_declaration_2 T_parameter_declaration_2 ;
+class T_specparam_declaration;
+typedef class T_specparam_declaration T_specparam_declaration ;
+class T_parameter_type__NOSPEC;
+typedef class T_parameter_type__NOSPEC T_parameter_type__NOSPEC ;
+class T_parameter_type__INTEGER;
+typedef class T_parameter_type__INTEGER T_parameter_type__INTEGER ;
+class T_parameter_type__REAL;
+typedef class T_parameter_type__REAL T_parameter_type__REAL ;
+class T_parameter_type__REALTIME;
+typedef class T_parameter_type__REALTIME T_parameter_type__REALTIME ;
+class T_parameter_type__TIME;
+typedef class T_parameter_type__TIME T_parameter_type__TIME ;
+class T_inout_declaration;
+typedef class T_inout_declaration T_inout_declaration ;
+class T_input_declaration;
+typedef class T_input_declaration T_input_declaration ;
+class T_output_declaration_net;
+typedef class T_output_declaration_net T_output_declaration_net ;
+class T_output_declaration_reg;
+typedef class T_output_declaration_reg T_output_declaration_reg ;
+class T_output_declaration_var;
+typedef class T_output_declaration_var T_output_declaration_var ;
+class T_output_variable_type_INTEGER;
+typedef class T_output_variable_type_INTEGER T_output_variable_type_INTEGER ;
+class T_output_variable_type_TIME;
+typedef class T_output_variable_type_TIME T_output_variable_type_TIME ;
+class T_event_declaration;
+typedef class T_event_declaration T_event_declaration ;
+class T_integer_declaration;
+typedef class T_integer_declaration T_integer_declaration ;
+class T_net_declaration_net_type1;
+typedef class T_net_declaration_net_type1 T_net_declaration_net_type1 ;
+class T_net_declaration_net_type2;
+typedef class T_net_declaration_net_type2 T_net_declaration_net_type2 ;
+class T_net_declaration_net_type3;
+typedef class T_net_declaration_net_type3 T_net_declaration_net_type3 ;
+class T_net_declaration_net_type4;
+typedef class T_net_declaration_net_type4 T_net_declaration_net_type4 ;
+class T_net_declaration_trireg_1;
+typedef class T_net_declaration_trireg_1 T_net_declaration_trireg_1 ;
+class T_net_declaration_trireg_2;
+typedef class T_net_declaration_trireg_2 T_net_declaration_trireg_2 ;
+class T_net_declaration_trireg_3;
+typedef class T_net_declaration_trireg_3 T_net_declaration_trireg_3 ;
+class T_net_declaration_trireg_4;
+typedef class T_net_declaration_trireg_4 T_net_declaration_trireg_4 ;
+class T_vectored_scalared_NOSPEC;
+typedef class T_vectored_scalared_NOSPEC T_vectored_scalared_NOSPEC ;
+class T_vectored_scalared_vectored;
+typedef class T_vectored_scalared_vectored T_vectored_scalared_vectored ;
+class T_vectored_scalared_scalared;
+typedef class T_vectored_scalared_scalared T_vectored_scalared_scalared ;
+class T_real_declaration;
+typedef class T_real_declaration T_real_declaration ;
+class T_realtime_declaration;
+typedef class T_realtime_declaration T_realtime_declaration ;
+class T_reg_declaration;
+typedef class T_reg_declaration T_reg_declaration ;
+class T_time_declaration;
+typedef class T_time_declaration T_time_declaration ;
+class T_net_type_NOSPEC;
+typedef class T_net_type_NOSPEC T_net_type_NOSPEC ;
+class T_net_type__KEY_SUPPLY0;
+typedef class T_net_type__KEY_SUPPLY0 T_net_type__KEY_SUPPLY0 ;
+class T_net_type__KEY_SUPPLY1;
+typedef class T_net_type__KEY_SUPPLY1 T_net_type__KEY_SUPPLY1 ;
+class T_net_type__KEY_TRI;
+typedef class T_net_type__KEY_TRI T_net_type__KEY_TRI ;
+class T_net_type__KEY_TRIAND;
+typedef class T_net_type__KEY_TRIAND T_net_type__KEY_TRIAND ;
+class T_net_type__KEY_TRIOR;
+typedef class T_net_type__KEY_TRIOR T_net_type__KEY_TRIOR ;
+class T_net_type__KEY_TRI0;
+typedef class T_net_type__KEY_TRI0 T_net_type__KEY_TRI0 ;
+class T_net_type__KEY_TRI1;
+typedef class T_net_type__KEY_TRI1 T_net_type__KEY_TRI1 ;
+class T_net_type__KEY_UWIRE;
+typedef class T_net_type__KEY_UWIRE T_net_type__KEY_UWIRE ;
+class T_net_type__KEY_WIRE;
+typedef class T_net_type__KEY_WIRE T_net_type__KEY_WIRE ;
+class T_net_type__KEY_WAND;
+typedef class T_net_type__KEY_WAND T_net_type__KEY_WAND ;
+class T_net_type__KEY_WOR;
+typedef class T_net_type__KEY_WOR T_net_type__KEY_WOR ;
+class T_real_type_noass;
+typedef class T_real_type_noass T_real_type_noass ;
+class T_real_type_ass;
+typedef class T_real_type_ass T_real_type_ass ;
+class T_variable_type_noass;
+typedef class T_variable_type_noass T_variable_type_noass ;
+class T_variable_type_ass;
+typedef class T_variable_type_ass T_variable_type_ass ;
+class KEY_HIGHZ0;
+typedef class KEY_HIGHZ0 KEY_HIGHZ0 ;
+class KEY_HIGHZ1;
+typedef class KEY_HIGHZ1 KEY_HIGHZ1 ;
+class KEY_SUPPLY0;
+typedef class KEY_SUPPLY0 KEY_SUPPLY0 ;
+class KEY_STRONG0;
+typedef class KEY_STRONG0 KEY_STRONG0 ;
+class KEY_PULL0;
+typedef class KEY_PULL0 KEY_PULL0 ;
+class KEY_WEAK0;
+typedef class KEY_WEAK0 KEY_WEAK0 ;
+class KEY_SUPPLY1;
+typedef class KEY_SUPPLY1 KEY_SUPPLY1 ;
+class KEY_STRONG1;
+typedef class KEY_STRONG1 KEY_STRONG1 ;
+class KEY_PULL1;
+typedef class KEY_PULL1 KEY_PULL1 ;
+class KEY_WEAK1;
+typedef class KEY_WEAK1 KEY_WEAK1 ;
+class T_drive_strength_NOSPEC;
+typedef class T_drive_strength_NOSPEC T_drive_strength_NOSPEC ;
+class T_drive_strength;
+typedef class T_drive_strength T_drive_strength ;
+class T_charge_strength_NOSPEC;
+typedef class T_charge_strength_NOSPEC T_charge_strength_NOSPEC ;
+class T_charge_strength__small;
+typedef class T_charge_strength__small T_charge_strength__small ;
+class T_charge_strength__medium;
+typedef class T_charge_strength__medium T_charge_strength__medium ;
+class T_charge_strength__large;
+typedef class T_charge_strength__large T_charge_strength__large ;
+class T_delay3_NOSPEC;
+typedef class T_delay3_NOSPEC T_delay3_NOSPEC ;
+class T_delay3_1;
+typedef class T_delay3_1 T_delay3_1 ;
+class T_delay3_minmax1;
+typedef class T_delay3_minmax1 T_delay3_minmax1 ;
+class T_delay3_minmax2;
+typedef class T_delay3_minmax2 T_delay3_minmax2 ;
+class T_delay3_minmax3;
+typedef class T_delay3_minmax3 T_delay3_minmax3 ;
+class T_delay2_NOSPEC;
+typedef class T_delay2_NOSPEC T_delay2_NOSPEC ;
+class T_delay2_1;
+typedef class T_delay2_1 T_delay2_1 ;
+class T_delay2_minmax1;
+typedef class T_delay2_minmax1 T_delay2_minmax1 ;
+class T_delay2_minmax2;
+typedef class T_delay2_minmax2 T_delay2_minmax2 ;
+class T_event_identifier_dimension_list;
+typedef class T_event_identifier_dimension_list T_event_identifier_dimension_list ;
+class T_net_identifier_dimension_list;
+typedef class T_net_identifier_dimension_list T_net_identifier_dimension_list ;
+class T_port_identifier_equ1_expression_opt;
+typedef class T_port_identifier_equ1_expression_opt T_port_identifier_equ1_expression_opt ;
+class T_defparam_assignment;
+typedef class T_defparam_assignment T_defparam_assignment ;
+class T_net_decl_assignment;
+typedef class T_net_decl_assignment T_net_decl_assignment ;
+class T_param_assignment;
+typedef class T_param_assignment T_param_assignment ;
+class T_specparam_assignment;
+typedef class T_specparam_assignment T_specparam_assignment ;
+class T_specparam_assignment_pulse1;
+typedef class T_specparam_assignment_pulse1 T_specparam_assignment_pulse1 ;
+class T_specparam_assignment_pulse2;
+typedef class T_specparam_assignment_pulse2 T_specparam_assignment_pulse2 ;
+class T_dimension;
+typedef class T_dimension T_dimension ;
+class T_range_NOSPEC;
+typedef class T_range_NOSPEC T_range_NOSPEC ;
+class T_range;
+typedef class T_range T_range ;
+class T_automatic_false;
+typedef class T_automatic_false T_automatic_false ;
+class T_automatic_true;
+typedef class T_automatic_true T_automatic_true ;
+class T_function_declaration_1;
+typedef class T_function_declaration_1 T_function_declaration_1 ;
+class T_function_declaration_2;
+typedef class T_function_declaration_2 T_function_declaration_2 ;
+class T_function_item_declaration_block;
+typedef class T_function_item_declaration_block T_function_item_declaration_block ;
+class T_function_item_declaration_input;
+typedef class T_function_item_declaration_input T_function_item_declaration_input ;
+class T_attribute_instance_list_tf_input_declaration;
+typedef class T_attribute_instance_list_tf_input_declaration T_attribute_instance_list_tf_input_declaration ;
+class T_function_range_or_type_NOSPEC;
+typedef class T_function_range_or_type_NOSPEC T_function_range_or_type_NOSPEC ;
+class T_function_range_or_type;
+typedef class T_function_range_or_type T_function_range_or_type ;
+class T_function_range_or_type_INTEGER;
+typedef class T_function_range_or_type_INTEGER T_function_range_or_type_INTEGER ;
+class T_function_range_or_type_REAL;
+typedef class T_function_range_or_type_REAL T_function_range_or_type_REAL ;
+class T_function_range_or_type_REALTIME;
+typedef class T_function_range_or_type_REALTIME T_function_range_or_type_REALTIME ;
+class T_function_range_or_type_TIME;
+typedef class T_function_range_or_type_TIME T_function_range_or_type_TIME ;
+class T_task_declaration1;
+typedef class T_task_declaration1 T_task_declaration1 ;
+class T_task_declaration2;
+typedef class T_task_declaration2 T_task_declaration2 ;
+class T_task_item_declaration_block;
+typedef class T_task_item_declaration_block T_task_item_declaration_block ;
+class T_task_item_declaration_input;
+typedef class T_task_item_declaration_input T_task_item_declaration_input ;
+class T_task_item_declaration_output;
+typedef class T_task_item_declaration_output T_task_item_declaration_output ;
+class T_task_item_declaration_inout;
+typedef class T_task_item_declaration_inout T_task_item_declaration_inout ;
+class T_task_port_item_input;
+typedef class T_task_port_item_input T_task_port_item_input ;
+class T_tf_input_declaration_reg;
+typedef class T_tf_input_declaration_reg T_tf_input_declaration_reg ;
+class T_tf_input_declaration_type;
+typedef class T_tf_input_declaration_type T_tf_input_declaration_type ;
+class T_tf_output_declaration_reg;
+typedef class T_tf_output_declaration_reg T_tf_output_declaration_reg ;
+class T_tf_output_declaration_type;
+typedef class T_tf_output_declaration_type T_tf_output_declaration_type ;
+class T_tf_inout_declaration_reg;
+typedef class T_tf_inout_declaration_reg T_tf_inout_declaration_reg ;
+class T_tf_inout_declaration_type;
+typedef class T_tf_inout_declaration_type T_tf_inout_declaration_type ;
+class T_task_port_type_integer;
+typedef class T_task_port_type_integer T_task_port_type_integer ;
+class T_task_port_type_real;
+typedef class T_task_port_type_real T_task_port_type_real ;
+class T_task_port_type_realtime;
+typedef class T_task_port_type_realtime T_task_port_type_realtime ;
+class T_task_port_type_time;
+typedef class T_task_port_type_time T_task_port_type_time ;
+class T_block_item_declaration_reg;
+typedef class T_block_item_declaration_reg T_block_item_declaration_reg ;
+class T_block_item_declaration_integer;
+typedef class T_block_item_declaration_integer T_block_item_declaration_integer ;
+class T_block_item_declaration_time;
+typedef class T_block_item_declaration_time T_block_item_declaration_time ;
+class T_block_item_declaration_real;
+typedef class T_block_item_declaration_real T_block_item_declaration_real ;
+class T_block_item_declaration_realtime;
+typedef class T_block_item_declaration_realtime T_block_item_declaration_realtime ;
+class T_block_item_declaration_event;
+typedef class T_block_item_declaration_event T_block_item_declaration_event ;
+class T_block_item_declaration_local_param;
+typedef class T_block_item_declaration_local_param T_block_item_declaration_local_param ;
+class T_block_item_declaration_param;
+typedef class T_block_item_declaration_param T_block_item_declaration_param ;
+class T_block_variable_type;
+typedef class T_block_variable_type T_block_variable_type ;
+class T_block_real_type;
+typedef class T_block_real_type T_block_real_type ;
+class T_gate_instantiation_cmos;
+typedef class T_gate_instantiation_cmos T_gate_instantiation_cmos ;
+class T_gate_instantiation_enable;
+typedef class T_gate_instantiation_enable T_gate_instantiation_enable ;
+class T_gate_instantiation_mos;
+typedef class T_gate_instantiation_mos T_gate_instantiation_mos ;
+class T_gate_instantiation_input;
+typedef class T_gate_instantiation_input T_gate_instantiation_input ;
+class T_gate_instantiation_output;
+typedef class T_gate_instantiation_output T_gate_instantiation_output ;
+class T_gate_instantiation_pass_en;
+typedef class T_gate_instantiation_pass_en T_gate_instantiation_pass_en ;
+class T_gate_instantiation_pass;
+typedef class T_gate_instantiation_pass T_gate_instantiation_pass ;
+class T_gate_instantiation_pulldown;
+typedef class T_gate_instantiation_pulldown T_gate_instantiation_pulldown ;
+class T_gate_instantiation_pullup;
+typedef class T_gate_instantiation_pullup T_gate_instantiation_pullup ;
+class T_cmos_switch_instance;
+typedef class T_cmos_switch_instance T_cmos_switch_instance ;
+class T_enable_gate_instance;
+typedef class T_enable_gate_instance T_enable_gate_instance ;
+class T_mos_switch_instance;
+typedef class T_mos_switch_instance T_mos_switch_instance ;
+class T_n_input_gate_instance;
+typedef class T_n_input_gate_instance T_n_input_gate_instance ;
+class T_n_output_gate_instance;
+typedef class T_n_output_gate_instance T_n_output_gate_instance ;
+class T_pass_switch_instance;
+typedef class T_pass_switch_instance T_pass_switch_instance ;
+class T_pass_enable_switch_instance;
+typedef class T_pass_enable_switch_instance T_pass_enable_switch_instance ;
+class T_pull_gate_instance;
+typedef class T_pull_gate_instance T_pull_gate_instance ;
+class T_name_of_gate_instance_NOSPEC;
+typedef class T_name_of_gate_instance_NOSPEC T_name_of_gate_instance_NOSPEC ;
+class T_name_of_gate_instance;
+typedef class T_name_of_gate_instance T_name_of_gate_instance ;
+class T_pulldown_strength_NOSPEC;
+typedef class T_pulldown_strength_NOSPEC T_pulldown_strength_NOSPEC ;
+class T_pulldown_strength01;
+typedef class T_pulldown_strength01 T_pulldown_strength01 ;
+class T_pulldown_strength10;
+typedef class T_pulldown_strength10 T_pulldown_strength10 ;
+class T_pulldown_strength0;
+typedef class T_pulldown_strength0 T_pulldown_strength0 ;
+class T_pullup_strength_NOSPEC;
+typedef class T_pullup_strength_NOSPEC T_pullup_strength_NOSPEC ;
+class T_pullup_strength01;
+typedef class T_pullup_strength01 T_pullup_strength01 ;
+class T_pullup_strength10;
+typedef class T_pullup_strength10 T_pullup_strength10 ;
+class T_pullup_strength1;
+typedef class T_pullup_strength1 T_pullup_strength1 ;
+class T_cmos_switchtype_CMOS;
+typedef class T_cmos_switchtype_CMOS T_cmos_switchtype_CMOS ;
+class T_cmos_switchtype_RCMOS;
+typedef class T_cmos_switchtype_RCMOS T_cmos_switchtype_RCMOS ;
+class T_enable_gatetype__BUFIF0;
+typedef class T_enable_gatetype__BUFIF0 T_enable_gatetype__BUFIF0 ;
+class T_enable_gatetype__BUFIF1;
+typedef class T_enable_gatetype__BUFIF1 T_enable_gatetype__BUFIF1 ;
+class T_enable_gatetype__NOTIF0;
+typedef class T_enable_gatetype__NOTIF0 T_enable_gatetype__NOTIF0 ;
+class T_enable_gatetype__NOTIF1;
+typedef class T_enable_gatetype__NOTIF1 T_enable_gatetype__NOTIF1 ;
+class T_mos_switchtype_NMOS;
+typedef class T_mos_switchtype_NMOS T_mos_switchtype_NMOS ;
+class T_mos_switchtype_PMOS;
+typedef class T_mos_switchtype_PMOS T_mos_switchtype_PMOS ;
+class T_mos_switchtype_RNMOS;
+typedef class T_mos_switchtype_RNMOS T_mos_switchtype_RNMOS ;
+class T_mos_switchtype_RPMOS;
+typedef class T_mos_switchtype_RPMOS T_mos_switchtype_RPMOS ;
+class T_n_input_gatetype_AND;
+typedef class T_n_input_gatetype_AND T_n_input_gatetype_AND ;
+class T_n_input_gatetype_NAND;
+typedef class T_n_input_gatetype_NAND T_n_input_gatetype_NAND ;
+class T_n_input_gatetype_OR;
+typedef class T_n_input_gatetype_OR T_n_input_gatetype_OR ;
+class T_n_input_gatetype_NOR;
+typedef class T_n_input_gatetype_NOR T_n_input_gatetype_NOR ;
+class T_n_input_gatetype_XOR;
+typedef class T_n_input_gatetype_XOR T_n_input_gatetype_XOR ;
+class T_n_input_gatetype_XNOR;
+typedef class T_n_input_gatetype_XNOR T_n_input_gatetype_XNOR ;
+class T_n_output_gatetype_BUF;
+typedef class T_n_output_gatetype_BUF T_n_output_gatetype_BUF ;
+class T_n_output_gatetype_NOT;
+typedef class T_n_output_gatetype_NOT T_n_output_gatetype_NOT ;
+class T_pass_en_switchtype_TRANIF0;
+typedef class T_pass_en_switchtype_TRANIF0 T_pass_en_switchtype_TRANIF0 ;
+class T_pass_en_switchtype_TRANIF1;
+typedef class T_pass_en_switchtype_TRANIF1 T_pass_en_switchtype_TRANIF1 ;
+class T_pass_en_switchtype_RTRANIF1;
+typedef class T_pass_en_switchtype_RTRANIF1 T_pass_en_switchtype_RTRANIF1 ;
+class T_pass_en_switchtype_RTRANIF0;
+typedef class T_pass_en_switchtype_RTRANIF0 T_pass_en_switchtype_RTRANIF0 ;
+class T_pass_switchtype_TRAN;
+typedef class T_pass_switchtype_TRAN T_pass_switchtype_TRAN ;
+class T_pass_switchtype_RTRAN;
+typedef class T_pass_switchtype_RTRAN T_pass_switchtype_RTRAN ;
+class T_module_instantiation;
+typedef class T_module_instantiation T_module_instantiation ;
+class T_module_instance;
+typedef class T_module_instance T_module_instance ;
+class T_name_of_module_instance;
+typedef class T_name_of_module_instance T_name_of_module_instance ;
+class T_parameter_value_assignment_NOSPEC;
+typedef class T_parameter_value_assignment_NOSPEC T_parameter_value_assignment_NOSPEC ;
+class T_parameter_value_assignment_order;
+typedef class T_parameter_value_assignment_order T_parameter_value_assignment_order ;
+class T_parameter_value_assignment_named;
+typedef class T_parameter_value_assignment_named T_parameter_value_assignment_named ;
+class T_named_parameter_assignment;
+typedef class T_named_parameter_assignment T_named_parameter_assignment ;
+class T_list_of_port_connections_ordered;
+typedef class T_list_of_port_connections_ordered T_list_of_port_connections_ordered ;
+class T_list_of_port_connections_named;
+typedef class T_list_of_port_connections_named T_list_of_port_connections_named ;
+class T_ordered_port_connection;
+typedef class T_ordered_port_connection T_ordered_port_connection ;
+class T_named_port_connection;
+typedef class T_named_port_connection T_named_port_connection ;
+class T_generate_region;
+typedef class T_generate_region T_generate_region ;
+class T_genvar_declaration;
+typedef class T_genvar_declaration T_genvar_declaration ;
+class T_loop_generate_construct;
+typedef class T_loop_generate_construct T_loop_generate_construct ;
+class T_genvar_initialization;
+typedef class T_genvar_initialization T_genvar_initialization ;
+class T_genvar_iteration;
+typedef class T_genvar_iteration T_genvar_iteration ;
+class T_conditional_generate_construct_if;
+typedef class T_conditional_generate_construct_if T_conditional_generate_construct_if ;
+class T_conditional_generate_construct_case;
+typedef class T_conditional_generate_construct_case T_conditional_generate_construct_case ;
+class T_case_generate_construct;
+typedef class T_case_generate_construct T_case_generate_construct ;
+class T_case_generate_item_case;
+typedef class T_case_generate_item_case T_case_generate_item_case ;
+class T_case_generate_item_default;
+typedef class T_case_generate_item_default T_case_generate_item_default ;
+class T_if_generate_construct;
+typedef class T_if_generate_construct T_if_generate_construct ;
+class T_generate_block_NOSPEC;
+typedef class T_generate_block_NOSPEC T_generate_block_NOSPEC ;
+class T_generate_block_mgi;
+typedef class T_generate_block_mgi T_generate_block_mgi ;
+class T_generate_block_begin;
+typedef class T_generate_block_begin T_generate_block_begin ;
+class T_udp_declaration_1;
+typedef class T_udp_declaration_1 T_udp_declaration_1 ;
+class T_udp_declaration_2;
+typedef class T_udp_declaration_2 T_udp_declaration_2 ;
+class T_udp_port_list;
+typedef class T_udp_port_list T_udp_port_list ;
+class T_udp_declaration_port_list;
+typedef class T_udp_declaration_port_list T_udp_declaration_port_list ;
+class T_udp_port_declaration_out;
+typedef class T_udp_port_declaration_out T_udp_port_declaration_out ;
+class T_udp_port_declaration_input;
+typedef class T_udp_port_declaration_input T_udp_port_declaration_input ;
+class T_udp_port_declaration_reg;
+typedef class T_udp_port_declaration_reg T_udp_port_declaration_reg ;
+class T_udp_output_declaration_output;
+typedef class T_udp_output_declaration_output T_udp_output_declaration_output ;
+class T_udp_output_declaration_reg;
+typedef class T_udp_output_declaration_reg T_udp_output_declaration_reg ;
+class T_udp_input_declaration;
+typedef class T_udp_input_declaration T_udp_input_declaration ;
+class T_udp_reg_declaration;
+typedef class T_udp_reg_declaration T_udp_reg_declaration ;
+class T_udp_body_comb;
+typedef class T_udp_body_comb T_udp_body_comb ;
+class T_udp_body_seq;
+typedef class T_udp_body_seq T_udp_body_seq ;
+class T_combinational_entry;
+typedef class T_combinational_entry T_combinational_entry ;
+class T_sequential_body;
+typedef class T_sequential_body T_sequential_body ;
+class T_udp_initial_statement_NOSPEC;
+typedef class T_udp_initial_statement_NOSPEC T_udp_initial_statement_NOSPEC ;
+class T_udp_initial_statement;
+typedef class T_udp_initial_statement T_udp_initial_statement ;
+class T_init_val_bin;
+typedef class T_init_val_bin T_init_val_bin ;
+class T_init_val_unsigned;
+typedef class T_init_val_unsigned T_init_val_unsigned ;
+class T_sequential_entry;
+typedef class T_sequential_entry T_sequential_entry ;
+class T_seq_input_list_level;
+typedef class T_seq_input_list_level T_seq_input_list_level ;
+class T_seq_input_list_edge;
+typedef class T_seq_input_list_edge T_seq_input_list_edge ;
+class T_edge_input_list;
+typedef class T_edge_input_list T_edge_input_list ;
+class T_edge_indicator_level;
+typedef class T_edge_indicator_level T_edge_indicator_level ;
+class T_edge_indicator_edge;
+typedef class T_edge_indicator_edge T_edge_indicator_edge ;
+class T_udp_instantiation;
+typedef class T_udp_instantiation T_udp_instantiation ;
+class T_udp_instance;
+typedef class T_udp_instance T_udp_instance ;
+class T_name_of_udp_instance_NOSPEC;
+typedef class T_name_of_udp_instance_NOSPEC T_name_of_udp_instance_NOSPEC ;
+class T_name_of_udp_instance;
+typedef class T_name_of_udp_instance T_name_of_udp_instance ;
+class T_continuous_assign;
+typedef class T_continuous_assign T_continuous_assign ;
+class T_net_assignment;
+typedef class T_net_assignment T_net_assignment ;
+class T_initial_construct;
+typedef class T_initial_construct T_initial_construct ;
+class T_always_construct;
+typedef class T_always_construct T_always_construct ;
+class T_blocking_assignment;
+typedef class T_blocking_assignment T_blocking_assignment ;
+class T_nonblocking_assignment;
+typedef class T_nonblocking_assignment T_nonblocking_assignment ;
+class T_procedural_continuous_assignments_assign;
+typedef class T_procedural_continuous_assignments_assign T_procedural_continuous_assignments_assign ;
+class T_procedural_continuous_assignments_deassign;
+typedef class T_procedural_continuous_assignments_deassign T_procedural_continuous_assignments_deassign ;
+class T_procedural_continuous_assignments_force1;
+typedef class T_procedural_continuous_assignments_force1 T_procedural_continuous_assignments_force1 ;
+class T_procedural_continuous_assignments_force2;
+typedef class T_procedural_continuous_assignments_force2 T_procedural_continuous_assignments_force2 ;
+class T_procedural_continuous_assignments_release1;
+typedef class T_procedural_continuous_assignments_release1 T_procedural_continuous_assignments_release1 ;
+class T_procedural_continuous_assignments_release2;
+typedef class T_procedural_continuous_assignments_release2 T_procedural_continuous_assignments_release2 ;
+class T_par_block;
+typedef class T_par_block T_par_block ;
+class T_colon_block_identifier_NOSPEC;
+typedef class T_colon_block_identifier_NOSPEC T_colon_block_identifier_NOSPEC ;
+class T_colon_block_identifier;
+typedef class T_colon_block_identifier T_colon_block_identifier ;
+class T_seq_block;
+typedef class T_seq_block T_seq_block ;
+class T_statement_NOSPEC;
+typedef class T_statement_NOSPEC T_statement_NOSPEC ;
+class T_statement_blocking_assignment;
+typedef class T_statement_blocking_assignment T_statement_blocking_assignment ;
+class T_statement_case_statement;
+typedef class T_statement_case_statement T_statement_case_statement ;
+class T_statement_conditional_statement;
+typedef class T_statement_conditional_statement T_statement_conditional_statement ;
+class T_statement_disable_statement;
+typedef class T_statement_disable_statement T_statement_disable_statement ;
+class T_statement_event_trigger;
+typedef class T_statement_event_trigger T_statement_event_trigger ;
+class T_statement_loop_statement;
+typedef class T_statement_loop_statement T_statement_loop_statement ;
+class T_statement_nonblocking_assignment;
+typedef class T_statement_nonblocking_assignment T_statement_nonblocking_assignment ;
+class T_statement_par_block;
+typedef class T_statement_par_block T_statement_par_block ;
+class T_statement_procedural_continuous_assignments;
+typedef class T_statement_procedural_continuous_assignments T_statement_procedural_continuous_assignments ;
+class T_statement_procedural_timing_control_statement;
+typedef class T_statement_procedural_timing_control_statement T_statement_procedural_timing_control_statement ;
+class T_statement_seq_block;
+typedef class T_statement_seq_block T_statement_seq_block ;
+class T_statement_system_task_enable;
+typedef class T_statement_system_task_enable T_statement_system_task_enable ;
+class T_statement_task_enable;
+typedef class T_statement_task_enable T_statement_task_enable ;
+class T_statement_wait_statement;
+typedef class T_statement_wait_statement T_statement_wait_statement ;
+class T_delay_control_delay_value;
+typedef class T_delay_control_delay_value T_delay_control_delay_value ;
+class T_delay_control_mintypmax_expression;
+typedef class T_delay_control_mintypmax_expression T_delay_control_mintypmax_expression ;
+class T_delay_or_event_control_NOSPEC;
+typedef class T_delay_or_event_control_NOSPEC T_delay_or_event_control_NOSPEC ;
+class T_delay_or_event_control_delay_control;
+typedef class T_delay_or_event_control_delay_control T_delay_or_event_control_delay_control ;
+class T_delay_or_event_control_event_control;
+typedef class T_delay_or_event_control_event_control T_delay_or_event_control_event_control ;
+class T_delay_or_event_control_3;
+typedef class T_delay_or_event_control_3 T_delay_or_event_control_3 ;
+class T_disable_statement;
+typedef class T_disable_statement T_disable_statement ;
+class T_event_control_eventid;
+typedef class T_event_control_eventid T_event_control_eventid ;
+class T_event_control_event_exp;
+typedef class T_event_control_event_exp T_event_control_event_exp ;
+class T_event_control_start;
+typedef class T_event_control_start T_event_control_start ;
+class T_event_trigger;
+typedef class T_event_trigger T_event_trigger ;
+class T_event_expression_exp;
+typedef class T_event_expression_exp T_event_expression_exp ;
+class T_event_expression_pos;
+typedef class T_event_expression_pos T_event_expression_pos ;
+class T_event_expression_neg;
+typedef class T_event_expression_neg T_event_expression_neg ;
+class T_event_expression_or;
+typedef class T_event_expression_or T_event_expression_or ;
+class T_procedural_timing_control_delay;
+typedef class T_procedural_timing_control_delay T_procedural_timing_control_delay ;
+class T_procedural_timing_control_event;
+typedef class T_procedural_timing_control_event T_procedural_timing_control_event ;
+class T_procedural_timing_control_statement;
+typedef class T_procedural_timing_control_statement T_procedural_timing_control_statement ;
+class T_wait_statement;
+typedef class T_wait_statement T_wait_statement ;
+class T_conditional_statement_ifelse;
+typedef class T_conditional_statement_ifelse T_conditional_statement_ifelse ;
+class T_conditional_statement_ifelseif;
+typedef class T_conditional_statement_ifelseif T_conditional_statement_ifelseif ;
+class T_elseif;
+typedef class T_elseif T_elseif ;
+class T_case_statement_case;
+typedef class T_case_statement_case T_case_statement_case ;
+class T_case_statement_casez;
+typedef class T_case_statement_casez T_case_statement_casez ;
+class T_case_statement_casex;
+typedef class T_case_statement_casex T_case_statement_casex ;
+class T_case_item;
+typedef class T_case_item T_case_item ;
+class T_case_item_default;
+typedef class T_case_item_default T_case_item_default ;
+class T_colon_opt_false;
+typedef class T_colon_opt_false T_colon_opt_false ;
+class T_colon_opt_true;
+typedef class T_colon_opt_true T_colon_opt_true ;
+class T_loop_statement_forever;
+typedef class T_loop_statement_forever T_loop_statement_forever ;
+class T_loop_statement_repeat;
+typedef class T_loop_statement_repeat T_loop_statement_repeat ;
+class T_loop_statement_while;
+typedef class T_loop_statement_while T_loop_statement_while ;
+class T_loop_statement_for;
+typedef class T_loop_statement_for T_loop_statement_for ;
+class T_system_task_enable;
+typedef class T_system_task_enable T_system_task_enable ;
+class T_task_enable;
+typedef class T_task_enable T_task_enable ;
+class T_specify_block;
+typedef class T_specify_block T_specify_block ;
+class T_specify_item_specparam;
+typedef class T_specify_item_specparam T_specify_item_specparam ;
+class T_specify_item_pulsestyle;
+typedef class T_specify_item_pulsestyle T_specify_item_pulsestyle ;
+class T_specify_item_showcancelled;
+typedef class T_specify_item_showcancelled T_specify_item_showcancelled ;
+class T_specify_item_path;
+typedef class T_specify_item_path T_specify_item_path ;
+class T_pulsestyle_declaration_oneevent;
+typedef class T_pulsestyle_declaration_oneevent T_pulsestyle_declaration_oneevent ;
+class T_pulsestyle_declaration_onedetect;
+typedef class T_pulsestyle_declaration_onedetect T_pulsestyle_declaration_onedetect ;
+class T_showcancelled_declaration_show;
+typedef class T_showcancelled_declaration_show T_showcancelled_declaration_show ;
+class T_showcancelled_declaration_noshow;
+typedef class T_showcancelled_declaration_noshow T_showcancelled_declaration_noshow ;
+class T_path_declaration_simple;
+typedef class T_path_declaration_simple T_path_declaration_simple ;
+class T_path_declaration_edge;
+typedef class T_path_declaration_edge T_path_declaration_edge ;
+class T_path_declaration_state;
+typedef class T_path_declaration_state T_path_declaration_state ;
+class T_simple_path_declaration_parallel;
+typedef class T_simple_path_declaration_parallel T_simple_path_declaration_parallel ;
+class T_simple_path_declaration_full;
+typedef class T_simple_path_declaration_full T_simple_path_declaration_full ;
+class T_parallel_path_description;
+typedef class T_parallel_path_description T_parallel_path_description ;
+class T_full_path_description;
+typedef class T_full_path_description T_full_path_description ;
+class T_specify_input_terminal_descriptor;
+typedef class T_specify_input_terminal_descriptor T_specify_input_terminal_descriptor ;
+class T_specify_output_terminal_descriptor;
+typedef class T_specify_output_terminal_descriptor T_specify_output_terminal_descriptor ;
+class T_list_of_mintypmax_expressions_1;
+typedef class T_list_of_mintypmax_expressions_1 T_list_of_mintypmax_expressions_1 ;
+class T_list_of_mintypmax_expressions_2;
+typedef class T_list_of_mintypmax_expressions_2 T_list_of_mintypmax_expressions_2 ;
+class T_list_of_mintypmax_expressions_3;
+typedef class T_list_of_mintypmax_expressions_3 T_list_of_mintypmax_expressions_3 ;
+class T_list_of_mintypmax_expressions_6;
+typedef class T_list_of_mintypmax_expressions_6 T_list_of_mintypmax_expressions_6 ;
+class T_list_of_mintypmax_expressions_12;
+typedef class T_list_of_mintypmax_expressions_12 T_list_of_mintypmax_expressions_12 ;
+class T_edge_sensitive_path_declaration_parallel;
+typedef class T_edge_sensitive_path_declaration_parallel T_edge_sensitive_path_declaration_parallel ;
+class T_edge_sensitive_path_declaration_full;
+typedef class T_edge_sensitive_path_declaration_full T_edge_sensitive_path_declaration_full ;
+class T_parallel_edge_sensitive_path_description;
+typedef class T_parallel_edge_sensitive_path_description T_parallel_edge_sensitive_path_description ;
+class T_full_edge_sensitive_path_description;
+typedef class T_full_edge_sensitive_path_description T_full_edge_sensitive_path_description ;
+class T_state_dependent_path_declaration_simple;
+typedef class T_state_dependent_path_declaration_simple T_state_dependent_path_declaration_simple ;
+class T_state_dependent_path_declaration_edge;
+typedef class T_state_dependent_path_declaration_edge T_state_dependent_path_declaration_edge ;
+class T_state_dependent_path_declaration_ifnone;
+typedef class T_state_dependent_path_declaration_ifnone T_state_dependent_path_declaration_ifnone ;
+class T_concatenation;
+typedef class T_concatenation T_concatenation ;
+class T_module_path_multiple_concatenation;
+typedef class T_module_path_multiple_concatenation T_module_path_multiple_concatenation ;
+class T_module_path_concatenation;
+typedef class T_module_path_concatenation T_module_path_concatenation ;
+class T_multiple_concatenation;
+typedef class T_multiple_concatenation T_multiple_concatenation ;
+class T_function_call;
+typedef class T_function_call T_function_call ;
+class T_system_function_call;
+typedef class T_system_function_call T_system_function_call ;
+class T_conditional_expression;
+typedef class T_conditional_expression T_conditional_expression ;
+class T_expression_NOSPEC;
+typedef class T_expression_NOSPEC T_expression_NOSPEC ;
+class T_expression_prim;
+typedef class T_expression_prim T_expression_prim ;
+class T_expression_op1;
+typedef class T_expression_op1 T_expression_op1 ;
+class T_expression_op2;
+typedef class T_expression_op2 T_expression_op2 ;
+class T_expression_condition;
+typedef class T_expression_condition T_expression_condition ;
+class T_mintypmax_expression_NOSPEC;
+typedef class T_mintypmax_expression_NOSPEC T_mintypmax_expression_NOSPEC ;
+class T_mintypmax_expression_1;
+typedef class T_mintypmax_expression_1 T_mintypmax_expression_1 ;
+class T_mintypmax_expression_3;
+typedef class T_mintypmax_expression_3 T_mintypmax_expression_3 ;
+class T_module_path_conditional_expression;
+typedef class T_module_path_conditional_expression T_module_path_conditional_expression ;
+class T_module_path_expression_prim;
+typedef class T_module_path_expression_prim T_module_path_expression_prim ;
+class T_module_path_expression_op1;
+typedef class T_module_path_expression_op1 T_module_path_expression_op1 ;
+class T_module_path_expression_op2;
+typedef class T_module_path_expression_op2 T_module_path_expression_op2 ;
+class T_module_path_expression_sel;
+typedef class T_module_path_expression_sel T_module_path_expression_sel ;
+class T_module_path_mintypmax_expression_1;
+typedef class T_module_path_mintypmax_expression_1 T_module_path_mintypmax_expression_1 ;
+class T_module_path_mintypmax_expression_3;
+typedef class T_module_path_mintypmax_expression_3 T_module_path_mintypmax_expression_3 ;
+class T_range_expression_NOSPEC;
+typedef class T_range_expression_NOSPEC T_range_expression_NOSPEC ;
+class T_range_expression_1;
+typedef class T_range_expression_1 T_range_expression_1 ;
+class T_range_expression_2;
+typedef class T_range_expression_2 T_range_expression_2 ;
+class T_range_expression_addrange;
+typedef class T_range_expression_addrange T_range_expression_addrange ;
+class T_range_expression_subrange;
+typedef class T_range_expression_subrange T_range_expression_subrange ;
+class T_module_path_primary_num;
+typedef class T_module_path_primary_num T_module_path_primary_num ;
+class T_module_path_primary_id;
+typedef class T_module_path_primary_id T_module_path_primary_id ;
+class T_module_path_primary_concat;
+typedef class T_module_path_primary_concat T_module_path_primary_concat ;
+class T_module_path_primary_mul_concat;
+typedef class T_module_path_primary_mul_concat T_module_path_primary_mul_concat ;
+class T_module_path_primary_func;
+typedef class T_module_path_primary_func T_module_path_primary_func ;
+class T_module_path_primary_sysfunc;
+typedef class T_module_path_primary_sysfunc T_module_path_primary_sysfunc ;
+class T_module_path_primary_mintypmax;
+typedef class T_module_path_primary_mintypmax T_module_path_primary_mintypmax ;
+class T_primary_num;
+typedef class T_primary_num T_primary_num ;
+class T_primary_id;
+typedef class T_primary_id T_primary_id ;
+class T_primary_concat;
+typedef class T_primary_concat T_primary_concat ;
+class T_primary_mulcon;
+typedef class T_primary_mulcon T_primary_mulcon ;
+class T_primary_func;
+typedef class T_primary_func T_primary_func ;
+class T_primary_sysfunc;
+typedef class T_primary_sysfunc T_primary_sysfunc ;
+class T_primary_mintypmax;
+typedef class T_primary_mintypmax T_primary_mintypmax ;
+class T_primary_string;
+typedef class T_primary_string T_primary_string ;
+class T_net_lvalue_id;
+typedef class T_net_lvalue_id T_net_lvalue_id ;
+class T_net_lvalue_idexp;
+typedef class T_net_lvalue_idexp T_net_lvalue_idexp ;
+class T_net_lvalue_lvlist;
+typedef class T_net_lvalue_lvlist T_net_lvalue_lvlist ;
+class T_delay_value_UNSIGNED_NUMBER;
+typedef class T_delay_value_UNSIGNED_NUMBER T_delay_value_UNSIGNED_NUMBER ;
+class T_delay_value_REAL_NUMBER;
+typedef class T_delay_value_REAL_NUMBER T_delay_value_REAL_NUMBER ;
+class T_delay_value_id;
+typedef class T_delay_value_id T_delay_value_id ;
+class T_attribute_instance;
+typedef class T_attribute_instance T_attribute_instance ;
+class T_attr_spec;
+typedef class T_attr_spec T_attr_spec ;
+class T_hierarchical_identifier;
+typedef class T_hierarchical_identifier T_hierarchical_identifier ;
+class T_identifier_lsq_expression_rsq;
+typedef class T_identifier_lsq_expression_rsq T_identifier_lsq_expression_rsq ;
+class T_polarity_operator_NOSPEC;
+typedef class T_polarity_operator_NOSPEC T_polarity_operator_NOSPEC ;
+class T_polarity_operator_ADD;
+typedef class T_polarity_operator_ADD T_polarity_operator_ADD ;
+class T_polarity_operator_SUB;
+typedef class T_polarity_operator_SUB T_polarity_operator_SUB ;
+class T_edge_identifier_NOSPEC;
+typedef class T_edge_identifier_NOSPEC T_edge_identifier_NOSPEC ;
+class T_edge_identifier_POS;
+typedef class T_edge_identifier_POS T_edge_identifier_POS ;
+class T_edge_identifier_NEG;
+typedef class T_edge_identifier_NEG T_edge_identifier_NEG ;
+class T_unary_operator_LOGIC_NEG;
+typedef class T_unary_operator_LOGIC_NEG T_unary_operator_LOGIC_NEG ;
+class T_unary_operator_BITWISE_NEG;
+typedef class T_unary_operator_BITWISE_NEG T_unary_operator_BITWISE_NEG ;
+class T_unary_operator_REDUCE_NOR;
+typedef class T_unary_operator_REDUCE_NOR T_unary_operator_REDUCE_NOR ;
+class T_unary_operator_REDUCE_NAND;
+typedef class T_unary_operator_REDUCE_NAND T_unary_operator_REDUCE_NAND ;
+class T_unary_operator_ADD;
+typedef class T_unary_operator_ADD T_unary_operator_ADD ;
+class T_unary_operator_SUB;
+typedef class T_unary_operator_SUB T_unary_operator_SUB ;
+class T_unary_operator_REDUCE_AND;
+typedef class T_unary_operator_REDUCE_AND T_unary_operator_REDUCE_AND ;
+class T_unary_operator_REDUCE_OR;
+typedef class T_unary_operator_REDUCE_OR T_unary_operator_REDUCE_OR ;
+class T_unary_operator_REDUCE_XOR;
+typedef class T_unary_operator_REDUCE_XOR T_unary_operator_REDUCE_XOR ;
+class T_unary_operator_REDUCE_XNOR;
+typedef class T_unary_operator_REDUCE_XNOR T_unary_operator_REDUCE_XNOR ;
+class T_binary_operator_MUL;
+typedef class T_binary_operator_MUL T_binary_operator_MUL ;
+class T_binary_operator_DIV;
+typedef class T_binary_operator_DIV T_binary_operator_DIV ;
+class T_binary_operator_MOD;
+typedef class T_binary_operator_MOD T_binary_operator_MOD ;
+class T_binary_operator_EQU2;
+typedef class T_binary_operator_EQU2 T_binary_operator_EQU2 ;
+class T_binary_operator_NEQ2;
+typedef class T_binary_operator_NEQ2 T_binary_operator_NEQ2 ;
+class T_binary_operator_EQU3;
+typedef class T_binary_operator_EQU3 T_binary_operator_EQU3 ;
+class T_binary_operator_NEQ3;
+typedef class T_binary_operator_NEQ3 T_binary_operator_NEQ3 ;
+class T_binary_operator_POWER;
+typedef class T_binary_operator_POWER T_binary_operator_POWER ;
+class T_binary_operator_LT;
+typedef class T_binary_operator_LT T_binary_operator_LT ;
+class T_binary_operator_LE;
+typedef class T_binary_operator_LE T_binary_operator_LE ;
+class T_binary_operator_GT;
+typedef class T_binary_operator_GT T_binary_operator_GT ;
+class T_binary_operator_GE;
+typedef class T_binary_operator_GE T_binary_operator_GE ;
+class T_binary_operator_LOGICAL_RIGHTSHIFT;
+typedef class T_binary_operator_LOGICAL_RIGHTSHIFT T_binary_operator_LOGICAL_RIGHTSHIFT ;
+class T_binary_operator_LOGICAL_LEFTSHIFT;
+typedef class T_binary_operator_LOGICAL_LEFTSHIFT T_binary_operator_LOGICAL_LEFTSHIFT ;
+class T_binary_operator_ARITHMETIC_RIGHTSHIFT;
+typedef class T_binary_operator_ARITHMETIC_RIGHTSHIFT T_binary_operator_ARITHMETIC_RIGHTSHIFT ;
+class T_binary_operator_ARITHMETIC_LEFTSHIFT;
+typedef class T_binary_operator_ARITHMETIC_LEFTSHIFT T_binary_operator_ARITHMETIC_LEFTSHIFT ;
+class T_binary_operator_ADD;
+typedef class T_binary_operator_ADD T_binary_operator_ADD ;
+class T_binary_operator_SUB;
+typedef class T_binary_operator_SUB T_binary_operator_SUB ;
+class T_binary_operator_AND;
+typedef class T_binary_operator_AND T_binary_operator_AND ;
+class T_binary_operator_OR;
+typedef class T_binary_operator_OR T_binary_operator_OR ;
+class T_binary_operator_AND2;
+typedef class T_binary_operator_AND2 T_binary_operator_AND2 ;
+class T_binary_operator_OR2;
+typedef class T_binary_operator_OR2 T_binary_operator_OR2 ;
+class T_binary_operator_XOR;
+typedef class T_binary_operator_XOR T_binary_operator_XOR ;
+class T_binary_operator_XNOR;
+typedef class T_binary_operator_XNOR T_binary_operator_XNOR ;
+class T_unary_module_path_operator_GANTANHAO;
+typedef class T_unary_module_path_operator_GANTANHAO T_unary_module_path_operator_GANTANHAO ;
+class T_unary_module_path_operator_BOLANGHAO;
+typedef class T_unary_module_path_operator_BOLANGHAO T_unary_module_path_operator_BOLANGHAO ;
+class T_unary_module_path_operator_AND;
+typedef class T_unary_module_path_operator_AND T_unary_module_path_operator_AND ;
+class T_unary_module_path_operator_NAND;
+typedef class T_unary_module_path_operator_NAND T_unary_module_path_operator_NAND ;
+class T_unary_module_path_operator_OR;
+typedef class T_unary_module_path_operator_OR T_unary_module_path_operator_OR ;
+class T_unary_module_path_operator_NOR;
+typedef class T_unary_module_path_operator_NOR T_unary_module_path_operator_NOR ;
+class T_unary_module_path_operator_XOR;
+typedef class T_unary_module_path_operator_XOR T_unary_module_path_operator_XOR ;
+class T_unary_module_path_operator_XNOR;
+typedef class T_unary_module_path_operator_XNOR T_unary_module_path_operator_XNOR ;
+class T_binary_module_path_operator_EQU2;
+typedef class T_binary_module_path_operator_EQU2 T_binary_module_path_operator_EQU2 ;
+class T_binary_module_path_operator_NEQ2;
+typedef class T_binary_module_path_operator_NEQ2 T_binary_module_path_operator_NEQ2 ;
+class T_binary_module_path_operator_AND2;
+typedef class T_binary_module_path_operator_AND2 T_binary_module_path_operator_AND2 ;
+class T_binary_module_path_operator_OR2;
+typedef class T_binary_module_path_operator_OR2 T_binary_module_path_operator_OR2 ;
+class T_binary_module_path_operator_AND1;
+typedef class T_binary_module_path_operator_AND1 T_binary_module_path_operator_AND1 ;
+class T_binary_module_path_operator_OR1;
+typedef class T_binary_module_path_operator_OR1 T_binary_module_path_operator_OR1 ;
+class T_binary_module_path_operator_XOR;
+typedef class T_binary_module_path_operator_XOR T_binary_module_path_operator_XOR ;
+class T_binary_module_path_operator_XNOR;
+typedef class T_binary_module_path_operator_XNOR T_binary_module_path_operator_XNOR ;
+class T_level_symbol_UNSIGNED_NUMBER;
+typedef class T_level_symbol_UNSIGNED_NUMBER T_level_symbol_UNSIGNED_NUMBER ;
+class T_level_symbol_SIMID;
+typedef class T_level_symbol_SIMID T_level_symbol_SIMID ;
+class T_level_symbol_QUESTION;
+typedef class T_level_symbol_QUESTION T_level_symbol_QUESTION ;
+class T_output_symbol_UNSIGNED_NUMBER;
+typedef class T_output_symbol_UNSIGNED_NUMBER T_output_symbol_UNSIGNED_NUMBER ;
+class T_output_symbol_SIMID;
+typedef class T_output_symbol_SIMID T_output_symbol_SIMID ;
+class T_number_UNSIGNED_NUMBER;
+typedef class T_number_UNSIGNED_NUMBER T_number_UNSIGNED_NUMBER ;
+class T_number_UNSIGNED_NUMBER_size;
+typedef class T_number_UNSIGNED_NUMBER_size T_number_UNSIGNED_NUMBER_size ;
+class T_number_OCTAL_NUMBER;
+typedef class T_number_OCTAL_NUMBER T_number_OCTAL_NUMBER ;
+class T_number_BINARY_NUMBER;
+typedef class T_number_BINARY_NUMBER T_number_BINARY_NUMBER ;
+class T_number_HEX_NUMBER;
+typedef class T_number_HEX_NUMBER T_number_HEX_NUMBER ;
+class T_number_REAL_NUMBER;
+typedef class T_number_REAL_NUMBER T_number_REAL_NUMBER ;
+class T_current_state_UNSIGNED_NUMBER;
+typedef class T_current_state_UNSIGNED_NUMBER T_current_state_UNSIGNED_NUMBER ;
+class T_current_state_SIMID;
+typedef class T_current_state_SIMID T_current_state_SIMID ;
+class T_current_state_OP2_QUESTION;
+typedef class T_current_state_OP2_QUESTION T_current_state_OP2_QUESTION ;
+class T_next_state_UNSIGNED_NUMBER;
+typedef class T_next_state_UNSIGNED_NUMBER T_next_state_UNSIGNED_NUMBER ;
+class T_next_state_SIMID;
+typedef class T_next_state_SIMID T_next_state_SIMID ;
+class T_next_state_SUB;
+typedef class T_next_state_SUB T_next_state_SUB ;
+class T_edge_symbol_SIMID;
+typedef class T_edge_symbol_SIMID T_edge_symbol_SIMID ;
+class T_edge_symbol_MUL;
+typedef class T_edge_symbol_MUL T_edge_symbol_MUL ;
+class T_string;
+typedef class T_string T_string ;
+class T_system_function_identifier;
+typedef class T_system_function_identifier T_system_function_identifier ;
+class T_io_declaration_net;
+typedef class T_io_declaration_net T_io_declaration_net ;
+class T_netreg_type__NOSPEC;
+typedef class T_netreg_type__NOSPEC T_netreg_type__NOSPEC ;
+class T_netreg_type__KEY_SUPPLY0;
+typedef class T_netreg_type__KEY_SUPPLY0 T_netreg_type__KEY_SUPPLY0 ;
+class T_netreg_type__KEY_SUPPLY1;
+typedef class T_netreg_type__KEY_SUPPLY1 T_netreg_type__KEY_SUPPLY1 ;
+class T_netreg_type__KEY_TRI;
+typedef class T_netreg_type__KEY_TRI T_netreg_type__KEY_TRI ;
+class T_netreg_type__KEY_TRIAND;
+typedef class T_netreg_type__KEY_TRIAND T_netreg_type__KEY_TRIAND ;
+class T_netreg_type__KEY_TRIOR;
+typedef class T_netreg_type__KEY_TRIOR T_netreg_type__KEY_TRIOR ;
+class T_netreg_type__KEY_TRI0;
+typedef class T_netreg_type__KEY_TRI0 T_netreg_type__KEY_TRI0 ;
+class T_netreg_type__KEY_TRI1;
+typedef class T_netreg_type__KEY_TRI1 T_netreg_type__KEY_TRI1 ;
+class T_netreg_type__KEY_UWIRE;
+typedef class T_netreg_type__KEY_UWIRE T_netreg_type__KEY_UWIRE ;
+class T_netreg_type__KEY_WIRE;
+typedef class T_netreg_type__KEY_WIRE T_netreg_type__KEY_WIRE ;
+class T_netreg_type__KEY_WAND;
+typedef class T_netreg_type__KEY_WAND T_netreg_type__KEY_WAND ;
+class T_netreg_type__KEY_WOR;
+typedef class T_netreg_type__KEY_WOR T_netreg_type__KEY_WOR ;
+class T_netreg_type__KEY_REG;
+typedef class T_netreg_type__KEY_REG T_netreg_type__KEY_REG ;
+class T_netreg_type__KEY_INTEGER;
+typedef class T_netreg_type__KEY_INTEGER T_netreg_type__KEY_INTEGER ;
+class T_netreg_type__KEY_TIME;
+typedef class T_netreg_type__KEY_TIME T_netreg_type__KEY_TIME ;
+class T_statement_or_block_item_statement;
+typedef class T_statement_or_block_item_statement T_statement_or_block_item_statement ;
+class T_statement_or_block_item_block;
+typedef class T_statement_or_block_item_block T_statement_or_block_item_block ;
+class T_tf_io_declaration_gen1;
+typedef class T_tf_io_declaration_gen1 T_tf_io_declaration_gen1 ;
+class T_tf_io_declaration_gen2;
+typedef class T_tf_io_declaration_gen2 T_tf_io_declaration_gen2 ;
+class T_io_type_NOSPEC;
+typedef class T_io_type_NOSPEC T_io_type_NOSPEC ;
+class T_io_type_output;
+typedef class T_io_type_output T_io_type_output ;
+class T_io_type_input;
+typedef class T_io_type_input T_io_type_input ;
+class T_io_type_inout;
+typedef class T_io_type_inout T_io_type_inout ;
+class T_reg_false;
+typedef class T_reg_false T_reg_false ;
+class T_reg_true;
+typedef class T_reg_true T_reg_true ;
+class T_identifier_NOSPEC;
+typedef class T_identifier_NOSPEC T_identifier_NOSPEC ;
+class T_identifier;
+typedef class T_identifier T_identifier ;
+class T_colon_config_opt_FALSE;
+typedef class T_colon_config_opt_FALSE T_colon_config_opt_FALSE ;
+class T_colon_config_opt_TRUE;
+typedef class T_colon_config_opt_TRUE T_colon_config_opt_TRUE ;
+class T_signed_FALSE;
+typedef class T_signed_FALSE T_signed_FALSE ;
+class T_signed_TRUE;
+typedef class T_signed_TRUE T_signed_TRUE ;
+typedef boost::variant<
+ shared_ptr<T_description__module_declaration>
+ ,  shared_ptr<T_description__udp_declaration>
+ ,  shared_ptr<T_description__config_declaration>
+ > description ; 
+typedef boost::variant<
+ shared_ptr<T_module_declaration__1>
+ > module_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_port_exp>
+ ,  shared_ptr<T_port_net>
+ > port ; 
+typedef boost::variant<
+ shared_ptr<T_port_expression>
+ > port_expression ; 
+typedef boost::variant<
+ shared_ptr<T_port_reference>
+ > port_reference ; 
+typedef boost::variant<
+ shared_ptr<T_port_declaration__inout_declaration>
+ ,  shared_ptr<T_port_declaration__input_declaration>
+ ,  shared_ptr<T_port_declaration__output_declaration>
+ > port_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_module_item__port_declaration>
+ ,  shared_ptr<T_module_item__generate_region>
+ ,  shared_ptr<T_module_item__specify_block>
+ ,  shared_ptr<T_module_item__parameter_declaration>
+ ,  shared_ptr<T_module_item__specparam_declaration>
+ ,  shared_ptr<T_module_item__net_declaration>
+ ,  shared_ptr<T_module_item__reg_declaration>
+ ,  shared_ptr<T_module_item__integer_declaration>
+ ,  shared_ptr<T_module_item__real_declaration>
+ ,  shared_ptr<T_module_item__time_declaration>
+ ,  shared_ptr<T_module_item__realtime_declaration>
+ ,  shared_ptr<T_module_item__event_declaration>
+ ,  shared_ptr<T_module_item__genvar_declaration>
+ ,  shared_ptr<T_module_item__task_declaration>
+ ,  shared_ptr<T_module_item__function_declaration>
+ ,  shared_ptr<T_module_item__local_parameter_declaration>
+ ,  shared_ptr<T_module_item__parameter_override>
+ ,  shared_ptr<T_module_item__continuous_assign>
+ ,  shared_ptr<T_module_item__gate_instantiation>
+ ,  shared_ptr<T_module_item__udp_instantiation>
+ ,  shared_ptr<T_module_item__module_instantiation>
+ ,  shared_ptr<T_module_item__initial_construct>
+ ,  shared_ptr<T_module_item__always_construct>
+ ,  shared_ptr<T_module_item__loop_generate_construct>
+ ,  shared_ptr<T_module_item__conditional_generate_construct>
+ > module_item ; 
+typedef boost::variant<
+ shared_ptr<T_config_declaration>
+ > config_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_design_statement>
+ > design_statement ; 
+typedef boost::variant<
+ shared_ptr<T_lib_cell_identifier>
+ > library_identifier_period_opt_cell_identifier ; 
+typedef boost::variant<
+ shared_ptr<T_config_rule_statement__default>
+ ,  shared_ptr<T_config_rule_statement__inst_lib>
+ ,  shared_ptr<T_config_rule_statement__inst_use>
+ ,  shared_ptr<T_config_rule_statement__cell_lib>
+ ,  shared_ptr<T_config_rule_statement__cell_use>
+ > config_rule_statement ; 
+typedef boost::variant<
+ shared_ptr<T_use_clause>
+ > use_clause ; 
+typedef boost::variant<
+ shared_ptr<T_local_parameter_declaration_1>
+ ,  shared_ptr<T_local_parameter_declaration_2>
+ > local_parameter_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_parameter_declaration_gen_1>
+ > parameter_declaration_gen ; 
+typedef boost::variant<
+ shared_ptr<T_parameter_declaration_1>
+ ,  shared_ptr<T_parameter_declaration_2>
+ > parameter_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_specparam_declaration>
+ > specparam_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_parameter_type__NOSPEC>
+ ,  shared_ptr<T_parameter_type__INTEGER>
+ ,  shared_ptr<T_parameter_type__REAL>
+ ,  shared_ptr<T_parameter_type__REALTIME>
+ ,  shared_ptr<T_parameter_type__TIME>
+ > parameter_type ; 
+typedef boost::variant<
+ shared_ptr<T_inout_declaration>
+ > inout_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_input_declaration>
+ > input_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_output_declaration_net>
+ ,  shared_ptr<T_output_declaration_reg>
+ ,  shared_ptr<T_output_declaration_var>
+ > output_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_output_variable_type_INTEGER>
+ ,  shared_ptr<T_output_variable_type_TIME>
+ > output_variable_type ; 
+typedef boost::variant<
+ shared_ptr<T_event_declaration>
+ > event_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_integer_declaration>
+ > integer_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_net_declaration_net_type1>
+ ,  shared_ptr<T_net_declaration_net_type2>
+ ,  shared_ptr<T_net_declaration_net_type3>
+ ,  shared_ptr<T_net_declaration_net_type4>
+ ,  shared_ptr<T_net_declaration_trireg_1>
+ ,  shared_ptr<T_net_declaration_trireg_2>
+ ,  shared_ptr<T_net_declaration_trireg_3>
+ ,  shared_ptr<T_net_declaration_trireg_4>
+ > net_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_vectored_scalared_NOSPEC>
+ ,  shared_ptr<T_vectored_scalared_vectored>
+ ,  shared_ptr<T_vectored_scalared_scalared>
+ > vectored_scalared ; 
+typedef boost::variant<
+ shared_ptr<T_real_declaration>
+ > real_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_realtime_declaration>
+ > realtime_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_reg_declaration>
+ > reg_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_time_declaration>
+ > time_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_net_type_NOSPEC>
+ ,  shared_ptr<T_net_type__KEY_SUPPLY0>
+ ,  shared_ptr<T_net_type__KEY_SUPPLY1>
+ ,  shared_ptr<T_net_type__KEY_TRI>
+ ,  shared_ptr<T_net_type__KEY_TRIAND>
+ ,  shared_ptr<T_net_type__KEY_TRIOR>
+ ,  shared_ptr<T_net_type__KEY_TRI0>
+ ,  shared_ptr<T_net_type__KEY_TRI1>
+ ,  shared_ptr<T_net_type__KEY_UWIRE>
+ ,  shared_ptr<T_net_type__KEY_WIRE>
+ ,  shared_ptr<T_net_type__KEY_WAND>
+ ,  shared_ptr<T_net_type__KEY_WOR>
+ > net_type ; 
+typedef boost::variant<
+ shared_ptr<T_real_type_noass>
+ ,  shared_ptr<T_real_type_ass>
+ > real_type ; 
+typedef boost::variant<
+ shared_ptr<T_variable_type_noass>
+ ,  shared_ptr<T_variable_type_ass>
+ > variable_type ; 
+typedef boost::variant<
+ shared_ptr<KEY_HIGHZ0>
+ ,  shared_ptr<KEY_HIGHZ1>
+ ,  shared_ptr<KEY_SUPPLY0>
+ ,  shared_ptr<KEY_STRONG0>
+ ,  shared_ptr<KEY_PULL0>
+ ,  shared_ptr<KEY_WEAK0>
+ ,  shared_ptr<KEY_SUPPLY1>
+ ,  shared_ptr<KEY_STRONG1>
+ ,  shared_ptr<KEY_PULL1>
+ ,  shared_ptr<KEY_WEAK1>
+ > strength ; 
+typedef boost::variant<
+ shared_ptr<T_drive_strength_NOSPEC>
+ ,  shared_ptr<T_drive_strength>
+ > drive_strength ; 
+typedef boost::variant<
+ shared_ptr<T_charge_strength_NOSPEC>
+ ,  shared_ptr<T_charge_strength__small>
+ ,  shared_ptr<T_charge_strength__medium>
+ ,  shared_ptr<T_charge_strength__large>
+ > charge_strength ; 
+typedef boost::variant<
+ shared_ptr<T_delay3_NOSPEC>
+ ,  shared_ptr<T_delay3_1>
+ ,  shared_ptr<T_delay3_minmax1>
+ ,  shared_ptr<T_delay3_minmax2>
+ ,  shared_ptr<T_delay3_minmax3>
+ > delay3 ; 
+typedef boost::variant<
+ shared_ptr<T_delay2_NOSPEC>
+ ,  shared_ptr<T_delay2_1>
+ ,  shared_ptr<T_delay2_minmax1>
+ ,  shared_ptr<T_delay2_minmax2>
+ > delay2 ; 
+typedef boost::variant<
+ shared_ptr<T_event_identifier_dimension_list>
+ > event_identifier_dimension_list ; 
+typedef boost::variant<
+ shared_ptr<T_net_identifier_dimension_list>
+ > net_identifier_dimension_list ; 
+typedef boost::variant<
+ shared_ptr<T_port_identifier_equ1_expression_opt>
+ > port_identifier_equ1_expression_opt ; 
+typedef boost::variant<
+ shared_ptr<T_defparam_assignment>
+ > defparam_assignment ; 
+typedef boost::variant<
+ shared_ptr<T_net_decl_assignment>
+ > net_decl_assignment ; 
+typedef boost::variant<
+ shared_ptr<T_param_assignment>
+ > param_assignment ; 
+typedef boost::variant<
+ shared_ptr<T_specparam_assignment>
+ ,  shared_ptr<T_specparam_assignment_pulse1>
+ ,  shared_ptr<T_specparam_assignment_pulse2>
+ > specparam_assignment ; 
+typedef boost::variant<
+ shared_ptr<T_dimension>
+ > dimension ; 
+typedef boost::variant<
+ shared_ptr<T_range_NOSPEC>
+ ,  shared_ptr<T_range>
+ > range ; 
+typedef boost::variant<
+ shared_ptr<T_automatic_false>
+ ,  shared_ptr<T_automatic_true>
+ > automatic ; 
+typedef boost::variant<
+ shared_ptr<T_function_declaration_1>
+ ,  shared_ptr<T_function_declaration_2>
+ > function_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_function_item_declaration_block>
+ ,  shared_ptr<T_function_item_declaration_input>
+ > function_item_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_attribute_instance_list_tf_input_declaration>
+ > attribute_instance_list_tf_input_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_function_range_or_type_NOSPEC>
+ ,  shared_ptr<T_function_range_or_type>
+ ,  shared_ptr<T_function_range_or_type_INTEGER>
+ ,  shared_ptr<T_function_range_or_type_REAL>
+ ,  shared_ptr<T_function_range_or_type_REALTIME>
+ ,  shared_ptr<T_function_range_or_type_TIME>
+ > function_range_or_type ; 
+typedef boost::variant<
+ shared_ptr<T_task_declaration1>
+ ,  shared_ptr<T_task_declaration2>
+ > task_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_task_item_declaration_block>
+ ,  shared_ptr<T_task_item_declaration_input>
+ ,  shared_ptr<T_task_item_declaration_output>
+ ,  shared_ptr<T_task_item_declaration_inout>
+ > task_item_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_task_port_item_input>
+ > task_port_item ; 
+typedef boost::variant<
+ shared_ptr<T_tf_input_declaration_reg>
+ ,  shared_ptr<T_tf_input_declaration_type>
+ > tf_input_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_tf_output_declaration_reg>
+ ,  shared_ptr<T_tf_output_declaration_type>
+ > tf_output_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_tf_inout_declaration_reg>
+ ,  shared_ptr<T_tf_inout_declaration_type>
+ > tf_inout_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_task_port_type_integer>
+ ,  shared_ptr<T_task_port_type_real>
+ ,  shared_ptr<T_task_port_type_realtime>
+ ,  shared_ptr<T_task_port_type_time>
+ > task_port_type ; 
+typedef boost::variant<
+ shared_ptr<T_block_item_declaration_reg>
+ ,  shared_ptr<T_block_item_declaration_integer>
+ ,  shared_ptr<T_block_item_declaration_time>
+ ,  shared_ptr<T_block_item_declaration_real>
+ ,  shared_ptr<T_block_item_declaration_realtime>
+ ,  shared_ptr<T_block_item_declaration_event>
+ ,  shared_ptr<T_block_item_declaration_local_param>
+ ,  shared_ptr<T_block_item_declaration_param>
+ > block_item_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_block_variable_type>
+ > block_variable_type ; 
+typedef boost::variant<
+ shared_ptr<T_block_real_type>
+ > block_real_type ; 
+typedef boost::variant<
+ shared_ptr<T_gate_instantiation_cmos>
+ ,  shared_ptr<T_gate_instantiation_enable>
+ ,  shared_ptr<T_gate_instantiation_mos>
+ ,  shared_ptr<T_gate_instantiation_input>
+ ,  shared_ptr<T_gate_instantiation_output>
+ ,  shared_ptr<T_gate_instantiation_pass_en>
+ ,  shared_ptr<T_gate_instantiation_pass>
+ ,  shared_ptr<T_gate_instantiation_pulldown>
+ ,  shared_ptr<T_gate_instantiation_pullup>
+ > gate_instantiation ; 
+typedef boost::variant<
+ shared_ptr<T_cmos_switch_instance>
+ > cmos_switch_instance ; 
+typedef boost::variant<
+ shared_ptr<T_enable_gate_instance>
+ > enable_gate_instance ; 
+typedef boost::variant<
+ shared_ptr<T_mos_switch_instance>
+ > mos_switch_instance ; 
+typedef boost::variant<
+ shared_ptr<T_n_input_gate_instance>
+ > n_input_gate_instance ; 
+typedef boost::variant<
+ shared_ptr<T_n_output_gate_instance>
+ > n_output_gate_instance ; 
+typedef boost::variant<
+ shared_ptr<T_pass_switch_instance>
+ > pass_switch_instance ; 
+typedef boost::variant<
+ shared_ptr<T_pass_enable_switch_instance>
+ > pass_enable_switch_instance ; 
+typedef boost::variant<
+ shared_ptr<T_pull_gate_instance>
+ > pull_gate_instance ; 
+typedef boost::variant<
+ shared_ptr<T_name_of_gate_instance_NOSPEC>
+ ,  shared_ptr<T_name_of_gate_instance>
+ > name_of_gate_instance ; 
+typedef boost::variant<
+ shared_ptr<T_pulldown_strength_NOSPEC>
+ ,  shared_ptr<T_pulldown_strength01>
+ ,  shared_ptr<T_pulldown_strength10>
+ ,  shared_ptr<T_pulldown_strength0>
+ > pulldown_strength ; 
+typedef boost::variant<
+ shared_ptr<T_pullup_strength_NOSPEC>
+ ,  shared_ptr<T_pullup_strength01>
+ ,  shared_ptr<T_pullup_strength10>
+ ,  shared_ptr<T_pullup_strength1>
+ > pullup_strength ; 
+typedef boost::variant<
+ shared_ptr<T_cmos_switchtype_CMOS>
+ ,  shared_ptr<T_cmos_switchtype_RCMOS>
+ > cmos_switchtype ; 
+typedef boost::variant<
+ shared_ptr<T_enable_gatetype__BUFIF0>
+ ,  shared_ptr<T_enable_gatetype__BUFIF1>
+ ,  shared_ptr<T_enable_gatetype__NOTIF0>
+ ,  shared_ptr<T_enable_gatetype__NOTIF1>
+ > enable_gatetype ; 
+typedef boost::variant<
+ shared_ptr<T_mos_switchtype_NMOS>
+ ,  shared_ptr<T_mos_switchtype_PMOS>
+ ,  shared_ptr<T_mos_switchtype_RNMOS>
+ ,  shared_ptr<T_mos_switchtype_RPMOS>
+ > mos_switchtype ; 
+typedef boost::variant<
+ shared_ptr<T_n_input_gatetype_AND>
+ ,  shared_ptr<T_n_input_gatetype_NAND>
+ ,  shared_ptr<T_n_input_gatetype_OR>
+ ,  shared_ptr<T_n_input_gatetype_NOR>
+ ,  shared_ptr<T_n_input_gatetype_XOR>
+ ,  shared_ptr<T_n_input_gatetype_XNOR>
+ > n_input_gatetype ; 
+typedef boost::variant<
+ shared_ptr<T_n_output_gatetype_BUF>
+ ,  shared_ptr<T_n_output_gatetype_NOT>
+ > n_output_gatetype ; 
+typedef boost::variant<
+ shared_ptr<T_pass_en_switchtype_TRANIF0>
+ ,  shared_ptr<T_pass_en_switchtype_TRANIF1>
+ ,  shared_ptr<T_pass_en_switchtype_RTRANIF1>
+ ,  shared_ptr<T_pass_en_switchtype_RTRANIF0>
+ > pass_en_switchtype ; 
+typedef boost::variant<
+ shared_ptr<T_pass_switchtype_TRAN>
+ ,  shared_ptr<T_pass_switchtype_RTRAN>
+ > pass_switchtype ; 
+typedef boost::variant<
+ shared_ptr<T_module_instantiation>
+ > module_instantiation ; 
+typedef boost::variant<
+ shared_ptr<T_module_instance>
+ > module_instance ; 
+typedef boost::variant<
+ shared_ptr<T_name_of_module_instance>
+ > name_of_module_instance ; 
+typedef boost::variant<
+ shared_ptr<T_parameter_value_assignment_NOSPEC>
+ ,  shared_ptr<T_parameter_value_assignment_order>
+ ,  shared_ptr<T_parameter_value_assignment_named>
+ > parameter_value_assignment ; 
+typedef boost::variant<
+ shared_ptr<T_named_parameter_assignment>
+ > named_parameter_assignment ; 
+typedef boost::variant<
+ shared_ptr<T_list_of_port_connections_ordered>
+ ,  shared_ptr<T_list_of_port_connections_named>
+ > list_of_port_connections ; 
+typedef boost::variant<
+ shared_ptr<T_ordered_port_connection>
+ > ordered_port_connection ; 
+typedef boost::variant<
+ shared_ptr<T_named_port_connection>
+ > named_port_connection ; 
+typedef boost::variant<
+ shared_ptr<T_generate_region>
+ > generate_region ; 
+typedef boost::variant<
+ shared_ptr<T_genvar_declaration>
+ > genvar_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_loop_generate_construct>
+ > loop_generate_construct ; 
+typedef boost::variant<
+ shared_ptr<T_genvar_initialization>
+ > genvar_initialization ; 
+typedef boost::variant<
+ shared_ptr<T_genvar_iteration>
+ > genvar_iteration ; 
+typedef boost::variant<
+ shared_ptr<T_conditional_generate_construct_if>
+ ,  shared_ptr<T_conditional_generate_construct_case>
+ > conditional_generate_construct ; 
+typedef boost::variant<
+ shared_ptr<T_case_generate_construct>
+ > case_generate_construct ; 
+typedef boost::variant<
+ shared_ptr<T_case_generate_item_case>
+ ,  shared_ptr<T_case_generate_item_default>
+ > case_generate_item ; 
+typedef boost::variant<
+ shared_ptr<T_if_generate_construct>
+ > if_generate_construct ; 
+typedef boost::variant<
+ shared_ptr<T_generate_block_NOSPEC>
+ ,  shared_ptr<T_generate_block_mgi>
+ ,  shared_ptr<T_generate_block_begin>
+ > generate_block ; 
+typedef boost::variant<
+ shared_ptr<T_udp_declaration_1>
+ ,  shared_ptr<T_udp_declaration_2>
+ > udp_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_udp_port_list>
+ > udp_port_list ; 
+typedef boost::variant<
+ shared_ptr<T_udp_declaration_port_list>
+ > udp_declaration_port_list ; 
+typedef boost::variant<
+ shared_ptr<T_udp_port_declaration_out>
+ ,  shared_ptr<T_udp_port_declaration_input>
+ ,  shared_ptr<T_udp_port_declaration_reg>
+ > udp_port_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_udp_output_declaration_output>
+ ,  shared_ptr<T_udp_output_declaration_reg>
+ > udp_output_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_udp_input_declaration>
+ > udp_input_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_udp_reg_declaration>
+ > udp_reg_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_udp_body_comb>
+ ,  shared_ptr<T_udp_body_seq>
+ > udp_body ; 
+typedef boost::variant<
+ shared_ptr<T_combinational_entry>
+ > combinational_entry ; 
+typedef boost::variant<
+ shared_ptr<T_sequential_body>
+ > sequential_body ; 
+typedef boost::variant<
+ shared_ptr<T_udp_initial_statement_NOSPEC>
+ ,  shared_ptr<T_udp_initial_statement>
+ > udp_initial_statement ; 
+typedef boost::variant<
+ shared_ptr<T_init_val_bin>
+ ,  shared_ptr<T_init_val_unsigned>
+ > init_val ; 
+typedef boost::variant<
+ shared_ptr<T_sequential_entry>
+ > sequential_entry ; 
+typedef boost::variant<
+ shared_ptr<T_seq_input_list_level>
+ ,  shared_ptr<T_seq_input_list_edge>
+ > seq_input_list ; 
+typedef boost::variant<
+ shared_ptr<T_edge_input_list>
+ > edge_input_list ; 
+typedef boost::variant<
+ shared_ptr<T_edge_indicator_level>
+ ,  shared_ptr<T_edge_indicator_edge>
+ > edge_indicator ; 
+typedef boost::variant<
+ shared_ptr<T_udp_instantiation>
+ > udp_instantiation ; 
+typedef boost::variant<
+ shared_ptr<T_udp_instance>
+ > udp_instance ; 
+typedef boost::variant<
+ shared_ptr<T_name_of_udp_instance_NOSPEC>
+ ,  shared_ptr<T_name_of_udp_instance>
+ > name_of_udp_instance ; 
+typedef boost::variant<
+ shared_ptr<T_continuous_assign>
+ > continuous_assign ; 
+typedef boost::variant<
+ shared_ptr<T_net_assignment>
+ > net_assignment ; 
+typedef boost::variant<
+ shared_ptr<T_initial_construct>
+ > initial_construct ; 
+typedef boost::variant<
+ shared_ptr<T_always_construct>
+ > always_construct ; 
+typedef boost::variant<
+ shared_ptr<T_blocking_assignment>
+ > blocking_assignment ; 
+typedef boost::variant<
+ shared_ptr<T_nonblocking_assignment>
+ > nonblocking_assignment ; 
+typedef boost::variant<
+ shared_ptr<T_procedural_continuous_assignments_assign>
+ ,  shared_ptr<T_procedural_continuous_assignments_deassign>
+ ,  shared_ptr<T_procedural_continuous_assignments_force1>
+ ,  shared_ptr<T_procedural_continuous_assignments_force2>
+ ,  shared_ptr<T_procedural_continuous_assignments_release1>
+ ,  shared_ptr<T_procedural_continuous_assignments_release2>
+ > procedural_continuous_assignments ; 
+typedef boost::variant<
+ shared_ptr<T_par_block>
+ > par_block ; 
+typedef boost::variant<
+ shared_ptr<T_colon_block_identifier_NOSPEC>
+ ,  shared_ptr<T_colon_block_identifier>
+ > colon_block_identifier ; 
+typedef boost::variant<
+ shared_ptr<T_seq_block>
+ > seq_block ; 
+typedef boost::variant<
+ shared_ptr<T_statement_NOSPEC>
+ ,  shared_ptr<T_statement_blocking_assignment>
+ ,  shared_ptr<T_statement_case_statement>
+ ,  shared_ptr<T_statement_conditional_statement>
+ ,  shared_ptr<T_statement_disable_statement>
+ ,  shared_ptr<T_statement_event_trigger>
+ ,  shared_ptr<T_statement_loop_statement>
+ ,  shared_ptr<T_statement_nonblocking_assignment>
+ ,  shared_ptr<T_statement_par_block>
+ ,  shared_ptr<T_statement_procedural_continuous_assignments>
+ ,  shared_ptr<T_statement_procedural_timing_control_statement>
+ ,  shared_ptr<T_statement_seq_block>
+ ,  shared_ptr<T_statement_system_task_enable>
+ ,  shared_ptr<T_statement_task_enable>
+ ,  shared_ptr<T_statement_wait_statement>
+ > statement ; 
+typedef boost::variant<
+ shared_ptr<T_delay_control_delay_value>
+ ,  shared_ptr<T_delay_control_mintypmax_expression>
+ > delay_control ; 
+typedef boost::variant<
+ shared_ptr<T_delay_or_event_control_NOSPEC>
+ ,  shared_ptr<T_delay_or_event_control_delay_control>
+ ,  shared_ptr<T_delay_or_event_control_event_control>
+ ,  shared_ptr<T_delay_or_event_control_3>
+ > delay_or_event_control ; 
+typedef boost::variant<
+ shared_ptr<T_disable_statement>
+ > disable_statement ; 
+typedef boost::variant<
+ shared_ptr<T_event_control_eventid>
+ ,  shared_ptr<T_event_control_event_exp>
+ ,  shared_ptr<T_event_control_start>
+ > event_control ; 
+typedef boost::variant<
+ shared_ptr<T_event_trigger>
+ > event_trigger ; 
+typedef boost::variant<
+ shared_ptr<T_event_expression_exp>
+ ,  shared_ptr<T_event_expression_pos>
+ ,  shared_ptr<T_event_expression_neg>
+ ,  shared_ptr<T_event_expression_or>
+ > event_expression ; 
+typedef boost::variant<
+ shared_ptr<T_procedural_timing_control_delay>
+ ,  shared_ptr<T_procedural_timing_control_event>
+ > procedural_timing_control ; 
+typedef boost::variant<
+ shared_ptr<T_procedural_timing_control_statement>
+ > procedural_timing_control_statement ; 
+typedef boost::variant<
+ shared_ptr<T_wait_statement>
+ > wait_statement ; 
+typedef boost::variant<
+ shared_ptr<T_conditional_statement_ifelse>
+ ,  shared_ptr<T_conditional_statement_ifelseif>
+ > conditional_statement ; 
+typedef boost::variant<
+ shared_ptr<T_elseif>
+ > else_if_lp_expression_rp_statement_or_null ; 
+typedef boost::variant<
+ shared_ptr<T_case_statement_case>
+ ,  shared_ptr<T_case_statement_casez>
+ ,  shared_ptr<T_case_statement_casex>
+ > case_statement ; 
+typedef boost::variant<
+ shared_ptr<T_case_item>
+ ,  shared_ptr<T_case_item_default>
+ > case_item ; 
+typedef boost::variant<
+ shared_ptr<T_colon_opt_false>
+ ,  shared_ptr<T_colon_opt_true>
+ > colon_opt ; 
+typedef boost::variant<
+ shared_ptr<T_loop_statement_forever>
+ ,  shared_ptr<T_loop_statement_repeat>
+ ,  shared_ptr<T_loop_statement_while>
+ ,  shared_ptr<T_loop_statement_for>
+ > loop_statement ; 
+typedef boost::variant<
+ shared_ptr<T_system_task_enable>
+ > system_task_enable ; 
+typedef boost::variant<
+ shared_ptr<T_task_enable>
+ > task_enable ; 
+typedef boost::variant<
+ shared_ptr<T_specify_block>
+ > specify_block ; 
+typedef boost::variant<
+ shared_ptr<T_specify_item_specparam>
+ ,  shared_ptr<T_specify_item_pulsestyle>
+ ,  shared_ptr<T_specify_item_showcancelled>
+ ,  shared_ptr<T_specify_item_path>
+ > specify_item ; 
+typedef boost::variant<
+ shared_ptr<T_pulsestyle_declaration_oneevent>
+ ,  shared_ptr<T_pulsestyle_declaration_onedetect>
+ > pulsestyle_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_showcancelled_declaration_show>
+ ,  shared_ptr<T_showcancelled_declaration_noshow>
+ > showcancelled_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_path_declaration_simple>
+ ,  shared_ptr<T_path_declaration_edge>
+ ,  shared_ptr<T_path_declaration_state>
+ > path_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_simple_path_declaration_parallel>
+ ,  shared_ptr<T_simple_path_declaration_full>
+ > simple_path_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_parallel_path_description>
+ > parallel_path_description ; 
+typedef boost::variant<
+ shared_ptr<T_full_path_description>
+ > full_path_description ; 
+typedef boost::variant<
+ shared_ptr<T_specify_input_terminal_descriptor>
+ > specify_input_terminal_descriptor ; 
+typedef boost::variant<
+ shared_ptr<T_specify_output_terminal_descriptor>
+ > specify_output_terminal_descriptor ; 
+typedef boost::variant<
+ shared_ptr<T_list_of_mintypmax_expressions_1>
+ ,  shared_ptr<T_list_of_mintypmax_expressions_2>
+ ,  shared_ptr<T_list_of_mintypmax_expressions_3>
+ ,  shared_ptr<T_list_of_mintypmax_expressions_6>
+ ,  shared_ptr<T_list_of_mintypmax_expressions_12>
+ > list_of_path_delay_expressions ; 
+typedef boost::variant<
+ shared_ptr<T_edge_sensitive_path_declaration_parallel>
+ ,  shared_ptr<T_edge_sensitive_path_declaration_full>
+ > edge_sensitive_path_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_parallel_edge_sensitive_path_description>
+ > parallel_edge_sensitive_path_description ; 
+typedef boost::variant<
+ shared_ptr<T_full_edge_sensitive_path_description>
+ > full_edge_sensitive_path_description ; 
+typedef boost::variant<
+ shared_ptr<T_state_dependent_path_declaration_simple>
+ ,  shared_ptr<T_state_dependent_path_declaration_edge>
+ ,  shared_ptr<T_state_dependent_path_declaration_ifnone>
+ > state_dependent_path_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_concatenation>
+ > concatenation ; 
+typedef boost::variant<
+ shared_ptr<T_module_path_multiple_concatenation>
+ > module_path_multiple_concatenation ; 
+typedef boost::variant<
+ shared_ptr<T_module_path_concatenation>
+ > module_path_concatenation ; 
+typedef boost::variant<
+ shared_ptr<T_multiple_concatenation>
+ > multiple_concatenation ; 
+typedef boost::variant<
+ shared_ptr<T_function_call>
+ > function_call ; 
+typedef boost::variant<
+ shared_ptr<T_system_function_call>
+ > system_function_call ; 
+typedef boost::variant<
+ shared_ptr<T_conditional_expression>
+ > conditional_expression ; 
+typedef boost::variant<
+ shared_ptr<T_expression_NOSPEC>
+ ,  shared_ptr<T_expression_prim>
+ ,  shared_ptr<T_expression_op1>
+ ,  shared_ptr<T_expression_op2>
+ ,  shared_ptr<T_expression_condition>
+ > expression ; 
+typedef boost::variant<
+ shared_ptr<T_mintypmax_expression_NOSPEC>
+ ,  shared_ptr<T_mintypmax_expression_1>
+ ,  shared_ptr<T_mintypmax_expression_3>
+ > mintypmax_expression ; 
+typedef boost::variant<
+ shared_ptr<T_module_path_conditional_expression>
+ > module_path_conditional_expression ; 
+typedef boost::variant<
+ shared_ptr<T_module_path_expression_prim>
+ ,  shared_ptr<T_module_path_expression_op1>
+ ,  shared_ptr<T_module_path_expression_op2>
+ ,  shared_ptr<T_module_path_expression_sel>
+ > module_path_expression ; 
+typedef boost::variant<
+ shared_ptr<T_module_path_mintypmax_expression_1>
+ ,  shared_ptr<T_module_path_mintypmax_expression_3>
+ > module_path_mintypmax_expression ; 
+typedef boost::variant<
+ shared_ptr<T_range_expression_NOSPEC>
+ ,  shared_ptr<T_range_expression_1>
+ ,  shared_ptr<T_range_expression_2>
+ ,  shared_ptr<T_range_expression_addrange>
+ ,  shared_ptr<T_range_expression_subrange>
+ > range_expression ; 
+typedef boost::variant<
+ shared_ptr<T_module_path_primary_num>
+ ,  shared_ptr<T_module_path_primary_id>
+ ,  shared_ptr<T_module_path_primary_concat>
+ ,  shared_ptr<T_module_path_primary_mul_concat>
+ ,  shared_ptr<T_module_path_primary_func>
+ ,  shared_ptr<T_module_path_primary_sysfunc>
+ ,  shared_ptr<T_module_path_primary_mintypmax>
+ > module_path_primary ; 
+typedef boost::variant<
+ shared_ptr<T_primary_num>
+ ,  shared_ptr<T_primary_id>
+ ,  shared_ptr<T_primary_concat>
+ ,  shared_ptr<T_primary_mulcon>
+ ,  shared_ptr<T_primary_func>
+ ,  shared_ptr<T_primary_sysfunc>
+ ,  shared_ptr<T_primary_mintypmax>
+ ,  shared_ptr<T_primary_string>
+ > primary ; 
+typedef boost::variant<
+ shared_ptr<T_net_lvalue_id>
+ ,  shared_ptr<T_net_lvalue_idexp>
+ ,  shared_ptr<T_net_lvalue_lvlist>
+ > net_lvalue ; 
+typedef boost::variant<
+ shared_ptr<T_delay_value_UNSIGNED_NUMBER>
+ ,  shared_ptr<T_delay_value_REAL_NUMBER>
+ ,  shared_ptr<T_delay_value_id>
+ > delay_value ; 
+typedef boost::variant<
+ shared_ptr<T_attribute_instance>
+ > attribute_instance ; 
+typedef boost::variant<
+ shared_ptr<T_attr_spec>
+ > attr_spec ; 
+typedef boost::variant<
+ shared_ptr<T_hierarchical_identifier>
+ > hierarchical_identifier ; 
+typedef boost::variant<
+ shared_ptr<T_identifier_lsq_expression_rsq>
+ > identifier_lsq_expression_rsq ; 
+typedef boost::variant<
+ shared_ptr<T_polarity_operator_NOSPEC>
+ ,  shared_ptr<T_polarity_operator_ADD>
+ ,  shared_ptr<T_polarity_operator_SUB>
+ > polarity_operator ; 
+typedef boost::variant<
+ shared_ptr<T_edge_identifier_NOSPEC>
+ ,  shared_ptr<T_edge_identifier_POS>
+ ,  shared_ptr<T_edge_identifier_NEG>
+ > edge_identifier ; 
+typedef boost::variant<
+ shared_ptr<T_unary_operator_LOGIC_NEG>
+ ,  shared_ptr<T_unary_operator_BITWISE_NEG>
+ ,  shared_ptr<T_unary_operator_REDUCE_NOR>
+ ,  shared_ptr<T_unary_operator_REDUCE_NAND>
+ ,  shared_ptr<T_unary_operator_ADD>
+ ,  shared_ptr<T_unary_operator_SUB>
+ ,  shared_ptr<T_unary_operator_REDUCE_AND>
+ ,  shared_ptr<T_unary_operator_REDUCE_OR>
+ ,  shared_ptr<T_unary_operator_REDUCE_XOR>
+ ,  shared_ptr<T_unary_operator_REDUCE_XNOR>
+ > unary_operator ; 
+typedef boost::variant<
+ shared_ptr<T_binary_operator_MUL>
+ ,  shared_ptr<T_binary_operator_DIV>
+ ,  shared_ptr<T_binary_operator_MOD>
+ ,  shared_ptr<T_binary_operator_EQU2>
+ ,  shared_ptr<T_binary_operator_NEQ2>
+ ,  shared_ptr<T_binary_operator_EQU3>
+ ,  shared_ptr<T_binary_operator_NEQ3>
+ ,  shared_ptr<T_binary_operator_POWER>
+ ,  shared_ptr<T_binary_operator_LT>
+ ,  shared_ptr<T_binary_operator_LE>
+ ,  shared_ptr<T_binary_operator_GT>
+ ,  shared_ptr<T_binary_operator_GE>
+ ,  shared_ptr<T_binary_operator_LOGICAL_RIGHTSHIFT>
+ ,  shared_ptr<T_binary_operator_LOGICAL_LEFTSHIFT>
+ ,  shared_ptr<T_binary_operator_ARITHMETIC_RIGHTSHIFT>
+ ,  shared_ptr<T_binary_operator_ARITHMETIC_LEFTSHIFT>
+ ,  shared_ptr<T_binary_operator_ADD>
+ ,  shared_ptr<T_binary_operator_SUB>
+ ,  shared_ptr<T_binary_operator_AND>
+ ,  shared_ptr<T_binary_operator_OR>
+ ,  shared_ptr<T_binary_operator_AND2>
+ ,  shared_ptr<T_binary_operator_OR2>
+ ,  shared_ptr<T_binary_operator_XOR>
+ ,  shared_ptr<T_binary_operator_XNOR>
+ > binary_operator ; 
+typedef boost::variant<
+ shared_ptr<T_unary_module_path_operator_GANTANHAO>
+ ,  shared_ptr<T_unary_module_path_operator_BOLANGHAO>
+ ,  shared_ptr<T_unary_module_path_operator_AND>
+ ,  shared_ptr<T_unary_module_path_operator_NAND>
+ ,  shared_ptr<T_unary_module_path_operator_OR>
+ ,  shared_ptr<T_unary_module_path_operator_NOR>
+ ,  shared_ptr<T_unary_module_path_operator_XOR>
+ ,  shared_ptr<T_unary_module_path_operator_XNOR>
+ > unary_module_path_operator ; 
+typedef boost::variant<
+ shared_ptr<T_binary_module_path_operator_EQU2>
+ ,  shared_ptr<T_binary_module_path_operator_NEQ2>
+ ,  shared_ptr<T_binary_module_path_operator_AND2>
+ ,  shared_ptr<T_binary_module_path_operator_OR2>
+ ,  shared_ptr<T_binary_module_path_operator_AND1>
+ ,  shared_ptr<T_binary_module_path_operator_OR1>
+ ,  shared_ptr<T_binary_module_path_operator_XOR>
+ ,  shared_ptr<T_binary_module_path_operator_XNOR>
+ > binary_module_path_operator ; 
+typedef boost::variant<
+ shared_ptr<T_level_symbol_UNSIGNED_NUMBER>
+ ,  shared_ptr<T_level_symbol_SIMID>
+ ,  shared_ptr<T_level_symbol_QUESTION>
+ > level_symbol ; 
+typedef boost::variant<
+ shared_ptr<T_output_symbol_UNSIGNED_NUMBER>
+ ,  shared_ptr<T_output_symbol_SIMID>
+ > output_symbol ; 
+typedef boost::variant<
+ shared_ptr<T_number_UNSIGNED_NUMBER>
+ ,  shared_ptr<T_number_UNSIGNED_NUMBER_size>
+ ,  shared_ptr<T_number_OCTAL_NUMBER>
+ ,  shared_ptr<T_number_BINARY_NUMBER>
+ ,  shared_ptr<T_number_HEX_NUMBER>
+ ,  shared_ptr<T_number_REAL_NUMBER>
+ > number ; 
+typedef boost::variant<
+ shared_ptr<T_current_state_UNSIGNED_NUMBER>
+ ,  shared_ptr<T_current_state_SIMID>
+ ,  shared_ptr<T_current_state_OP2_QUESTION>
+ > current_state ; 
+typedef boost::variant<
+ shared_ptr<T_next_state_UNSIGNED_NUMBER>
+ ,  shared_ptr<T_next_state_SIMID>
+ ,  shared_ptr<T_next_state_SUB>
+ > next_state ; 
+typedef boost::variant<
+ shared_ptr<T_edge_symbol_SIMID>
+ ,  shared_ptr<T_edge_symbol_MUL>
+ > edge_symbol ; 
+typedef boost::variant<
+ shared_ptr<T_string>
+ > string_typedef ; 
+typedef boost::variant<
+ shared_ptr<T_system_function_identifier>
+ > system_function_identifier ; 
+typedef boost::variant<
+ shared_ptr<T_io_declaration_net>
+ > io_declaration ; 
+typedef boost::variant<
+ shared_ptr<T_netreg_type__NOSPEC>
+ ,  shared_ptr<T_netreg_type__KEY_SUPPLY0>
+ ,  shared_ptr<T_netreg_type__KEY_SUPPLY1>
+ ,  shared_ptr<T_netreg_type__KEY_TRI>
+ ,  shared_ptr<T_netreg_type__KEY_TRIAND>
+ ,  shared_ptr<T_netreg_type__KEY_TRIOR>
+ ,  shared_ptr<T_netreg_type__KEY_TRI0>
+ ,  shared_ptr<T_netreg_type__KEY_TRI1>
+ ,  shared_ptr<T_netreg_type__KEY_UWIRE>
+ ,  shared_ptr<T_netreg_type__KEY_WIRE>
+ ,  shared_ptr<T_netreg_type__KEY_WAND>
+ ,  shared_ptr<T_netreg_type__KEY_WOR>
+ ,  shared_ptr<T_netreg_type__KEY_REG>
+ ,  shared_ptr<T_netreg_type__KEY_INTEGER>
+ ,  shared_ptr<T_netreg_type__KEY_TIME>
+ > netreg_type ; 
+typedef boost::variant<
+ shared_ptr<T_statement_or_block_item_statement>
+ ,  shared_ptr<T_statement_or_block_item_block>
+ > statement_or_block_item ; 
+typedef boost::variant<
+ shared_ptr<T_tf_io_declaration_gen1>
+ ,  shared_ptr<T_tf_io_declaration_gen2>
+ > tf_io_declaration_gen ; 
+typedef boost::variant<
+ shared_ptr<T_io_type_NOSPEC>
+ ,  shared_ptr<T_io_type_output>
+ ,  shared_ptr<T_io_type_input>
+ ,  shared_ptr<T_io_type_inout>
+ > io_type ; 
+typedef boost::variant<
+ shared_ptr<T_reg_false>
+ ,  shared_ptr<T_reg_true>
+ > reg ; 
+typedef boost::variant<
+ shared_ptr<T_identifier_NOSPEC>
+ ,  shared_ptr<T_identifier>
+ > identifier ; 
+typedef boost::variant<
+ shared_ptr<T_colon_config_opt_FALSE>
+ ,  shared_ptr<T_colon_config_opt_TRUE>
+ > colon_config_opt ; 
+typedef boost::variant<
+ shared_ptr<T_signed_FALSE>
+ ,  shared_ptr<T_signed_TRUE>
+ > signedType ; 
+class T_description__module_declaration : public ComponentBase {
+  public :
+    shared_ptr<module_declaration> mem1;
+
+  T_description__module_declaration( 
+       shared_ptr<module_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_description__udp_declaration : public ComponentBase {
+  public :
+    shared_ptr<udp_declaration> mem1;
+
+  T_description__udp_declaration( 
+       shared_ptr<udp_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_description__config_declaration : public ComponentBase {
+  public :
+    shared_ptr<config_declaration> mem1;
+
+  T_description__config_declaration( 
+       shared_ptr<config_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_declaration__1 : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<identifier> mem2;
+    shared_ptr<std::list< parameter_declaration_gen>> mem3;
+    shared_ptr<std::list< port>> mem4;
+    shared_ptr<std::list< module_item>> mem5;
+
+  T_module_declaration__1( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<identifier> i2
+ ,     shared_ptr<std::list< parameter_declaration_gen>> i3
+ ,     shared_ptr<std::list< port>> i4
+ ,     shared_ptr<std::list< module_item>> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_port_exp : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<port_expression> mem2;
+
+  T_port_exp( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<port_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_port_net : public ComponentBase {
+  public :
+    shared_ptr<io_type> mem1;
+    shared_ptr<netreg_type> mem2;
+    shared_ptr<signedType> mem3;
+    shared_ptr<range> mem4;
+    shared_ptr<port_expression> mem5;
+    shared_ptr<expression> mem6;
+
+  T_port_net( 
+       shared_ptr<io_type> i1
+ ,     shared_ptr<netreg_type> i2
+ ,     shared_ptr<signedType> i3
+ ,     shared_ptr<range> i4
+ ,     shared_ptr<port_expression> i5
+ ,     shared_ptr<expression> i6
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+  {}
+};
+class T_port_expression : public ComponentBase {
+  public :
+    shared_ptr<std::list< port_reference>> mem1;
+
+  T_port_expression( 
+       shared_ptr<std::list< port_reference>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_port_reference : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<range_expression> mem2;
+
+  T_port_reference( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<range_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_port_declaration__inout_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<inout_declaration> mem2;
+
+  T_port_declaration__inout_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<inout_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_port_declaration__input_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<input_declaration> mem2;
+
+  T_port_declaration__input_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<input_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_port_declaration__output_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<output_declaration> mem2;
+
+  T_port_declaration__output_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<output_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__port_declaration : public ComponentBase {
+  public :
+    shared_ptr<port_declaration> mem1;
+
+  T_module_item__port_declaration( 
+       shared_ptr<port_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_item__generate_region : public ComponentBase {
+  public :
+    shared_ptr<generate_region> mem1;
+
+  T_module_item__generate_region( 
+       shared_ptr<generate_region> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_item__specify_block : public ComponentBase {
+  public :
+    shared_ptr<specify_block> mem1;
+
+  T_module_item__specify_block( 
+       shared_ptr<specify_block> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_item__parameter_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<parameter_declaration> mem2;
+
+  T_module_item__parameter_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<parameter_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__specparam_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<specparam_declaration> mem2;
+
+  T_module_item__specparam_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<specparam_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__net_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<net_declaration> mem2;
+
+  T_module_item__net_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<net_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__reg_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<reg_declaration> mem2;
+
+  T_module_item__reg_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<reg_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__integer_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<integer_declaration> mem2;
+
+  T_module_item__integer_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<integer_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__real_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<real_declaration> mem2;
+
+  T_module_item__real_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<real_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__time_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<time_declaration> mem2;
+
+  T_module_item__time_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<time_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__realtime_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<realtime_declaration> mem2;
+
+  T_module_item__realtime_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<realtime_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__event_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<event_declaration> mem2;
+
+  T_module_item__event_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<event_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__genvar_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<genvar_declaration> mem2;
+
+  T_module_item__genvar_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<genvar_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__task_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<task_declaration> mem2;
+
+  T_module_item__task_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<task_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__function_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<function_declaration> mem2;
+
+  T_module_item__function_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<function_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__local_parameter_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<local_parameter_declaration> mem2;
+
+  T_module_item__local_parameter_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<local_parameter_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__parameter_override : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<std::list< defparam_assignment>> mem2;
+
+  T_module_item__parameter_override( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<std::list< defparam_assignment>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__continuous_assign : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<continuous_assign> mem2;
+
+  T_module_item__continuous_assign( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<continuous_assign> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__gate_instantiation : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<gate_instantiation> mem2;
+
+  T_module_item__gate_instantiation( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<gate_instantiation> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__udp_instantiation : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<udp_instantiation> mem2;
+
+  T_module_item__udp_instantiation( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<udp_instantiation> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__module_instantiation : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<module_instantiation> mem2;
+
+  T_module_item__module_instantiation( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<module_instantiation> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__initial_construct : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<initial_construct> mem2;
+
+  T_module_item__initial_construct( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<initial_construct> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__always_construct : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<always_construct> mem2;
+
+  T_module_item__always_construct( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<always_construct> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__loop_generate_construct : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<loop_generate_construct> mem2;
+
+  T_module_item__loop_generate_construct( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<loop_generate_construct> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_item__conditional_generate_construct : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<conditional_generate_construct> mem2;
+
+  T_module_item__conditional_generate_construct( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<conditional_generate_construct> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_config_declaration : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<design_statement> mem2;
+    shared_ptr<std::list< config_rule_statement>> mem3;
+
+  T_config_declaration( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<design_statement> i2
+ ,     shared_ptr<std::list< config_rule_statement>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_design_statement : public ComponentBase {
+  public :
+    shared_ptr<std::list< library_identifier_period_opt_cell_identifier>> mem1;
+
+  T_design_statement( 
+       shared_ptr<std::list< library_identifier_period_opt_cell_identifier>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_lib_cell_identifier : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<identifier> mem2;
+
+  T_lib_cell_identifier( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<identifier> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_config_rule_statement__default : public ComponentBase {
+  public :
+    shared_ptr<std::list< identifier>> mem1;
+
+  T_config_rule_statement__default( 
+       shared_ptr<std::list< identifier>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_config_rule_statement__inst_lib : public ComponentBase {
+  public :
+    shared_ptr<std::list< identifier>> mem1;
+    shared_ptr<std::list< identifier>> mem2;
+
+  T_config_rule_statement__inst_lib( 
+       shared_ptr<std::list< identifier>> i1
+ ,     shared_ptr<std::list< identifier>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_config_rule_statement__inst_use : public ComponentBase {
+  public :
+    shared_ptr<std::list< identifier>> mem1;
+    shared_ptr<use_clause> mem2;
+
+  T_config_rule_statement__inst_use( 
+       shared_ptr<std::list< identifier>> i1
+ ,     shared_ptr<use_clause> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_config_rule_statement__cell_lib : public ComponentBase {
+  public :
+    shared_ptr<library_identifier_period_opt_cell_identifier> mem1;
+    shared_ptr<std::list< identifier>> mem2;
+
+  T_config_rule_statement__cell_lib( 
+       shared_ptr<library_identifier_period_opt_cell_identifier> i1
+ ,     shared_ptr<std::list< identifier>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_config_rule_statement__cell_use : public ComponentBase {
+  public :
+    shared_ptr<library_identifier_period_opt_cell_identifier> mem1;
+    shared_ptr<use_clause> mem2;
+
+  T_config_rule_statement__cell_use( 
+       shared_ptr<library_identifier_period_opt_cell_identifier> i1
+ ,     shared_ptr<use_clause> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_use_clause : public ComponentBase {
+  public :
+    shared_ptr<library_identifier_period_opt_cell_identifier> mem1;
+    shared_ptr<colon_config_opt> mem2;
+
+  T_use_clause( 
+       shared_ptr<library_identifier_period_opt_cell_identifier> i1
+ ,     shared_ptr<colon_config_opt> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_local_parameter_declaration_1 : public ComponentBase {
+  public :
+    shared_ptr<signedType> mem1;
+    shared_ptr<range> mem2;
+    shared_ptr<std::list< param_assignment>> mem3;
+
+  T_local_parameter_declaration_1( 
+       shared_ptr<signedType> i1
+ ,     shared_ptr<range> i2
+ ,     shared_ptr<std::list< param_assignment>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_local_parameter_declaration_2 : public ComponentBase {
+  public :
+    shared_ptr<parameter_type> mem1;
+    shared_ptr<std::list< param_assignment>> mem2;
+
+  T_local_parameter_declaration_2( 
+       shared_ptr<parameter_type> i1
+ ,     shared_ptr<std::list< param_assignment>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_parameter_declaration_gen_1 : public ComponentBase {
+  public :
+    shared_ptr<parameter_type> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<range> mem3;
+    shared_ptr<param_assignment> mem4;
+
+  T_parameter_declaration_gen_1( 
+       shared_ptr<parameter_type> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<range> i3
+ ,     shared_ptr<param_assignment> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_parameter_declaration_1 : public ComponentBase {
+  public :
+    shared_ptr<signedType> mem1;
+    shared_ptr<range> mem2;
+    shared_ptr<std::list< param_assignment>> mem3;
+
+  T_parameter_declaration_1( 
+       shared_ptr<signedType> i1
+ ,     shared_ptr<range> i2
+ ,     shared_ptr<std::list< param_assignment>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_parameter_declaration_2 : public ComponentBase {
+  public :
+    shared_ptr<parameter_type> mem1;
+    shared_ptr<std::list< param_assignment>> mem2;
+
+  T_parameter_declaration_2( 
+       shared_ptr<parameter_type> i1
+ ,     shared_ptr<std::list< param_assignment>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_specparam_declaration : public ComponentBase {
+  public :
+    shared_ptr<range> mem1;
+    shared_ptr<std::list< specparam_assignment>> mem2;
+
+  T_specparam_declaration( 
+       shared_ptr<range> i1
+ ,     shared_ptr<std::list< specparam_assignment>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_parameter_type__NOSPEC : public ComponentBase {
+  public :
+
+  T_parameter_type__NOSPEC( 
+  )
+  {}
+};
+class T_parameter_type__INTEGER : public ComponentBase {
+  public :
+
+  T_parameter_type__INTEGER( 
+  )
+  {}
+};
+class T_parameter_type__REAL : public ComponentBase {
+  public :
+
+  T_parameter_type__REAL( 
+  )
+  {}
+};
+class T_parameter_type__REALTIME : public ComponentBase {
+  public :
+
+  T_parameter_type__REALTIME( 
+  )
+  {}
+};
+class T_parameter_type__TIME : public ComponentBase {
+  public :
+
+  T_parameter_type__TIME( 
+  )
+  {}
+};
+class T_inout_declaration : public ComponentBase {
+  public :
+    shared_ptr<net_type> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<range> mem3;
+    shared_ptr<std::list< identifier>> mem4;
+
+  T_inout_declaration( 
+       shared_ptr<net_type> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<range> i3
+ ,     shared_ptr<std::list< identifier>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_input_declaration : public ComponentBase {
+  public :
+    shared_ptr<net_type> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<range> mem3;
+    shared_ptr<std::list< identifier>> mem4;
+
+  T_input_declaration( 
+       shared_ptr<net_type> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<range> i3
+ ,     shared_ptr<std::list< identifier>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_output_declaration_net : public ComponentBase {
+  public :
+    shared_ptr<net_type> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<range> mem3;
+    shared_ptr<std::list< identifier>> mem4;
+
+  T_output_declaration_net( 
+       shared_ptr<net_type> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<range> i3
+ ,     shared_ptr<std::list< identifier>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_output_declaration_reg : public ComponentBase {
+  public :
+    shared_ptr<signedType> mem1;
+    shared_ptr<range> mem2;
+    shared_ptr<std::list< port_identifier_equ1_expression_opt>> mem3;
+
+  T_output_declaration_reg( 
+       shared_ptr<signedType> i1
+ ,     shared_ptr<range> i2
+ ,     shared_ptr<std::list< port_identifier_equ1_expression_opt>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_output_declaration_var : public ComponentBase {
+  public :
+    shared_ptr<output_variable_type> mem1;
+    shared_ptr<std::list< port_identifier_equ1_expression_opt>> mem2;
+
+  T_output_declaration_var( 
+       shared_ptr<output_variable_type> i1
+ ,     shared_ptr<std::list< port_identifier_equ1_expression_opt>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_output_variable_type_INTEGER : public ComponentBase {
+  public :
+
+  T_output_variable_type_INTEGER( 
+  )
+  {}
+};
+class T_output_variable_type_TIME : public ComponentBase {
+  public :
+
+  T_output_variable_type_TIME( 
+  )
+  {}
+};
+class T_event_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< event_identifier_dimension_list>> mem1;
+
+  T_event_declaration( 
+       shared_ptr<std::list< event_identifier_dimension_list>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_integer_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< variable_type>> mem1;
+
+  T_integer_declaration( 
+       shared_ptr<std::list< variable_type>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_net_declaration_net_type1 : public ComponentBase {
+  public :
+    shared_ptr<net_type> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<delay3> mem3;
+    shared_ptr<std::list< net_identifier_dimension_list>> mem4;
+
+  T_net_declaration_net_type1( 
+       shared_ptr<net_type> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<delay3> i3
+ ,     shared_ptr<std::list< net_identifier_dimension_list>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_net_declaration_net_type2 : public ComponentBase {
+  public :
+    shared_ptr<net_type> mem1;
+    shared_ptr<drive_strength> mem2;
+    shared_ptr<signedType> mem3;
+    shared_ptr<delay3> mem4;
+    shared_ptr<std::list< net_decl_assignment>> mem5;
+
+  T_net_declaration_net_type2( 
+       shared_ptr<net_type> i1
+ ,     shared_ptr<drive_strength> i2
+ ,     shared_ptr<signedType> i3
+ ,     shared_ptr<delay3> i4
+ ,     shared_ptr<std::list< net_decl_assignment>> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_net_declaration_net_type3 : public ComponentBase {
+  public :
+    shared_ptr<net_type> mem1;
+    shared_ptr<drive_strength> mem2;
+    shared_ptr<vectored_scalared> mem3;
+    shared_ptr<signedType> mem4;
+    shared_ptr<range> mem5;
+    shared_ptr<delay3> mem6;
+    shared_ptr<std::list< net_identifier_dimension_list>> mem7;
+
+  T_net_declaration_net_type3( 
+       shared_ptr<net_type> i1
+ ,     shared_ptr<drive_strength> i2
+ ,     shared_ptr<vectored_scalared> i3
+ ,     shared_ptr<signedType> i4
+ ,     shared_ptr<range> i5
+ ,     shared_ptr<delay3> i6
+ ,     shared_ptr<std::list< net_identifier_dimension_list>> i7
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+ ,     mem7(i7)
+  {}
+};
+class T_net_declaration_net_type4 : public ComponentBase {
+  public :
+    shared_ptr<net_type> mem1;
+    shared_ptr<drive_strength> mem2;
+    shared_ptr<vectored_scalared> mem3;
+    shared_ptr<signedType> mem4;
+    shared_ptr<range> mem5;
+    shared_ptr<delay3> mem6;
+    shared_ptr<std::list< net_decl_assignment>> mem7;
+
+  T_net_declaration_net_type4( 
+       shared_ptr<net_type> i1
+ ,     shared_ptr<drive_strength> i2
+ ,     shared_ptr<vectored_scalared> i3
+ ,     shared_ptr<signedType> i4
+ ,     shared_ptr<range> i5
+ ,     shared_ptr<delay3> i6
+ ,     shared_ptr<std::list< net_decl_assignment>> i7
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+ ,     mem7(i7)
+  {}
+};
+class T_net_declaration_trireg_1 : public ComponentBase {
+  public :
+    shared_ptr<charge_strength> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<delay3> mem3;
+    shared_ptr<std::list< net_identifier_dimension_list>> mem4;
+
+  T_net_declaration_trireg_1( 
+       shared_ptr<charge_strength> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<delay3> i3
+ ,     shared_ptr<std::list< net_identifier_dimension_list>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_net_declaration_trireg_2 : public ComponentBase {
+  public :
+    shared_ptr<drive_strength> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<delay3> mem3;
+    shared_ptr<std::list< net_decl_assignment>> mem4;
+
+  T_net_declaration_trireg_2( 
+       shared_ptr<drive_strength> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<delay3> i3
+ ,     shared_ptr<std::list< net_decl_assignment>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_net_declaration_trireg_3 : public ComponentBase {
+  public :
+    shared_ptr<charge_strength> mem1;
+    shared_ptr<vectored_scalared> mem2;
+    shared_ptr<signedType> mem3;
+    shared_ptr<range> mem4;
+    shared_ptr<delay3> mem5;
+
+  T_net_declaration_trireg_3( 
+       shared_ptr<charge_strength> i1
+ ,     shared_ptr<vectored_scalared> i2
+ ,     shared_ptr<signedType> i3
+ ,     shared_ptr<range> i4
+ ,     shared_ptr<delay3> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_net_declaration_trireg_4 : public ComponentBase {
+  public :
+    shared_ptr<drive_strength> mem1;
+    shared_ptr<vectored_scalared> mem2;
+    shared_ptr<signedType> mem3;
+    shared_ptr<range> mem4;
+    shared_ptr<delay3> mem5;
+    shared_ptr<std::list< net_decl_assignment>> mem6;
+
+  T_net_declaration_trireg_4( 
+       shared_ptr<drive_strength> i1
+ ,     shared_ptr<vectored_scalared> i2
+ ,     shared_ptr<signedType> i3
+ ,     shared_ptr<range> i4
+ ,     shared_ptr<delay3> i5
+ ,     shared_ptr<std::list< net_decl_assignment>> i6
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+  {}
+};
+class T_vectored_scalared_NOSPEC : public ComponentBase {
+  public :
+
+  T_vectored_scalared_NOSPEC( 
+  )
+  {}
+};
+class T_vectored_scalared_vectored : public ComponentBase {
+  public :
+
+  T_vectored_scalared_vectored( 
+  )
+  {}
+};
+class T_vectored_scalared_scalared : public ComponentBase {
+  public :
+
+  T_vectored_scalared_scalared( 
+  )
+  {}
+};
+class T_real_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< real_type>> mem1;
+
+  T_real_declaration( 
+       shared_ptr<std::list< real_type>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_realtime_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< real_type>> mem1;
+
+  T_realtime_declaration( 
+       shared_ptr<std::list< real_type>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_reg_declaration : public ComponentBase {
+  public :
+    shared_ptr<signedType> mem1;
+    shared_ptr<range> mem2;
+    shared_ptr<std::list< variable_type>> mem3;
+
+  T_reg_declaration( 
+       shared_ptr<signedType> i1
+ ,     shared_ptr<range> i2
+ ,     shared_ptr<std::list< variable_type>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_time_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< variable_type>> mem1;
+
+  T_time_declaration( 
+       shared_ptr<std::list< variable_type>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_net_type_NOSPEC : public ComponentBase {
+  public :
+
+  T_net_type_NOSPEC( 
+  )
+  {}
+};
+class T_net_type__KEY_SUPPLY0 : public ComponentBase {
+  public :
+
+  T_net_type__KEY_SUPPLY0( 
+  )
+  {}
+};
+class T_net_type__KEY_SUPPLY1 : public ComponentBase {
+  public :
+
+  T_net_type__KEY_SUPPLY1( 
+  )
+  {}
+};
+class T_net_type__KEY_TRI : public ComponentBase {
+  public :
+
+  T_net_type__KEY_TRI( 
+  )
+  {}
+};
+class T_net_type__KEY_TRIAND : public ComponentBase {
+  public :
+
+  T_net_type__KEY_TRIAND( 
+  )
+  {}
+};
+class T_net_type__KEY_TRIOR : public ComponentBase {
+  public :
+
+  T_net_type__KEY_TRIOR( 
+  )
+  {}
+};
+class T_net_type__KEY_TRI0 : public ComponentBase {
+  public :
+
+  T_net_type__KEY_TRI0( 
+  )
+  {}
+};
+class T_net_type__KEY_TRI1 : public ComponentBase {
+  public :
+
+  T_net_type__KEY_TRI1( 
+  )
+  {}
+};
+class T_net_type__KEY_UWIRE : public ComponentBase {
+  public :
+
+  T_net_type__KEY_UWIRE( 
+  )
+  {}
+};
+class T_net_type__KEY_WIRE : public ComponentBase {
+  public :
+
+  T_net_type__KEY_WIRE( 
+  )
+  {}
+};
+class T_net_type__KEY_WAND : public ComponentBase {
+  public :
+
+  T_net_type__KEY_WAND( 
+  )
+  {}
+};
+class T_net_type__KEY_WOR : public ComponentBase {
+  public :
+
+  T_net_type__KEY_WOR( 
+  )
+  {}
+};
+class T_real_type_noass : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<std::list< dimension>> mem2;
+
+  T_real_type_noass( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<std::list< dimension>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_real_type_ass : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<expression> mem2;
+
+  T_real_type_ass( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_variable_type_noass : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<std::list< dimension>> mem2;
+
+  T_variable_type_noass( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<std::list< dimension>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_variable_type_ass : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<expression> mem2;
+
+  T_variable_type_ass( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class KEY_HIGHZ0 : public ComponentBase {
+  public :
+
+  KEY_HIGHZ0( 
+  )
+  {}
+};
+class KEY_HIGHZ1 : public ComponentBase {
+  public :
+
+  KEY_HIGHZ1( 
+  )
+  {}
+};
+class KEY_SUPPLY0 : public ComponentBase {
+  public :
+
+  KEY_SUPPLY0( 
+  )
+  {}
+};
+class KEY_STRONG0 : public ComponentBase {
+  public :
+
+  KEY_STRONG0( 
+  )
+  {}
+};
+class KEY_PULL0 : public ComponentBase {
+  public :
+
+  KEY_PULL0( 
+  )
+  {}
+};
+class KEY_WEAK0 : public ComponentBase {
+  public :
+
+  KEY_WEAK0( 
+  )
+  {}
+};
+class KEY_SUPPLY1 : public ComponentBase {
+  public :
+
+  KEY_SUPPLY1( 
+  )
+  {}
+};
+class KEY_STRONG1 : public ComponentBase {
+  public :
+
+  KEY_STRONG1( 
+  )
+  {}
+};
+class KEY_PULL1 : public ComponentBase {
+  public :
+
+  KEY_PULL1( 
+  )
+  {}
+};
+class KEY_WEAK1 : public ComponentBase {
+  public :
+
+  KEY_WEAK1( 
+  )
+  {}
+};
+class T_drive_strength_NOSPEC : public ComponentBase {
+  public :
+
+  T_drive_strength_NOSPEC( 
+  )
+  {}
+};
+class T_drive_strength : public ComponentBase {
+  public :
+    shared_ptr<strength> mem1;
+    shared_ptr<strength> mem2;
+
+  T_drive_strength( 
+       shared_ptr<strength> i1
+ ,     shared_ptr<strength> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_charge_strength_NOSPEC : public ComponentBase {
+  public :
+
+  T_charge_strength_NOSPEC( 
+  )
+  {}
+};
+class T_charge_strength__small : public ComponentBase {
+  public :
+
+  T_charge_strength__small( 
+  )
+  {}
+};
+class T_charge_strength__medium : public ComponentBase {
+  public :
+
+  T_charge_strength__medium( 
+  )
+  {}
+};
+class T_charge_strength__large : public ComponentBase {
+  public :
+
+  T_charge_strength__large( 
+  )
+  {}
+};
+class T_delay3_NOSPEC : public ComponentBase {
+  public :
+
+  T_delay3_NOSPEC( 
+  )
+  {}
+};
+class T_delay3_1 : public ComponentBase {
+  public :
+    shared_ptr<delay_value> mem1;
+
+  T_delay3_1( 
+       shared_ptr<delay_value> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay3_minmax1 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+
+  T_delay3_minmax1( 
+       shared_ptr<mintypmax_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay3_minmax2 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+
+  T_delay3_minmax2( 
+       shared_ptr<mintypmax_expression> i1
+ ,     shared_ptr<mintypmax_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_delay3_minmax3 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+    shared_ptr<mintypmax_expression> mem3;
+
+  T_delay3_minmax3( 
+       shared_ptr<mintypmax_expression> i1
+ ,     shared_ptr<mintypmax_expression> i2
+ ,     shared_ptr<mintypmax_expression> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_delay2_NOSPEC : public ComponentBase {
+  public :
+
+  T_delay2_NOSPEC( 
+  )
+  {}
+};
+class T_delay2_1 : public ComponentBase {
+  public :
+    shared_ptr<delay_value> mem1;
+
+  T_delay2_1( 
+       shared_ptr<delay_value> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay2_minmax1 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+
+  T_delay2_minmax1( 
+       shared_ptr<mintypmax_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay2_minmax2 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+
+  T_delay2_minmax2( 
+       shared_ptr<mintypmax_expression> i1
+ ,     shared_ptr<mintypmax_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_event_identifier_dimension_list : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<std::list< dimension>> mem2;
+
+  T_event_identifier_dimension_list( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<std::list< dimension>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_net_identifier_dimension_list : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<std::list< dimension>> mem2;
+
+  T_net_identifier_dimension_list( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<std::list< dimension>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_port_identifier_equ1_expression_opt : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<expression> mem2;
+
+  T_port_identifier_equ1_expression_opt( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_defparam_assignment : public ComponentBase {
+  public :
+    shared_ptr<hierarchical_identifier> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+
+  T_defparam_assignment( 
+       shared_ptr<hierarchical_identifier> i1
+ ,     shared_ptr<mintypmax_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_net_decl_assignment : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<expression> mem2;
+
+  T_net_decl_assignment( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_param_assignment : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+
+  T_param_assignment( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<mintypmax_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_specparam_assignment : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+
+  T_specparam_assignment( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<mintypmax_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_specparam_assignment_pulse1 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+
+  T_specparam_assignment_pulse1( 
+       shared_ptr<mintypmax_expression> i1
+ ,     shared_ptr<mintypmax_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_specparam_assignment_pulse2 : public ComponentBase {
+  public :
+    shared_ptr<specify_input_terminal_descriptor> mem1;
+    shared_ptr<specify_output_terminal_descriptor> mem2;
+    shared_ptr<mintypmax_expression> mem3;
+    shared_ptr<mintypmax_expression> mem4;
+
+  T_specparam_assignment_pulse2( 
+       shared_ptr<specify_input_terminal_descriptor> i1
+ ,     shared_ptr<specify_output_terminal_descriptor> i2
+ ,     shared_ptr<mintypmax_expression> i3
+ ,     shared_ptr<mintypmax_expression> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_dimension : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<expression> mem2;
+
+  T_dimension( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_range_NOSPEC : public ComponentBase {
+  public :
+
+  T_range_NOSPEC( 
+  )
+  {}
+};
+class T_range : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<expression> mem2;
+
+  T_range( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_automatic_false : public ComponentBase {
+  public :
+
+  T_automatic_false( 
+  )
+  {}
+};
+class T_automatic_true : public ComponentBase {
+  public :
+
+  T_automatic_true( 
+  )
+  {}
+};
+class T_function_declaration_1 : public ComponentBase {
+  public :
+    shared_ptr<automatic> mem1;
+    shared_ptr<function_range_or_type> mem2;
+    shared_ptr<identifier> mem3;
+    shared_ptr<std::list< function_item_declaration>> mem4;
+    shared_ptr<statement> mem5;
+
+  T_function_declaration_1( 
+       shared_ptr<automatic> i1
+ ,     shared_ptr<function_range_or_type> i2
+ ,     shared_ptr<identifier> i3
+ ,     shared_ptr<std::list< function_item_declaration>> i4
+ ,     shared_ptr<statement> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_function_declaration_2 : public ComponentBase {
+  public :
+    shared_ptr<automatic> mem1;
+    shared_ptr<function_range_or_type> mem2;
+    shared_ptr<identifier> mem3;
+    shared_ptr<std::list< attribute_instance_list_tf_input_declaration>> mem4;
+    shared_ptr<std::list< function_item_declaration>> mem5;
+    shared_ptr<statement> mem6;
+
+  T_function_declaration_2( 
+       shared_ptr<automatic> i1
+ ,     shared_ptr<function_range_or_type> i2
+ ,     shared_ptr<identifier> i3
+ ,     shared_ptr<std::list< attribute_instance_list_tf_input_declaration>> i4
+ ,     shared_ptr<std::list< function_item_declaration>> i5
+ ,     shared_ptr<statement> i6
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+  {}
+};
+class T_function_item_declaration_block : public ComponentBase {
+  public :
+    shared_ptr<block_item_declaration> mem1;
+
+  T_function_item_declaration_block( 
+       shared_ptr<block_item_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_function_item_declaration_input : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<tf_input_declaration> mem2;
+
+  T_function_item_declaration_input( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<tf_input_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_attribute_instance_list_tf_input_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<tf_io_declaration_gen> mem2;
+
+  T_attribute_instance_list_tf_input_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<tf_io_declaration_gen> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_function_range_or_type_NOSPEC : public ComponentBase {
+  public :
+
+  T_function_range_or_type_NOSPEC( 
+  )
+  {}
+};
+class T_function_range_or_type : public ComponentBase {
+  public :
+    shared_ptr<signedType> mem1;
+    shared_ptr<range> mem2;
+
+  T_function_range_or_type( 
+       shared_ptr<signedType> i1
+ ,     shared_ptr<range> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_function_range_or_type_INTEGER : public ComponentBase {
+  public :
+
+  T_function_range_or_type_INTEGER( 
+  )
+  {}
+};
+class T_function_range_or_type_REAL : public ComponentBase {
+  public :
+
+  T_function_range_or_type_REAL( 
+  )
+  {}
+};
+class T_function_range_or_type_REALTIME : public ComponentBase {
+  public :
+
+  T_function_range_or_type_REALTIME( 
+  )
+  {}
+};
+class T_function_range_or_type_TIME : public ComponentBase {
+  public :
+
+  T_function_range_or_type_TIME( 
+  )
+  {}
+};
+class T_task_declaration1 : public ComponentBase {
+  public :
+    shared_ptr<automatic> mem1;
+    shared_ptr<identifier> mem2;
+    shared_ptr<std::list< task_item_declaration>> mem3;
+    shared_ptr<statement> mem4;
+
+  T_task_declaration1( 
+       shared_ptr<automatic> i1
+ ,     shared_ptr<identifier> i2
+ ,     shared_ptr<std::list< task_item_declaration>> i3
+ ,     shared_ptr<statement> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_task_declaration2 : public ComponentBase {
+  public :
+    shared_ptr<automatic> mem1;
+    shared_ptr<identifier> mem2;
+    shared_ptr<std::list< task_port_item>> mem3;
+    shared_ptr<std::list< task_item_declaration>> mem4;
+    shared_ptr<statement> mem5;
+
+  T_task_declaration2( 
+       shared_ptr<automatic> i1
+ ,     shared_ptr<identifier> i2
+ ,     shared_ptr<std::list< task_port_item>> i3
+ ,     shared_ptr<std::list< task_item_declaration>> i4
+ ,     shared_ptr<statement> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_task_item_declaration_block : public ComponentBase {
+  public :
+    shared_ptr<block_item_declaration> mem1;
+
+  T_task_item_declaration_block( 
+       shared_ptr<block_item_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_task_item_declaration_input : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<tf_input_declaration> mem2;
+
+  T_task_item_declaration_input( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<tf_input_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_task_item_declaration_output : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<tf_output_declaration> mem2;
+
+  T_task_item_declaration_output( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<tf_output_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_task_item_declaration_inout : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<tf_inout_declaration> mem2;
+
+  T_task_item_declaration_inout( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<tf_inout_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_task_port_item_input : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<tf_io_declaration_gen> mem2;
+
+  T_task_port_item_input( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<tf_io_declaration_gen> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_tf_input_declaration_reg : public ComponentBase {
+  public :
+    shared_ptr<reg> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<range> mem3;
+    shared_ptr<std::list< identifier>> mem4;
+
+  T_tf_input_declaration_reg( 
+       shared_ptr<reg> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<range> i3
+ ,     shared_ptr<std::list< identifier>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_tf_input_declaration_type : public ComponentBase {
+  public :
+    shared_ptr<task_port_type> mem1;
+    shared_ptr<std::list< identifier>> mem2;
+
+  T_tf_input_declaration_type( 
+       shared_ptr<task_port_type> i1
+ ,     shared_ptr<std::list< identifier>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_tf_output_declaration_reg : public ComponentBase {
+  public :
+    shared_ptr<reg> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<range> mem3;
+    shared_ptr<std::list< identifier>> mem4;
+
+  T_tf_output_declaration_reg( 
+       shared_ptr<reg> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<range> i3
+ ,     shared_ptr<std::list< identifier>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_tf_output_declaration_type : public ComponentBase {
+  public :
+    shared_ptr<task_port_type> mem1;
+    shared_ptr<std::list< identifier>> mem2;
+
+  T_tf_output_declaration_type( 
+       shared_ptr<task_port_type> i1
+ ,     shared_ptr<std::list< identifier>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_tf_inout_declaration_reg : public ComponentBase {
+  public :
+    shared_ptr<reg> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<range> mem3;
+    shared_ptr<std::list< identifier>> mem4;
+
+  T_tf_inout_declaration_reg( 
+       shared_ptr<reg> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<range> i3
+ ,     shared_ptr<std::list< identifier>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_tf_inout_declaration_type : public ComponentBase {
+  public :
+    shared_ptr<task_port_type> mem1;
+    shared_ptr<std::list< identifier>> mem2;
+
+  T_tf_inout_declaration_type( 
+       shared_ptr<task_port_type> i1
+ ,     shared_ptr<std::list< identifier>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_task_port_type_integer : public ComponentBase {
+  public :
+
+  T_task_port_type_integer( 
+  )
+  {}
+};
+class T_task_port_type_real : public ComponentBase {
+  public :
+
+  T_task_port_type_real( 
+  )
+  {}
+};
+class T_task_port_type_realtime : public ComponentBase {
+  public :
+
+  T_task_port_type_realtime( 
+  )
+  {}
+};
+class T_task_port_type_time : public ComponentBase {
+  public :
+
+  T_task_port_type_time( 
+  )
+  {}
+};
+class T_block_item_declaration_reg : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<signedType> mem2;
+    shared_ptr<range> mem3;
+    shared_ptr<std::list< block_variable_type>> mem4;
+
+  T_block_item_declaration_reg( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<signedType> i2
+ ,     shared_ptr<range> i3
+ ,     shared_ptr<std::list< block_variable_type>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_block_item_declaration_integer : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<std::list< block_variable_type>> mem2;
+
+  T_block_item_declaration_integer( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<std::list< block_variable_type>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_block_item_declaration_time : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<std::list< block_variable_type>> mem2;
+
+  T_block_item_declaration_time( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<std::list< block_variable_type>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_block_item_declaration_real : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<std::list< block_real_type>> mem2;
+
+  T_block_item_declaration_real( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<std::list< block_real_type>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_block_item_declaration_realtime : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<std::list< block_real_type>> mem2;
+
+  T_block_item_declaration_realtime( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<std::list< block_real_type>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_block_item_declaration_event : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<event_declaration> mem2;
+
+  T_block_item_declaration_event( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<event_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_block_item_declaration_local_param : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<local_parameter_declaration> mem2;
+
+  T_block_item_declaration_local_param( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<local_parameter_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_block_item_declaration_param : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<parameter_declaration> mem2;
+
+  T_block_item_declaration_param( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<parameter_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_block_variable_type : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<std::list< dimension>> mem2;
+
+  T_block_variable_type( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<std::list< dimension>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_block_real_type : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<std::list< dimension>> mem2;
+
+  T_block_real_type( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<std::list< dimension>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_gate_instantiation_cmos : public ComponentBase {
+  public :
+    shared_ptr<cmos_switchtype> mem1;
+    shared_ptr<delay3> mem2;
+    shared_ptr<std::list< cmos_switch_instance>> mem3;
+
+  T_gate_instantiation_cmos( 
+       shared_ptr<cmos_switchtype> i1
+ ,     shared_ptr<delay3> i2
+ ,     shared_ptr<std::list< cmos_switch_instance>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_gate_instantiation_enable : public ComponentBase {
+  public :
+    shared_ptr<enable_gatetype> mem1;
+    shared_ptr<drive_strength> mem2;
+    shared_ptr<delay3> mem3;
+    shared_ptr<std::list< enable_gate_instance>> mem4;
+
+  T_gate_instantiation_enable( 
+       shared_ptr<enable_gatetype> i1
+ ,     shared_ptr<drive_strength> i2
+ ,     shared_ptr<delay3> i3
+ ,     shared_ptr<std::list< enable_gate_instance>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_gate_instantiation_mos : public ComponentBase {
+  public :
+    shared_ptr<mos_switchtype> mem1;
+    shared_ptr<delay3> mem2;
+    shared_ptr<std::list< mos_switch_instance>> mem3;
+
+  T_gate_instantiation_mos( 
+       shared_ptr<mos_switchtype> i1
+ ,     shared_ptr<delay3> i2
+ ,     shared_ptr<std::list< mos_switch_instance>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_gate_instantiation_input : public ComponentBase {
+  public :
+    shared_ptr<n_input_gatetype> mem1;
+    shared_ptr<drive_strength> mem2;
+    shared_ptr<delay2> mem3;
+    shared_ptr<std::list< n_input_gate_instance>> mem4;
+
+  T_gate_instantiation_input( 
+       shared_ptr<n_input_gatetype> i1
+ ,     shared_ptr<drive_strength> i2
+ ,     shared_ptr<delay2> i3
+ ,     shared_ptr<std::list< n_input_gate_instance>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_gate_instantiation_output : public ComponentBase {
+  public :
+    shared_ptr<n_output_gatetype> mem1;
+    shared_ptr<drive_strength> mem2;
+    shared_ptr<delay2> mem3;
+    shared_ptr<std::list< n_output_gate_instance>> mem4;
+
+  T_gate_instantiation_output( 
+       shared_ptr<n_output_gatetype> i1
+ ,     shared_ptr<drive_strength> i2
+ ,     shared_ptr<delay2> i3
+ ,     shared_ptr<std::list< n_output_gate_instance>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_gate_instantiation_pass_en : public ComponentBase {
+  public :
+    shared_ptr<pass_en_switchtype> mem1;
+    shared_ptr<delay2> mem2;
+    shared_ptr<std::list< pass_enable_switch_instance>> mem3;
+
+  T_gate_instantiation_pass_en( 
+       shared_ptr<pass_en_switchtype> i1
+ ,     shared_ptr<delay2> i2
+ ,     shared_ptr<std::list< pass_enable_switch_instance>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_gate_instantiation_pass : public ComponentBase {
+  public :
+    shared_ptr<pass_switchtype> mem1;
+    shared_ptr<std::list< pass_switch_instance>> mem2;
+
+  T_gate_instantiation_pass( 
+       shared_ptr<pass_switchtype> i1
+ ,     shared_ptr<std::list< pass_switch_instance>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_gate_instantiation_pulldown : public ComponentBase {
+  public :
+    shared_ptr<pulldown_strength> mem1;
+    shared_ptr<std::list< pull_gate_instance>> mem2;
+
+  T_gate_instantiation_pulldown( 
+       shared_ptr<pulldown_strength> i1
+ ,     shared_ptr<std::list< pull_gate_instance>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_gate_instantiation_pullup : public ComponentBase {
+  public :
+    shared_ptr<pullup_strength> mem1;
+    shared_ptr<std::list< pull_gate_instance>> mem2;
+
+  T_gate_instantiation_pullup( 
+       shared_ptr<pullup_strength> i1
+ ,     shared_ptr<std::list< pull_gate_instance>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_cmos_switch_instance : public ComponentBase {
+  public :
+    shared_ptr<name_of_gate_instance> mem1;
+    shared_ptr<net_lvalue> mem2;
+    shared_ptr<expression> mem3;
+    shared_ptr<expression> mem4;
+    shared_ptr<expression> mem5;
+
+  T_cmos_switch_instance( 
+       shared_ptr<name_of_gate_instance> i1
+ ,     shared_ptr<net_lvalue> i2
+ ,     shared_ptr<expression> i3
+ ,     shared_ptr<expression> i4
+ ,     shared_ptr<expression> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_enable_gate_instance : public ComponentBase {
+  public :
+    shared_ptr<name_of_gate_instance> mem1;
+    shared_ptr<net_lvalue> mem2;
+    shared_ptr<expression> mem3;
+    shared_ptr<expression> mem4;
+
+  T_enable_gate_instance( 
+       shared_ptr<name_of_gate_instance> i1
+ ,     shared_ptr<net_lvalue> i2
+ ,     shared_ptr<expression> i3
+ ,     shared_ptr<expression> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_mos_switch_instance : public ComponentBase {
+  public :
+    shared_ptr<name_of_gate_instance> mem1;
+    shared_ptr<net_lvalue> mem2;
+    shared_ptr<expression> mem3;
+    shared_ptr<expression> mem4;
+
+  T_mos_switch_instance( 
+       shared_ptr<name_of_gate_instance> i1
+ ,     shared_ptr<net_lvalue> i2
+ ,     shared_ptr<expression> i3
+ ,     shared_ptr<expression> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_n_input_gate_instance : public ComponentBase {
+  public :
+    shared_ptr<name_of_gate_instance> mem1;
+    shared_ptr<net_lvalue> mem2;
+    shared_ptr<expression> mem3;
+    shared_ptr<std::list< expression>> mem4;
+
+  T_n_input_gate_instance( 
+       shared_ptr<name_of_gate_instance> i1
+ ,     shared_ptr<net_lvalue> i2
+ ,     shared_ptr<expression> i3
+ ,     shared_ptr<std::list< expression>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_n_output_gate_instance : public ComponentBase {
+  public :
+    shared_ptr<name_of_gate_instance> mem1;
+    shared_ptr<net_lvalue> mem2;
+    shared_ptr<std::list< net_lvalue>> mem3;
+    shared_ptr<expression> mem4;
+
+  T_n_output_gate_instance( 
+       shared_ptr<name_of_gate_instance> i1
+ ,     shared_ptr<net_lvalue> i2
+ ,     shared_ptr<std::list< net_lvalue>> i3
+ ,     shared_ptr<expression> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_pass_switch_instance : public ComponentBase {
+  public :
+    shared_ptr<name_of_gate_instance> mem1;
+    shared_ptr<net_lvalue> mem2;
+    shared_ptr<net_lvalue> mem3;
+
+  T_pass_switch_instance( 
+       shared_ptr<name_of_gate_instance> i1
+ ,     shared_ptr<net_lvalue> i2
+ ,     shared_ptr<net_lvalue> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_pass_enable_switch_instance : public ComponentBase {
+  public :
+    shared_ptr<name_of_gate_instance> mem1;
+    shared_ptr<net_lvalue> mem2;
+    shared_ptr<net_lvalue> mem3;
+    shared_ptr<expression> mem4;
+
+  T_pass_enable_switch_instance( 
+       shared_ptr<name_of_gate_instance> i1
+ ,     shared_ptr<net_lvalue> i2
+ ,     shared_ptr<net_lvalue> i3
+ ,     shared_ptr<expression> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_pull_gate_instance : public ComponentBase {
+  public :
+    shared_ptr<name_of_gate_instance> mem1;
+    shared_ptr<net_lvalue> mem2;
+
+  T_pull_gate_instance( 
+       shared_ptr<name_of_gate_instance> i1
+ ,     shared_ptr<net_lvalue> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_name_of_gate_instance_NOSPEC : public ComponentBase {
+  public :
+
+  T_name_of_gate_instance_NOSPEC( 
+  )
+  {}
+};
+class T_name_of_gate_instance : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<range> mem2;
+
+  T_name_of_gate_instance( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<range> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_pulldown_strength_NOSPEC : public ComponentBase {
+  public :
+
+  T_pulldown_strength_NOSPEC( 
+  )
+  {}
+};
+class T_pulldown_strength01 : public ComponentBase {
+  public :
+    shared_ptr<strength> mem1;
+    shared_ptr<strength> mem2;
+
+  T_pulldown_strength01( 
+       shared_ptr<strength> i1
+ ,     shared_ptr<strength> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_pulldown_strength10 : public ComponentBase {
+  public :
+    shared_ptr<strength> mem1;
+    shared_ptr<strength> mem2;
+
+  T_pulldown_strength10( 
+       shared_ptr<strength> i1
+ ,     shared_ptr<strength> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_pulldown_strength0 : public ComponentBase {
+  public :
+    shared_ptr<strength> mem1;
+
+  T_pulldown_strength0( 
+       shared_ptr<strength> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_pullup_strength_NOSPEC : public ComponentBase {
+  public :
+
+  T_pullup_strength_NOSPEC( 
+  )
+  {}
+};
+class T_pullup_strength01 : public ComponentBase {
+  public :
+    shared_ptr<strength> mem1;
+    shared_ptr<strength> mem2;
+
+  T_pullup_strength01( 
+       shared_ptr<strength> i1
+ ,     shared_ptr<strength> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_pullup_strength10 : public ComponentBase {
+  public :
+    shared_ptr<strength> mem1;
+    shared_ptr<strength> mem2;
+
+  T_pullup_strength10( 
+       shared_ptr<strength> i1
+ ,     shared_ptr<strength> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_pullup_strength1 : public ComponentBase {
+  public :
+    shared_ptr<strength> mem1;
+
+  T_pullup_strength1( 
+       shared_ptr<strength> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_cmos_switchtype_CMOS : public ComponentBase {
+  public :
+
+  T_cmos_switchtype_CMOS( 
+  )
+  {}
+};
+class T_cmos_switchtype_RCMOS : public ComponentBase {
+  public :
+
+  T_cmos_switchtype_RCMOS( 
+  )
+  {}
+};
+class T_enable_gatetype__BUFIF0 : public ComponentBase {
+  public :
+
+  T_enable_gatetype__BUFIF0( 
+  )
+  {}
+};
+class T_enable_gatetype__BUFIF1 : public ComponentBase {
+  public :
+
+  T_enable_gatetype__BUFIF1( 
+  )
+  {}
+};
+class T_enable_gatetype__NOTIF0 : public ComponentBase {
+  public :
+
+  T_enable_gatetype__NOTIF0( 
+  )
+  {}
+};
+class T_enable_gatetype__NOTIF1 : public ComponentBase {
+  public :
+
+  T_enable_gatetype__NOTIF1( 
+  )
+  {}
+};
+class T_mos_switchtype_NMOS : public ComponentBase {
+  public :
+
+  T_mos_switchtype_NMOS( 
+  )
+  {}
+};
+class T_mos_switchtype_PMOS : public ComponentBase {
+  public :
+
+  T_mos_switchtype_PMOS( 
+  )
+  {}
+};
+class T_mos_switchtype_RNMOS : public ComponentBase {
+  public :
+
+  T_mos_switchtype_RNMOS( 
+  )
+  {}
+};
+class T_mos_switchtype_RPMOS : public ComponentBase {
+  public :
+
+  T_mos_switchtype_RPMOS( 
+  )
+  {}
+};
+class T_n_input_gatetype_AND : public ComponentBase {
+  public :
+
+  T_n_input_gatetype_AND( 
+  )
+  {}
+};
+class T_n_input_gatetype_NAND : public ComponentBase {
+  public :
+
+  T_n_input_gatetype_NAND( 
+  )
+  {}
+};
+class T_n_input_gatetype_OR : public ComponentBase {
+  public :
+
+  T_n_input_gatetype_OR( 
+  )
+  {}
+};
+class T_n_input_gatetype_NOR : public ComponentBase {
+  public :
+
+  T_n_input_gatetype_NOR( 
+  )
+  {}
+};
+class T_n_input_gatetype_XOR : public ComponentBase {
+  public :
+
+  T_n_input_gatetype_XOR( 
+  )
+  {}
+};
+class T_n_input_gatetype_XNOR : public ComponentBase {
+  public :
+
+  T_n_input_gatetype_XNOR( 
+  )
+  {}
+};
+class T_n_output_gatetype_BUF : public ComponentBase {
+  public :
+
+  T_n_output_gatetype_BUF( 
+  )
+  {}
+};
+class T_n_output_gatetype_NOT : public ComponentBase {
+  public :
+
+  T_n_output_gatetype_NOT( 
+  )
+  {}
+};
+class T_pass_en_switchtype_TRANIF0 : public ComponentBase {
+  public :
+
+  T_pass_en_switchtype_TRANIF0( 
+  )
+  {}
+};
+class T_pass_en_switchtype_TRANIF1 : public ComponentBase {
+  public :
+
+  T_pass_en_switchtype_TRANIF1( 
+  )
+  {}
+};
+class T_pass_en_switchtype_RTRANIF1 : public ComponentBase {
+  public :
+
+  T_pass_en_switchtype_RTRANIF1( 
+  )
+  {}
+};
+class T_pass_en_switchtype_RTRANIF0 : public ComponentBase {
+  public :
+
+  T_pass_en_switchtype_RTRANIF0( 
+  )
+  {}
+};
+class T_pass_switchtype_TRAN : public ComponentBase {
+  public :
+
+  T_pass_switchtype_TRAN( 
+  )
+  {}
+};
+class T_pass_switchtype_RTRAN : public ComponentBase {
+  public :
+
+  T_pass_switchtype_RTRAN( 
+  )
+  {}
+};
+class T_module_instantiation : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<parameter_value_assignment> mem2;
+    shared_ptr<std::list< module_instance>> mem3;
+
+  T_module_instantiation( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<parameter_value_assignment> i2
+ ,     shared_ptr<std::list< module_instance>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_module_instance : public ComponentBase {
+  public :
+    shared_ptr<name_of_module_instance> mem1;
+    shared_ptr<list_of_port_connections> mem2;
+
+  T_module_instance( 
+       shared_ptr<name_of_module_instance> i1
+ ,     shared_ptr<list_of_port_connections> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_name_of_module_instance : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<range> mem2;
+
+  T_name_of_module_instance( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<range> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_parameter_value_assignment_NOSPEC : public ComponentBase {
+  public :
+
+  T_parameter_value_assignment_NOSPEC( 
+  )
+  {}
+};
+class T_parameter_value_assignment_order : public ComponentBase {
+  public :
+    shared_ptr<std::list< expression>> mem1;
+
+  T_parameter_value_assignment_order( 
+       shared_ptr<std::list< expression>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_parameter_value_assignment_named : public ComponentBase {
+  public :
+    shared_ptr<std::list< named_parameter_assignment>> mem1;
+
+  T_parameter_value_assignment_named( 
+       shared_ptr<std::list< named_parameter_assignment>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_named_parameter_assignment : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+
+  T_named_parameter_assignment( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<mintypmax_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_list_of_port_connections_ordered : public ComponentBase {
+  public :
+    shared_ptr<std::list< ordered_port_connection>> mem1;
+
+  T_list_of_port_connections_ordered( 
+       shared_ptr<std::list< ordered_port_connection>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_list_of_port_connections_named : public ComponentBase {
+  public :
+    shared_ptr<std::list< named_port_connection>> mem1;
+
+  T_list_of_port_connections_named( 
+       shared_ptr<std::list< named_port_connection>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_ordered_port_connection : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<expression> mem2;
+
+  T_ordered_port_connection( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_named_port_connection : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<identifier> mem2;
+    shared_ptr<expression> mem3;
+
+  T_named_port_connection( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<identifier> i2
+ ,     shared_ptr<expression> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_generate_region : public ComponentBase {
+  public :
+    shared_ptr<std::list< module_item>> mem1;
+
+  T_generate_region( 
+       shared_ptr<std::list< module_item>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_genvar_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< identifier>> mem1;
+
+  T_genvar_declaration( 
+       shared_ptr<std::list< identifier>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_loop_generate_construct : public ComponentBase {
+  public :
+    shared_ptr<genvar_initialization> mem1;
+    shared_ptr<expression> mem2;
+    shared_ptr<genvar_iteration> mem3;
+    shared_ptr<generate_block> mem4;
+
+  T_loop_generate_construct( 
+       shared_ptr<genvar_initialization> i1
+ ,     shared_ptr<expression> i2
+ ,     shared_ptr<genvar_iteration> i3
+ ,     shared_ptr<generate_block> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_genvar_initialization : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<expression> mem2;
+
+  T_genvar_initialization( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_genvar_iteration : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<expression> mem2;
+
+  T_genvar_iteration( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_conditional_generate_construct_if : public ComponentBase {
+  public :
+    shared_ptr<if_generate_construct> mem1;
+
+  T_conditional_generate_construct_if( 
+       shared_ptr<if_generate_construct> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_conditional_generate_construct_case : public ComponentBase {
+  public :
+    shared_ptr<case_generate_construct> mem1;
+
+  T_conditional_generate_construct_case( 
+       shared_ptr<case_generate_construct> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_case_generate_construct : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<std::list< case_generate_item>> mem2;
+
+  T_case_generate_construct( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<std::list< case_generate_item>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_case_generate_item_case : public ComponentBase {
+  public :
+    shared_ptr<std::list< expression>> mem1;
+    shared_ptr<generate_block> mem2;
+
+  T_case_generate_item_case( 
+       shared_ptr<std::list< expression>> i1
+ ,     shared_ptr<generate_block> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_case_generate_item_default : public ComponentBase {
+  public :
+    shared_ptr<generate_block> mem1;
+
+  T_case_generate_item_default( 
+       shared_ptr<generate_block> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_if_generate_construct : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<generate_block> mem2;
+    shared_ptr<generate_block> mem3;
+
+  T_if_generate_construct( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<generate_block> i2
+ ,     shared_ptr<generate_block> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_generate_block_NOSPEC : public ComponentBase {
+  public :
+
+  T_generate_block_NOSPEC( 
+  )
+  {}
+};
+class T_generate_block_mgi : public ComponentBase {
+  public :
+    shared_ptr<module_item> mem1;
+
+  T_generate_block_mgi( 
+       shared_ptr<module_item> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_generate_block_begin : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<std::list< module_item>> mem2;
+
+  T_generate_block_begin( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<std::list< module_item>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_udp_declaration_1 : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<identifier> mem2;
+    shared_ptr<udp_port_list> mem3;
+    shared_ptr<std::list< udp_port_declaration>> mem4;
+    shared_ptr<udp_body> mem5;
+
+  T_udp_declaration_1( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<identifier> i2
+ ,     shared_ptr<udp_port_list> i3
+ ,     shared_ptr<std::list< udp_port_declaration>> i4
+ ,     shared_ptr<udp_body> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_udp_declaration_2 : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<identifier> mem2;
+    shared_ptr<udp_declaration_port_list> mem3;
+    shared_ptr<udp_body> mem4;
+
+  T_udp_declaration_2( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<identifier> i2
+ ,     shared_ptr<udp_declaration_port_list> i3
+ ,     shared_ptr<udp_body> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_udp_port_list : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<std::list< identifier>> mem2;
+
+  T_udp_port_list( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<std::list< identifier>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_udp_declaration_port_list : public ComponentBase {
+  public :
+    shared_ptr<udp_output_declaration> mem1;
+    shared_ptr<std::list< udp_input_declaration>> mem2;
+
+  T_udp_declaration_port_list( 
+       shared_ptr<udp_output_declaration> i1
+ ,     shared_ptr<std::list< udp_input_declaration>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_udp_port_declaration_out : public ComponentBase {
+  public :
+    shared_ptr<udp_output_declaration> mem1;
+
+  T_udp_port_declaration_out( 
+       shared_ptr<udp_output_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_udp_port_declaration_input : public ComponentBase {
+  public :
+    shared_ptr<udp_input_declaration> mem1;
+
+  T_udp_port_declaration_input( 
+       shared_ptr<udp_input_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_udp_port_declaration_reg : public ComponentBase {
+  public :
+    shared_ptr<udp_reg_declaration> mem1;
+
+  T_udp_port_declaration_reg( 
+       shared_ptr<udp_reg_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_udp_output_declaration_output : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<identifier> mem2;
+
+  T_udp_output_declaration_output( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<identifier> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_udp_output_declaration_reg : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<identifier> mem2;
+    shared_ptr<expression> mem3;
+
+  T_udp_output_declaration_reg( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<identifier> i2
+ ,     shared_ptr<expression> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_udp_input_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<std::list< identifier>> mem2;
+
+  T_udp_input_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<std::list< identifier>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_udp_reg_declaration : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<identifier> mem2;
+
+  T_udp_reg_declaration( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<identifier> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_udp_body_comb : public ComponentBase {
+  public :
+    shared_ptr<std::list< combinational_entry>> mem1;
+
+  T_udp_body_comb( 
+       shared_ptr<std::list< combinational_entry>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_udp_body_seq : public ComponentBase {
+  public :
+    shared_ptr<sequential_body> mem1;
+
+  T_udp_body_seq( 
+       shared_ptr<sequential_body> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_combinational_entry : public ComponentBase {
+  public :
+    shared_ptr<std::list< level_symbol>> mem1;
+    shared_ptr<output_symbol> mem2;
+
+  T_combinational_entry( 
+       shared_ptr<std::list< level_symbol>> i1
+ ,     shared_ptr<output_symbol> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_sequential_body : public ComponentBase {
+  public :
+    shared_ptr<udp_initial_statement> mem1;
+    shared_ptr<std::list< sequential_entry>> mem2;
+
+  T_sequential_body( 
+       shared_ptr<udp_initial_statement> i1
+ ,     shared_ptr<std::list< sequential_entry>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_udp_initial_statement_NOSPEC : public ComponentBase {
+  public :
+
+  T_udp_initial_statement_NOSPEC( 
+  )
+  {}
+};
+class T_udp_initial_statement : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<init_val> mem2;
+
+  T_udp_initial_statement( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<init_val> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_init_val_bin : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+    shared_ptr<string> mem2;
+
+  T_init_val_bin( 
+       shared_ptr<int> i1
+ ,     shared_ptr<string> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_init_val_unsigned : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+
+  T_init_val_unsigned( 
+       shared_ptr<int> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_sequential_entry : public ComponentBase {
+  public :
+    shared_ptr<seq_input_list> mem1;
+    shared_ptr<current_state> mem2;
+    shared_ptr<next_state> mem3;
+
+  T_sequential_entry( 
+       shared_ptr<seq_input_list> i1
+ ,     shared_ptr<current_state> i2
+ ,     shared_ptr<next_state> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_seq_input_list_level : public ComponentBase {
+  public :
+    shared_ptr<std::list< level_symbol>> mem1;
+
+  T_seq_input_list_level( 
+       shared_ptr<std::list< level_symbol>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_seq_input_list_edge : public ComponentBase {
+  public :
+    shared_ptr<edge_input_list> mem1;
+
+  T_seq_input_list_edge( 
+       shared_ptr<edge_input_list> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_edge_input_list : public ComponentBase {
+  public :
+    shared_ptr<std::list< level_symbol>> mem1;
+    shared_ptr<edge_indicator> mem2;
+    shared_ptr<std::list< level_symbol>> mem3;
+
+  T_edge_input_list( 
+       shared_ptr<std::list< level_symbol>> i1
+ ,     shared_ptr<edge_indicator> i2
+ ,     shared_ptr<std::list< level_symbol>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_edge_indicator_level : public ComponentBase {
+  public :
+    shared_ptr<level_symbol> mem1;
+    shared_ptr<level_symbol> mem2;
+
+  T_edge_indicator_level( 
+       shared_ptr<level_symbol> i1
+ ,     shared_ptr<level_symbol> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_edge_indicator_edge : public ComponentBase {
+  public :
+    shared_ptr<edge_symbol> mem1;
+
+  T_edge_indicator_edge( 
+       shared_ptr<edge_symbol> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_udp_instantiation : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<drive_strength> mem2;
+    shared_ptr<delay2> mem3;
+    shared_ptr<std::list< udp_instance>> mem4;
+
+  T_udp_instantiation( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<drive_strength> i2
+ ,     shared_ptr<delay2> i3
+ ,     shared_ptr<std::list< udp_instance>> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_udp_instance : public ComponentBase {
+  public :
+    shared_ptr<name_of_udp_instance> mem1;
+    shared_ptr<net_lvalue> mem2;
+    shared_ptr<std::list< expression>> mem3;
+
+  T_udp_instance( 
+       shared_ptr<name_of_udp_instance> i1
+ ,     shared_ptr<net_lvalue> i2
+ ,     shared_ptr<std::list< expression>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_name_of_udp_instance_NOSPEC : public ComponentBase {
+  public :
+
+  T_name_of_udp_instance_NOSPEC( 
+  )
+  {}
+};
+class T_name_of_udp_instance : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<range> mem2;
+
+  T_name_of_udp_instance( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<range> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_continuous_assign : public ComponentBase {
+  public :
+    shared_ptr<drive_strength> mem1;
+    shared_ptr<delay3> mem2;
+    shared_ptr<std::list< net_assignment>> mem3;
+
+  T_continuous_assign( 
+       shared_ptr<drive_strength> i1
+ ,     shared_ptr<delay3> i2
+ ,     shared_ptr<std::list< net_assignment>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_net_assignment : public ComponentBase {
+  public :
+    shared_ptr<net_lvalue> mem1;
+    shared_ptr<expression> mem2;
+
+  T_net_assignment( 
+       shared_ptr<net_lvalue> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_initial_construct : public ComponentBase {
+  public :
+    shared_ptr<statement> mem1;
+
+  T_initial_construct( 
+       shared_ptr<statement> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_always_construct : public ComponentBase {
+  public :
+    shared_ptr<statement> mem1;
+
+  T_always_construct( 
+       shared_ptr<statement> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_blocking_assignment : public ComponentBase {
+  public :
+    shared_ptr<net_lvalue> mem1;
+    shared_ptr<delay_or_event_control> mem2;
+    shared_ptr<expression> mem3;
+
+  T_blocking_assignment( 
+       shared_ptr<net_lvalue> i1
+ ,     shared_ptr<delay_or_event_control> i2
+ ,     shared_ptr<expression> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_nonblocking_assignment : public ComponentBase {
+  public :
+    shared_ptr<net_lvalue> mem1;
+    shared_ptr<delay_or_event_control> mem2;
+    shared_ptr<expression> mem3;
+
+  T_nonblocking_assignment( 
+       shared_ptr<net_lvalue> i1
+ ,     shared_ptr<delay_or_event_control> i2
+ ,     shared_ptr<expression> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_procedural_continuous_assignments_assign : public ComponentBase {
+  public :
+    shared_ptr<net_assignment> mem1;
+
+  T_procedural_continuous_assignments_assign( 
+       shared_ptr<net_assignment> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_procedural_continuous_assignments_deassign : public ComponentBase {
+  public :
+    shared_ptr<net_lvalue> mem1;
+
+  T_procedural_continuous_assignments_deassign( 
+       shared_ptr<net_lvalue> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_procedural_continuous_assignments_force1 : public ComponentBase {
+  public :
+    shared_ptr<net_assignment> mem1;
+
+  T_procedural_continuous_assignments_force1( 
+       shared_ptr<net_assignment> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_procedural_continuous_assignments_force2 : public ComponentBase {
+  public :
+    shared_ptr<net_assignment> mem1;
+
+  T_procedural_continuous_assignments_force2( 
+       shared_ptr<net_assignment> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_procedural_continuous_assignments_release1 : public ComponentBase {
+  public :
+    shared_ptr<net_lvalue> mem1;
+
+  T_procedural_continuous_assignments_release1( 
+       shared_ptr<net_lvalue> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_procedural_continuous_assignments_release2 : public ComponentBase {
+  public :
+    shared_ptr<net_lvalue> mem1;
+
+  T_procedural_continuous_assignments_release2( 
+       shared_ptr<net_lvalue> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_par_block : public ComponentBase {
+  public :
+    shared_ptr<colon_block_identifier> mem1;
+    shared_ptr<std::list< statement_or_block_item>> mem2;
+
+  T_par_block( 
+       shared_ptr<colon_block_identifier> i1
+ ,     shared_ptr<std::list< statement_or_block_item>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_colon_block_identifier_NOSPEC : public ComponentBase {
+  public :
+
+  T_colon_block_identifier_NOSPEC( 
+  )
+  {}
+};
+class T_colon_block_identifier : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+
+  T_colon_block_identifier( 
+       shared_ptr<identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_seq_block : public ComponentBase {
+  public :
+    shared_ptr<colon_block_identifier> mem1;
+    shared_ptr<std::list< statement_or_block_item>> mem2;
+
+  T_seq_block( 
+       shared_ptr<colon_block_identifier> i1
+ ,     shared_ptr<std::list< statement_or_block_item>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_NOSPEC : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+
+  T_statement_NOSPEC( 
+       shared_ptr<std::list< attribute_instance>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_statement_blocking_assignment : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<blocking_assignment> mem2;
+
+  T_statement_blocking_assignment( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<blocking_assignment> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_case_statement : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<case_statement> mem2;
+
+  T_statement_case_statement( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<case_statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_conditional_statement : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<conditional_statement> mem2;
+
+  T_statement_conditional_statement( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<conditional_statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_disable_statement : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<disable_statement> mem2;
+
+  T_statement_disable_statement( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<disable_statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_event_trigger : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<event_trigger> mem2;
+
+  T_statement_event_trigger( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<event_trigger> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_loop_statement : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<loop_statement> mem2;
+
+  T_statement_loop_statement( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<loop_statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_nonblocking_assignment : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<nonblocking_assignment> mem2;
+
+  T_statement_nonblocking_assignment( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<nonblocking_assignment> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_par_block : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<par_block> mem2;
+
+  T_statement_par_block( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<par_block> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_procedural_continuous_assignments : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<procedural_continuous_assignments> mem2;
+
+  T_statement_procedural_continuous_assignments( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<procedural_continuous_assignments> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_procedural_timing_control_statement : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<procedural_timing_control_statement> mem2;
+
+  T_statement_procedural_timing_control_statement( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<procedural_timing_control_statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_seq_block : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<seq_block> mem2;
+
+  T_statement_seq_block( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<seq_block> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_system_task_enable : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<system_task_enable> mem2;
+
+  T_statement_system_task_enable( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<system_task_enable> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_task_enable : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<task_enable> mem2;
+
+  T_statement_task_enable( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<task_enable> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_statement_wait_statement : public ComponentBase {
+  public :
+    shared_ptr<std::list< attribute_instance>> mem1;
+    shared_ptr<wait_statement> mem2;
+
+  T_statement_wait_statement( 
+       shared_ptr<std::list< attribute_instance>> i1
+ ,     shared_ptr<wait_statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_delay_control_delay_value : public ComponentBase {
+  public :
+    shared_ptr<delay_value> mem1;
+
+  T_delay_control_delay_value( 
+       shared_ptr<delay_value> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay_control_mintypmax_expression : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+
+  T_delay_control_mintypmax_expression( 
+       shared_ptr<mintypmax_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay_or_event_control_NOSPEC : public ComponentBase {
+  public :
+
+  T_delay_or_event_control_NOSPEC( 
+  )
+  {}
+};
+class T_delay_or_event_control_delay_control : public ComponentBase {
+  public :
+    shared_ptr<delay_control> mem1;
+
+  T_delay_or_event_control_delay_control( 
+       shared_ptr<delay_control> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay_or_event_control_event_control : public ComponentBase {
+  public :
+    shared_ptr<event_control> mem1;
+
+  T_delay_or_event_control_event_control( 
+       shared_ptr<event_control> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay_or_event_control_3 : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<event_control> mem2;
+
+  T_delay_or_event_control_3( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<event_control> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_disable_statement : public ComponentBase {
+  public :
+    shared_ptr<hierarchical_identifier> mem1;
+
+  T_disable_statement( 
+       shared_ptr<hierarchical_identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_event_control_eventid : public ComponentBase {
+  public :
+    shared_ptr<hierarchical_identifier> mem1;
+
+  T_event_control_eventid( 
+       shared_ptr<hierarchical_identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_event_control_event_exp : public ComponentBase {
+  public :
+    shared_ptr<std::list< event_expression>> mem1;
+
+  T_event_control_event_exp( 
+       shared_ptr<std::list< event_expression>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_event_control_start : public ComponentBase {
+  public :
+
+  T_event_control_start( 
+  )
+  {}
+};
+class T_event_trigger : public ComponentBase {
+  public :
+    shared_ptr<hierarchical_identifier> mem1;
+
+  T_event_trigger( 
+       shared_ptr<hierarchical_identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_event_expression_exp : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+
+  T_event_expression_exp( 
+       shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_event_expression_pos : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+
+  T_event_expression_pos( 
+       shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_event_expression_neg : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+
+  T_event_expression_neg( 
+       shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_event_expression_or : public ComponentBase {
+  public :
+    shared_ptr<event_expression> mem1;
+    shared_ptr<event_expression> mem2;
+
+  T_event_expression_or( 
+       shared_ptr<event_expression> i1
+ ,     shared_ptr<event_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_procedural_timing_control_delay : public ComponentBase {
+  public :
+    shared_ptr<delay_control> mem1;
+
+  T_procedural_timing_control_delay( 
+       shared_ptr<delay_control> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_procedural_timing_control_event : public ComponentBase {
+  public :
+    shared_ptr<event_control> mem1;
+
+  T_procedural_timing_control_event( 
+       shared_ptr<event_control> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_procedural_timing_control_statement : public ComponentBase {
+  public :
+    shared_ptr<procedural_timing_control> mem1;
+    shared_ptr<statement> mem2;
+
+  T_procedural_timing_control_statement( 
+       shared_ptr<procedural_timing_control> i1
+ ,     shared_ptr<statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_wait_statement : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<statement> mem2;
+
+  T_wait_statement( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_conditional_statement_ifelse : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<statement> mem2;
+    shared_ptr<statement> mem3;
+
+  T_conditional_statement_ifelse( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<statement> i2
+ ,     shared_ptr<statement> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_conditional_statement_ifelseif : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<statement> mem2;
+    shared_ptr<std::list< else_if_lp_expression_rp_statement_or_null>> mem3;
+    shared_ptr<statement> mem4;
+
+  T_conditional_statement_ifelseif( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<statement> i2
+ ,     shared_ptr<std::list< else_if_lp_expression_rp_statement_or_null>> i3
+ ,     shared_ptr<statement> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_elseif : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<statement> mem2;
+
+  T_elseif( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_case_statement_case : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<std::list< case_item>> mem2;
+
+  T_case_statement_case( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<std::list< case_item>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_case_statement_casez : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<std::list< case_item>> mem2;
+
+  T_case_statement_casez( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<std::list< case_item>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_case_statement_casex : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<std::list< case_item>> mem2;
+
+  T_case_statement_casex( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<std::list< case_item>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_case_item : public ComponentBase {
+  public :
+    shared_ptr<std::list< expression>> mem1;
+    shared_ptr<statement> mem2;
+
+  T_case_item( 
+       shared_ptr<std::list< expression>> i1
+ ,     shared_ptr<statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_case_item_default : public ComponentBase {
+  public :
+    shared_ptr<colon_opt> mem1;
+    shared_ptr<statement> mem2;
+
+  T_case_item_default( 
+       shared_ptr<colon_opt> i1
+ ,     shared_ptr<statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_colon_opt_false : public ComponentBase {
+  public :
+
+  T_colon_opt_false( 
+  )
+  {}
+};
+class T_colon_opt_true : public ComponentBase {
+  public :
+
+  T_colon_opt_true( 
+  )
+  {}
+};
+class T_loop_statement_forever : public ComponentBase {
+  public :
+    shared_ptr<statement> mem1;
+
+  T_loop_statement_forever( 
+       shared_ptr<statement> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_loop_statement_repeat : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<statement> mem2;
+
+  T_loop_statement_repeat( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_loop_statement_while : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<statement> mem2;
+
+  T_loop_statement_while( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<statement> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_loop_statement_for : public ComponentBase {
+  public :
+    shared_ptr<net_assignment> mem1;
+    shared_ptr<expression> mem2;
+    shared_ptr<net_assignment> mem3;
+    shared_ptr<statement> mem4;
+
+  T_loop_statement_for( 
+       shared_ptr<net_assignment> i1
+ ,     shared_ptr<expression> i2
+ ,     shared_ptr<net_assignment> i3
+ ,     shared_ptr<statement> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_system_task_enable : public ComponentBase {
+  public :
+    shared_ptr<system_function_identifier> mem1;
+    shared_ptr<std::list< expression>> mem2;
+
+  T_system_task_enable( 
+       shared_ptr<system_function_identifier> i1
+ ,     shared_ptr<std::list< expression>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_task_enable : public ComponentBase {
+  public :
+    shared_ptr<hierarchical_identifier> mem1;
+    shared_ptr<std::list< expression>> mem2;
+
+  T_task_enable( 
+       shared_ptr<hierarchical_identifier> i1
+ ,     shared_ptr<std::list< expression>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_specify_block : public ComponentBase {
+  public :
+    shared_ptr<std::list< specify_item>> mem1;
+
+  T_specify_block( 
+       shared_ptr<std::list< specify_item>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_specify_item_specparam : public ComponentBase {
+  public :
+    shared_ptr<specparam_declaration> mem1;
+
+  T_specify_item_specparam( 
+       shared_ptr<specparam_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_specify_item_pulsestyle : public ComponentBase {
+  public :
+    shared_ptr<pulsestyle_declaration> mem1;
+
+  T_specify_item_pulsestyle( 
+       shared_ptr<pulsestyle_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_specify_item_showcancelled : public ComponentBase {
+  public :
+    shared_ptr<showcancelled_declaration> mem1;
+
+  T_specify_item_showcancelled( 
+       shared_ptr<showcancelled_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_specify_item_path : public ComponentBase {
+  public :
+    shared_ptr<path_declaration> mem1;
+
+  T_specify_item_path( 
+       shared_ptr<path_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_pulsestyle_declaration_oneevent : public ComponentBase {
+  public :
+    shared_ptr<std::list< specify_output_terminal_descriptor>> mem1;
+
+  T_pulsestyle_declaration_oneevent( 
+       shared_ptr<std::list< specify_output_terminal_descriptor>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_pulsestyle_declaration_onedetect : public ComponentBase {
+  public :
+    shared_ptr<std::list< specify_output_terminal_descriptor>> mem1;
+
+  T_pulsestyle_declaration_onedetect( 
+       shared_ptr<std::list< specify_output_terminal_descriptor>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_showcancelled_declaration_show : public ComponentBase {
+  public :
+    shared_ptr<std::list< specify_output_terminal_descriptor>> mem1;
+
+  T_showcancelled_declaration_show( 
+       shared_ptr<std::list< specify_output_terminal_descriptor>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_showcancelled_declaration_noshow : public ComponentBase {
+  public :
+    shared_ptr<std::list< specify_output_terminal_descriptor>> mem1;
+
+  T_showcancelled_declaration_noshow( 
+       shared_ptr<std::list< specify_output_terminal_descriptor>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_path_declaration_simple : public ComponentBase {
+  public :
+    shared_ptr<simple_path_declaration> mem1;
+
+  T_path_declaration_simple( 
+       shared_ptr<simple_path_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_path_declaration_edge : public ComponentBase {
+  public :
+    shared_ptr<edge_sensitive_path_declaration> mem1;
+
+  T_path_declaration_edge( 
+       shared_ptr<edge_sensitive_path_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_path_declaration_state : public ComponentBase {
+  public :
+    shared_ptr<state_dependent_path_declaration> mem1;
+
+  T_path_declaration_state( 
+       shared_ptr<state_dependent_path_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_simple_path_declaration_parallel : public ComponentBase {
+  public :
+    shared_ptr<parallel_path_description> mem1;
+    shared_ptr<list_of_path_delay_expressions> mem2;
+
+  T_simple_path_declaration_parallel( 
+       shared_ptr<parallel_path_description> i1
+ ,     shared_ptr<list_of_path_delay_expressions> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_simple_path_declaration_full : public ComponentBase {
+  public :
+    shared_ptr<full_path_description> mem1;
+    shared_ptr<list_of_path_delay_expressions> mem2;
+
+  T_simple_path_declaration_full( 
+       shared_ptr<full_path_description> i1
+ ,     shared_ptr<list_of_path_delay_expressions> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_parallel_path_description : public ComponentBase {
+  public :
+    shared_ptr<specify_input_terminal_descriptor> mem1;
+    shared_ptr<polarity_operator> mem2;
+    shared_ptr<specify_output_terminal_descriptor> mem3;
+
+  T_parallel_path_description( 
+       shared_ptr<specify_input_terminal_descriptor> i1
+ ,     shared_ptr<polarity_operator> i2
+ ,     shared_ptr<specify_output_terminal_descriptor> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_full_path_description : public ComponentBase {
+  public :
+    shared_ptr<std::list< specify_input_terminal_descriptor>> mem1;
+    shared_ptr<polarity_operator> mem2;
+    shared_ptr<std::list< specify_output_terminal_descriptor>> mem3;
+
+  T_full_path_description( 
+       shared_ptr<std::list< specify_input_terminal_descriptor>> i1
+ ,     shared_ptr<polarity_operator> i2
+ ,     shared_ptr<std::list< specify_output_terminal_descriptor>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_specify_input_terminal_descriptor : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<range_expression> mem2;
+
+  T_specify_input_terminal_descriptor( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<range_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_specify_output_terminal_descriptor : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<range_expression> mem2;
+
+  T_specify_output_terminal_descriptor( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<range_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_list_of_mintypmax_expressions_1 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+
+  T_list_of_mintypmax_expressions_1( 
+       shared_ptr<mintypmax_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_list_of_mintypmax_expressions_2 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+
+  T_list_of_mintypmax_expressions_2( 
+       shared_ptr<mintypmax_expression> i1
+ ,     shared_ptr<mintypmax_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_list_of_mintypmax_expressions_3 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+    shared_ptr<mintypmax_expression> mem3;
+
+  T_list_of_mintypmax_expressions_3( 
+       shared_ptr<mintypmax_expression> i1
+ ,     shared_ptr<mintypmax_expression> i2
+ ,     shared_ptr<mintypmax_expression> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_list_of_mintypmax_expressions_6 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+    shared_ptr<mintypmax_expression> mem3;
+    shared_ptr<mintypmax_expression> mem4;
+    shared_ptr<mintypmax_expression> mem5;
+    shared_ptr<mintypmax_expression> mem6;
+
+  T_list_of_mintypmax_expressions_6( 
+       shared_ptr<mintypmax_expression> i1
+ ,     shared_ptr<mintypmax_expression> i2
+ ,     shared_ptr<mintypmax_expression> i3
+ ,     shared_ptr<mintypmax_expression> i4
+ ,     shared_ptr<mintypmax_expression> i5
+ ,     shared_ptr<mintypmax_expression> i6
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+  {}
+};
+class T_list_of_mintypmax_expressions_12 : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+    shared_ptr<mintypmax_expression> mem2;
+    shared_ptr<mintypmax_expression> mem3;
+    shared_ptr<mintypmax_expression> mem4;
+    shared_ptr<mintypmax_expression> mem5;
+    shared_ptr<mintypmax_expression> mem6;
+    shared_ptr<mintypmax_expression> mem7;
+    shared_ptr<mintypmax_expression> mem8;
+    shared_ptr<mintypmax_expression> mem9;
+    shared_ptr<mintypmax_expression> mem10;
+    shared_ptr<mintypmax_expression> mem11;
+    shared_ptr<mintypmax_expression> mem12;
+
+  T_list_of_mintypmax_expressions_12( 
+       shared_ptr<mintypmax_expression> i1
+ ,     shared_ptr<mintypmax_expression> i2
+ ,     shared_ptr<mintypmax_expression> i3
+ ,     shared_ptr<mintypmax_expression> i4
+ ,     shared_ptr<mintypmax_expression> i5
+ ,     shared_ptr<mintypmax_expression> i6
+ ,     shared_ptr<mintypmax_expression> i7
+ ,     shared_ptr<mintypmax_expression> i8
+ ,     shared_ptr<mintypmax_expression> i9
+ ,     shared_ptr<mintypmax_expression> i10
+ ,     shared_ptr<mintypmax_expression> i11
+ ,     shared_ptr<mintypmax_expression> i12
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+ ,     mem7(i7)
+ ,     mem8(i8)
+ ,     mem9(i9)
+ ,     mem10(i10)
+ ,     mem11(i11)
+ ,     mem12(i12)
+  {}
+};
+class T_edge_sensitive_path_declaration_parallel : public ComponentBase {
+  public :
+    shared_ptr<parallel_edge_sensitive_path_description> mem1;
+    shared_ptr<list_of_path_delay_expressions> mem2;
+
+  T_edge_sensitive_path_declaration_parallel( 
+       shared_ptr<parallel_edge_sensitive_path_description> i1
+ ,     shared_ptr<list_of_path_delay_expressions> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_edge_sensitive_path_declaration_full : public ComponentBase {
+  public :
+    shared_ptr<full_edge_sensitive_path_description> mem1;
+    shared_ptr<list_of_path_delay_expressions> mem2;
+
+  T_edge_sensitive_path_declaration_full( 
+       shared_ptr<full_edge_sensitive_path_description> i1
+ ,     shared_ptr<list_of_path_delay_expressions> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_parallel_edge_sensitive_path_description : public ComponentBase {
+  public :
+    shared_ptr<edge_identifier> mem1;
+    shared_ptr<specify_input_terminal_descriptor> mem2;
+    shared_ptr<specify_output_terminal_descriptor> mem3;
+    shared_ptr<polarity_operator> mem4;
+    shared_ptr<expression> mem5;
+
+  T_parallel_edge_sensitive_path_description( 
+       shared_ptr<edge_identifier> i1
+ ,     shared_ptr<specify_input_terminal_descriptor> i2
+ ,     shared_ptr<specify_output_terminal_descriptor> i3
+ ,     shared_ptr<polarity_operator> i4
+ ,     shared_ptr<expression> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_full_edge_sensitive_path_description : public ComponentBase {
+  public :
+    shared_ptr<edge_identifier> mem1;
+    shared_ptr<std::list< specify_input_terminal_descriptor>> mem2;
+    shared_ptr<std::list< specify_output_terminal_descriptor>> mem3;
+    shared_ptr<polarity_operator> mem4;
+    shared_ptr<expression> mem5;
+
+  T_full_edge_sensitive_path_description( 
+       shared_ptr<edge_identifier> i1
+ ,     shared_ptr<std::list< specify_input_terminal_descriptor>> i2
+ ,     shared_ptr<std::list< specify_output_terminal_descriptor>> i3
+ ,     shared_ptr<polarity_operator> i4
+ ,     shared_ptr<expression> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_state_dependent_path_declaration_simple : public ComponentBase {
+  public :
+    shared_ptr<module_path_expression> mem1;
+    shared_ptr<simple_path_declaration> mem2;
+
+  T_state_dependent_path_declaration_simple( 
+       shared_ptr<module_path_expression> i1
+ ,     shared_ptr<simple_path_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_state_dependent_path_declaration_edge : public ComponentBase {
+  public :
+    shared_ptr<module_path_expression> mem1;
+    shared_ptr<edge_sensitive_path_declaration> mem2;
+
+  T_state_dependent_path_declaration_edge( 
+       shared_ptr<module_path_expression> i1
+ ,     shared_ptr<edge_sensitive_path_declaration> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_state_dependent_path_declaration_ifnone : public ComponentBase {
+  public :
+    shared_ptr<simple_path_declaration> mem1;
+
+  T_state_dependent_path_declaration_ifnone( 
+       shared_ptr<simple_path_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_concatenation : public ComponentBase {
+  public :
+    shared_ptr<std::list< expression>> mem1;
+
+  T_concatenation( 
+       shared_ptr<std::list< expression>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_path_multiple_concatenation : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<module_path_concatenation> mem2;
+
+  T_module_path_multiple_concatenation( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<module_path_concatenation> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_path_concatenation : public ComponentBase {
+  public :
+    shared_ptr<std::list< module_path_expression>> mem1;
+
+  T_module_path_concatenation( 
+       shared_ptr<std::list< module_path_expression>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_multiple_concatenation : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<concatenation> mem2;
+
+  T_multiple_concatenation( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<concatenation> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_function_call : public ComponentBase {
+  public :
+    shared_ptr<hierarchical_identifier> mem1;
+    shared_ptr<std::list< attribute_instance>> mem2;
+    shared_ptr<std::list< expression>> mem3;
+
+  T_function_call( 
+       shared_ptr<hierarchical_identifier> i1
+ ,     shared_ptr<std::list< attribute_instance>> i2
+ ,     shared_ptr<std::list< expression>> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_system_function_call : public ComponentBase {
+  public :
+    shared_ptr<system_function_identifier> mem1;
+    shared_ptr<std::list< expression>> mem2;
+
+  T_system_function_call( 
+       shared_ptr<system_function_identifier> i1
+ ,     shared_ptr<std::list< expression>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_conditional_expression : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<std::list< attribute_instance>> mem2;
+    shared_ptr<expression> mem3;
+    shared_ptr<expression> mem4;
+
+  T_conditional_expression( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<std::list< attribute_instance>> i2
+ ,     shared_ptr<expression> i3
+ ,     shared_ptr<expression> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_expression_NOSPEC : public ComponentBase {
+  public :
+
+  T_expression_NOSPEC( 
+  )
+  {}
+};
+class T_expression_prim : public ComponentBase {
+  public :
+    shared_ptr<primary> mem1;
+
+  T_expression_prim( 
+       shared_ptr<primary> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_expression_op1 : public ComponentBase {
+  public :
+    shared_ptr<unary_operator> mem1;
+    shared_ptr<std::list< attribute_instance>> mem2;
+    shared_ptr<primary> mem3;
+
+  T_expression_op1( 
+       shared_ptr<unary_operator> i1
+ ,     shared_ptr<std::list< attribute_instance>> i2
+ ,     shared_ptr<primary> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_expression_op2 : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<binary_operator> mem2;
+    shared_ptr<std::list< attribute_instance>> mem3;
+    shared_ptr<expression> mem4;
+
+  T_expression_op2( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<binary_operator> i2
+ ,     shared_ptr<std::list< attribute_instance>> i3
+ ,     shared_ptr<expression> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_expression_condition : public ComponentBase {
+  public :
+    shared_ptr<conditional_expression> mem1;
+
+  T_expression_condition( 
+       shared_ptr<conditional_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_mintypmax_expression_NOSPEC : public ComponentBase {
+  public :
+
+  T_mintypmax_expression_NOSPEC( 
+  )
+  {}
+};
+class T_mintypmax_expression_1 : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+
+  T_mintypmax_expression_1( 
+       shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_mintypmax_expression_3 : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<expression> mem2;
+    shared_ptr<expression> mem3;
+
+  T_mintypmax_expression_3( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<expression> i2
+ ,     shared_ptr<expression> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_module_path_conditional_expression : public ComponentBase {
+  public :
+    shared_ptr<module_path_expression> mem1;
+    shared_ptr<std::list< attribute_instance>> mem2;
+    shared_ptr<module_path_expression> mem3;
+    shared_ptr<module_path_expression> mem4;
+
+  T_module_path_conditional_expression( 
+       shared_ptr<module_path_expression> i1
+ ,     shared_ptr<std::list< attribute_instance>> i2
+ ,     shared_ptr<module_path_expression> i3
+ ,     shared_ptr<module_path_expression> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_module_path_expression_prim : public ComponentBase {
+  public :
+    shared_ptr<module_path_primary> mem1;
+
+  T_module_path_expression_prim( 
+       shared_ptr<module_path_primary> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_path_expression_op1 : public ComponentBase {
+  public :
+    shared_ptr<unary_operator> mem1;
+    shared_ptr<std::list< attribute_instance>> mem2;
+    shared_ptr<module_path_primary> mem3;
+
+  T_module_path_expression_op1( 
+       shared_ptr<unary_operator> i1
+ ,     shared_ptr<std::list< attribute_instance>> i2
+ ,     shared_ptr<module_path_primary> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_module_path_expression_op2 : public ComponentBase {
+  public :
+    shared_ptr<module_path_expression> mem1;
+    shared_ptr<binary_module_path_operator> mem2;
+    shared_ptr<std::list< attribute_instance>> mem3;
+    shared_ptr<module_path_expression> mem4;
+
+  T_module_path_expression_op2( 
+       shared_ptr<module_path_expression> i1
+ ,     shared_ptr<binary_module_path_operator> i2
+ ,     shared_ptr<std::list< attribute_instance>> i3
+ ,     shared_ptr<module_path_expression> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_module_path_expression_sel : public ComponentBase {
+  public :
+    shared_ptr<module_path_conditional_expression> mem1;
+
+  T_module_path_expression_sel( 
+       shared_ptr<module_path_conditional_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_path_mintypmax_expression_1 : public ComponentBase {
+  public :
+    shared_ptr<module_path_expression> mem1;
+
+  T_module_path_mintypmax_expression_1( 
+       shared_ptr<module_path_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_path_mintypmax_expression_3 : public ComponentBase {
+  public :
+    shared_ptr<module_path_expression> mem1;
+    shared_ptr<module_path_expression> mem2;
+    shared_ptr<module_path_expression> mem3;
+
+  T_module_path_mintypmax_expression_3( 
+       shared_ptr<module_path_expression> i1
+ ,     shared_ptr<module_path_expression> i2
+ ,     shared_ptr<module_path_expression> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_range_expression_NOSPEC : public ComponentBase {
+  public :
+
+  T_range_expression_NOSPEC( 
+  )
+  {}
+};
+class T_range_expression_1 : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+
+  T_range_expression_1( 
+       shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_range_expression_2 : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<expression> mem2;
+
+  T_range_expression_2( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_range_expression_addrange : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<expression> mem2;
+
+  T_range_expression_addrange( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_range_expression_subrange : public ComponentBase {
+  public :
+    shared_ptr<expression> mem1;
+    shared_ptr<expression> mem2;
+
+  T_range_expression_subrange( 
+       shared_ptr<expression> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_module_path_primary_num : public ComponentBase {
+  public :
+    shared_ptr<number> mem1;
+
+  T_module_path_primary_num( 
+       shared_ptr<number> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_path_primary_id : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+
+  T_module_path_primary_id( 
+       shared_ptr<identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_path_primary_concat : public ComponentBase {
+  public :
+    shared_ptr<module_path_concatenation> mem1;
+
+  T_module_path_primary_concat( 
+       shared_ptr<module_path_concatenation> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_path_primary_mul_concat : public ComponentBase {
+  public :
+    shared_ptr<module_path_multiple_concatenation> mem1;
+
+  T_module_path_primary_mul_concat( 
+       shared_ptr<module_path_multiple_concatenation> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_path_primary_func : public ComponentBase {
+  public :
+    shared_ptr<function_call> mem1;
+
+  T_module_path_primary_func( 
+       shared_ptr<function_call> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_path_primary_sysfunc : public ComponentBase {
+  public :
+    shared_ptr<system_function_call> mem1;
+
+  T_module_path_primary_sysfunc( 
+       shared_ptr<system_function_call> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_path_primary_mintypmax : public ComponentBase {
+  public :
+    shared_ptr<module_path_mintypmax_expression> mem1;
+
+  T_module_path_primary_mintypmax( 
+       shared_ptr<module_path_mintypmax_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_primary_num : public ComponentBase {
+  public :
+    shared_ptr<number> mem1;
+
+  T_primary_num( 
+       shared_ptr<number> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_primary_id : public ComponentBase {
+  public :
+    shared_ptr<hierarchical_identifier> mem1;
+
+  T_primary_id( 
+       shared_ptr<hierarchical_identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_primary_concat : public ComponentBase {
+  public :
+    shared_ptr<concatenation> mem1;
+
+  T_primary_concat( 
+       shared_ptr<concatenation> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_primary_mulcon : public ComponentBase {
+  public :
+    shared_ptr<multiple_concatenation> mem1;
+
+  T_primary_mulcon( 
+       shared_ptr<multiple_concatenation> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_primary_func : public ComponentBase {
+  public :
+    shared_ptr<function_call> mem1;
+
+  T_primary_func( 
+       shared_ptr<function_call> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_primary_sysfunc : public ComponentBase {
+  public :
+    shared_ptr<system_function_call> mem1;
+
+  T_primary_sysfunc( 
+       shared_ptr<system_function_call> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_primary_mintypmax : public ComponentBase {
+  public :
+    shared_ptr<mintypmax_expression> mem1;
+
+  T_primary_mintypmax( 
+       shared_ptr<mintypmax_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_primary_string : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_primary_string( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_net_lvalue_id : public ComponentBase {
+  public :
+    shared_ptr<hierarchical_identifier> mem1;
+
+  T_net_lvalue_id( 
+       shared_ptr<hierarchical_identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_net_lvalue_idexp : public ComponentBase {
+  public :
+    shared_ptr<hierarchical_identifier> mem1;
+    shared_ptr<std::list< expression>> mem2;
+    shared_ptr<range_expression> mem3;
+
+  T_net_lvalue_idexp( 
+       shared_ptr<hierarchical_identifier> i1
+ ,     shared_ptr<std::list< expression>> i2
+ ,     shared_ptr<range_expression> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_net_lvalue_lvlist : public ComponentBase {
+  public :
+    shared_ptr<std::list< net_lvalue>> mem1;
+
+  T_net_lvalue_lvlist( 
+       shared_ptr<std::list< net_lvalue>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay_value_UNSIGNED_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+
+  T_delay_value_UNSIGNED_NUMBER( 
+       shared_ptr<int> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay_value_REAL_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_delay_value_REAL_NUMBER( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delay_value_id : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+
+  T_delay_value_id( 
+       shared_ptr<identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_attribute_instance : public ComponentBase {
+  public :
+    shared_ptr<std::list< attr_spec>> mem1;
+
+  T_attribute_instance( 
+       shared_ptr<std::list< attr_spec>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_attr_spec : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<expression> mem2;
+
+  T_attr_spec( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_hierarchical_identifier : public ComponentBase {
+  public :
+    shared_ptr<std::list< identifier_lsq_expression_rsq>> mem1;
+
+  T_hierarchical_identifier( 
+       shared_ptr<std::list< identifier_lsq_expression_rsq>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_identifier_lsq_expression_rsq : public ComponentBase {
+  public :
+    shared_ptr<identifier> mem1;
+    shared_ptr<std::list< range_expression>> mem2;
+
+  T_identifier_lsq_expression_rsq( 
+       shared_ptr<identifier> i1
+ ,     shared_ptr<std::list< range_expression>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_polarity_operator_NOSPEC : public ComponentBase {
+  public :
+
+  T_polarity_operator_NOSPEC( 
+  )
+  {}
+};
+class T_polarity_operator_ADD : public ComponentBase {
+  public :
+
+  T_polarity_operator_ADD( 
+  )
+  {}
+};
+class T_polarity_operator_SUB : public ComponentBase {
+  public :
+
+  T_polarity_operator_SUB( 
+  )
+  {}
+};
+class T_edge_identifier_NOSPEC : public ComponentBase {
+  public :
+
+  T_edge_identifier_NOSPEC( 
+  )
+  {}
+};
+class T_edge_identifier_POS : public ComponentBase {
+  public :
+
+  T_edge_identifier_POS( 
+  )
+  {}
+};
+class T_edge_identifier_NEG : public ComponentBase {
+  public :
+
+  T_edge_identifier_NEG( 
+  )
+  {}
+};
+class T_unary_operator_LOGIC_NEG : public ComponentBase {
+  public :
+
+  T_unary_operator_LOGIC_NEG( 
+  )
+  {}
+};
+class T_unary_operator_BITWISE_NEG : public ComponentBase {
+  public :
+
+  T_unary_operator_BITWISE_NEG( 
+  )
+  {}
+};
+class T_unary_operator_REDUCE_NOR : public ComponentBase {
+  public :
+
+  T_unary_operator_REDUCE_NOR( 
+  )
+  {}
+};
+class T_unary_operator_REDUCE_NAND : public ComponentBase {
+  public :
+
+  T_unary_operator_REDUCE_NAND( 
+  )
+  {}
+};
+class T_unary_operator_ADD : public ComponentBase {
+  public :
+
+  T_unary_operator_ADD( 
+  )
+  {}
+};
+class T_unary_operator_SUB : public ComponentBase {
+  public :
+
+  T_unary_operator_SUB( 
+  )
+  {}
+};
+class T_unary_operator_REDUCE_AND : public ComponentBase {
+  public :
+
+  T_unary_operator_REDUCE_AND( 
+  )
+  {}
+};
+class T_unary_operator_REDUCE_OR : public ComponentBase {
+  public :
+
+  T_unary_operator_REDUCE_OR( 
+  )
+  {}
+};
+class T_unary_operator_REDUCE_XOR : public ComponentBase {
+  public :
+
+  T_unary_operator_REDUCE_XOR( 
+  )
+  {}
+};
+class T_unary_operator_REDUCE_XNOR : public ComponentBase {
+  public :
+
+  T_unary_operator_REDUCE_XNOR( 
+  )
+  {}
+};
+class T_binary_operator_MUL : public ComponentBase {
+  public :
+
+  T_binary_operator_MUL( 
+  )
+  {}
+};
+class T_binary_operator_DIV : public ComponentBase {
+  public :
+
+  T_binary_operator_DIV( 
+  )
+  {}
+};
+class T_binary_operator_MOD : public ComponentBase {
+  public :
+
+  T_binary_operator_MOD( 
+  )
+  {}
+};
+class T_binary_operator_EQU2 : public ComponentBase {
+  public :
+
+  T_binary_operator_EQU2( 
+  )
+  {}
+};
+class T_binary_operator_NEQ2 : public ComponentBase {
+  public :
+
+  T_binary_operator_NEQ2( 
+  )
+  {}
+};
+class T_binary_operator_EQU3 : public ComponentBase {
+  public :
+
+  T_binary_operator_EQU3( 
+  )
+  {}
+};
+class T_binary_operator_NEQ3 : public ComponentBase {
+  public :
+
+  T_binary_operator_NEQ3( 
+  )
+  {}
+};
+class T_binary_operator_POWER : public ComponentBase {
+  public :
+
+  T_binary_operator_POWER( 
+  )
+  {}
+};
+class T_binary_operator_LT : public ComponentBase {
+  public :
+
+  T_binary_operator_LT( 
+  )
+  {}
+};
+class T_binary_operator_LE : public ComponentBase {
+  public :
+
+  T_binary_operator_LE( 
+  )
+  {}
+};
+class T_binary_operator_GT : public ComponentBase {
+  public :
+
+  T_binary_operator_GT( 
+  )
+  {}
+};
+class T_binary_operator_GE : public ComponentBase {
+  public :
+
+  T_binary_operator_GE( 
+  )
+  {}
+};
+class T_binary_operator_LOGICAL_RIGHTSHIFT : public ComponentBase {
+  public :
+
+  T_binary_operator_LOGICAL_RIGHTSHIFT( 
+  )
+  {}
+};
+class T_binary_operator_LOGICAL_LEFTSHIFT : public ComponentBase {
+  public :
+
+  T_binary_operator_LOGICAL_LEFTSHIFT( 
+  )
+  {}
+};
+class T_binary_operator_ARITHMETIC_RIGHTSHIFT : public ComponentBase {
+  public :
+
+  T_binary_operator_ARITHMETIC_RIGHTSHIFT( 
+  )
+  {}
+};
+class T_binary_operator_ARITHMETIC_LEFTSHIFT : public ComponentBase {
+  public :
+
+  T_binary_operator_ARITHMETIC_LEFTSHIFT( 
+  )
+  {}
+};
+class T_binary_operator_ADD : public ComponentBase {
+  public :
+
+  T_binary_operator_ADD( 
+  )
+  {}
+};
+class T_binary_operator_SUB : public ComponentBase {
+  public :
+
+  T_binary_operator_SUB( 
+  )
+  {}
+};
+class T_binary_operator_AND : public ComponentBase {
+  public :
+
+  T_binary_operator_AND( 
+  )
+  {}
+};
+class T_binary_operator_OR : public ComponentBase {
+  public :
+
+  T_binary_operator_OR( 
+  )
+  {}
+};
+class T_binary_operator_AND2 : public ComponentBase {
+  public :
+
+  T_binary_operator_AND2( 
+  )
+  {}
+};
+class T_binary_operator_OR2 : public ComponentBase {
+  public :
+
+  T_binary_operator_OR2( 
+  )
+  {}
+};
+class T_binary_operator_XOR : public ComponentBase {
+  public :
+
+  T_binary_operator_XOR( 
+  )
+  {}
+};
+class T_binary_operator_XNOR : public ComponentBase {
+  public :
+
+  T_binary_operator_XNOR( 
+  )
+  {}
+};
+class T_unary_module_path_operator_GANTANHAO : public ComponentBase {
+  public :
+
+  T_unary_module_path_operator_GANTANHAO( 
+  )
+  {}
+};
+class T_unary_module_path_operator_BOLANGHAO : public ComponentBase {
+  public :
+
+  T_unary_module_path_operator_BOLANGHAO( 
+  )
+  {}
+};
+class T_unary_module_path_operator_AND : public ComponentBase {
+  public :
+
+  T_unary_module_path_operator_AND( 
+  )
+  {}
+};
+class T_unary_module_path_operator_NAND : public ComponentBase {
+  public :
+
+  T_unary_module_path_operator_NAND( 
+  )
+  {}
+};
+class T_unary_module_path_operator_OR : public ComponentBase {
+  public :
+
+  T_unary_module_path_operator_OR( 
+  )
+  {}
+};
+class T_unary_module_path_operator_NOR : public ComponentBase {
+  public :
+
+  T_unary_module_path_operator_NOR( 
+  )
+  {}
+};
+class T_unary_module_path_operator_XOR : public ComponentBase {
+  public :
+
+  T_unary_module_path_operator_XOR( 
+  )
+  {}
+};
+class T_unary_module_path_operator_XNOR : public ComponentBase {
+  public :
+
+  T_unary_module_path_operator_XNOR( 
+  )
+  {}
+};
+class T_binary_module_path_operator_EQU2 : public ComponentBase {
+  public :
+
+  T_binary_module_path_operator_EQU2( 
+  )
+  {}
+};
+class T_binary_module_path_operator_NEQ2 : public ComponentBase {
+  public :
+
+  T_binary_module_path_operator_NEQ2( 
+  )
+  {}
+};
+class T_binary_module_path_operator_AND2 : public ComponentBase {
+  public :
+
+  T_binary_module_path_operator_AND2( 
+  )
+  {}
+};
+class T_binary_module_path_operator_OR2 : public ComponentBase {
+  public :
+
+  T_binary_module_path_operator_OR2( 
+  )
+  {}
+};
+class T_binary_module_path_operator_AND1 : public ComponentBase {
+  public :
+
+  T_binary_module_path_operator_AND1( 
+  )
+  {}
+};
+class T_binary_module_path_operator_OR1 : public ComponentBase {
+  public :
+
+  T_binary_module_path_operator_OR1( 
+  )
+  {}
+};
+class T_binary_module_path_operator_XOR : public ComponentBase {
+  public :
+
+  T_binary_module_path_operator_XOR( 
+  )
+  {}
+};
+class T_binary_module_path_operator_XNOR : public ComponentBase {
+  public :
+
+  T_binary_module_path_operator_XNOR( 
+  )
+  {}
+};
+class T_level_symbol_UNSIGNED_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+
+  T_level_symbol_UNSIGNED_NUMBER( 
+       shared_ptr<int> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_level_symbol_SIMID : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_level_symbol_SIMID( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_level_symbol_QUESTION : public ComponentBase {
+  public :
+
+  T_level_symbol_QUESTION( 
+  )
+  {}
+};
+class T_output_symbol_UNSIGNED_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+
+  T_output_symbol_UNSIGNED_NUMBER( 
+       shared_ptr<int> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_output_symbol_SIMID : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_output_symbol_SIMID( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_number_UNSIGNED_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+
+  T_number_UNSIGNED_NUMBER( 
+       shared_ptr<int> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_number_UNSIGNED_NUMBER_size : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+    shared_ptr<int> mem2;
+
+  T_number_UNSIGNED_NUMBER_size( 
+       shared_ptr<int> i1
+ ,     shared_ptr<int> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_number_OCTAL_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+    shared_ptr<string> mem2;
+
+  T_number_OCTAL_NUMBER( 
+       shared_ptr<int> i1
+ ,     shared_ptr<string> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_number_BINARY_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+    shared_ptr<string> mem2;
+
+  T_number_BINARY_NUMBER( 
+       shared_ptr<int> i1
+ ,     shared_ptr<string> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_number_HEX_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+    shared_ptr<string> mem2;
+
+  T_number_HEX_NUMBER( 
+       shared_ptr<int> i1
+ ,     shared_ptr<string> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_number_REAL_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_number_REAL_NUMBER( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_current_state_UNSIGNED_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+
+  T_current_state_UNSIGNED_NUMBER( 
+       shared_ptr<int> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_current_state_SIMID : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_current_state_SIMID( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_current_state_OP2_QUESTION : public ComponentBase {
+  public :
+
+  T_current_state_OP2_QUESTION( 
+  )
+  {}
+};
+class T_next_state_UNSIGNED_NUMBER : public ComponentBase {
+  public :
+    shared_ptr<int> mem1;
+
+  T_next_state_UNSIGNED_NUMBER( 
+       shared_ptr<int> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_next_state_SIMID : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_next_state_SIMID( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_next_state_SUB : public ComponentBase {
+  public :
+
+  T_next_state_SUB( 
+  )
+  {}
+};
+class T_edge_symbol_SIMID : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_edge_symbol_SIMID( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_edge_symbol_MUL : public ComponentBase {
+  public :
+
+  T_edge_symbol_MUL( 
+  )
+  {}
+};
+class T_string : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_string( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_function_identifier : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_system_function_identifier( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_io_declaration_net : public ComponentBase {
+  public :
+    shared_ptr<io_type> mem1;
+    shared_ptr<netreg_type> mem2;
+    shared_ptr<signedType> mem3;
+    shared_ptr<range> mem4;
+    shared_ptr<port_identifier_equ1_expression_opt> mem5;
+
+  T_io_declaration_net( 
+       shared_ptr<io_type> i1
+ ,     shared_ptr<netreg_type> i2
+ ,     shared_ptr<signedType> i3
+ ,     shared_ptr<range> i4
+ ,     shared_ptr<port_identifier_equ1_expression_opt> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_netreg_type__NOSPEC : public ComponentBase {
+  public :
+
+  T_netreg_type__NOSPEC( 
+  )
+  {}
+};
+class T_netreg_type__KEY_SUPPLY0 : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_SUPPLY0( 
+  )
+  {}
+};
+class T_netreg_type__KEY_SUPPLY1 : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_SUPPLY1( 
+  )
+  {}
+};
+class T_netreg_type__KEY_TRI : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_TRI( 
+  )
+  {}
+};
+class T_netreg_type__KEY_TRIAND : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_TRIAND( 
+  )
+  {}
+};
+class T_netreg_type__KEY_TRIOR : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_TRIOR( 
+  )
+  {}
+};
+class T_netreg_type__KEY_TRI0 : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_TRI0( 
+  )
+  {}
+};
+class T_netreg_type__KEY_TRI1 : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_TRI1( 
+  )
+  {}
+};
+class T_netreg_type__KEY_UWIRE : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_UWIRE( 
+  )
+  {}
+};
+class T_netreg_type__KEY_WIRE : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_WIRE( 
+  )
+  {}
+};
+class T_netreg_type__KEY_WAND : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_WAND( 
+  )
+  {}
+};
+class T_netreg_type__KEY_WOR : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_WOR( 
+  )
+  {}
+};
+class T_netreg_type__KEY_REG : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_REG( 
+  )
+  {}
+};
+class T_netreg_type__KEY_INTEGER : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_INTEGER( 
+  )
+  {}
+};
+class T_netreg_type__KEY_TIME : public ComponentBase {
+  public :
+
+  T_netreg_type__KEY_TIME( 
+  )
+  {}
+};
+class T_statement_or_block_item_statement : public ComponentBase {
+  public :
+    shared_ptr<statement> mem1;
+
+  T_statement_or_block_item_statement( 
+       shared_ptr<statement> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_statement_or_block_item_block : public ComponentBase {
+  public :
+    shared_ptr<block_item_declaration> mem1;
+
+  T_statement_or_block_item_block( 
+       shared_ptr<block_item_declaration> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_tf_io_declaration_gen1 : public ComponentBase {
+  public :
+    shared_ptr<io_type> mem1;
+    shared_ptr<reg> mem2;
+    shared_ptr<signedType> mem3;
+    shared_ptr<range> mem4;
+    shared_ptr<identifier> mem5;
+
+  T_tf_io_declaration_gen1( 
+       shared_ptr<io_type> i1
+ ,     shared_ptr<reg> i2
+ ,     shared_ptr<signedType> i3
+ ,     shared_ptr<range> i4
+ ,     shared_ptr<identifier> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_tf_io_declaration_gen2 : public ComponentBase {
+  public :
+    shared_ptr<io_type> mem1;
+    shared_ptr<task_port_type> mem2;
+    shared_ptr<identifier> mem3;
+
+  T_tf_io_declaration_gen2( 
+       shared_ptr<io_type> i1
+ ,     shared_ptr<task_port_type> i2
+ ,     shared_ptr<identifier> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_io_type_NOSPEC : public ComponentBase {
+  public :
+
+  T_io_type_NOSPEC( 
+  )
+  {}
+};
+class T_io_type_output : public ComponentBase {
+  public :
+
+  T_io_type_output( 
+  )
+  {}
+};
+class T_io_type_input : public ComponentBase {
+  public :
+
+  T_io_type_input( 
+  )
+  {}
+};
+class T_io_type_inout : public ComponentBase {
+  public :
+
+  T_io_type_inout( 
+  )
+  {}
+};
+class T_reg_false : public ComponentBase {
+  public :
+
+  T_reg_false( 
+  )
+  {}
+};
+class T_reg_true : public ComponentBase {
+  public :
+
+  T_reg_true( 
+  )
+  {}
+};
+class T_identifier_NOSPEC : public ComponentBase {
+  public :
+
+  T_identifier_NOSPEC( 
+  )
+  {}
+};
+class T_identifier : public ComponentBase {
+  public :
+    shared_ptr<string> mem1;
+
+  T_identifier( 
+       shared_ptr<string> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_colon_config_opt_FALSE : public ComponentBase {
+  public :
+
+  T_colon_config_opt_FALSE( 
+  )
+  {}
+};
+class T_colon_config_opt_TRUE : public ComponentBase {
+  public :
+
+  T_colon_config_opt_TRUE( 
+  )
+  {}
+};
+class T_signed_FALSE : public ComponentBase {
+  public :
+
+  T_signed_FALSE( 
+  )
+  {}
+};
+class T_signed_TRUE : public ComponentBase {
+  public :
+
+  T_signed_TRUE( 
+  )
+  {}
+};
 }

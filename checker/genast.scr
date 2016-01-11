@@ -1,3 +1,4 @@
+rm -f func.h haha*
 awk -f genast.awk bak/verilogast.ml > haha.h
 tac haha.h > haha1.h
 sed 's/;/;\n/g' haha1.h > haha2.h
@@ -5,6 +6,6 @@ awk -f genconstructor.awk haha2.h > haha21.h
 
 echo "namespace Verilogast {" > haha3.h
 echo "}" > haha4.h
-cat haha3.h haha21.h haha4.h > haha5.h
+cat haha3.h haha21.h func.h haha4.h > haha5.h
 mv haha5.h verilogast.h
 

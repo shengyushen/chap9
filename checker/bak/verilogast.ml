@@ -6,7 +6,7 @@ and module_declaration =
 	T_module_declaration__1 of (attribute_instance list)*identifier*(parameter_declaration_gen list)*(port list)*(module_item list)
 and port =
 	T_port_exp of identifier*port_expression
-	| T_port_net of io_type*netreg_type*signed*range*port_expression*expression
+	| T_port_net of io_type*netreg_type*signedType*range*port_expression*expression
 and port_expression =
 	T_port_expression of (port_reference list)
 and	port_reference =
@@ -55,19 +55,13 @@ and config_rule_statement =
 	| T_config_rule_statement__cell_use of library_identifier_period_opt_cell_identifier*use_clause
 and use_clause =
 	T_use_clause of library_identifier_period_opt_cell_identifier*colon_config_opt
-and colon_config_opt =
-	T_colon_config_opt_FALSE
-	| T_colon_config_opt_TRUE
-and signed =
-	T_signed_FALSE 
-	| T_signed_TRUE
 and local_parameter_declaration =
-	T_local_parameter_declaration_1 of signed*range*(param_assignment list)
+	T_local_parameter_declaration_1 of signedType*range*(param_assignment list)
 	| T_local_parameter_declaration_2 of parameter_type*(param_assignment list)
 and parameter_declaration_gen =
-	T_parameter_declaration_gen_1 of parameter_type*signed*range*param_assignment
+	T_parameter_declaration_gen_1 of parameter_type*signedType*range*param_assignment
 and parameter_declaration =
-	T_parameter_declaration_1 of signed*range*(param_assignment list)
+	T_parameter_declaration_1 of signedType*range*(param_assignment list)
 	| T_parameter_declaration_2 of parameter_type*(param_assignment list)
 and specparam_declaration =
 	T_specparam_declaration of range*(specparam_assignment list)
@@ -78,13 +72,13 @@ and parameter_type =
 	| T_parameter_type__REALTIME
 	| T_parameter_type__TIME
 and inout_declaration =
-	T_inout_declaration of net_type*signed*range*(identifier list)
+	T_inout_declaration of net_type*signedType*range*(identifier list)
 and input_declaration =
-	T_input_declaration of net_type*signed*range*(identifier list)
+	T_input_declaration of net_type*signedType*range*(identifier list)
 and output_declaration =
-	T_output_declaration_net of net_type*signed*range*(identifier list)
-	|T_output_declaration_reg of signed*range*(port_identifier_equ1_expression_opt list)
-	|T_output_declaration_var of output_variable_type*(port_identifier_equ1_expression_opt list)
+	T_output_declaration_net of net_type*signedType*range*(identifier list)
+	| T_output_declaration_reg of signedType*range*(port_identifier_equ1_expression_opt list)
+	| T_output_declaration_var of output_variable_type*(port_identifier_equ1_expression_opt list)
 and	output_variable_type =
 	T_output_variable_type_INTEGER
 	| T_output_variable_type_TIME
@@ -93,24 +87,24 @@ and event_declaration =
 and integer_declaration =
 	T_integer_declaration of (variable_type list)
 and net_declaration =
-	T_net_declaration_net_type1 of net_type*signed*delay3*(net_identifier_dimension_list list)
-	| T_net_declaration_net_type2 of net_type*drive_strength*signed*delay3*(net_decl_assignment list)
-	| T_net_declaration_net_type3 of net_type*drive_strength*vectored_scalared*signed*range*delay3*(net_identifier_dimension_list list)
-	| T_net_declaration_net_type4 of net_type*drive_strength*vectored_scalared*signed*range*delay3*(net_decl_assignment list)
-	| T_net_declaration_trireg_1 of charge_strength*signed*delay3*(net_identifier_dimension_list list)
-	| T_net_declaration_trireg_2 of drive_strength*signed*delay3*(net_decl_assignment list)
-	| T_net_declaration_trireg_3 of charge_strength*vectored_scalared*signed*range*delay3
-	| T_net_declaration_trireg_4 of drive_strength*vectored_scalared*signed*range*delay3*(net_decl_assignment list)
+	T_net_declaration_net_type1 of net_type*signedType*delay3*(net_identifier_dimension_list list)
+	| T_net_declaration_net_type2 of net_type*drive_strength*signedType*delay3*(net_decl_assignment list)
+	| T_net_declaration_net_type3 of net_type*drive_strength*vectored_scalared*signedType*range*delay3*(net_identifier_dimension_list list)
+	| T_net_declaration_net_type4 of net_type*drive_strength*vectored_scalared*signedType*range*delay3*(net_decl_assignment list)
+	| T_net_declaration_trireg_1 of charge_strength*signedType*delay3*(net_identifier_dimension_list list)
+	| T_net_declaration_trireg_2 of drive_strength*signedType*delay3*(net_decl_assignment list)
+	| T_net_declaration_trireg_3 of charge_strength*vectored_scalared*signedType*range*delay3
+	| T_net_declaration_trireg_4 of drive_strength*vectored_scalared*signedType*range*delay3*(net_decl_assignment list)
 and vectored_scalared =
 	T_vectored_scalared_NOSPEC
-	|T_vectored_scalared_vectored
-	|T_vectored_scalared_scalared
+	| T_vectored_scalared_vectored
+	| T_vectored_scalared_scalared
 and real_declaration =
 	T_real_declaration of (real_type list)
 and realtime_declaration =
 	T_realtime_declaration of (real_type list)
 and reg_declaration =
-	T_reg_declaration of signed*range*(variable_type list)
+	T_reg_declaration of signedType*range*(variable_type list)
 and time_declaration =
 	T_time_declaration of (variable_type list)
 and net_type =
@@ -196,7 +190,7 @@ and attribute_instance_list_tf_input_declaration =
 	T_attribute_instance_list_tf_input_declaration of (attribute_instance list)*tf_io_declaration_gen
 and function_range_or_type =
 	T_function_range_or_type_NOSPEC
-	| T_function_range_or_type of signed*range
+	| T_function_range_or_type of signedType*range
 	| T_function_range_or_type_INTEGER
 	| T_function_range_or_type_REAL
 	| T_function_range_or_type_REALTIME
@@ -211,17 +205,14 @@ and task_item_declaration =
 	| T_task_item_declaration_inout of  (attribute_instance list)*tf_inout_declaration
 and task_port_item =
 	T_task_port_item_input of (attribute_instance list)*tf_io_declaration_gen
-and reg =
-	T_reg_false
-	| T_reg_true
 and tf_input_declaration =
-	T_tf_input_declaration_reg of reg*signed*range*(identifier list)
+	T_tf_input_declaration_reg of reg*signedType*range*(identifier list)
 	| T_tf_input_declaration_type of task_port_type*(identifier list)
 and tf_output_declaration =
-	T_tf_output_declaration_reg of reg*signed*range*(identifier list)
+	T_tf_output_declaration_reg of reg*signedType*range*(identifier list)
 	| T_tf_output_declaration_type of task_port_type*(identifier list)
 and tf_inout_declaration =
-	T_tf_inout_declaration_reg of reg*signed*range*(identifier list)
+	T_tf_inout_declaration_reg of reg*signedType*range*(identifier list)
 	| T_tf_inout_declaration_type of task_port_type*(identifier list)
 and task_port_type =
 	T_task_port_type_integer
@@ -229,7 +220,7 @@ and task_port_type =
 	| T_task_port_type_realtime
 	| T_task_port_type_time
 and block_item_declaration =
-	T_block_item_declaration_reg of (attribute_instance list)*signed*range*(block_variable_type list)
+	T_block_item_declaration_reg of (attribute_instance list)*signedType*range*(block_variable_type list)
 	| T_block_item_declaration_integer of (attribute_instance list)*(block_variable_type list)
 	| T_block_item_declaration_time of (attribute_instance list)*(block_variable_type list)
 	| T_block_item_declaration_real of (attribute_instance list)*(block_real_type list)
@@ -383,7 +374,7 @@ and	udp_initial_statement =
 	T_udp_initial_statement_NOSPEC
 	| T_udp_initial_statement of identifier*init_val
 and init_val =
-	T_init_val_bin of (int*string)
+	T_init_val_bin of int*string
 	| T_init_val_unsigned of int
 and	sequential_entry =
 	T_sequential_entry of seq_input_list*current_state*next_state
@@ -555,12 +546,6 @@ and	system_function_call =
 	T_system_function_call of system_function_identifier*(expression list)
 and	conditional_expression =
 	T_conditional_expression of expression*(attribute_instance list)*expression*expression
-and	msb_expression =
-	expression
-and	lsb_expression =
-	expression
-and width_expression =
-	expression
 and	expression =
 	T_expression_NOSPEC
 	| T_expression_prim of primary
@@ -584,11 +569,9 @@ and	module_path_mintypmax_expression =
 and	range_expression =
 	T_range_expression_NOSPEC
 	| T_range_expression_1 of expression
-	| T_range_expression_2 of msb_expression*lsb_expression
-	|	T_range_expression_addrange of base_expression*width_expression
-	| T_range_expression_subrange of base_expression*width_expression
-and	base_expression = 
-	expression
+	| T_range_expression_2 of expression*expression
+	|	T_range_expression_addrange of expression*expression
+	| T_range_expression_subrange of expression*expression
 and	module_path_primary =
 	T_module_path_primary_num of number
 	| T_module_path_primary_id of identifier
@@ -693,10 +676,10 @@ and output_symbol =
 	| T_output_symbol_SIMID of string
 and number =
 	T_number_UNSIGNED_NUMBER of int
-	| T_number_UNSIGNED_NUMBER_size of (int*int)
-	| T_number_OCTAL_NUMBER of (int*string)
-	| T_number_BINARY_NUMBER of (int*string)
-	| T_number_HEX_NUMBER of (int*string)
+	| T_number_UNSIGNED_NUMBER_size of int*int
+	| T_number_OCTAL_NUMBER of int*string
+	| T_number_BINARY_NUMBER of int*string
+	| T_number_HEX_NUMBER of int*string
 	| T_number_REAL_NUMBER of string
 and current_state =
 	T_current_state_UNSIGNED_NUMBER of int
@@ -709,20 +692,12 @@ and next_state =
 and edge_symbol =
 	T_edge_symbol_SIMID of string
 	| T_edge_symbol_MUL
-and identifier =
-	T_identifier_NOSPEC
-	| T_identifier of string
 and	string_typedef =
 	T_string of string
 and	system_function_identifier =
 	T_system_function_identifier of  string
-and	io_type =
-	T_io_type_NOSPEC
-	| T_io_type_output
-	| T_io_type_input
-	| T_io_type_inout
 and	io_declaration =
-	T_io_declaration_net of io_type*netreg_type*signed*range*port_identifier_equ1_expression_opt
+	T_io_declaration_net of io_type*netreg_type*signedType*range*port_identifier_equ1_expression_opt
 and netreg_type =
 	T_netreg_type__NOSPEC
 	| T_netreg_type__KEY_SUPPLY0
@@ -743,43 +718,24 @@ and	statement_or_block_item =
 	T_statement_or_block_item_statement of statement
 	| T_statement_or_block_item_block of block_item_declaration
 and	tf_io_declaration_gen =
-	T_tf_io_declaration_gen1 of io_type*reg*signed*range*identifier
+	T_tf_io_declaration_gen1 of io_type*reg*signedType*range*identifier
 	| T_tf_io_declaration_gen2 of io_type*task_port_type*identifier
+and	io_type =
+	T_io_type_NOSPEC
+	| T_io_type_output
+	| T_io_type_input
+	| T_io_type_inout
+and reg =
+	T_reg_false
+	| T_reg_true
+and identifier =
+	T_identifier_NOSPEC
+	| T_identifier of string
+and colon_config_opt =
+	T_colon_config_opt_FALSE
+	| T_colon_config_opt_TRUE
+and signedType =
+	T_signed_FALSE 
+	| T_signed_TRUE
 ;;
-
-let get_identifier_string identifier = begin
-	match identifier with
-	T_identifier_NOSPEC -> ""
-	| T_identifier(_,_,str) -> str
-end
-
-
-class  verilogast = 
-object (self)
-	method ssy () = begin
-		Printf.printf "verilogast\n"
-	end
-end;;
-
-class verilogast1 = 
-object (self)
-	inherit verilogast
-	method ssy () = begin
-		Printf.printf "verilogast1\n"
-	end
-end ;;
-
-class  virtual verilogast_virt = 
-object (self)
-	method virtual ssy : unit  -> unit
-end;;
-
-
-class   verilogast_inh1 = 
-object (self)
-	inherit verilogast_virt
-	method  ssy () = begin
-		Printf.printf "verilogast_inh1\n"
-	end
-end;;
 

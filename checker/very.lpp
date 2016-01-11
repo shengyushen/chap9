@@ -127,7 +127,8 @@ digit [0-9]
 {blank}+ 
 
 {system_task_function_identifier} {
-	return yy::verilog_parser::make_SYSTEM_TASK_FUNCTION_IDENTIFIER(loc);
+	string s(yytext);
+	return yy::verilog_parser::make_SYSTEM_TASK_FUNCTION_IDENTIFIER(s,loc);
 }
 
 {escaped_identifier} {
@@ -259,7 +260,10 @@ digit [0-9]
 "wor"                { yy::verilog_parser::make_KEY_WOR(loc);}
 "xnor"               { yy::verilog_parser::make_KEY_XNOR(loc);}
 "xor"                { yy::verilog_parser::make_KEY_XOR(loc);}
-{simple_identifier} { yy::verilog_parser::make_SIMPLE_IDENTIFIER(loc);}
+{simple_identifier}	 { 
+	string s{yytext};
+	yy::verilog_parser::make_SIMPLE_IDENTIFIER(s,loc);
+}
 
 "PATHPULSE\$"				 {yy::verilog_parser::make_KEY_PATHPULSE(loc);}
 

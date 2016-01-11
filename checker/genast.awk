@@ -53,6 +53,9 @@ BEGIN {cnt=1;}
 					sss=sprintf("%s %s",sss,$i);
 				}
 				asz=split(sss,arr,"*");
+				# define the headtype_$1 as empty struct
+				printf "typedef struct {} headtype_" $1 ";"
+				# define the real component
 				printf "typedef std::tuple <";
 				printf " headtype_" $1;
 				for(x=1;x<=asz;x=x+1) {
@@ -77,6 +80,9 @@ BEGIN {cnt=1;}
 				cnt=cnt+1;
 			} else if(NF==1 ) {
 				# we have no parameter
+				# define the headtype_$1 as empty struct
+				printf "typedef struct {} headtype_" $1 ";"
+				# define the real component
 				printf "typedef std::tuple <";
 				printf " headtype_" $1;
 				printf " > ";
@@ -96,6 +102,9 @@ BEGIN {cnt=1;}
 					sss=sprintf("%s %s",sss,$i);
 				}
 				asz=split(sss,arr,"*");
+				# define the headtype_$2 as empty struct
+				printf "typedef struct {} headtype_" $2 ";"
+				# define the real component
 				printf "typedef std::tuple <";
 				printf " headtype_" $2;
 				for(x=1;x<=asz;x=x+1) {
@@ -120,6 +129,9 @@ BEGIN {cnt=1;}
 				cnt=cnt+1;
 			} else if(NF==2) {
 				# we have no parameter
+				# define the headtype_$2 as empty struct
+				printf "typedef struct {} headtype_" $2 ";"
+				# define the real component
 				printf "typedef std::tuple <";
 				printf " headtype_" $2;
 				printf " > ";
