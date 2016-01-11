@@ -53,6 +53,8 @@ int main ( int argc, char * argv[] ) {
 	int res=vp.parse();
 	if(0!=res) {
 		cerr<<"improper structure"<<endl;
+	} else {
+		cerr<<"all done!!!"<<endl;
 	}
 	
 	return 0;

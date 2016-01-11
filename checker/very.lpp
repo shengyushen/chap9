@@ -24,11 +24,11 @@
 
 	using namespace std;
 	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
-	void prt_info (string str)  { cerr<<"INOF  : "<<str<<endl<<flush; return; }
+	void prt_info (string str)  { cerr<<"INFO  : "<<str<<endl<<flush; return; }
 	
 	string stringssy_string;
 	unsigned int ln;
-
+	std::string * ps=nullptr;
 	void deleteblank(string & s) {
 		while(s[0]==' '|| s[0]=='\t')  {s.erase(0,1);}
 		while(s[0]==' '|| s[0]=='\t')  {s.pop_back();}
@@ -141,136 +141,141 @@ digit [0-9]
 	return yy::verilog_parser::make_ESCAPED_IDENTIFIER(s,loc);
 }
 
-"always"						 { yy::verilog_parser::make_KEY_ALWAYS(loc);}
-"and"								 { yy::verilog_parser::make_KEY_AND(loc);}
-"assign"             { yy::verilog_parser::make_KEY_ASSIGN(loc);}
-"automatic"          { yy::verilog_parser::make_KEY_AUTOMATIC(loc);}
-"begin"              { yy::verilog_parser::make_KEY_BEGIN(loc);}
-"buf"                { yy::verilog_parser::make_KEY_BUF(loc);}
-"bufif0"             { yy::verilog_parser::make_KEY_BUFIF0(loc);}
-"bufif1"             { yy::verilog_parser::make_KEY_BUFIF1(loc);}
-"case"               { yy::verilog_parser::make_KEY_CASE(loc);}
-"casex"              { yy::verilog_parser::make_KEY_CASEX(loc);}
-"casez"              { yy::verilog_parser::make_KEY_CASEZ(loc);}
-"cell"               { yy::verilog_parser::make_KEY_CELL(loc);}
-"cmos"               { yy::verilog_parser::make_KEY_CMOS(loc);}
-"config"             { yy::verilog_parser::make_KEY_CONFIG(loc);}
-"deassign"           { yy::verilog_parser::make_KEY_DEASSIGN(loc);}
-"default"            { yy::verilog_parser::make_KEY_DEFAULT(loc);}
-"defparam"           { yy::verilog_parser::make_KEY_DEFPARAM(loc);}
-"design"             { yy::verilog_parser::make_KEY_DESIGN(loc);}
-"disable"            { yy::verilog_parser::make_KEY_DISABLE(loc);}
-"edge"							 { yy::verilog_parser::make_KEY_EDGE(loc);}
-"else"               { yy::verilog_parser::make_KEY_ELSE(loc);}
-"end"                { yy::verilog_parser::make_KEY_END(loc);}
-"endcase"            { yy::verilog_parser::make_KEY_ENDCASE(loc);}
-"endconfig"          { yy::verilog_parser::make_KEY_ENDCONFIG(loc);}
-"endfunction"        { yy::verilog_parser::make_KEY_ENDFUNCTION(loc);}
-"endgenerate"        { yy::verilog_parser::make_KEY_ENDGENERATE(loc);}
-"endmodule"          { yy::verilog_parser::make_KEY_ENDMODULE(loc);}
-"endprimitive"       { yy::verilog_parser::make_KEY_ENDPRIMITIVE(loc);}
-"endspecify"         { yy::verilog_parser::make_KEY_ENDSPECIFY(loc);}
-"endtable"           { yy::verilog_parser::make_KEY_ENDTABLE(loc);}
-"endtask"            { yy::verilog_parser::make_KEY_ENDTASK(loc);}
-"event"              { yy::verilog_parser::make_KEY_EVENT(loc);}
-"for"                { yy::verilog_parser::make_KEY_FOR(loc);}
-"force"              { yy::verilog_parser::make_KEY_FORCE(loc);}
-"forever"            { yy::verilog_parser::make_KEY_FOREVER(loc);}
-"fork"               { yy::verilog_parser::make_KEY_FORK(loc);}
-"function"           { yy::verilog_parser::make_KEY_FUNCTION(loc);}
-"generate"           { yy::verilog_parser::make_KEY_GENERATE(loc);}
-"genvar"						 { yy::verilog_parser::make_KEY_GENVAR(loc);}
-"highz0"             { yy::verilog_parser::make_KEY_HIGHZ0(loc);}
-"highz1"             { yy::verilog_parser::make_KEY_HIGHZ1(loc);}
-"if"                 { yy::verilog_parser::make_KEY_IF(loc);}
-"ifnone"             { yy::verilog_parser::make_KEY_IFNONE(loc);}
-"incdir"             { yy::verilog_parser::make_KEY_INCDIR(loc);}
-"include"            { yy::verilog_parser::make_KEY_INCLUDE(loc);}
-"initial"            { yy::verilog_parser::make_KEY_INITIAL(loc);}
-"inout"              { yy::verilog_parser::make_KEY_INOUT(loc);}
-"input"              { yy::verilog_parser::make_KEY_INPUT(loc);}
-"instance"           { yy::verilog_parser::make_KEY_INSTANCE(loc);}
-"integer"            { yy::verilog_parser::make_KEY_INTEGER(loc);}
-"join"               { yy::verilog_parser::make_KEY_JOIN(loc);}
-"large"              { yy::verilog_parser::make_KEY_LARGE(loc);}
-"liblist"            { yy::verilog_parser::make_KEY_LIBLIST(loc);}
-"library"            { yy::verilog_parser::make_KEY_LIBRARY(loc);}
-"localparam"         { yy::verilog_parser::make_KEY_LOCALPARAM(loc);}
-"macromodule"        { yy::verilog_parser::make_KEY_MACROMODULE(loc);}
-"medium"             { yy::verilog_parser::make_KEY_MEDIUM(loc);}
-"module"						 { yy::verilog_parser::make_KEY_MODULE(loc);}
-"nand"               { yy::verilog_parser::make_KEY_NAND(loc);}
-"negedge"            { yy::verilog_parser::make_KEY_NEGEDGE(loc);}
-"nmos"               { yy::verilog_parser::make_KEY_NMOS(loc);}
-"nor"                { yy::verilog_parser::make_KEY_NOR(loc);}
-"noshowcancelled"    { yy::verilog_parser::make_KEY_NOSHOWCANCELLED(loc);}
-"not"                { yy::verilog_parser::make_KEY_NOT(loc);}
-"notif0"             { yy::verilog_parser::make_KEY_NOTIF0(loc);}
-"notif1"             { yy::verilog_parser::make_KEY_NOTIF1(loc);}
-"or"                 { yy::verilog_parser::make_KEY_OR(loc);}
-"output"             { yy::verilog_parser::make_KEY_OUTPUT(loc);}
-"parameter"          { yy::verilog_parser::make_KEY_PARAMETER(loc);}
-"pmos"               { yy::verilog_parser::make_KEY_PMOS(loc);}
-"posedge"            { yy::verilog_parser::make_KEY_POSEDGE(loc);}
-"primitive"          { yy::verilog_parser::make_KEY_PRIMITIVE(loc);}
-"pull0"              { yy::verilog_parser::make_KEY_PULL0(loc);}
-"pull1"              { yy::verilog_parser::make_KEY_PULL1(loc);}
-"pulldown"           { yy::verilog_parser::make_KEY_PULLDOWN(loc);}
-"pullup"             { yy::verilog_parser::make_KEY_PULLUP(loc);}
-"pulsestyle_onevent"	{ yy::verilog_parser::make_KEY_PULSESTYLE_ONEVENT(loc);}
-"pulsestyle_ondetect" { yy::verilog_parser::make_KEY_PULSESTYLE_ONDETECT(loc);}
-"rcmos"              { yy::verilog_parser::make_KEY_RCMOS(loc);}
-"real"               { yy::verilog_parser::make_KEY_REAL(loc);}
-"realtime"           { yy::verilog_parser::make_KEY_REALTIME(loc);}
-"reg"                { yy::verilog_parser::make_KEY_REG(loc);}
-"release"            { yy::verilog_parser::make_KEY_RELEASE(loc);}
-"repeat"             { yy::verilog_parser::make_KEY_REPEAT(loc);}
-"rnmos"              { yy::verilog_parser::make_KEY_RNMOS(loc);}
-"rpmos"              { yy::verilog_parser::make_KEY_RPMOS(loc);}
-"rtran"              { yy::verilog_parser::make_KEY_RTRAN(loc);}
-"rtranif0"           { yy::verilog_parser::make_KEY_RTRANIF0(loc);}
-"rtranif1"           { yy::verilog_parser::make_KEY_RTRANIF1(loc);}
-"scalared"           { yy::verilog_parser::make_KEY_SCALARED(loc);}
-"showcancelled"      { yy::verilog_parser::make_KEY_SHOWCANCELLED(loc);}
-"signed"             { yy::verilog_parser::make_KEY_SIGNED(loc);}
-"small"              { yy::verilog_parser::make_KEY_SMALL(loc);}
-"specify"            { yy::verilog_parser::make_KEY_SPECIFY(loc);}
-"specparam"          { yy::verilog_parser::make_KEY_SPECPARAM(loc);}
-"strong0"						{ yy::verilog_parser::make_KEY_STRONG0(loc);}
-"strong1"            { yy::verilog_parser::make_KEY_STRONG1(loc);}
-"supply0"            { yy::verilog_parser::make_KEY_SUPPLY0(loc);}
-"supply1"            { yy::verilog_parser::make_KEY_SUPPLY1(loc);}
-"table"              { yy::verilog_parser::make_KEY_TABLE(loc);}
-"task"               { yy::verilog_parser::make_KEY_TASK(loc);}
-"time"               { yy::verilog_parser::make_KEY_TIME(loc);}
-"tran"               { yy::verilog_parser::make_KEY_TRAN(loc);}
-"tranif0"            { yy::verilog_parser::make_KEY_TRANIF0(loc);}
-"tranif1"            { yy::verilog_parser::make_KEY_TRANIF1(loc);}
-"tri"                { yy::verilog_parser::make_KEY_TRI(loc);}
-"tri0"               { yy::verilog_parser::make_KEY_TRI0(loc);}
-"tri1"               { yy::verilog_parser::make_KEY_TRI1(loc);}
-"triand"             { yy::verilog_parser::make_KEY_TRIAND(loc);}
-"trior"              { yy::verilog_parser::make_KEY_TRIOR(loc);}
-"trireg"             { yy::verilog_parser::make_KEY_TRIREG(loc);}
-"unsigned"           { yy::verilog_parser::make_KEY_UNSIGNED(loc);}
-"use"                { yy::verilog_parser::make_KEY_USE(loc);}
-"uwire"              { yy::verilog_parser::make_KEY_UWIRE(loc);}
-"vectored"						{ yy::verilog_parser::make_KEY_VECTORED(loc);}
-"wait"               { yy::verilog_parser::make_KEY_WAIT(loc);}
-"wand"               { yy::verilog_parser::make_KEY_WAND(loc);}
-"weak0"              { yy::verilog_parser::make_KEY_WEAK0(loc);}
-"weak1"              { yy::verilog_parser::make_KEY_WEAK1(loc);}
-"while"              { yy::verilog_parser::make_KEY_WHILE(loc);}
-"wire"               { yy::verilog_parser::make_KEY_WIRE(loc);}
-"wor"                { yy::verilog_parser::make_KEY_WOR(loc);}
-"xnor"               { yy::verilog_parser::make_KEY_XNOR(loc);}
-"xor"                { yy::verilog_parser::make_KEY_XOR(loc);}
-{simple_identifier}	 { 
+"always"						 { return yy::verilog_parser::make_KEY_ALWAYS(loc);}
+"and"								 { return yy::verilog_parser::make_KEY_AND(loc);}
+"assign"             { return yy::verilog_parser::make_KEY_ASSIGN(loc);}
+"automatic"          { return yy::verilog_parser::make_KEY_AUTOMATIC(loc);}
+"begin"              { return yy::verilog_parser::make_KEY_BEGIN(loc);}
+"buf"                { return yy::verilog_parser::make_KEY_BUF(loc);}
+"bufif0"             { return yy::verilog_parser::make_KEY_BUFIF0(loc);}
+"bufif1"             { return yy::verilog_parser::make_KEY_BUFIF1(loc);}
+"case"               { return yy::verilog_parser::make_KEY_CASE(loc);}
+"casex"              { return yy::verilog_parser::make_KEY_CASEX(loc);}
+"casez"              { return yy::verilog_parser::make_KEY_CASEZ(loc);}
+"cell"               { return yy::verilog_parser::make_KEY_CELL(loc);}
+"cmos"               { return yy::verilog_parser::make_KEY_CMOS(loc);}
+"config"             { return yy::verilog_parser::make_KEY_CONFIG(loc);}
+"deassign"           { return yy::verilog_parser::make_KEY_DEASSIGN(loc);}
+"default"            { return yy::verilog_parser::make_KEY_DEFAULT(loc);}
+"defparam"           { return yy::verilog_parser::make_KEY_DEFPARAM(loc);}
+"design"             { return yy::verilog_parser::make_KEY_DESIGN(loc);}
+"disable"            { return yy::verilog_parser::make_KEY_DISABLE(loc);}
+"edge"							 { return yy::verilog_parser::make_KEY_EDGE(loc);}
+"else"               { return yy::verilog_parser::make_KEY_ELSE(loc);}
+"end"                { return yy::verilog_parser::make_KEY_END(loc);}
+"endcase"            { return yy::verilog_parser::make_KEY_ENDCASE(loc);}
+"endconfig"          { return yy::verilog_parser::make_KEY_ENDCONFIG(loc);}
+"endfunction"        { return yy::verilog_parser::make_KEY_ENDFUNCTION(loc);}
+"endgenerate"        { return yy::verilog_parser::make_KEY_ENDGENERATE(loc);}
+"endmodule"          { return yy::verilog_parser::make_KEY_ENDMODULE(loc);}
+"endprimitive"       { return yy::verilog_parser::make_KEY_ENDPRIMITIVE(loc);}
+"endspecify"         { return yy::verilog_parser::make_KEY_ENDSPECIFY(loc);}
+"endtable"           { return yy::verilog_parser::make_KEY_ENDTABLE(loc);}
+"endtask"            { return yy::verilog_parser::make_KEY_ENDTASK(loc);}
+"event"              { return yy::verilog_parser::make_KEY_EVENT(loc);}
+"for"                { return yy::verilog_parser::make_KEY_FOR(loc);}
+"force"              { return yy::verilog_parser::make_KEY_FORCE(loc);}
+"forever"            { return yy::verilog_parser::make_KEY_FOREVER(loc);}
+"fork"               { return yy::verilog_parser::make_KEY_FORK(loc);}
+"function"           { return yy::verilog_parser::make_KEY_FUNCTION(loc);}
+"generate"           { return yy::verilog_parser::make_KEY_GENERATE(loc);}
+"genvar"						 { return yy::verilog_parser::make_KEY_GENVAR(loc);}
+"highz0"             { return yy::verilog_parser::make_KEY_HIGHZ0(loc);}
+"highz1"             { return yy::verilog_parser::make_KEY_HIGHZ1(loc);}
+"if"                 { return yy::verilog_parser::make_KEY_IF(loc);}
+"ifnone"             { return yy::verilog_parser::make_KEY_IFNONE(loc);}
+"incdir"             { return yy::verilog_parser::make_KEY_INCDIR(loc);}
+"include"            { return yy::verilog_parser::make_KEY_INCLUDE(loc);}
+"initial"            { return yy::verilog_parser::make_KEY_INITIAL(loc);}
+"inout"              { return yy::verilog_parser::make_KEY_INOUT(loc);}
+"input"              { return yy::verilog_parser::make_KEY_INPUT(loc);}
+"instance"           { return yy::verilog_parser::make_KEY_INSTANCE(loc);}
+"integer"            { return yy::verilog_parser::make_KEY_INTEGER(loc);}
+"join"               { return yy::verilog_parser::make_KEY_JOIN(loc);}
+"large"              { return yy::verilog_parser::make_KEY_LARGE(loc);}
+"liblist"            { return yy::verilog_parser::make_KEY_LIBLIST(loc);}
+"library"            { return yy::verilog_parser::make_KEY_LIBRARY(loc);}
+"localparam"         { return yy::verilog_parser::make_KEY_LOCALPARAM(loc);}
+"macromodule"        { return yy::verilog_parser::make_KEY_MACROMODULE(loc);}
+"medium"             { return yy::verilog_parser::make_KEY_MEDIUM(loc);}
+"module"						 { return yy::verilog_parser::make_KEY_MODULE(loc);}
+"nand"               { return yy::verilog_parser::make_KEY_NAND(loc);}
+"negedge"            { return yy::verilog_parser::make_KEY_NEGEDGE(loc);}
+"nmos"               { return yy::verilog_parser::make_KEY_NMOS(loc);}
+"nor"                { return yy::verilog_parser::make_KEY_NOR(loc);}
+"noshowcancelled"    { return yy::verilog_parser::make_KEY_NOSHOWCANCELLED(loc);}
+"not"                { return yy::verilog_parser::make_KEY_NOT(loc);}
+"notif0"             { return yy::verilog_parser::make_KEY_NOTIF0(loc);}
+"notif1"             { return yy::verilog_parser::make_KEY_NOTIF1(loc);}
+"or"                 { return yy::verilog_parser::make_KEY_OR(loc);}
+"output"             { return yy::verilog_parser::make_KEY_OUTPUT(loc);}
+"parameter"          { return yy::verilog_parser::make_KEY_PARAMETER(loc);}
+"pmos"               { return yy::verilog_parser::make_KEY_PMOS(loc);}
+"posedge"            { return yy::verilog_parser::make_KEY_POSEDGE(loc);}
+"primitive"          { return yy::verilog_parser::make_KEY_PRIMITIVE(loc);}
+"pull0"              { return yy::verilog_parser::make_KEY_PULL0(loc);}
+"pull1"              { return yy::verilog_parser::make_KEY_PULL1(loc);}
+"pulldown"           { return yy::verilog_parser::make_KEY_PULLDOWN(loc);}
+"pullup"             { return yy::verilog_parser::make_KEY_PULLUP(loc);}
+"pulsestyle_onevent"	{ return yy::verilog_parser::make_KEY_PULSESTYLE_ONEVENT(loc);}
+"pulsestyle_ondetect" { return yy::verilog_parser::make_KEY_PULSESTYLE_ONDETECT(loc);}
+"rcmos"              { return yy::verilog_parser::make_KEY_RCMOS(loc);}
+"real"               { return yy::verilog_parser::make_KEY_REAL(loc);}
+"realtime"           { return yy::verilog_parser::make_KEY_REALTIME(loc);}
+"reg"                { return yy::verilog_parser::make_KEY_REG(loc);}
+"release"            { return yy::verilog_parser::make_KEY_RELEASE(loc);}
+"repeat"             { return yy::verilog_parser::make_KEY_REPEAT(loc);}
+"rnmos"              { return yy::verilog_parser::make_KEY_RNMOS(loc);}
+"rpmos"              { return yy::verilog_parser::make_KEY_RPMOS(loc);}
+"rtran"              { return yy::verilog_parser::make_KEY_RTRAN(loc);}
+"rtranif0"           { return yy::verilog_parser::make_KEY_RTRANIF0(loc);}
+"rtranif1"           { return yy::verilog_parser::make_KEY_RTRANIF1(loc);}
+"scalared"           { return yy::verilog_parser::make_KEY_SCALARED(loc);}
+"showcancelled"      { return yy::verilog_parser::make_KEY_SHOWCANCELLED(loc);}
+"signed"             { return yy::verilog_parser::make_KEY_SIGNED(loc);}
+"small"              { return yy::verilog_parser::make_KEY_SMALL(loc);}
+"specify"            { return yy::verilog_parser::make_KEY_SPECIFY(loc);}
+"specparam"          { return yy::verilog_parser::make_KEY_SPECPARAM(loc);}
+"strong0"						{ return yy::verilog_parser::make_KEY_STRONG0(loc);}
+"strong1"            { return yy::verilog_parser::make_KEY_STRONG1(loc);}
+"supply0"            { return yy::verilog_parser::make_KEY_SUPPLY0(loc);}
+"supply1"            { return yy::verilog_parser::make_KEY_SUPPLY1(loc);}
+"table"              { return yy::verilog_parser::make_KEY_TABLE(loc);}
+"task"               { return yy::verilog_parser::make_KEY_TASK(loc);}
+"time"               { return yy::verilog_parser::make_KEY_TIME(loc);}
+"tran"               { return yy::verilog_parser::make_KEY_TRAN(loc);}
+"tranif0"            { return yy::verilog_parser::make_KEY_TRANIF0(loc);}
+"tranif1"            { return yy::verilog_parser::make_KEY_TRANIF1(loc);}
+"tri"                { return yy::verilog_parser::make_KEY_TRI(loc);}
+"tri0"               { return yy::verilog_parser::make_KEY_TRI0(loc);}
+"tri1"               { return yy::verilog_parser::make_KEY_TRI1(loc);}
+"triand"             { return yy::verilog_parser::make_KEY_TRIAND(loc);}
+"trior"              { return yy::verilog_parser::make_KEY_TRIOR(loc);}
+"trireg"             { return yy::verilog_parser::make_KEY_TRIREG(loc);}
+"unsigned"           { return yy::verilog_parser::make_KEY_UNSIGNED(loc);}
+"use"                { return yy::verilog_parser::make_KEY_USE(loc);}
+"uwire"              { return yy::verilog_parser::make_KEY_UWIRE(loc);}
+"vectored"						{ return yy::verilog_parser::make_KEY_VECTORED(loc);}
+"wait"               { return yy::verilog_parser::make_KEY_WAIT(loc);}
+"wand"               { return yy::verilog_parser::make_KEY_WAND(loc);}
+"weak0"              { return yy::verilog_parser::make_KEY_WEAK0(loc);}
+"weak1"              { return yy::verilog_parser::make_KEY_WEAK1(loc);}
+"while"              { return yy::verilog_parser::make_KEY_WHILE(loc);}
+"wire"               { return yy::verilog_parser::make_KEY_WIRE(loc);}
+"wor"                { return yy::verilog_parser::make_KEY_WOR(loc);}
+"xnor"               { return yy::verilog_parser::make_KEY_XNOR(loc);}
+"xor"                { return yy::verilog_parser::make_KEY_XOR(loc);}
+
+"PATHPULSE\$"				 {
 	string s{yytext};
-	yy::verilog_parser::make_SIMPLE_IDENTIFIER(s,loc);
+	cout<<"KEY_PATHPULSE"<<endl;
+	return yy::verilog_parser::make_KEY_PATHPULSE(loc);
 }
 
-"PATHPULSE\$"				 {yy::verilog_parser::make_KEY_PATHPULSE(loc);}
+{simple_identifier}	 { 
+	string s{yytext};
+	return yy::verilog_parser::make_SIMPLE_IDENTIFIER(s,loc);
+}
 
 {unsigned_number} {
 	unsigned int lxm_no_;
@@ -287,7 +292,7 @@ digit [0-9]
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	unsigned int sz;
-	if(s.size()==0) {
+	if(szstr.size()==0) {
 		sz=32;
 	} else {
 		sz=stoul(szstr);
@@ -317,7 +322,7 @@ digit [0-9]
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	unsigned int sz;
-	if(s.size()==0) {
+	if(szstr.size()==0) {
 		sz=32;
 	} else {
 		sz=stoul(szstr);
@@ -337,7 +342,7 @@ digit [0-9]
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	unsigned int sz;
-	if(s.size()==0) {
+	if(szstr.size()==0) {
 		sz=32;
 	} else {
 		sz=stoul(szstr);
@@ -358,7 +363,7 @@ digit [0-9]
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	unsigned int sz;
-	if(s.size()==0) {
+	if(szstr.size()==0) {
 		sz=32;
 	} else {
 		sz=stoul(szstr);
@@ -499,7 +504,7 @@ digit [0-9]
 }
 
 "`line"			{
-	ECHO;
+//	ECHO;
 	yy_push_state(line_skip_blank);
 }
 
@@ -513,7 +518,7 @@ digit [0-9]
 
 <line_skip_blank>{
 	{blank}+ {
-		ECHO;
+//		ECHO;
 		yy_pop_state();
 		yy_push_state(line_number);
 	}
@@ -528,7 +533,7 @@ digit [0-9]
 <line_number>{
 	{digit}+ {
 		sscanf(yytext,"%d",&ln);
-		ECHO;
+//		ECHO;
 		yy_pop_state();
 		yy_push_state(line_skip_blank2);
 	}
@@ -543,7 +548,7 @@ digit [0-9]
 
 <line_skip_blank2>{
 	{blank}+ {
-		ECHO;
+//		ECHO;
 		yy_pop_state();
 		yy_push_state(line_filename);
 	}
@@ -558,8 +563,11 @@ digit [0-9]
 <line_filename>{
 	[^\n\t ]+ {
 		string s{yytext};
-		loc.initialize(&s,ln-1,1);
-		ECHO;
+		if(ps) {delete ps;}
+		ps=new std::string(s);
+		loc.initialize(ps,ln-1,1);
+//		ECHO;
+//		cout<<endl<<"getting line "<<s<<endl;
 		yy_pop_state();
 		yy_push_state(endofline);
 	}
@@ -575,7 +583,7 @@ digit [0-9]
 
 <endofline>{
 	[^\n]*\n {
-		ECHO;
+//		ECHO;
 		yy_pop_state();
 	}
 }
