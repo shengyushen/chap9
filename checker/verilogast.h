@@ -1105,7 +1105,9 @@ typedef boost::variant<
  ,  std::shared_ptr<T_module_item__time_declaration>
  ,  std::shared_ptr<T_module_item__realtime_declaration>
  ,  std::shared_ptr<T_module_item__event_declaration>
- ,  std::shared_ptr<T_module_item__genvar_declaration>
+ > module_item1 ;
+typedef boost::variant<
+ std::shared_ptr<T_module_item__genvar_declaration>
  ,  std::shared_ptr<T_module_item__task_declaration>
  ,  std::shared_ptr<T_module_item__function_declaration>
  ,  std::shared_ptr<T_module_item__local_parameter_declaration>
@@ -1118,6 +1120,10 @@ typedef boost::variant<
  ,  std::shared_ptr<T_module_item__always_construct>
  ,  std::shared_ptr<T_module_item__loop_generate_construct>
  ,  std::shared_ptr<T_module_item__conditional_generate_construct>
+ > module_item2 ; 
+typedef boost::variant<
+ std::shared_ptr<module_item1>
+ ,  std::shared_ptr<module_item2>
  > module_item ; 
 typedef boost::variant<
  std::shared_ptr<T_config_declaration>
@@ -1892,7 +1898,9 @@ typedef boost::variant<
  ,  std::shared_ptr<T_binary_operator_LE>
  ,  std::shared_ptr<T_binary_operator_GT>
  ,  std::shared_ptr<T_binary_operator_GE>
- ,  std::shared_ptr<T_binary_operator_LOGICAL_RIGHTSHIFT>
+ > binary_operator1 ; 
+typedef boost::variant<
+ std::shared_ptr<T_binary_operator_LOGICAL_RIGHTSHIFT>
  ,  std::shared_ptr<T_binary_operator_LOGICAL_LEFTSHIFT>
  ,  std::shared_ptr<T_binary_operator_ARITHMETIC_RIGHTSHIFT>
  ,  std::shared_ptr<T_binary_operator_ARITHMETIC_LEFTSHIFT>
@@ -1904,6 +1912,10 @@ typedef boost::variant<
  ,  std::shared_ptr<T_binary_operator_OR2>
  ,  std::shared_ptr<T_binary_operator_XOR>
  ,  std::shared_ptr<T_binary_operator_XNOR>
+ > binary_operator2 ; 
+typedef boost::variant<
+ std::shared_ptr<binary_operator1>
+ ,  std::shared_ptr<binary_operator2>
  > binary_operator ; 
 typedef boost::variant<
  std::shared_ptr<T_unary_module_path_operator_GANTANHAO>

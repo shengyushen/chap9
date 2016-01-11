@@ -793,7 +793,7 @@ port_declaration :
 /*A.1.4 Module items*/
 module_item :
 	port_declaration SEMICOLON {
-		$$=SHR2(module_item,T_module_item__port_declaration,($1));
+		$$=SHR3(module_item,module_item1,T_module_item__port_declaration,($1));
 	}
 	| non_port_module_item {$$=$1;}
 ;
@@ -801,56 +801,56 @@ module_item :
 non_port_module_item :
 	module_or_generate_item {$$=$1;}
 	| generate_region {
-		$$=SHR2(module_item,T_module_item__generate_region,($1));}
+		$$=SHR3(module_item,module_item1,T_module_item__generate_region,($1));}
 /*	| specify_block {
 		T_module_item__specify_block($1)}*/
 	| attribute_instance_list parameter_declaration SEMICOLON {
-		$$=SHR2(module_item,T_module_item__parameter_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item1,T_module_item__parameter_declaration,($1,$2));}
 /*	| attribute_instance_list specparam_declaration {
 		T_module_item__specparam_declaration($1,$2)}*/
 ;
 
 module_or_generate_item :
 	attribute_instance_list net_declaration      {
-		$$=SHR2(module_item,T_module_item__net_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item1,T_module_item__net_declaration,($1,$2));}
 |	attribute_instance_list reg_declaration      {
-		$$=SHR2(module_item,T_module_item__reg_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item1,T_module_item__reg_declaration,($1,$2));}
 |	attribute_instance_list integer_declaration  {
-		$$=SHR2(module_item,T_module_item__integer_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item1,T_module_item__integer_declaration,($1,$2));}
 |	attribute_instance_list real_declaration     {
-		$$=SHR2(module_item,T_module_item__real_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item1,T_module_item__real_declaration,($1,$2));}
 |	attribute_instance_list time_declaration     {
-		$$=SHR2(module_item,T_module_item__time_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item1,T_module_item__time_declaration,($1,$2));}
 |	attribute_instance_list realtime_declaration {
-		$$=SHR2(module_item,T_module_item__realtime_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item1,T_module_item__realtime_declaration,($1,$2));}
 |	attribute_instance_list event_declaration    {
-		$$=SHR2(module_item,T_module_item__event_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item1,T_module_item__event_declaration,($1,$2));}
 |	attribute_instance_list genvar_declaration   {
-		$$=SHR2(module_item,T_module_item__genvar_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__genvar_declaration,($1,$2));}
 |	attribute_instance_list task_declaration     {
-		$$=SHR2(module_item,T_module_item__task_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__task_declaration,($1,$2));}
 |	attribute_instance_list function_declaration {
-		$$=SHR2(module_item,T_module_item__function_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__function_declaration,($1,$2));}
 | attribute_instance_list local_parameter_declaration SEMICOLON {
-		$$=SHR2(module_item,T_module_item__local_parameter_declaration,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__local_parameter_declaration,($1,$2));}
 | attribute_instance_list parameter_override {
-		$$=SHR2(module_item,T_module_item__parameter_override,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__parameter_override,($1,$2));}
 | attribute_instance_list continuous_assign {
-		$$=SHR2(module_item,T_module_item__continuous_assign,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__continuous_assign,($1,$2));}
 /*| attribute_instance_list gate_instantiation {
 		T_module_item__gate_instantiation($1,$2)}
 | attribute_instance_list udp_instantiation {
 		T_module_item__udp_instantiation($1,$2)}*/
 | attribute_instance_list module_instantiation {
-		$$=SHR2(module_item,T_module_item__module_instantiation,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__module_instantiation,($1,$2));}
 | attribute_instance_list initial_construct {
-		$$=SHR2(module_item,T_module_item__initial_construct,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__initial_construct,($1,$2));}
 | attribute_instance_list always_construct {
-		$$=SHR2(module_item,T_module_item__always_construct,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__always_construct,($1,$2));}
 | attribute_instance_list loop_generate_construct {
-		$$=SHR2(module_item,T_module_item__loop_generate_construct,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__loop_generate_construct,($1,$2));}
 | attribute_instance_list conditional_generate_construct {
-		$$=SHR2(module_item,T_module_item__conditional_generate_construct,($1,$2));}
+		$$=SHR3(module_item,module_item2,T_module_item__conditional_generate_construct,($1,$2));}
 ;
 
 parameter_override :
@@ -3409,30 +3409,30 @@ expression :
 	| OP1_BITWISE_NEG attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_BITWISE_NEG,()),$2,$3));}
 	| OP1_REDUCE_NAND attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_NAND,()),$2,$3));}
 	| OP1_REDUCE_NOR  attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_NOR,()) ,$2,$3));}
-	| expression OP2_MULTIPLE              attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_MUL,())                  ,$3,$4));}
-	| expression OP2_DIV                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_DIV,())                  ,$3,$4));}
-	| expression OP2_MOD                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_MOD,())                  ,$3,$4));}
-	| expression OP2_EQU2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_EQU2,())                 ,$3,$4));}
-	| expression OP2_NEQ2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_NEQ2,())                 ,$3,$4));}
-	| expression OP2_EQU3                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_EQU3,())                 ,$3,$4));}
-	| expression OP2_NEQ3                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_NEQ3,())                 ,$3,$4));}
-	| expression OP2_POWER                 attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_POWER,())                ,$3,$4));}
-	| expression OP2_LT                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_LT,())                   ,$3,$4));}
-	| expression OP2_LE                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_LE,())                   ,$3,$4));}
-	| expression OP2_GT                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_GT,())                   ,$3,$4));}
-	| expression OP2_GE                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_GE,())                   ,$3,$4));}
-	| expression OP2_LOGICAL_RIGHTSHIFT    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_LOGICAL_RIGHTSHIFT,())   ,$3,$4));}
-	| expression OP2_LOGICAL_LEFTSHIFT     attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_LOGICAL_LEFTSHIFT,())    ,$3,$4));}
-	| expression OP2_ARITHMETIC_RIGHTSHIFT attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_ARITHMETIC_RIGHTSHIFT,()),$3,$4));}
-	| expression OP2_ARITHMETIC_LEFTSHIFT  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_ARITHMETIC_LEFTSHIFT,()) ,$3,$4));}
-	| expression OP2_ADD                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_ADD,())                  ,$3,$4));}
-	| expression OP2_SUB                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_SUB,())                  ,$3,$4));}
-	| expression OP2_AND                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_AND,())                  ,$3,$4));}
-	| expression OP2_OR                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_OR,())                   ,$3,$4));}
-	| expression OP2_AND2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_AND2,())                 ,$3,$4));}
-	| expression OP2_OR2                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_OR2,())                  ,$3,$4));}
-	| expression OP2_XOR                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_XOR,())                  ,$3,$4));}
-	| expression OP2_XNOR                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_XNOR,())                 ,$3,$4));}
+	| expression OP2_MULTIPLE              attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_MUL,())                  ,$3,$4));}
+	| expression OP2_DIV                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_DIV,())                  ,$3,$4));}
+	| expression OP2_MOD                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_MOD,())                  ,$3,$4));}
+	| expression OP2_EQU2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_EQU2,())                 ,$3,$4));}
+	| expression OP2_NEQ2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_NEQ2,())                 ,$3,$4));}
+	| expression OP2_EQU3                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_EQU3,())                 ,$3,$4));}
+	| expression OP2_NEQ3                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_NEQ3,())                 ,$3,$4));}
+	| expression OP2_POWER                 attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_POWER,())                ,$3,$4));}
+	| expression OP2_LT                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_LT,())                   ,$3,$4));}
+	| expression OP2_LE                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_LE,())                   ,$3,$4));}
+	| expression OP2_GT                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_GT,())                   ,$3,$4));}
+	| expression OP2_GE                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator1,T_binary_operator_GE,())                   ,$3,$4));}
+	| expression OP2_LOGICAL_RIGHTSHIFT    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_LOGICAL_RIGHTSHIFT,())   ,$3,$4));}
+	| expression OP2_LOGICAL_LEFTSHIFT     attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_LOGICAL_LEFTSHIFT,())    ,$3,$4));}
+	| expression OP2_ARITHMETIC_RIGHTSHIFT attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_ARITHMETIC_RIGHTSHIFT,()),$3,$4));}
+	| expression OP2_ARITHMETIC_LEFTSHIFT  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_ARITHMETIC_LEFTSHIFT,()) ,$3,$4));}
+	| expression OP2_ADD                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_ADD,())                  ,$3,$4));}
+	| expression OP2_SUB                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_SUB,())                  ,$3,$4));}
+	| expression OP2_AND                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_AND,())                  ,$3,$4));}
+	| expression OP2_OR                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_OR,())                   ,$3,$4));}
+	| expression OP2_AND2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_AND2,())                 ,$3,$4));}
+	| expression OP2_OR2                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_OR2,())                  ,$3,$4));}
+	| expression OP2_XOR                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_XOR,())                  ,$3,$4));}
+	| expression OP2_XNOR                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR3(binary_operator,binary_operator2,T_binary_operator_XNOR,())                 ,$3,$4));}
 	| conditional_expression
 		{$$=SHR2(expression,T_expression_condition,($1));}
 ;
