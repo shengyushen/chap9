@@ -14,7 +14,11 @@ function tranformlist (str) {
 			for(ii=1;ii<sz1;ii=ii+1) {
 				st=sprintf("%s %s",st,crr[ii]);
 			}
-			return sprintf("std::list<%s>",st);
+			if(st!="int" && st!="string") {
+				return sprintf("std::list<std::shared_ptr<%s>>",st);
+			} else {
+				return sprintf("std::list<%s>",st);
+			}
 		} else {
 			return str;
 		}
@@ -36,7 +40,11 @@ function printclass (classname , vname , parameterstr) {
 	# transform to shared_ptr 
 	for(i=1;i<=sz;i=i+1) {
 		arr[i]=tranformlist(arr[i]);
-		arr[i]=sprintf("shared_ptr<%s>", arr[i]);
+		if(arr[i]!="int" && arr[i]!="string") {
+			arr[i]=sprintf("std::shared_ptr<%s>", arr[i]);
+		} else if(arr[i]=="string") {
+			arr[i]="std::string";
+		}
 	}
 	print "class " classname " : public ComponentBase {";
 	print "  public :";

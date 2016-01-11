@@ -8,7 +8,7 @@ function printclass (classname) {
 	if(first!=1) {
 		printf " , ";
 	}
-	print " shared_ptr<" classname ">";
+	print " std::shared_ptr<" classname ">";
 }
 
 {

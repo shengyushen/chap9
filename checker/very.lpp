@@ -6,6 +6,9 @@
 	#include<assert.h>
 	#include<regex>
 	#include<vector>
+	#include<list>
+	#include<memory>
+	#include"variant_exp.h"
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -14,7 +17,9 @@
 #   define YY_NULLPTR 0
 #  endif
 # endif
-
+	#include"asthelpper.h"
+  #include"verilogast.h"
+  #include"verilog_parser.h"
 	#include"veryscanner.h"
 
 	using namespace std;

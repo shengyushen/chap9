@@ -588,7 +588,7 @@ and	primary =
 	| T_primary_func of function_call
 	| T_primary_sysfunc of system_function_call
 	| T_primary_mintypmax of mintypmax_expression
-	| T_primary_string of string
+	| T_primary_string of string_typedef
 and	net_lvalue =
 	T_net_lvalue_id of hierarchical_identifier
 	| T_net_lvalue_idexp of hierarchical_identifier*(expression list)*range_expression

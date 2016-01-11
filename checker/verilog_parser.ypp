@@ -212,16 +212,16 @@ IMPLYSTART                   "*>"
 
 %token <unsigned int> UNSIGNED_NUMBER;
 %token <std::tuple<unsigned int , unsigned int>> UNSIGNED_NUMBER_size
-%token <std::tuple<unsigned int,string        >> OCTAL_NUMBER
-%token <std::tuple<unsigned int,string        >> BINARY_NUMBER
-%token <std::tuple<unsigned int,string        >> HEX_NUMBER
-%token <string> REAL_NUMBER
+%token <std::tuple<unsigned int,std::string        >> OCTAL_NUMBER
+%token <std::tuple<unsigned int,std::string        >> BINARY_NUMBER
+%token <std::tuple<unsigned int,std::string        >> HEX_NUMBER
+%token <std::string> REAL_NUMBER
 /*A.8.8 Strings*/
-%token <string> STRING
+%token <std::string> STRING
 /*A.9.3 Identifiers*/
-%token <string> ESCAPED_IDENTIFIER
-%token <string> SIMPLE_IDENTIFIER
-%token <string> SYSTEM_TASK_FUNCTION_IDENTIFIER
+%token <std::string> ESCAPED_IDENTIFIER
+%token <std::string> SIMPLE_IDENTIFIER
+%token <std::string> SYSTEM_TASK_FUNCTION_IDENTIFIER
 
 %right OP2_QUESTION COLON
 %left  OP2_OR2
@@ -535,9 +535,7 @@ IMPLYSTART                   "*>"
 #include<tuple>
 #include<list>
 #include<memory>
-#define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
-#define BOOST_MPL_LIMIT_LIST_SIZE 30
-#include<boost/variant.hpp>
+#include"variant_exp.h"
 /*defiing the types of rules*/
 using namespace std;
 #include"asthelpper.h"
@@ -560,7 +558,7 @@ source_text : description_list {$$=$1;}
 
 description_list : 
 		{
-			$$=make_shared<list<Verilogast::description>>(); 
+			$$=SHR_LIST_SHR(Verilogast::description)(); 
 		}
 	|	description_list description  
 		{
@@ -572,8 +570,7 @@ description_list :
 
 description :
 	module_declaration	{
-		auto p=std::make_shared<Verilogast::T_description__module_declaration>($1);
-		$$=std::make_shared<Verilogast::description>(p);
+		$$=SHR2(description,T_description__module_declaration,($1));
 	}
 /*	| udp_declaration		{T_description__udp_declaration($1)}
 	| config_declaration	{T_description__config_declaration($1)}*/
@@ -589,8 +586,7 @@ module_declaration :
 		module_item_list
 		KEY_ENDMODULE
 		{
-			auto p=std::make_shared<Verilogast::T_module_declaration__1>( $1,$3,$4,$5,$7);
-			$$=std::make_shared<Verilogast::module_declaration>(p);
+			$$=SHR2(module_declaration,T_module_declaration__1,($1,$3,$4,$5,$7));
 		}
 /*	| attribute_instance_list 
 		module_keyword 
@@ -609,7 +605,7 @@ module_declaration :
 
 attribute_instance_list :
 		{
-			$$=make_shared<list<attribute_instance>>();
+			$$=SHR_LIST_SHR(attribute_instance)();
 		}
 	|  attribute_instance_list attribute_instance {
 			auto p=$1;
@@ -620,14 +616,14 @@ attribute_instance_list :
 
 module_parameter_port_list_opt :
 	{
-		$$=make_shared<list<parameter_declaration_gen>>();
+		$$=SHR_LIST_SHR(parameter_declaration_gen)();
 	}
 	| module_parameter_port_list {$$=$1;}
 ;
 
 module_item_list :
 		{
-			$$=make_shared<list<module_item>>();
+			$$=SHR_LIST_SHR(module_item)();
 		}
 	|  module_item_list module_item {
 			auto p=$1;
@@ -661,7 +657,7 @@ module_parameter_port_list :
 
 comma_parameter_declaration_list :
 		{
-			$$=make_shared<list<parameter_declaration_gen>>();
+			$$=SHR_LIST_SHR(parameter_declaration_gen)();
 		}
 	| comma_parameter_declaration_list COMMA parameter_declaration_gen 
 		{
@@ -684,7 +680,7 @@ list_of_ports :
 
 comma_port_list :
 		{
-			$$=make_shared<list<port>>();
+			$$=SHR_LIST_SHR(port)();
 		}
 	| comma_port_list COMMA port 
 	{
@@ -721,39 +717,40 @@ port :
 	/*port_expression_opt {T_port_position($1)}*/ /*merged ti last case*/
 	PERIOD  port_identifier LPARENT port_expression_opt RPARENT
 		{
-			$$=make_shared<T_port_exp>($2,$4);
+//			$$=make_shared<port>(make_shared<T_port_exp>($2,$4));
+			$$=SHR2(port,T_port_exp,($2,$4));
 		}
 	| io_type netreg_type signed_opt range_opt port_expression_opt equ1_expression_opt
 		{
-			$$=make_shared<T_port_net>($1,$2,$3,$4,$5,$6);
+			$$=SHR2(port,T_port_net,($1,$2,$3,$4,$5,$6));
 		}
 ;
 
 port_expression_opt :
 	{
-		auto p = make_shared<list<port_reference>>(); 
-		$$=make_shared<T_port_expression>(p);
+		auto p = SHR_LIST_SHR(port_reference)(); 
+		$$=SHR2(port_expression,T_port_expression,(p));
 	}
 	| port_expression {$$=$1;}
 ;
 
 port_expression :
 	port_reference	{
-			auto p=make_shared<list<port_reference>>(); 
+			auto p=SHR_LIST_SHR(port_reference)(); 
 			p->push_back($1);
-			$$=make_shared<T_port_expression>(p);
+			$$=SHR2(port_expression,T_port_expression,(p));
 		}
 	| LBRACE port_reference comma_port_reference_list RBRACE
 		{
 			auto p=$3;
 			p->push_front($2);
-			$$=make_shared<T_port_expression>(p);
+			$$=SHR2(port_expression,T_port_expression,(p));
 		}
 ;
 
 comma_port_reference_list :
 		{
-			$$=make_shared<list<port_reference>>(); 
+			$$=SHR_LIST_SHR(port_reference)(); 
 		}
 	| comma_port_reference_list COMMA port_reference  
 		{
@@ -765,11 +762,11 @@ comma_port_reference_list :
 
 port_reference :
 	port_identifier lsquare_range_expression_rsquare_opt
-		{$$=make_shared<T_port_reference>($1,$2);}
+		{$$=SHR2(port_reference,T_port_reference,($1,$2));}
 ;
 
 lsquare_range_expression_rsquare_opt :
-	{$$=make_shared<T_range_expression_NOSPEC>();}
+	{$$=SHR2(range_expression,T_range_expression_NOSPEC,());}
 	| lsquare_range_expression_rsquare {$$=$1;}
 ;
 
@@ -786,17 +783,17 @@ lsquare_range_expression_rsquare :
 
 port_declaration :
 	attribute_instance_list inout_declaration 
-		{$$=make_shared<T_port_declaration__inout_declaration>($1,$2);}
+		{$$=SHR2(port_declaration,T_port_declaration__inout_declaration,($1,$2));}
 	| attribute_instance_list input_declaration
-		{$$=make_shared<T_port_declaration__input_declaration>($1,$2);}
+		{$$=SHR2(port_declaration,T_port_declaration__input_declaration,($1,$2));}
 	| attribute_instance_list output_declaration
-		{$$=make_shared<T_port_declaration__output_declaration>($1,$2);}
+		{$$=SHR2(port_declaration,T_port_declaration__output_declaration,($1,$2));}
 ;
 
 /*A.1.4 Module items*/
 module_item :
 	port_declaration SEMICOLON {
-		$$=make_shared<T_module_item__port_declaration>($1);
+		$$=SHR2(module_item,T_module_item__port_declaration,($1));
 	}
 	| non_port_module_item {$$=$1;}
 ;
@@ -804,56 +801,56 @@ module_item :
 non_port_module_item :
 	module_or_generate_item {$$=$1;}
 	| generate_region {
-		$$=make_shared<T_module_item__generate_region>($1);}
+		$$=SHR2(module_item,T_module_item__generate_region,($1));}
 /*	| specify_block {
 		T_module_item__specify_block($1)}*/
 	| attribute_instance_list parameter_declaration SEMICOLON {
-		$$=make_shared<T_module_item__parameter_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__parameter_declaration,($1,$2));}
 /*	| attribute_instance_list specparam_declaration {
 		T_module_item__specparam_declaration($1,$2)}*/
 ;
 
 module_or_generate_item :
 	attribute_instance_list net_declaration      {
-		$$=make_shared<T_module_item__net_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__net_declaration,($1,$2));}
 |	attribute_instance_list reg_declaration      {
-		$$=make_shared<T_module_item__reg_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__reg_declaration,($1,$2));}
 |	attribute_instance_list integer_declaration  {
-		$$=make_shared<T_module_item__integer_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__integer_declaration,($1,$2));}
 |	attribute_instance_list real_declaration     {
-		$$=make_shared<T_module_item__real_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__real_declaration,($1,$2));}
 |	attribute_instance_list time_declaration     {
-		$$=make_shared<T_module_item__time_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__time_declaration,($1,$2));}
 |	attribute_instance_list realtime_declaration {
-		$$=make_shared<T_module_item__realtime_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__realtime_declaration,($1,$2));}
 |	attribute_instance_list event_declaration    {
-		$$=make_shared<T_module_item__event_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__event_declaration,($1,$2));}
 |	attribute_instance_list genvar_declaration   {
-		$$=make_shared<T_module_item__genvar_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__genvar_declaration,($1,$2));}
 |	attribute_instance_list task_declaration     {
-		$$=make_shared<T_module_item__task_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__task_declaration,($1,$2));}
 |	attribute_instance_list function_declaration {
-		$$=make_shared<T_module_item__function_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__function_declaration,($1,$2));}
 | attribute_instance_list local_parameter_declaration SEMICOLON {
-		$$=make_shared<T_module_item__local_parameter_declaration>($1,$2);}
+		$$=SHR2(module_item,T_module_item__local_parameter_declaration,($1,$2));}
 | attribute_instance_list parameter_override {
-		$$=make_shared<T_module_item__parameter_override>($1,$2);}
+		$$=SHR2(module_item,T_module_item__parameter_override,($1,$2));}
 | attribute_instance_list continuous_assign {
-		$$=make_shared<T_module_item__continuous_assign>($1,$2);}
+		$$=SHR2(module_item,T_module_item__continuous_assign,($1,$2));}
 /*| attribute_instance_list gate_instantiation {
 		T_module_item__gate_instantiation($1,$2)}
 | attribute_instance_list udp_instantiation {
 		T_module_item__udp_instantiation($1,$2)}*/
 | attribute_instance_list module_instantiation {
-		$$=make_shared<T_module_item__module_instantiation>($1,$2);}
+		$$=SHR2(module_item,T_module_item__module_instantiation,($1,$2));}
 | attribute_instance_list initial_construct {
-		$$=make_shared<T_module_item__initial_construct>($1,$2);}
+		$$=SHR2(module_item,T_module_item__initial_construct,($1,$2));}
 | attribute_instance_list always_construct {
-		$$=make_shared<T_module_item__always_construct>($1,$2);}
+		$$=SHR2(module_item,T_module_item__always_construct,($1,$2));}
 | attribute_instance_list loop_generate_construct {
-		$$=make_shared<T_module_item__loop_generate_construct>($1,$2);}
+		$$=SHR2(module_item,T_module_item__loop_generate_construct,($1,$2));}
 | attribute_instance_list conditional_generate_construct {
-		$$=make_shared<T_module_item__conditional_generate_construct>($1,$2);}
+		$$=SHR2(module_item,T_module_item__conditional_generate_construct,($1,$2));}
 ;
 
 parameter_override :
@@ -990,34 +987,34 @@ A.2.1.1 Module parameter declarations*/
 local_parameter_declaration :
 	KEY_LOCALPARAM signed_opt range_opt list_of_param_assignments
 		{
-			$$=make_shared<T_local_parameter_declaration_1>($2,$3,$4);
+			$$=SHR2(local_parameter_declaration,T_local_parameter_declaration_1,($2,$3,$4));
 		}
 	| KEY_LOCALPARAM parameter_type list_of_param_assignments
 		{
-			$$=make_shared<T_local_parameter_declaration_2>($2,$3);
+			$$=SHR2(local_parameter_declaration,T_local_parameter_declaration_2,($2,$3));
 		}
 ;
 
 signed_opt :
-	{$$=make_shared<T_signed_FALSE>();}
+	{$$=SHR2(signedType,T_signed_FALSE,());}
 	| KEY_SIGNED {
-			$$=make_shared<T_signed_TRUE>();
+			$$=SHR2(signedType,T_signed_TRUE,());
 		}
 ;
 
 range_opt :
-	{$$=make_shared<T_range_NOSPEC>();}
+	{$$=SHR2(range,T_range_NOSPEC,());}
 	| range {$$=$1;}
 ;
 
 parameter_declaration :
 	KEY_PARAMETER signed_opt range_opt list_of_param_assignments
 		{
-			$$=make_shared<T_parameter_declaration_1>($2,$3,$4);
+			$$=SHR2(parameter_declaration,T_parameter_declaration_1,($2,$3,$4));
 		}
 	| KEY_PARAMETER parameter_type list_of_param_assignments
 		{
-			$$=make_shared<T_parameter_declaration_2>($2,$3);
+			$$=SHR2(parameter_declaration,T_parameter_declaration_2,($2,$3));
 		}
 ;
 
@@ -1026,7 +1023,7 @@ parameter_declaration :
 parameter_declaration_gen :
 	key_parameter_opt parameter_type_opt signed_opt range_opt param_assignment
 		{
-			$$=make_shared<T_parameter_declaration_gen_1>($2,$3,$4,$5);
+			$$=SHR2(parameter_declaration_gen,T_parameter_declaration_gen_1,($2,$3,$4,$5));
 		}
 ;
 
@@ -1044,40 +1041,40 @@ key_parameter_opt :
 ;
 */
 parameter_type_opt :
-	{$$=make_shared<T_parameter_type__NOSPEC>();}
+	{$$=SHR2(parameter_type,T_parameter_type__NOSPEC,());}
 	| parameter_type {$$=$1;}
 ;
 
 parameter_type :
-	KEY_INTEGER    {$$=make_shared<T_parameter_type__INTEGER>();}
-	| KEY_REAL 	   {$$=make_shared<T_parameter_type__REAL>();}
-	| KEY_REALTIME {$$=make_shared<T_parameter_type__REALTIME>();}
-	| KEY_TIME	   {$$=make_shared<T_parameter_type__TIME>();}
+	KEY_INTEGER    {$$=SHR2(parameter_type,T_parameter_type__INTEGER,());}
+	| KEY_REAL 	   {$$=SHR2(parameter_type,T_parameter_type__REAL,());}
+	| KEY_REALTIME {$$=SHR2(parameter_type,T_parameter_type__REALTIME,());}
+	| KEY_TIME	   {$$=SHR2(parameter_type,T_parameter_type__TIME,());}
 ;
 
 /*A.2.1.2 Port declarations*/
 inout_declaration :
 	KEY_INOUT net_type_opt signed_opt range_opt list_of_port_identifiers
-		{$$=make_shared<T_inout_declaration>($2,$3,$4,$5);}
+		{$$=SHR2(inout_declaration,T_inout_declaration,($2,$3,$4,$5));}
 ;
 
 net_type_opt :
-	{$$=make_shared<T_net_type_NOSPEC>();}
+	{$$=SHR2(net_type,T_net_type_NOSPEC,());}
 	| net_type {$$=$1;}
 ;
 
 input_declaration :
 	KEY_INPUT net_type_opt signed_opt  range_opt list_of_port_identifiers
-		{$$=make_shared<T_input_declaration>($2,$3,$4,$5);}
+		{$$=SHR2(input_declaration,T_input_declaration,($2,$3,$4,$5));}
 ;
 
 output_declaration :
 	KEY_OUTPUT net_type_opt signed_opt range_opt list_of_port_identifiers
-		{$$=make_shared<T_output_declaration_net>($2,$3,$4,$5);}
+		{$$=SHR2(output_declaration,T_output_declaration_net,($2,$3,$4,$5));}
 	| KEY_OUTPUT KEY_REG signed_opt range_opt list_of_variable_port_identifiers
-		{$$=make_shared<T_output_declaration_reg>($3,$4,$5);}
+		{$$=SHR2(output_declaration,T_output_declaration_reg,($3,$4,$5));}
 	| KEY_OUTPUT output_variable_type list_of_variable_port_identifiers
-		{$$=make_shared<T_output_declaration_var>($2,$3);}
+		{$$=SHR2(output_declaration,T_output_declaration_var,($2,$3));}
 ;		
 
 
@@ -1087,45 +1084,45 @@ output_declaration :
 ;*/
 
 netreg_type :
-	{$$=make_shared<T_netreg_type__NOSPEC>();}
-	| KEY_SUPPLY0 	  {$$=make_shared<T_netreg_type__KEY_SUPPLY0>();}
-	| KEY_SUPPLY1	    {$$=make_shared<T_netreg_type__KEY_SUPPLY1>();}
-	| KEY_TRI			    {$$=make_shared<T_netreg_type__KEY_TRI>();}
-	| KEY_TRIAND 	    {$$=make_shared<T_netreg_type__KEY_TRIAND>();}
-	| KEY_TRIOR 			{$$=make_shared<T_netreg_type__KEY_TRIOR>();}
-	| KEY_TRI0 				{$$=make_shared<T_netreg_type__KEY_TRI0>();}
-	| KEY_TRI1				{$$=make_shared<T_netreg_type__KEY_TRI1>();}
-	| KEY_UWIRE 			{$$=make_shared<T_netreg_type__KEY_UWIRE>();}
-	| KEY_WIRE 				{$$=make_shared<T_netreg_type__KEY_WIRE>();}
-	| KEY_WAND 				{$$=make_shared<T_netreg_type__KEY_WAND>();}
-	| KEY_WOR					{$$=make_shared<T_netreg_type__KEY_WOR>();}
-	| KEY_REG					{$$=make_shared<T_netreg_type__KEY_REG>();}
-	| KEY_INTEGER			{$$=make_shared<T_netreg_type__KEY_INTEGER>();}
-	| KEY_TIME				{$$=make_shared<T_netreg_type__KEY_TIME>();}
+	{$$=SHR2(netreg_type,T_netreg_type__NOSPEC,());}
+	| KEY_SUPPLY0 	  {$$=SHR2(netreg_type,T_netreg_type__KEY_SUPPLY0,());}
+	| KEY_SUPPLY1	    {$$=SHR2(netreg_type,T_netreg_type__KEY_SUPPLY1,());}
+	| KEY_TRI			    {$$=SHR2(netreg_type,T_netreg_type__KEY_TRI,());}
+	| KEY_TRIAND 	    {$$=SHR2(netreg_type,T_netreg_type__KEY_TRIAND,());}
+	| KEY_TRIOR 			{$$=SHR2(netreg_type,T_netreg_type__KEY_TRIOR,());}
+	| KEY_TRI0 				{$$=SHR2(netreg_type,T_netreg_type__KEY_TRI0,());}
+	| KEY_TRI1				{$$=SHR2(netreg_type,T_netreg_type__KEY_TRI1,());}
+	| KEY_UWIRE 			{$$=SHR2(netreg_type,T_netreg_type__KEY_UWIRE,());}
+	| KEY_WIRE 				{$$=SHR2(netreg_type,T_netreg_type__KEY_WIRE,());}
+	| KEY_WAND 				{$$=SHR2(netreg_type,T_netreg_type__KEY_WAND,());}
+	| KEY_WOR					{$$=SHR2(netreg_type,T_netreg_type__KEY_WOR,());}
+	| KEY_REG					{$$=SHR2(netreg_type,T_netreg_type__KEY_REG,());}
+	| KEY_INTEGER			{$$=SHR2(netreg_type,T_netreg_type__KEY_INTEGER,());}
+	| KEY_TIME				{$$=SHR2(netreg_type,T_netreg_type__KEY_TIME,());}
 ;
 
 io_type :
-	{$$=make_shared<T_io_type_NOSPEC>();}
-	| KEY_OUTPUT	{$$=make_shared<T_io_type_output>();}
-	| KEY_INPUT		{$$=make_shared<T_io_type_input>();}
-	| KEY_INOUT		{$$=make_shared<T_io_type_inout>();}
+	{$$=SHR2(io_type,T_io_type_NOSPEC,());}
+	| KEY_OUTPUT	{$$=SHR2(io_type,T_io_type_output,());}
+	| KEY_INPUT		{$$=SHR2(io_type,T_io_type_input,());}
+	| KEY_INOUT		{$$=SHR2(io_type,T_io_type_inout,());}
 
 /*A.2.1.3 Type declarations*/
 event_declaration :
 	KEY_EVENT list_of_event_identifiers SEMICOLON
-		{$$=make_shared<T_event_declaration>($2);}
+		{$$=SHR2(event_declaration,T_event_declaration,($2));}
 ;
 
 integer_declaration :
 	KEY_INTEGER list_of_variable_identifiers SEMICOLON
-		{$$=make_shared<T_integer_declaration>($2);}
+		{$$=SHR2(integer_declaration,T_integer_declaration,($2));}
 ;
 
 net_declaration :
 	net_type drive_strength_opt vectored_scalared_opt signed_opt range_opt delay3_opt list_of_net_identifiers SEMICOLON
-		{$$=make_shared<T_net_declaration_net_type3>($1,$2,$3,$4,$5,$6,$7);}
+		{$$=SHR2(net_declaration,T_net_declaration_net_type3,($1,$2,$3,$4,$5,$6,$7));}
 	| net_type drive_strength_opt vectored_scalared_opt signed_opt range_opt delay3_opt list_of_net_decl_assignments SEMICOLON
-		{$$=make_shared<T_net_declaration_net_type4>($1,$2,$3,$4,$5,$6,$7);}
+		{$$=SHR2(net_declaration,T_net_declaration_net_type4,($1,$2,$3,$4,$5,$6,$7));}
 /*	| KEY_TRIREG charge_strength_opt signed_opt delay3_opt list_of_net_identifiers SEMICOLON
 		{T_net_declaration_trireg_1($2,$3,$4,$5)}
 	| KEY_TRIREG drive_strength_opt signed_opt delay3_opt list_of_net_decl_assignments SEMICOLON
@@ -1142,72 +1139,72 @@ net_declaration :
 ;
 */
 delay3_opt :
-	{$$=make_shared<T_delay3_NOSPEC>();}
+	{$$=SHR2(delay3,T_delay3_NOSPEC,());}
 	| delay3 {$$=$1;}
 ;
 
 vectored_scalared_opt :
-	{$$=make_shared<T_vectored_scalared_NOSPEC>();}
-	| KEY_VECTORED {$$=make_shared<T_vectored_scalared_vectored>();}
-	| KEY_SCALARED {$$=make_shared<T_vectored_scalared_scalared>();}
+	{$$=SHR2(vectored_scalared,T_vectored_scalared_NOSPEC,());}
+	| KEY_VECTORED {$$=SHR2(vectored_scalared,T_vectored_scalared_vectored,());}
+	| KEY_SCALARED {$$=SHR2(vectored_scalared,T_vectored_scalared_scalared,());}
 ;
 
 drive_strength_opt :
-	{$$=make_shared<T_drive_strength_NOSPEC>();}
+	{$$=SHR2(drive_strength,T_drive_strength_NOSPEC,());}
 	| drive_strength {$$=$1;}
 ;
 
 real_declaration :
 	KEY_REAL list_of_real_identifiers SEMICOLON
-		{$$=make_shared<T_real_declaration>($2);}
+		{$$=SHR2(real_declaration,T_real_declaration,($2));}
 ;
 
 realtime_declaration :
 	KEY_REALTIME list_of_real_identifiers SEMICOLON
-		{$$=make_shared<T_realtime_declaration>($2);}
+		{$$=SHR2(realtime_declaration,T_realtime_declaration,($2));}
 ;
 
 reg_declaration : 
 	KEY_REG signed_opt range_opt list_of_variable_identifiers SEMICOLON
-		{$$=make_shared<T_reg_declaration>($2,$3,$4);}
+		{$$=SHR2(reg_declaration,T_reg_declaration,($2,$3,$4));}
 ;
 
 time_declaration :
 	KEY_TIME list_of_variable_identifiers SEMICOLON
-		{$$=make_shared<T_time_declaration>($2);}
+		{$$=SHR2(time_declaration,T_time_declaration,($2));}
 ;
 
 /*A.2.2 Declaration data types
 A.2.2.1 Net and variable types*/
 net_type :
-	KEY_SUPPLY0 	    {$$=make_shared<T_net_type__KEY_SUPPLY0>();}
-	| KEY_SUPPLY1	    {$$=make_shared<T_net_type__KEY_SUPPLY1>();}
-	| KEY_TRI			    {$$=make_shared<T_net_type__KEY_TRI>();}
-	| KEY_TRIAND 	    {$$=make_shared<T_net_type__KEY_TRIAND>();}
-	| KEY_TRIOR 			{$$=make_shared<T_net_type__KEY_TRIOR>();}
-	| KEY_TRI0 				{$$=make_shared<T_net_type__KEY_TRI0>();}
-	| KEY_TRI1				{$$=make_shared<T_net_type__KEY_TRI1>();}
-	| KEY_UWIRE 			{$$=make_shared<T_net_type__KEY_UWIRE>();}
-	| KEY_WIRE 				{$$=make_shared<T_net_type__KEY_WIRE>();}
-	| KEY_WAND 				{$$=make_shared<T_net_type__KEY_WAND>();}
-	| KEY_WOR					{$$=make_shared<T_net_type__KEY_WOR>();}
+	KEY_SUPPLY0 	    {$$=SHR2(net_type,T_net_type__KEY_SUPPLY0,());}
+	| KEY_SUPPLY1	    {$$=SHR2(net_type,T_net_type__KEY_SUPPLY1,());}
+	| KEY_TRI			    {$$=SHR2(net_type,T_net_type__KEY_TRI,());}
+	| KEY_TRIAND 	    {$$=SHR2(net_type,T_net_type__KEY_TRIAND,());}
+	| KEY_TRIOR 			{$$=SHR2(net_type,T_net_type__KEY_TRIOR,());}
+	| KEY_TRI0 				{$$=SHR2(net_type,T_net_type__KEY_TRI0,());}
+	| KEY_TRI1				{$$=SHR2(net_type,T_net_type__KEY_TRI1,());}
+	| KEY_UWIRE 			{$$=SHR2(net_type,T_net_type__KEY_UWIRE,());}
+	| KEY_WIRE 				{$$=SHR2(net_type,T_net_type__KEY_WIRE,());}
+	| KEY_WAND 				{$$=SHR2(net_type,T_net_type__KEY_WAND,());}
+	| KEY_WOR					{$$=SHR2(net_type,T_net_type__KEY_WOR,());}
 ;
 
 output_variable_type :
-	KEY_INTEGER {$$=make_shared<T_output_variable_type_INTEGER>();}
-	| KEY_TIME  {$$=make_shared<T_output_variable_type_TIME>();}
+	KEY_INTEGER {$$=SHR2(output_variable_type,T_output_variable_type_INTEGER,());}
+	| KEY_TIME  {$$=SHR2(output_variable_type,T_output_variable_type_TIME,());}
 ;
 
 real_type :
 	real_identifier dimension_list
-		{$$=make_shared<T_real_type_noass>($1,$2);}
+		{$$=SHR2(real_type,T_real_type_noass,($1,$2));}
 	| real_identifier EQU1 expression
-		{$$=make_shared<T_real_type_ass>($1,$3);}
+		{$$=SHR2(real_type,T_real_type_ass,($1,$3));}
 ;
 
 dimension_list :
 		{
-			$$=make_shared<list<dimension>>();
+			$$=SHR_LIST_SHR(dimension)();
 		}
 	| dimension_list dimension 
 		{
@@ -1219,77 +1216,77 @@ dimension_list :
 
 variable_type :
 	variable_identifier dimension_list
-		{$$=make_shared<T_variable_type_noass>($1,$2);}
+		{$$=SHR2(variable_type,T_variable_type_noass,($1,$2));}
 	| variable_identifier EQU1 expression
-		{$$=make_shared<T_variable_type_ass>($1,$3);}
+		{$$=SHR2(variable_type,T_variable_type_ass,($1,$3));}
 ;
 
 /*A.2.2.2 Strengths*/
 
 drive_strength :
 	LPARENT strength0 COMMA strength1 RPARENT
-		{$$=make_shared<T_drive_strength>($2,$4);}
+		{$$=SHR2(drive_strength,T_drive_strength,($2,$4));}
 	| LPARENT strength1 COMMA strength0 RPARENT
-		{$$=make_shared<T_drive_strength>($2,$4);}
+		{$$=SHR2(drive_strength,T_drive_strength,($2,$4));}
 	| LPARENT strength0 COMMA KEY_HIGHZ1 RPARENT
-		{$$=make_shared<T_drive_strength>($2,make_shared<KEY_HIGHZ1>());}
+		{$$=SHR2(drive_strength,T_drive_strength,($2,SHR2(strength,KEY_HIGHZ1,())));}
 	| LPARENT strength1 COMMA KEY_HIGHZ0 RPARENT
-		{$$=make_shared<T_drive_strength>($2,make_shared<KEY_HIGHZ0>);}
+		{$$=SHR2(drive_strength,T_drive_strength,($2,SHR2(strength,KEY_HIGHZ0,())));}
 	| LPARENT KEY_HIGHZ0 COMMA strength1 RPARENT
-		{$$=make_shared<T_drive_strength>(make_shared<KEY_HIGHZ0>,$4);}
+		{$$=SHR2(drive_strength,T_drive_strength,(SHR2(strength,KEY_HIGHZ0,()),$4));}
 	| LPARENT KEY_HIGHZ1 COMMA strength0 RPARENT
-		{$$=make_shared<T_drive_strength>(make_shared<KEY_HIGHZ1>,$4);}
+		{$$=SHR2(drive_strength,T_drive_strength,(SHR2(strength,KEY_HIGHZ1,()),$4));}
 ;
 
 
 
 strength0 :
-	KEY_SUPPLY0		  {$$=make_shared<KEY_SUPPLY0>();}
-	| KEY_STRONG0		{$$=make_shared<KEY_STRONG0>();}
-	| KEY_PULL0			{$$=make_shared<KEY_PULL0>();}
-	| KEY_WEAK0     {$$=make_shared<KEY_WEAK0>();}
+	KEY_SUPPLY0		  {$$=SHR2(strength,KEY_SUPPLY0,());}
+	| KEY_STRONG0		{$$=SHR2(strength,KEY_STRONG0,());}
+	| KEY_PULL0			{$$=SHR2(strength,KEY_PULL0,());}
+	| KEY_WEAK0     {$$=SHR2(strength,KEY_WEAK0,());}
 ;
 strength1 :
-	KEY_SUPPLY1		  {$$=make_shared<KEY_SUPPLY1>();}
-	| KEY_STRONG1		{$$=make_shared<KEY_STRONG1>();}
-	| KEY_PULL1			{$$=make_shared<KEY_PULL1>();}
-	| KEY_WEAK1     {$$=make_shared<KEY_WEAK1>();}
+	KEY_SUPPLY1		  {$$=SHR2(strength,KEY_SUPPLY1,());}
+	| KEY_STRONG1		{$$=SHR2(strength,KEY_STRONG1,());}
+	| KEY_PULL1			{$$=SHR2(strength,KEY_PULL1,());}
+	| KEY_WEAK1     {$$=SHR2(strength,KEY_WEAK1,());}
 ;
 
 /*charge_strength : 
-	LPARENT KEY_SMALL RPARENT    {$$=make_shared<T_charge_strength__small>();}
-	| LPARENT KEY_MEDIUM RPARENT {$$=make_shared<T_charge_strength__medium>();}
-	| LPARENT KEY_LARGE RPARENT  {$$=make_shared<T_charge_strength__large>();}
+	LPARENT KEY_SMALL RPARENT    {$$=SHR2(,T_charge_strength__small,();}
+	| LPARENT KEY_MEDIUM RPARENT {$$=SHR2(,T_charge_strength__medium,();}
+	| LPARENT KEY_LARGE RPARENT  {$$=SHR2(,T_charge_strength__large,();}
 ;
 */
 /*A.2.2.3 Delays*/
 
 delay3 :
 	JING delay_value
-		{$$=make_shared<T_delay3_1>($2);}
+		{$$=SHR2(delay3,T_delay3_1,($2));}
 	| JING LPARENT mintypmax_expression  RPARENT
-		{$$=make_shared<T_delay3_minmax1>($3);}
+		{$$=SHR2(delay3,T_delay3_minmax1,($3));}
 	| JING LPARENT mintypmax_expression  COMMA mintypmax_expression RPARENT
-		{$$=make_shared<T_delay3_minmax2>($3,$5);}
+		{$$=SHR2(delay3,T_delay3_minmax2,($3,$5));}
 	| JING LPARENT mintypmax_expression  COMMA mintypmax_expression COMMA mintypmax_expression  RPARENT
-		{$$=make_shared<T_delay3_minmax3>($3,$5,$7);}
+		{$$=SHR2(delay3,T_delay3_minmax3,($3,$5,$7));}
 ;
 
 
 /*delay2 :
 	JING delay_value
-		{$$=make_shared<T_delay2_1>($2);}
+		{$$=SHR2(,T_delay2_1,($2);}
 	| JING LPARENT mintypmax_expression RPARENT
-		{$$=make_shared<T_delay2_minmax1>($3);}
+		{$$=SHR2(,T_delay2_minmax1,($3);}
 	| JING LPARENT mintypmax_expression COMMA mintypmax_expression  RPARENT
-		{$$=make_shared<T_delay2_minmax2>($3,$5);}
+		{$$=SHR2(,T_delay2_minmax2,($3,$5);}
 ;
 
 */
 delay_value :
-	UNSIGNED_NUMBER {$$=make_shared<T_delay_value_UNSIGNED_NUMBER>($1);}
-	| REAL_NUMBER   {$$=make_shared<T_delay_value_REAL_NUMBER>($1);}
-	| identifier    {$$=make_shared<T_delay_value_id>($1);}
+	UNSIGNED_NUMBER {$$=SHR2(delay_value,T_delay_value_UNSIGNED_NUMBER,($1));}
+	| REAL_NUMBER   {$$=SHR2(delay_value,T_delay_value_REAL_NUMBER,($1));}
+	| identifier    {$$=SHR2(delay_value,T_delay_value_id,($1));}
 ;
 
 /*A.2.3 Declaration lists*/
@@ -1305,7 +1302,7 @@ list_of_defparam_assignments :
 
 comma_defparam_assignment_list :
 		{
-			$$=make_shared<list<defparam_assignment>>();
+			$$=SHR_LIST_SHR(defparam_assignment)();
 		}
 	|comma_defparam_assignment_list COMMA defparam_assignment 
 		{
@@ -1326,7 +1323,7 @@ list_of_event_identifiers :
 
 comma_event_identifier_dimension_list_list :
 		{
-			$$=make_shared<list<event_identifier_dimension_list>>();
+			$$=SHR_LIST_SHR(event_identifier_dimension_list)();
 		}
 	| comma_event_identifier_dimension_list_list COMMA event_identifier_dimension_list 
 		{
@@ -1338,7 +1335,7 @@ comma_event_identifier_dimension_list_list :
 
 event_identifier_dimension_list :
 	event_identifier dimension_list
-		{$$=make_shared<T_event_identifier_dimension_list>($1,$2);}
+		{$$=SHR2(event_identifier_dimension_list,T_event_identifier_dimension_list,($1,$2));}
 ;
 
 list_of_net_decl_assignments :
@@ -1352,7 +1349,7 @@ list_of_net_decl_assignments :
 
 comma_net_decl_assignment_list :
 		{
-			$$=make_shared<list<net_decl_assignment>>();
+			$$=SHR_LIST_SHR(net_decl_assignment)();
 		}
 	| comma_net_decl_assignment_list COMMA net_decl_assignment 
 		{
@@ -1374,12 +1371,12 @@ list_of_net_identifiers :
 
 net_identifier_dimension_list :
 	net_identifier dimension_list
-		{$$=make_shared<T_net_identifier_dimension_list>($1,$2);}
+		{$$=SHR2(net_identifier_dimension_list,T_net_identifier_dimension_list,($1,$2));}
 ;
 
 comma_net_identifier_dimension_list_list:
 		{
-			$$=make_shared<list<net_identifier_dimension_list>>();
+			$$=SHR_LIST_SHR(net_identifier_dimension_list)();
 		}
 	| comma_net_identifier_dimension_list_list COMMA net_identifier_dimension_list 
 		{
@@ -1400,7 +1397,7 @@ list_of_param_assignments :
 
 comma_param_assignment_list :
 		{
-			$$=make_shared<list<param_assignment>>(); 
+			$$=SHR_LIST_SHR(param_assignment)(); 
 		}
 	| comma_param_assignment_list COMMA param_assignment 
 		{
@@ -1421,7 +1418,7 @@ list_of_port_identifiers :
 
 comma_port_identifier_list :
 		{
-			$$= make_shared<list<identifier>>();
+			$$=SHR_LIST_SHR(identifier)();
 		}
 	| comma_port_identifier_list COMMA port_identifier 
 		{
@@ -1442,7 +1439,7 @@ list_of_real_identifiers :
 
 comma_real_type_list :
 		{
-			$$=make_shared<list<real_type>>();
+			$$=SHR_LIST_SHR(real_type)();
 		}
 	| comma_real_type_list COMMA real_type 
 		{
@@ -1474,7 +1471,7 @@ list_of_variable_identifiers :
 
 comma_variable_type_list :
 		{
-			$$=make_shared<list<variable_type>>();
+			$$=SHR_LIST_SHR(variable_type)();
 		}
 	| comma_variable_type_list COMMA variable_type 
 		{
@@ -1495,17 +1492,17 @@ list_of_variable_port_identifiers :
 
 port_identifier_equ1_expression_opt :
 	port_identifier equ1_expression_opt
-		{$$=make_shared<T_port_identifier_equ1_expression_opt>($1,$2);}
+		{$$=SHR2(port_identifier_equ1_expression_opt,T_port_identifier_equ1_expression_opt,($1,$2));}
 ;
 
 equ1_expression_opt :
-	{$$=make_shared<T_expression_NOSPEC>();}
+	{$$=SHR2(expression,T_expression_NOSPEC,());}
 	| EQU1 expression {$$=$2;}
 ;
 
 comma_port_identifier_equ1_expression_opt_list :
 		{
-			$$=make_shared<list<port_identifier_equ1_expression_opt>>();
+			$$=SHR_LIST_SHR(port_identifier_equ1_expression_opt)();
 		}
 	| comma_port_identifier_equ1_expression_opt_list COMMA port_identifier_equ1_expression_opt 
 		{
@@ -1518,22 +1515,22 @@ comma_port_identifier_equ1_expression_opt_list :
 /*A.2.4 Declaration assignments*/
 defparam_assignment :
 	hierarchical_identifier EQU1 mintypmax_expression
-		{$$=make_shared<T_defparam_assignment>($1,$3);}
+		{$$=SHR2(defparam_assignment,T_defparam_assignment,($1,$3));}
 ;
 
 net_decl_assignment :
 	net_identifier EQU1 expression
-		{$$=make_shared<T_net_decl_assignment>($1,$3);}
+		{$$=SHR2(net_decl_assignment,T_net_decl_assignment,($1,$3));}
 ;
 
 param_assignment :
 	parameter_identifier EQU1 mintypmax_expression
-		{$$=make_shared<T_param_assignment>($1,$3);}
+		{$$=SHR2(param_assignment,T_param_assignment,($1,$3));}
 ;
 
 /*specparam_assignment :
 	specparam_identifier EQU1 mintypmax_expression
-		{$$=make_shared<T_specparam_assignment>($1,$3);}
+		{$$=SHR2(,T_specparam_assignment,($1,$3);}
 	| pulse_control_specparam
 		{$$=$1;}
 ;
@@ -1541,12 +1538,12 @@ param_assignment :
 
 pulse_control_specparam :
 	KEY_PATHPULSE EQU1 LPARENT reject_limit_value comma_error_limit_value_opt RPARENT
-		{$$=make_shared<T_specparam_assignment_pulse1>($4,$5);}
+		{$$=SHR2(,T_specparam_assignment_pulse1,($4,$5));}
 	| KEY_PATHPULSE specify_input_terminal_descriptor DOLLOR specify_output_terminal_descriptor EQU1 LPARENT reject_limit_value comma_error_limit_value_opt RPARENT
-		{$$=make_shared<T_specparam_assignment_pulse2>($2,$4,$7,$8);}
+		{$$=SHR2(,T_specparam_assignment_pulse2,($2,$4,$7,$8));}
 ;
 comma_error_limit_value_opt :
-	{$$=make_shared<T_mintypmax_expression_NOSPEC>();}
+	{$$=SHR2(,T_mintypmax_expression_NOSPEC,());}
 	| COMMA error_limit_value {$$=$2;}
 ;	
 
@@ -1570,12 +1567,12 @@ limit_value :
 /*A.2.5 Declaration ranges*/
 dimension :
 	LSQUARE	dimension_expression COLON dimension_expression RSQUARE
-		{$$=make_shared<T_dimension>($2,$4);}
+		{$$=SHR2(dimension,T_dimension,($2,$4));}
 ;
 
 range :
 	LSQUARE expression COLON expression RSQUARE
-		{$$=make_shared<T_range>($2,$4);}
+		{$$=SHR2(range,T_range,($2,$4));}
 ;
 
 
@@ -1588,20 +1585,20 @@ function_declaration :
 		{
 			auto p=$7;
 			p->push_front($6);
-			$$=make_shared<T_function_declaration_1>($2,$3,$4,p,$8);
+			$$=SHR2(function_declaration,T_function_declaration_1,($2,$3,$4,p,$8));
 		}	
 | KEY_FUNCTION automatic_opt function_range_or_type function_identifier LPARENT function_port_list RPARENT SEMICOLON
 	 /*block_item_declaration_list*/ /*replaced with function_item_declaration_list*/
 	 function_item_declaration_list
 	function_statement
 	KEY_ENDFUNCTION
-		{$$=make_shared<T_function_declaration_2>($2,$3,$4,$6,$9,$10);}
+		{$$=SHR2(function_declaration,T_function_declaration_2,($2,$3,$4,$6,$9,$10));}
 ;
 
 
 function_item_declaration_list :
 		{
-			$$=make_shared<list<function_item_declaration>>();
+			$$=SHR_LIST_SHR(function_item_declaration)();
 		}
 	|  function_item_declaration_list function_item_declaration
 		{
@@ -1612,15 +1609,15 @@ function_item_declaration_list :
 ;
 
 automatic_opt :
-	{$$=make_shared<T_automatic_false>();}
-	| KEY_AUTOMATIC {$$=make_shared<T_automatic_true>();}
+	{$$=SHR2(automatic,T_automatic_false,());}
+	| KEY_AUTOMATIC {$$=SHR2(automatic,T_automatic_true,());}
 ;
 
 function_item_declaration :
 	block_item_declaration
-		{$$=make_shared<T_function_item_declaration_block>($1);}
+		{$$=SHR2(function_item_declaration,T_function_item_declaration_block,($1));}
 	| attribute_instance_list tf_input_declaration SEMICOLON
-		{$$=make_shared<T_function_item_declaration_input>($1,$2);}
+		{$$=SHR2(function_item_declaration,T_function_item_declaration_input,($1,$2));}
 ;
 
 function_port_list :
@@ -1635,12 +1632,12 @@ function_port_list :
 
 attribute_instance_list_tf_input_declaration :
 	attribute_instance_list tf_io_declaration_gen
-		{$$=make_shared<T_attribute_instance_list_tf_input_declaration>($1,$2);}
+		{$$=SHR2(attribute_instance_list_tf_input_declaration,T_attribute_instance_list_tf_input_declaration,($1,$2));}
 ;
 
 comma_attribute_instance_list_tf_input_declaration_list :
 		{
-			$$=make_shared<list<attribute_instance_list_tf_input_declaration>>();
+			$$=SHR_LIST_SHR(attribute_instance_list_tf_input_declaration)();
 		}
 	| comma_attribute_instance_list_tf_input_declaration_list COMMA attribute_instance_list_tf_input_declaration 
 		{
@@ -1651,14 +1648,14 @@ comma_attribute_instance_list_tf_input_declaration_list :
 ;
 
 function_range_or_type :
-	{$$=make_shared<T_function_range_or_type_NOSPEC>();}
-	|	KEY_SIGNED       {$$=make_shared<T_function_range_or_type>(make_shared<T_signed_TRUE>(),make_shared<T_range_NOSPEC>());}
-	| range				     {$$=make_shared<T_function_range_or_type>(make_shared<T_signed_FALSE>(),$1);}
-	|	KEY_SIGNED range {$$=make_shared<T_function_range_or_type>(make_shared<T_signed_TRUE>,$2);}
-	| KEY_INTEGER      {$$=make_shared<T_function_range_or_type_INTEGER>();}
-	| KEY_REAL				 {$$=make_shared<T_function_range_or_type_REAL>();}
-	| KEY_REALTIME		 {$$=make_shared<T_function_range_or_type_REALTIME>();}
-	| KEY_TIME				 {$$=make_shared<T_function_range_or_type_TIME>();}
+	                   {$$=SHR2(function_range_or_type,T_function_range_or_type_NOSPEC,());}
+	|	KEY_SIGNED       {$$=SHR2(function_range_or_type,T_function_range_or_type,(SHR2(signedType,T_signed_TRUE ,()),SHR2(range,T_range_NOSPEC,())));}
+	| range				     {$$=SHR2(function_range_or_type,T_function_range_or_type,(SHR2(signedType,T_signed_FALSE,()),$1));}
+	|	KEY_SIGNED range {$$=SHR2(function_range_or_type,T_function_range_or_type,(SHR2(signedType,T_signed_TRUE ,()),$2));}
+	| KEY_INTEGER      {$$=SHR2(function_range_or_type,T_function_range_or_type_INTEGER,());}
+	| KEY_REAL				 {$$=SHR2(function_range_or_type,T_function_range_or_type_REAL,());}
+	| KEY_REALTIME		 {$$=SHR2(function_range_or_type,T_function_range_or_type_REALTIME,());}
+	| KEY_TIME				 {$$=SHR2(function_range_or_type,T_function_range_or_type_TIME,());}
 ;
 
 /*A.2.7 Task declarations*/
@@ -1668,18 +1665,18 @@ task_declaration :
 		task_item_declaration_list
 		statement_or_null
 		KEY_ENDTASK
-		{$$=make_shared<T_task_declaration1>($2,$3,$5,$6);}
+		{$$=SHR2(task_declaration,T_task_declaration1,($2,$3,$5,$6));}
 	| KEY_TASK automatic_opt task_identifier LPARENT task_port_list  RPARENT SEMICOLON
 		/*block_item_declaration_list*/ /*replaced with task_item_declaration_list*/
 		task_item_declaration_list
 		statement_or_null
 		KEY_ENDTASK
-		{$$=make_shared<T_task_declaration2>($2,$3,$5,$8,$9);}
+		{$$=SHR2(task_declaration,T_task_declaration2,($2,$3,$5,$8,$9));}
 ;
 
 task_item_declaration_list :
 		{
-			$$=make_shared<list<task_item_declaration>>();
+			$$=SHR_LIST_SHR(task_item_declaration)();
 		}
 	| task_item_declaration_list task_item_declaration 
 		{
@@ -1697,22 +1694,22 @@ task_item_declaration_list :
 */
 task_item_declaration :
 	block_item_declaration
-		{$$=make_shared<T_task_item_declaration_block>($1);}
-	|  attribute_instance_list  tf_input_declaration SEMICOLON  {$$=make_shared<T_task_item_declaration_input>($1,$2);}
-	|  attribute_instance_list  tf_output_declaration SEMICOLON {$$=make_shared<T_task_item_declaration_output>($1,$2);}
-	|  attribute_instance_list  tf_inout_declaration SEMICOLON  {$$=make_shared<T_task_item_declaration_inout>($1,$2);}
+		{$$=SHR2(task_item_declaration,T_task_item_declaration_block,($1));}
+	|  attribute_instance_list  tf_input_declaration SEMICOLON  {$$=SHR2(task_item_declaration,T_task_item_declaration_input,($1,$2));}
+	|  attribute_instance_list  tf_output_declaration SEMICOLON {$$=SHR2(task_item_declaration,T_task_item_declaration_output,($1,$2));}
+	|  attribute_instance_list  tf_inout_declaration SEMICOLON  {$$=SHR2(task_item_declaration,T_task_item_declaration_inout,($1,$2));}
 ;
 
 task_port_list :
 	task_port_item comma_task_port_item_list
 		{
-			$$=make_shared<list<task_port_item>>();
+			$$=SHR_LIST_SHR(task_port_item)();
 		}
 ;
 
 comma_task_port_item_list :
 		{
-			$$=make_shared<list<task_port_item>>();
+			$$=SHR_LIST_SHR(task_port_item)();
 		}
 	| comma_task_port_item_list COMMA task_port_item 
 		{
@@ -1724,69 +1721,69 @@ comma_task_port_item_list :
 
 task_port_item :
 		 attribute_instance_list tf_io_declaration_gen
-		 	{$$=make_shared<T_task_port_item_input>($1,$2);}
+		 	{$$=SHR2(task_port_item,T_task_port_item_input,($1,$2));}
 ;
 
 
 tf_input_declaration :
 	KEY_INPUT reg_opt signed_opt range_opt list_of_port_identifiers
-		{$$=make_shared<T_tf_input_declaration_reg>($2,$3,$4,$5);}
+		{$$=SHR2(tf_input_declaration,T_tf_input_declaration_reg,($2,$3,$4,$5));}
 	| KEY_INPUT task_port_type list_of_port_identifiers
-		{$$=make_shared<T_tf_input_declaration_type>($2,$3);}
+		{$$=SHR2(tf_input_declaration,T_tf_input_declaration_type,($2,$3));}
 ;
 
 reg_opt :
-	{$$=make_shared<T_reg_false>();}
-	| KEY_REG {$$=make_shared<T_reg_true>();}
+	{$$=SHR2(reg,T_reg_false,());}
+	| KEY_REG {$$=SHR2(reg,T_reg_true,());}
 ;
 
 tf_output_declaration :
 	KEY_OUTPUT reg_opt signed_opt range_opt list_of_port_identifiers
-		{$$=make_shared<T_tf_output_declaration_reg>($2,$3,$4,$5);}
+		{$$=SHR2(tf_output_declaration,T_tf_output_declaration_reg,($2,$3,$4,$5));}
 	| KEY_OUTPUT task_port_type list_of_port_identifiers
-		{$$=make_shared<T_tf_output_declaration_type>($2,$3);}
+		{$$=SHR2(tf_output_declaration,T_tf_output_declaration_type,($2,$3));}
 ;
 
 tf_inout_declaration :
 	KEY_INOUT reg_opt signed_opt range_opt list_of_port_identifiers
-		{$$=make_shared<T_tf_inout_declaration_reg>($2,$3,$4,$5);}
+		{$$=SHR2(tf_inout_declaration,T_tf_inout_declaration_reg,($2,$3,$4,$5));}
 	| KEY_INOUT task_port_type list_of_port_identifiers
-		{$$=make_shared<T_tf_inout_declaration_type>($2,$3);}
+		{$$=SHR2(tf_inout_declaration,T_tf_inout_declaration_type,($2,$3));}
 ;
 
 task_port_type :
-	KEY_INTEGER			{$$=make_shared<T_task_port_type_integer>();}
-	| KEY_REAL  		{$$=make_shared<T_task_port_type_real>();}
-	| KEY_REALTIME	{$$=make_shared<T_task_port_type_realtime>();}
-	| KEY_TIME			{$$=make_shared<T_task_port_type_time>();}
+	KEY_INTEGER			{$$=SHR2(task_port_type,T_task_port_type_integer,());}
+	| KEY_REAL  		{$$=SHR2(task_port_type,T_task_port_type_real,());}
+	| KEY_REALTIME	{$$=SHR2(task_port_type,T_task_port_type_realtime,());}
+	| KEY_TIME			{$$=SHR2(task_port_type,T_task_port_type_time,());}
 ;
 
 tf_io_declaration_gen :
 	io_type reg_opt signed_opt range_opt port_identifier
-		{$$=make_shared<T_tf_io_declaration_gen1>($1,$2,$3,$4,$5);}
+		{$$=SHR2(tf_io_declaration_gen,T_tf_io_declaration_gen1,($1,$2,$3,$4,$5));}
 	| io_type task_port_type port_identifier
-		{$$=make_shared<T_tf_io_declaration_gen2>($1,$2,$3);}
+		{$$=SHR2(tf_io_declaration_gen,T_tf_io_declaration_gen2,($1,$2,$3));}
 ;
 
 /*A.2.8 Block item declarations*/
 
 block_item_declaration :
 	 attribute_instance_list  KEY_REG signed_opt range_opt list_of_block_variable_identifiers SEMICOLON
-	 	{$$=make_shared<T_block_item_declaration_reg>($1,$3,$4,$5);}
+	 	{$$=SHR2(block_item_declaration,T_block_item_declaration_reg,($1,$3,$4,$5));}
 |  attribute_instance_list  KEY_INTEGER list_of_block_variable_identifiers SEMICOLON
-		{$$=make_shared<T_block_item_declaration_integer>($1,$3);}
+		{$$=SHR2(block_item_declaration,T_block_item_declaration_integer,($1,$3));}
 |  attribute_instance_list  KEY_TIME list_of_block_variable_identifiers SEMICOLON
-		{$$=make_shared<T_block_item_declaration_time>($1,$3);}
+		{$$=SHR2(block_item_declaration,T_block_item_declaration_time,($1,$3));}
 |  attribute_instance_list  KEY_REAL list_of_block_real_identifiers SEMICOLON
-		{$$=make_shared<T_block_item_declaration_real>($1,$3);}
+		{$$=SHR2(block_item_declaration,T_block_item_declaration_real,($1,$3));}
 |  attribute_instance_list  KEY_REALTIME list_of_block_real_identifiers SEMICOLON
-		{$$=make_shared<T_block_item_declaration_realtime>($1,$3);}
+		{$$=SHR2(block_item_declaration,T_block_item_declaration_realtime,($1,$3));}
 |  attribute_instance_list  event_declaration
-		{$$=make_shared<T_block_item_declaration_event>($1,$2);}
+		{$$=SHR2(block_item_declaration,T_block_item_declaration_event,($1,$2));}
 |  attribute_instance_list  local_parameter_declaration SEMICOLON
-		{$$=make_shared<T_block_item_declaration_local_param>($1,$2);}
+		{$$=SHR2(block_item_declaration,T_block_item_declaration_local_param,($1,$2));}
 |  attribute_instance_list  parameter_declaration SEMICOLON
-		{$$=make_shared<T_block_item_declaration_param>($1,$2);}
+		{$$=SHR2(block_item_declaration,T_block_item_declaration_param,($1,$2));}
 ;
 
 list_of_block_variable_identifiers : 
@@ -1800,7 +1797,7 @@ list_of_block_variable_identifiers :
 
 comma_block_variable_type_list :
 		{
-			$$=make_shared<list<block_variable_type>>();
+			$$=SHR_LIST_SHR(block_variable_type)();
 		}
 	| comma_block_variable_type_list COMMA block_variable_type 
 		{
@@ -1821,7 +1818,7 @@ list_of_block_real_identifiers :
 
 comma_block_real_type_list :
 		{
-			$$=make_shared<list<block_real_type>>();
+			$$=SHR_LIST_SHR(block_real_type)();
 		}
 	| comma_block_real_type_list COMMA block_real_type 
 		{
@@ -1833,12 +1830,12 @@ comma_block_real_type_list :
 
 block_variable_type :
 	variable_identifier dimension_list
-		{$$=make_shared<T_block_variable_type>($1,$2);}
+		{$$=SHR2(block_variable_type,T_block_variable_type,($1,$2));}
 ;
 
 block_real_type :
 	real_identifier dimension_list
-		{$$=make_shared<T_block_real_type>($1,$2);}
+		{$$=SHR2(block_real_type,T_block_real_type,($1,$2));}
 ;
 
 
@@ -2075,13 +2072,13 @@ module_instantiation :
 		{
 			auto p=$4;
 			p->push_front($3);
-			$$=make_shared<T_module_instantiation>($1,$2,p);
+			$$=SHR2(module_instantiation,T_module_instantiation,($1,$2,p));
 		}
 ;
 
 comma_module_instance_list :
 		{
-			$$=make_shared<list<module_instance>>();
+			$$=SHR_LIST_SHR(module_instance)();
 		}
 	| comma_module_instance_list COMMA module_instance  
 		{
@@ -2092,7 +2089,7 @@ comma_module_instance_list :
 ;
 
 parameter_value_assignment_opt :
-	{$$=make_shared<T_parameter_value_assignment_NOSPEC>();}
+	{$$=SHR2(parameter_value_assignment,T_parameter_value_assignment_NOSPEC,());}
 	| parameter_value_assignment {$$=$1;}
 ;
 
@@ -2106,19 +2103,19 @@ list_of_parameter_assignments :
 		{
 			auto p=$2;
 			p->push_front($1);
-			$$=make_shared<T_parameter_value_assignment_order>(p);
+			$$=SHR2(parameter_value_assignment,T_parameter_value_assignment_order,(p));
 		} 
 	| named_parameter_assignment comma_named_parameter_assignment_list
 		{
 			auto p=$2;
 			p->push_front($1);
-			$$=make_shared<T_parameter_value_assignment_named>(p);
+			$$=SHR2(parameter_value_assignment,T_parameter_value_assignment_named,(p));
 		}
 ;
 
 comma_ordered_parameter_assignment_list :
 		{
-			$$=make_shared<list<expression>>();
+			$$=SHR_LIST_SHR(expression)();
 		}
 	| comma_ordered_parameter_assignment_list COMMA ordered_parameter_assignment 
 		{
@@ -2130,7 +2127,7 @@ comma_ordered_parameter_assignment_list :
 
 comma_named_parameter_assignment_list :
 		{
-			$$=make_shared<list<named_parameter_assignment>>();
+			$$=SHR_LIST_SHR(named_parameter_assignment)();
 		}
 	| comma_named_parameter_assignment_list COMMA named_parameter_assignment  
 		{
@@ -2146,22 +2143,22 @@ ordered_parameter_assignment :
 
 named_parameter_assignment :
 	PERIOD parameter_identifier LPARENT mintypmax_expression_opt RPARENT
-		{$$=make_shared<T_named_parameter_assignment>($2,$4);}
+		{$$=SHR2(named_parameter_assignment,T_named_parameter_assignment,($2,$4));}
 ;
 
 mintypmax_expression_opt :
-	{$$=make_shared<T_mintypmax_expression_NOSPEC>();}
+	{$$=SHR2(mintypmax_expression,T_mintypmax_expression_NOSPEC,());}
 	| mintypmax_expression {$$=$1;}
 ;
 
 module_instance :
 	name_of_module_instance LPARENT list_of_port_connections RPARENT
-		{$$=make_shared<T_module_instance>($1,$3);}
+		{$$=SHR2(module_instance,T_module_instance,($1,$3));}
 ;
 
 name_of_module_instance :
 	module_instance_identifier range_opt
-		{$$=make_shared<T_name_of_module_instance>($1,$2);}
+		{$$=SHR2(name_of_module_instance,T_name_of_module_instance,($1,$2));}
 ;
 
 list_of_port_connections :
@@ -2169,19 +2166,19 @@ list_of_port_connections :
 		{
 			auto p=$2;
 			p->push_front($1);
-			$$=make_shared<T_list_of_port_connections_ordered>(p);
+			$$=SHR2(list_of_port_connections,T_list_of_port_connections_ordered,(p));
 		}
 	| named_port_connection comma_named_port_connection_list
 		{
 			auto p=$2;
 			p->push_front($1);
-			$$=make_shared<T_list_of_port_connections_named>(p);
+			$$=SHR2(list_of_port_connections,T_list_of_port_connections_named,(p));
 		}
 ;
 
 comma_ordered_port_connection_list :
 		{
-			$$=make_shared<list<ordered_port_connection>>();
+			$$=SHR_LIST_SHR(ordered_port_connection)();
 		}
 	| comma_ordered_port_connection_list COMMA ordered_port_connection 
 		{
@@ -2193,7 +2190,7 @@ comma_ordered_port_connection_list :
 
 comma_named_port_connection_list :
 		{
-			$$=make_shared<list<named_port_connection>>();
+			$$=SHR_LIST_SHR(named_port_connection)();
 		}
 	| comma_named_port_connection_list COMMA named_port_connection 
 		{
@@ -2205,29 +2202,29 @@ comma_named_port_connection_list :
 
 ordered_port_connection :
 	attribute_instance_list expression_opt
-		{$$=make_shared<T_ordered_port_connection>($1,$2);}
+		{$$=SHR2(ordered_port_connection,T_ordered_port_connection,($1,$2));}
 ;
 
 expression_opt :
-	{$$=make_shared<T_expression_NOSPEC>();}
+	{$$=SHR2(expression,T_expression_NOSPEC,());}
 	| expression {$$=$1;}
 ;
 
 named_port_connection :
 	attribute_instance_list PERIOD port_identifier LPARENT expression_opt RPARENT
-		{$$=make_shared<T_named_port_connection>($1,$3,$5);}
+		{$$=SHR2(named_port_connection,T_named_port_connection,($1,$3,$5));}
 ;
 
 
 /*A.4.2 Generate construct*/
 generate_region :
 	KEY_GENERATE module_or_generate_item_list KEY_ENDGENERATE
-		{$$=make_shared<T_generate_region>($2);}
+		{$$=SHR2(generate_region,T_generate_region,($2));}
 ;
 
 module_or_generate_item_list :
 		{
-			$$=make_shared<list<module_item>>();
+			$$=SHR_LIST_SHR(module_item)();
 		}
 	| module_or_generate_item_list module_or_generate_item  
 		{
@@ -2239,7 +2236,7 @@ module_or_generate_item_list :
 
 genvar_declaration :
 	KEY_GENVAR list_of_genvar_identifiers SEMICOLON
-		{$$=make_shared<T_genvar_declaration>($2);}
+		{$$=SHR2(genvar_declaration,T_genvar_declaration,($2));}
 ;
 
 list_of_genvar_identifiers :
@@ -2253,7 +2250,7 @@ list_of_genvar_identifiers :
 
 comma_genvar_identifier_list :
 		{
-			$$=make_shared<list<identifier>>();
+			$$=SHR_LIST_SHR(identifier)();
 		}
 	| comma_genvar_identifier_list COMMA genvar_identifier  
 		{
@@ -2265,34 +2262,34 @@ comma_genvar_identifier_list :
 
 loop_generate_construct :
 	KEY_FOR LPARENT genvar_initialization SEMICOLON expression SEMICOLON genvar_iteration RPARENT generate_block
-		{$$=make_shared<T_loop_generate_construct>($3,$5,$7,$9);}
+		{$$=SHR2(loop_generate_construct,T_loop_generate_construct,($3,$5,$7,$9));}
 ;
 
 genvar_initialization :
 	genvar_identifier EQU1 expression
-		{$$=make_shared<T_genvar_initialization>($1,$3);}
+		{$$=SHR2(genvar_initialization,T_genvar_initialization,($1,$3));}
 ;
 
 genvar_iteration :
 	genvar_identifier EQU1 expression
-		{$$=make_shared<T_genvar_iteration>($1,$3);}
+		{$$=SHR2(genvar_iteration,T_genvar_iteration,($1,$3));}
 ;
 
 conditional_generate_construct :
 	if_generate_construct
-		{$$=make_shared<T_conditional_generate_construct_if>($1);}
+		{$$=SHR2(conditional_generate_construct,T_conditional_generate_construct_if,($1));}
 	| case_generate_construct
-		{$$=make_shared<T_conditional_generate_construct_case>($1);}
+		{$$=SHR2(conditional_generate_construct,T_conditional_generate_construct_case,($1));}
 ;
 
 if_generate_construct :
 	KEY_IF LPARENT expression RPARENT generate_block_or_null
 	else_generate_block_or_null_opt
-		{$$=make_shared<T_if_generate_construct>($3,$5,$6);}
+		{$$=SHR2(if_generate_construct,T_if_generate_construct,($3,$5,$6));}
 ;
 
 else_generate_block_or_null_opt :
-	{$$=make_shared<T_generate_block_NOSPEC>();}
+	{$$=SHR2(generate_block,T_generate_block_NOSPEC,());}
 	| KEY_ELSE generate_block_or_null
 		{$$=$2;}
 ;
@@ -2303,13 +2300,13 @@ case_generate_construct :
 		{
 			auto p=$6;
 			p->push_front($5);
-			$$=make_shared<T_case_generate_construct>($3,p);
+			$$=SHR2(case_generate_construct,T_case_generate_construct,($3,p));
 		}
 ;
 
 case_generate_item_list :
 		{
-			$$=make_shared<list<case_generate_item>>();
+			$$=SHR_LIST_SHR(case_generate_item)();
 		}
 	| case_generate_item_list case_generate_item 
 		{
@@ -2324,26 +2321,26 @@ case_generate_item :
 		{
 			auto p=$2;
 			p->push_front($1);
-			$$=make_shared<T_case_generate_item_case>(p,$4);
+			$$=SHR2(case_generate_item,T_case_generate_item_case,(p,$4));
 		}
 	| KEY_DEFAULT colon_opt  generate_block_or_null
-		{$$=make_shared<T_case_generate_item_default>($3);}
+		{$$=SHR2(case_generate_item,T_case_generate_item_default,($3));}
 ;
 
 colon_opt :
-	{$$=make_shared<T_colon_opt_false>();}
-	| COLON {$$=make_shared<T_colon_opt_true>();}
+	{$$=SHR2(colon_opt,T_colon_opt_false,());}
+	| COLON {$$=SHR2(colon_opt,T_colon_opt_true,());}
 ;
 
 generate_block :
 	module_or_generate_item
-		{$$=make_shared<T_generate_block_mgi>($1);}
+		{$$=SHR2(generate_block,T_generate_block_mgi,($1));}
 	| KEY_BEGIN colon_generate_block_identifier_opt module_or_generate_item_list KEY_END
-		{$$=make_shared<T_generate_block_begin>($2,$3);}
+		{$$=SHR2(generate_block,T_generate_block_begin,($2,$3));}
 ;
 
 colon_generate_block_identifier_opt :
-	{$$=make_shared<T_identifier_NOSPEC>();}
+	{$$=SHR2(identifier,T_identifier_NOSPEC,());}
 	| COLON generate_block_identifier
 		{$$=$2;}
 ;
@@ -2352,7 +2349,7 @@ generate_block_or_null :
 	generate_block
 		{$$=$1;}
 	| SEMICOLON
-		{$$=make_shared<T_generate_block_NOSPEC>();}
+		{$$=SHR2(generate_block,T_generate_block_NOSPEC,());}
 ;
 
 
@@ -2610,7 +2607,7 @@ A.6.1 Continuous assignment statements*/
 
 continuous_assign :
 	KEY_ASSIGN drive_strength_opt delay3_opt list_of_net_assignments SEMICOLON
-		{$$=make_shared<T_continuous_assign>($2,$3,$4);}
+		{$$=SHR2(continuous_assign,T_continuous_assign,($2,$3,$4));}
 ;
 
 list_of_net_assignments :
@@ -2624,7 +2621,7 @@ list_of_net_assignments :
 
 comma_net_assignment_list :
 		{
-			$$=make_shared<list<net_assignment>>();
+			$$=SHR_LIST_SHR(net_assignment)();
 		}
 	| comma_net_assignment_list COMMA net_assignment 
 		{
@@ -2636,46 +2633,46 @@ comma_net_assignment_list :
 
 net_assignment :
 	net_lvalue EQU1 expression
-		{$$=make_shared<T_net_assignment>($1,$3);}
+		{$$=SHR2(net_assignment,T_net_assignment,($1,$3));}
 ;
 
 /*A.6.2 Procedural blocks and assignments*/
 
 initial_construct :
 	KEY_INITIAL statement
-		{$$=make_shared<T_initial_construct>($2);}
+		{$$=SHR2(initial_construct,T_initial_construct,($2));}
 ;
 
 always_construct :
 	KEY_ALWAYS statement
-		{$$=make_shared<T_always_construct>($2);}
+		{$$=SHR2(always_construct,T_always_construct,($2));}
 ;
 
 blocking_assignment :
 	net_lvalue EQU1 delay_or_event_control_opt expression
-		{$$=make_shared<T_blocking_assignment>($1,$3,$4);}
+		{$$=SHR2(blocking_assignment,T_blocking_assignment,($1,$3,$4));}
 ;
 
 delay_or_event_control_opt :
-	{$$=make_shared<T_delay_or_event_control_NOSPEC>();}
+	{$$=SHR2(delay_or_event_control,T_delay_or_event_control_NOSPEC,());}
 	| delay_or_event_control
 		{$$=$1;}
 ;
 
 nonblocking_assignment :
 	net_lvalue OP2_LE delay_or_event_control_opt expression
-		{$$=make_shared<T_nonblocking_assignment>($1,$3,$4);}
+		{$$=SHR2(nonblocking_assignment,T_nonblocking_assignment,($1,$3,$4));}
 ;
 
 procedural_continuous_assignments :
 	KEY_ASSIGN net_assignment
-		{$$=make_shared<T_procedural_continuous_assignments_assign>($2);}
+		{$$=SHR2(procedural_continuous_assignments,T_procedural_continuous_assignments_assign,($2));}
 	| KEY_DEASSIGN net_lvalue
-		{$$=make_shared<T_procedural_continuous_assignments_deassign>($2);}
+		{$$=SHR2(procedural_continuous_assignments,T_procedural_continuous_assignments_deassign,($2));}
 	| KEY_FORCE net_assignment
-		{$$=make_shared<T_procedural_continuous_assignments_force1>($2);}
+		{$$=SHR2(procedural_continuous_assignments,T_procedural_continuous_assignments_force1,($2));}
 	| KEY_RELEASE net_lvalue
-		{$$=make_shared<T_procedural_continuous_assignments_release1>($2);}
+		{$$=SHR2(procedural_continuous_assignments,T_procedural_continuous_assignments_release1,($2));}
 ;
 
 
@@ -2685,13 +2682,13 @@ par_block :
 	KEY_FORK colon_block_identifier_opt
 	statement_or_block_item_list
 	KEY_JOIN
-		{$$=make_shared<T_par_block>($2,$3);}
+		{$$=SHR2(par_block,T_par_block,($2,$3));}
 ;
 
 colon_block_identifier_opt :
-	{$$=make_shared<T_colon_block_identifier_NOSPEC>();}
+	{$$=SHR2(colon_block_identifier,T_colon_block_identifier_NOSPEC,());}
 	| COLON block_identifier 
-		{$$=make_shared<T_colon_block_identifier>($2);}
+		{$$=SHR2(colon_block_identifier,T_colon_block_identifier,($2));}
 ;
 
 /*statement_list :
@@ -2704,11 +2701,11 @@ seq_block :
 	KEY_BEGIN colon_block_identifier_opt 
 	statement_or_block_item_list
 	KEY_END
-		{$$=make_shared<T_seq_block>($2,$3);}
+		{$$=SHR2(seq_block,T_seq_block,($2,$3));}
 ;
 statement_or_block_item_list :
 		{
-			$$=make_shared<list<statement_or_block_item>>();
+			$$=SHR_LIST_SHR(statement_or_block_item)();
 		}
 	| statement_or_block_item_list statement_or_block_item 
 		{
@@ -2719,41 +2716,41 @@ statement_or_block_item_list :
 ;
 
 statement_or_block_item :
-	statement {$$=make_shared<T_statement_or_block_item_statement>($1);}
-	| block_item_declaration {$$=make_shared<T_statement_or_block_item_block>($1);}
+	statement {$$=SHR2(statement_or_block_item,T_statement_or_block_item_statement,($1));}
+	| block_item_declaration {$$=SHR2(statement_or_block_item,T_statement_or_block_item_block,($1));}
 ;
 
 /*A.6.4 Statements*/
 
 statement :
 		attribute_instance_list blocking_assignment SEMICOLON
-			{$$=make_shared<T_statement_blocking_assignment>($1,$2);}
+			{$$=SHR2(statement,T_statement_blocking_assignment,($1,$2));}
 	| attribute_instance_list case_statement
-			{$$=make_shared<T_statement_case_statement>($1,$2);}
+			{$$=SHR2(statement,T_statement_case_statement,($1,$2));}
 	| attribute_instance_list conditional_statement
-			{$$=make_shared<T_statement_conditional_statement>($1,$2);}
+			{$$=SHR2(statement,T_statement_conditional_statement,($1,$2));}
 	| attribute_instance_list disable_statement
-			{$$=make_shared<T_statement_disable_statement>($1,$2);}
+			{$$=SHR2(statement,T_statement_disable_statement,($1,$2));}
 	| attribute_instance_list event_trigger
-			{$$=make_shared<T_statement_event_trigger>($1,$2);}
+			{$$=SHR2(statement,T_statement_event_trigger,($1,$2));}
 	| attribute_instance_list loop_statement
-			{$$=make_shared<T_statement_loop_statement>($1,$2);}
+			{$$=SHR2(statement,T_statement_loop_statement,($1,$2));}
 	| attribute_instance_list nonblocking_assignment SEMICOLON
-			{$$=make_shared<T_statement_nonblocking_assignment>($1,$2);}
+			{$$=SHR2(statement,T_statement_nonblocking_assignment,($1,$2));}
 	| attribute_instance_list par_block
-			{$$=make_shared<T_statement_par_block>($1,$2);}
+			{$$=SHR2(statement,T_statement_par_block,($1,$2));}
 	| attribute_instance_list procedural_continuous_assignments SEMICOLON
-			{$$=make_shared<T_statement_procedural_continuous_assignments>($1,$2);}
+			{$$=SHR2(statement,T_statement_procedural_continuous_assignments,($1,$2));}
 	| attribute_instance_list procedural_timing_control_statement
-			{$$=make_shared<T_statement_procedural_timing_control_statement>($1,$2);}
+			{$$=SHR2(statement,T_statement_procedural_timing_control_statement,($1,$2));}
 	| attribute_instance_list seq_block
-			{$$=make_shared<T_statement_seq_block>($1,$2);}
+			{$$=SHR2(statement,T_statement_seq_block,($1,$2));}
 	| attribute_instance_list system_task_enable
-			{$$=make_shared<T_statement_system_task_enable>($1,$2);}
+			{$$=SHR2(statement,T_statement_system_task_enable,($1,$2));}
 	| attribute_instance_list task_enable
-			{$$=make_shared<T_statement_task_enable>($1,$2);}
+			{$$=SHR2(statement,T_statement_task_enable,($1,$2));}
 	| attribute_instance_list wait_statement
-			{$$=make_shared<T_statement_wait_statement>($1,$2);}
+			{$$=SHR2(statement,T_statement_wait_statement,($1,$2));}
 
 
 
@@ -2761,7 +2758,7 @@ statement_or_null :
 	statement
 		{$$=$1;}
 	| attribute_instance_list SEMICOLON
-		{$$=make_shared<T_statement_NOSPEC>($1);}
+		{$$=SHR2(statement,T_statement_NOSPEC,($1));}
 ;
 
 function_statement :
@@ -2773,60 +2770,60 @@ function_statement :
 
 delay_control :
 	JING delay_value
-		{$$=make_shared<T_delay_control_delay_value>($2);}
+		{$$=SHR2(delay_control,T_delay_control_delay_value,($2));}
 	| JING LPARENT mintypmax_expression RPARENT
-		{$$=make_shared<T_delay_control_mintypmax_expression>($3);}
+		{$$=SHR2(delay_control,T_delay_control_mintypmax_expression,($3));}
 ;
 
 delay_or_event_control :
 	delay_control
-		{$$=make_shared<T_delay_or_event_control_delay_control>($1);}
+		{$$=SHR2(delay_or_event_control,T_delay_or_event_control_delay_control,($1));}
 	| event_control
-		{$$=make_shared<T_delay_or_event_control_event_control>($1);}
+		{$$=SHR2(delay_or_event_control,T_delay_or_event_control_event_control,($1));}
 	| KEY_REPEAT LPARENT expression RPARENT event_control
-		{$$=make_shared<T_delay_or_event_control_3>($3,$5);}
+		{$$=SHR2(delay_or_event_control,T_delay_or_event_control_3,($3,$5));}
 ;
 
 
 disable_statement :
 	KEY_DISABLE hierarchical_identifier SEMICOLON
-		{$$=make_shared<T_disable_statement>($2);}
+		{$$=SHR2(disable_statement,T_disable_statement,($2));}
 ;
 
 
 event_control :
 	AT hierarchical_identifier
-		{$$=make_shared<T_event_control_eventid>($2);}
+		{$$=SHR2(event_control,T_event_control_eventid,($2));}
 	| AT LPARENT event_expression_orcomma_list RPARENT
-		{$$=make_shared<T_event_control_event_exp>($3);}
+		{$$=SHR2(event_control,T_event_control_event_exp,($3));}
 	| AT OP2_MULTIPLE
-		{$$=make_shared<T_event_control_start>();}
+		{$$=SHR2(event_control,T_event_control_start,());}
 	| AT LPARENT OP2_MULTIPLE RPARENT
-		{$$=make_shared<T_event_control_start>();}
+		{$$=SHR2(event_control,T_event_control_start,());}
 	| AT LPARENTSTART RPARENT
-		{$$=make_shared<T_event_control_start>();}
+		{$$=SHR2(event_control,T_event_control_start,());}
 	| AT LPARENT RPARENTSTART
-		{$$=make_shared<T_event_control_start>();}
+		{$$=SHR2(event_control,T_event_control_start,());}
 ;
 
 event_trigger :
 	IMPLY hierarchical_identifier  SEMICOLON
-		{$$=make_shared<T_event_trigger>($2);}
+		{$$=SHR2(event_trigger,T_event_trigger,($2));}
 ;
 
 event_expression :
 	expression
-		{$$=make_shared<T_event_expression_exp>($1);}
+		{$$=SHR2(event_expression,T_event_expression_exp,($1));}
 	| KEY_POSEDGE expression
-		{$$=make_shared<T_event_expression_pos>($2);}
+		{$$=SHR2(event_expression,T_event_expression_pos,($2));}
 	| KEY_NEGEDGE expression
-		{$$=make_shared<T_event_expression_neg>($2);}
+		{$$=SHR2(event_expression,T_event_expression_neg,($2));}
 
 
 event_expression_orcomma_list :
 	event_expression 
 		{
-			auto p = make_shared<list<event_expression>>();
+			auto p = SHR_LIST_SHR(event_expression)();
 			p->push_back($1);
 			$$=p;
 		}
@@ -2844,37 +2841,37 @@ or_comma :
 ;
 procedural_timing_control :
 	delay_control
-		{$$=make_shared<T_procedural_timing_control_delay>($1);}
+		{$$=SHR2(procedural_timing_control,T_procedural_timing_control_delay,($1));}
 	| event_control
-		{$$=make_shared<T_procedural_timing_control_event>($1);}
+		{$$=SHR2(procedural_timing_control,T_procedural_timing_control_event,($1));}
 ;
 
 
 procedural_timing_control_statement :
 	procedural_timing_control statement_or_null
-		{$$=make_shared<T_procedural_timing_control_statement>($1,$2);}
+		{$$=SHR2(procedural_timing_control_statement,T_procedural_timing_control_statement,($1,$2));}
 ;
 
 wait_statement :
 	KEY_WAIT LPARENT expression RPARENT statement_or_null
-		{$$=make_shared<T_wait_statement>($3,$5);}
+		{$$=SHR2(wait_statement,T_wait_statement,($3,$5));}
 ;
 
 /*A.6.6 Conditional statements*/
 conditional_statement :
 	KEY_IF LPARENT expression RPARENT
 	statement_or_null else_statement_or_null_opt
-		{$$=make_shared<T_conditional_statement_ifelse>($3,$5,$6);}
+		{$$=SHR2(conditional_statement,T_conditional_statement_ifelse,($3,$5,$6));}
 /*	| KEY_IF LPARENT expression RPARENT statement_or_null
 		else_if_lp_expression_rp_statement_or_null_list
 		else_statement_or_null_opt
-		{$$=make_shared<T_conditional_statement_ifelseif>($3,$5,$6,$7);}*/
+		{$$=SHR2(,T_conditional_statement_ifelseif,($3,$5,$6,$7));}*/
 ;
 
 else_statement_or_null_opt :
 	{
-		auto p = make_shared<list<attribute_instance>>();
-		$$=make_shared<T_statement_NOSPEC >(p);
+		auto p = SHR_LIST_SHR(attribute_instance)();
+		$$=SHR2(statement,T_statement_NOSPEC ,(p));
 	}
 	| KEY_ELSE statement_or_null
 		{$$=$2;}
@@ -2904,7 +2901,7 @@ case_statement :
 			{
 				auto p=$6;
 				p->push_front($5);
-				$$=make_shared<T_case_statement_case>($3,p);
+				$$=SHR2(case_statement,T_case_statement_case,($3,p));
 			}
 	| KEY_CASEZ LPARENT expression RPARENT
 		case_item case_item_list
@@ -2912,7 +2909,7 @@ case_statement :
 			{
 				auto p=$6;
 				p->push_front($5);
-				$$=make_shared<T_case_statement_casez>($3,p);
+				$$=SHR2(case_statement,T_case_statement_casez,($3,p));
 			}
 	| KEY_CASEX LPARENT expression RPARENT
 		case_item case_item_list
@@ -2920,13 +2917,13 @@ case_statement :
 			{
 				auto p=$6;
 				p->push_front($5);
-				$$=make_shared<T_case_statement_casex>($3,p);
+				$$=SHR2(case_statement,T_case_statement_casex,($3,p));
 			}
 ;
 
 case_item_list :
 		{
-			$$=make_shared<list<case_item>>();
+			$$=SHR_LIST_SHR(case_item)();
 		}
 	| case_item_list case_item 
 		{
@@ -2941,16 +2938,16 @@ case_item :
 		{
 			auto p=$2;
 			p->push_front($1);
-			$$=make_shared<T_case_item>(p,$4);
+			$$=SHR2(case_item,T_case_item,(p,$4));
 		}
 	| KEY_DEFAULT colon_opt statement_or_null
-		{$$=make_shared<T_case_item_default>($2,$3);}
+		{$$=SHR2(case_item,T_case_item_default,($2,$3));}
 ;
 
 
 comma_expression_list :
 		{
-			$$=make_shared<list<expression>>();
+			$$=SHR_LIST_SHR(expression)();
 		}
 	| comma_expression_list COMMA expression 
 		{
@@ -2963,13 +2960,13 @@ comma_expression_list :
 /*A.6.8 Looping statements*/
 loop_statement :
 	KEY_FOREVER statement
-		{$$=make_shared<T_loop_statement_forever>($2);}
+		{$$=SHR2(loop_statement,T_loop_statement_forever,($2));}
 	| KEY_REPEAT LPARENT expression RPARENT statement
-		{$$=make_shared<T_loop_statement_repeat>($3,$5);}
+		{$$=SHR2(loop_statement,T_loop_statement_repeat,($3,$5));}
 	| KEY_WHILE LPARENT expression RPARENT statement
-		{$$=make_shared<T_loop_statement_while>($3,$5);}
+		{$$=SHR2(loop_statement,T_loop_statement_while,($3,$5));}
 	| KEY_FOR LPARENT net_assignment SEMICOLON expression SEMICOLON net_assignment RPARENT statement
-		{$$=make_shared<T_loop_statement_for>($3,$5,$7,$9);}
+		{$$=SHR2(loop_statement,T_loop_statement_for,($3,$5,$7,$9));}
 ;
 
 
@@ -2978,12 +2975,12 @@ loop_statement :
 /*A.6.9 Task enable statements*/
 system_task_enable :
 	system_function_identifier lp_expression_opt_comma_expression_list_rp_opt SEMICOLON
-		{$$=make_shared<T_system_task_enable>($1,$2);}
+		{$$=SHR2(system_task_enable,T_system_task_enable,($1,$2));}
 ;
 
 lp_expression_opt_comma_expression_list_rp_opt :
 		{
-			$$=make_shared<list<expression>>();
+			$$=SHR_LIST_SHR(expression)();
 		}
 	| lp_expression_opt_comma_expression_list_rp {$$=$1;}
 ;
@@ -3001,7 +2998,7 @@ lp_expression_opt_comma_expression_list_rp :
 
 task_enable :
 	hierarchical_identifier lp_expression_opt_comma_expression_list_rp_opt SEMICOLON
-		{$$=make_shared<T_task_enable>($1,$2);}
+		{$$=SHR2(task_enable,T_task_enable,($1,$2));}
 ;
 
 
@@ -3325,7 +3322,7 @@ concatenation :
 		{
 			auto p=$3;
 			p->push_front($2);
-			$$=make_shared<T_concatenation>(p);
+			$$=SHR2(concatenation,T_concatenation,(p));
 		}
 ;
 
@@ -3348,7 +3345,7 @@ module_path_multiple_concatenation :
 */
 multiple_concatenation :
 	LBRACE  expression concatenation RBRACE
-		{$$=make_shared<T_multiple_concatenation>($2,$3);}
+		{$$=SHR2(multiple_concatenation,T_multiple_concatenation,($2,$3));}
 ;
 
 
@@ -3360,20 +3357,20 @@ LPARENT expression comma_expression_list RPARENT
 		{
 			auto p=$5;
 			p->push_front($4);
-			$$=make_shared<T_function_call>($1,$2,p);
+			$$=SHR2(function_call,T_function_call,($1,$2,p));
 		}
 ;
 
 system_function_call :
 	system_function_identifier
 lp_expression_comma_expression_list_rp_op
-		{$$=make_shared<T_system_function_call>($1,$2);}
+		{$$=SHR2(system_function_call,T_system_function_call,($1,$2));}
 ;
 
 
 lp_expression_comma_expression_list_rp_op :
 		{
-			$$=make_shared<list<expression>>();
+			$$=SHR_LIST_SHR(expression)();
 		}
 	| LPARENT expression comma_expression_list RPARENT
 		{
@@ -3391,7 +3388,7 @@ base_expression :
 
 conditional_expression :
 	expression OP2_QUESTION attribute_instance_list expression COLON expression
-		{$$=make_shared<T_conditional_expression>($1,$3,$4,$6);}
+		{$$=SHR2(conditional_expression,T_conditional_expression,($1,$3,$4,$6));}
 ;
 
 dimension_expression :
@@ -3401,102 +3398,102 @@ dimension_expression :
 
 expression :
 	primary
-		{$$=make_shared<T_expression_prim>($1);}
-	| OP2_ADD  attribute_instance_list primary %prec OP1_ADD  {$$=make_shared<T_expression_op1>($$=make_shared<T_unary_operator_ADD>(),$2,$3);}
-	| OP2_SUB  attribute_instance_list primary %prec OP1_SUB  {$$=make_shared<T_expression_op1>($$=make_shared<T_unary_operator_SUB>(),$2,$3);}
-	| OP2_AND  attribute_instance_list primary %prec OP1_AND  {$$=make_shared<T_expression_op1>($$=make_shared<T_unary_operator_REDUCE_AND>() ,$2,$3);}
-	| OP2_OR   attribute_instance_list primary %prec OP1_OR   {$$=make_shared<T_expression_op1>($$=make_shared<T_unary_operator_REDUCE_OR>()  ,$2,$3);}
-	| OP2_XOR  attribute_instance_list primary %prec OP1_XOR  {$$=make_shared<T_expression_op1>($$=make_shared<T_unary_operator_REDUCE_XOR>() ,$2,$3);}
-	| OP2_XNOR attribute_instance_list primary %prec OP1_XNOR {$$=make_shared<T_expression_op1>($$=make_shared<T_unary_operator_REDUCE_XNOR>(),$2,$3);}
-	| OP1_LOGIC_NEG   attribute_instance_list primary {$$=make_shared<T_expression_op1>(make_shared<T_unary_operator_LOGIC_NEG>()  ,$2,$3);}
-	| OP1_BITWISE_NEG attribute_instance_list primary {$$=make_shared<T_expression_op1>(make_shared<T_unary_operator_BITWISE_NEG>(),$2,$3);}
-	| OP1_REDUCE_NAND attribute_instance_list primary {$$=make_shared<T_expression_op1>(make_shared<T_unary_operator_REDUCE_NAND>(),$2,$3);}
-	| OP1_REDUCE_NOR  attribute_instance_list primary {$$=make_shared<T_expression_op1>(make_shared<T_unary_operator_REDUCE_NOR>() ,$2,$3);}
-	| expression OP2_MULTIPLE              attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_MUL>()                  ,$3,$4);}
-	| expression OP2_DIV                   attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_DIV>()                  ,$3,$4);}
-	| expression OP2_MOD                   attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_MOD>()                  ,$3,$4);}
-	| expression OP2_EQU2                  attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_EQU2>()                 ,$3,$4);}
-	| expression OP2_NEQ2                  attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_NEQ2>()                 ,$3,$4);}
-	| expression OP2_EQU3                  attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_EQU3>()                 ,$3,$4);}
-	| expression OP2_NEQ3                  attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_NEQ3>()                 ,$3,$4);}
-	| expression OP2_POWER                 attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_POWER>()                ,$3,$4);}
-	| expression OP2_LT                    attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_LT>()                   ,$3,$4);}
-	| expression OP2_LE                    attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_LE>()                   ,$3,$4);}
-	| expression OP2_GT                    attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_GT>()                   ,$3,$4);}
-	| expression OP2_GE                    attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_GE>()                   ,$3,$4);}
-	| expression OP2_LOGICAL_RIGHTSHIFT    attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_LOGICAL_RIGHTSHIFT>()   ,$3,$4);}
-	| expression OP2_LOGICAL_LEFTSHIFT     attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_LOGICAL_LEFTSHIFT>()    ,$3,$4);}
-	| expression OP2_ARITHMETIC_RIGHTSHIFT attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_ARITHMETIC_RIGHTSHIFT>(),$3,$4);}
-	| expression OP2_ARITHMETIC_LEFTSHIFT  attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_ARITHMETIC_LEFTSHIFT>() ,$3,$4);}
-	| expression OP2_ADD                   attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_ADD>()                  ,$3,$4);}
-	| expression OP2_SUB                   attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_SUB>()                  ,$3,$4);}
-	| expression OP2_AND                   attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_AND>()                  ,$3,$4);}
-	| expression OP2_OR                    attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_OR>()                   ,$3,$4);}
-	| expression OP2_AND2                  attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_AND2>()                 ,$3,$4);}
-	| expression OP2_OR2                   attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_OR2>()                  ,$3,$4);}
-	| expression OP2_XOR                   attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_XOR>()                  ,$3,$4);}
-	| expression OP2_XNOR                  attribute_instance_list expression {$$=make_shared<T_expression_op2>($1,make_shared<T_binary_operator_XNOR>()                 ,$3,$4);}
+		{$$=SHR2(expression,T_expression_prim,($1));}
+	| OP2_ADD  attribute_instance_list primary %prec OP1_ADD  {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_ADD,()),$2,$3));}
+	| OP2_SUB  attribute_instance_list primary %prec OP1_SUB  {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_SUB,()),$2,$3));}
+	| OP2_AND  attribute_instance_list primary %prec OP1_AND  {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_AND,()) ,$2,$3));}
+	| OP2_OR   attribute_instance_list primary %prec OP1_OR   {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_OR,())  ,$2,$3));}
+	| OP2_XOR  attribute_instance_list primary %prec OP1_XOR  {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_XOR,()) ,$2,$3));}
+	| OP2_XNOR attribute_instance_list primary %prec OP1_XNOR {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_XNOR,()),$2,$3));}
+	| OP1_LOGIC_NEG   attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_LOGIC_NEG,())  ,$2,$3));}
+	| OP1_BITWISE_NEG attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_BITWISE_NEG,()),$2,$3));}
+	| OP1_REDUCE_NAND attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_NAND,()),$2,$3));}
+	| OP1_REDUCE_NOR  attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_NOR,()) ,$2,$3));}
+	| expression OP2_MULTIPLE              attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_MUL,())                  ,$3,$4));}
+	| expression OP2_DIV                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_DIV,())                  ,$3,$4));}
+	| expression OP2_MOD                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_MOD,())                  ,$3,$4));}
+	| expression OP2_EQU2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_EQU2,())                 ,$3,$4));}
+	| expression OP2_NEQ2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_NEQ2,())                 ,$3,$4));}
+	| expression OP2_EQU3                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_EQU3,())                 ,$3,$4));}
+	| expression OP2_NEQ3                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_NEQ3,())                 ,$3,$4));}
+	| expression OP2_POWER                 attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_POWER,())                ,$3,$4));}
+	| expression OP2_LT                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_LT,())                   ,$3,$4));}
+	| expression OP2_LE                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_LE,())                   ,$3,$4));}
+	| expression OP2_GT                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_GT,())                   ,$3,$4));}
+	| expression OP2_GE                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_GE,())                   ,$3,$4));}
+	| expression OP2_LOGICAL_RIGHTSHIFT    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_LOGICAL_RIGHTSHIFT,())   ,$3,$4));}
+	| expression OP2_LOGICAL_LEFTSHIFT     attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_LOGICAL_LEFTSHIFT,())    ,$3,$4));}
+	| expression OP2_ARITHMETIC_RIGHTSHIFT attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_ARITHMETIC_RIGHTSHIFT,()),$3,$4));}
+	| expression OP2_ARITHMETIC_LEFTSHIFT  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_ARITHMETIC_LEFTSHIFT,()) ,$3,$4));}
+	| expression OP2_ADD                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_ADD,())                  ,$3,$4));}
+	| expression OP2_SUB                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_SUB,())                  ,$3,$4));}
+	| expression OP2_AND                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_AND,())                  ,$3,$4));}
+	| expression OP2_OR                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_OR,())                   ,$3,$4));}
+	| expression OP2_AND2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_AND2,())                 ,$3,$4));}
+	| expression OP2_OR2                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_OR2,())                  ,$3,$4));}
+	| expression OP2_XOR                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_XOR,())                  ,$3,$4));}
+	| expression OP2_XNOR                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR2(binary_operator,T_binary_operator_XNOR,())                 ,$3,$4));}
 	| conditional_expression
-		{$$=make_shared<T_expression_condition>($1);}
+		{$$=SHR2(expression,T_expression_condition,($1));}
 ;
 
 
 mintypmax_expression :
 	expression
-		{$$=make_shared<T_mintypmax_expression_1>($1);}
+		{$$=SHR2(mintypmax_expression,T_mintypmax_expression_1,($1));}
 	| expression COLON expression COLON expression
-		{$$=make_shared<T_mintypmax_expression_3>($1,$3,$5);}
+		{$$=SHR2(mintypmax_expression,T_mintypmax_expression_3,($1,$3,$5));}
 ;
 
 /*module_path_conditional_expression :
 	module_path_expression OP2_QUESTION attribute_instance_list
 	module_path_expression COLON module_path_expression
-		{$$=make_shared<T_module_path_conditional_expression>($1,$3,$4,$6);}
+		{$$=SHR2(,T_module_path_conditional_expression,($1,$3,$4,$6));}
 ;
 
 
 module_path_expression :
 	module_path_primary
-		{$$=make_shared<T_module_path_expression_prim>($1);}
-	| OP2_AND  attribute_instance_list module_path_primary %prec OP1_AND {$$=make_shared<T_module_path_expression_op1>(make_shared<T_unary_operator_REDUCE_AND>() ,$2,$3);}
-	| OP2_OR   attribute_instance_list module_path_primary %prec OP1_OR  {$$=make_shared<T_module_path_expression_op1>(make_shared<T_unary_operator_REDUCE_OR>()  ,$2,$3);}
-	| OP2_XOR  attribute_instance_list module_path_primary %prec OP1_XOR {$$=make_shared<T_module_path_expression_op1>(make_shared<T_unary_operator_REDUCE_XOR>() ,$2,$3);}
-	| OP2_XNOR attribute_instance_list module_path_primary %prec OP1_XNOR{$$=make_shared<T_module_path_expression_op1>(make_shared<T_unary_operator_REDUCE_XNOR>(),$2,$3);}
-	| OP1_LOGIC_NEG   attribute_instance_list module_path_primary {$$=make_shared<T_module_path_expression_op1>(make_shared<T_unary_operator_LOGIC_NEG>()  ,$2,$3);}
-	| OP1_BITWISE_NEG attribute_instance_list module_path_primary {$$=make_shared<T_module_path_expression_op1>(make_shared<T_unary_operator_BITWISE_NEG>(),$2,$3);}
-	| OP1_REDUCE_NAND attribute_instance_list module_path_primary {$$=make_shared<T_module_path_expression_op1>(make_shared<T_unary_operator_REDUCE_NAND>()       ,$2,$3);}
-	| OP1_REDUCE_NOR  attribute_instance_list module_path_primary {$$=make_shared<T_module_path_expression_op1>(make_shared<T_unary_operator_REDUCE_NOR>()        ,$2,$3);}
-	| module_path_expression OP2_EQU2 attribute_instance_list module_path_expression {$$=make_shared<T_module_path_expression_op2>($1,make_shared<T_binary_module_path_operator_EQU2>(),$3,$4);}
-	| module_path_expression OP2_NEQ2 attribute_instance_list module_path_expression {$$=make_shared<T_module_path_expression_op2>($1,make_shared<T_binary_module_path_operator_NEQ2>(),$3,$4);}
-	| module_path_expression OP2_AND2 attribute_instance_list module_path_expression {$$=make_shared<T_module_path_expression_op2>($1,make_shared<T_binary_module_path_operator_AND2>(),$3,$4);}
-	| module_path_expression OP2_OR2  attribute_instance_list module_path_expression {$$=make_shared<T_module_path_expression_op2(($1,make_shared<T_binary_module_path_operator_OR2>() ,$3,$4);}
-	| module_path_expression OP2_AND  attribute_instance_list module_path_expression {$$=make_shared<T_module_path_expression_op2>($1,make_shared<T_binary_module_path_operator_AND1>(),$3,$4);}
-	| module_path_expression OP2_OR   attribute_instance_list module_path_expression {$$=make_shared<T_module_path_expression_op2(($1,make_shared<T_binary_module_path_operator_OR1>() ,$3,$4);}
-	| module_path_expression OP2_XOR  attribute_instance_list module_path_expression {$$=make_shared<T_module_path_expression_op2(($1,make_shared<T_binary_module_path_operator_XOR>() ,$3,$4);}
-	| module_path_expression OP2_XNOR attribute_instance_list module_path_expression {$$=make_shared<T_module_path_expression_op2>($1,make_shared<T_binary_module_path_operator_XNOR>(),$3,$4);}
+		{$$=SHR2(,T_module_path_expression_prim,($1);}
+	| OP2_AND  attribute_instance_list module_path_primary %prec OP1_AND {$$=SHR2(,T_module_path_expression_op1,(SHR2(,T_unary_operator_REDUCE_AND,() ,$2,$3);}
+	| OP2_OR   attribute_instance_list module_path_primary %prec OP1_OR  {$$=SHR2(,T_module_path_expression_op1,(SHR2(,T_unary_operator_REDUCE_OR,()  ,$2,$3);}
+	| OP2_XOR  attribute_instance_list module_path_primary %prec OP1_XOR {$$=SHR2(,T_module_path_expression_op1,(SHR2(,T_unary_operator_REDUCE_XOR,() ,$2,$3);}
+	| OP2_XNOR attribute_instance_list module_path_primary %prec OP1_XNOR{$$=SHR2(,T_module_path_expression_op1,(SHR2(,T_unary_operator_REDUCE_XNOR,(),$2,$3);}
+	| OP1_LOGIC_NEG   attribute_instance_list module_path_primary {$$=SHR2(,T_module_path_expression_op1,(SHR2(,T_unary_operator_LOGIC_NEG,()  ,$2,$3);}
+	| OP1_BITWISE_NEG attribute_instance_list module_path_primary {$$=SHR2(,T_module_path_expression_op1,(SHR2(,T_unary_operator_BITWISE_NEG,(),$2,$3);}
+	| OP1_REDUCE_NAND attribute_instance_list module_path_primary {$$=SHR2(,T_module_path_expression_op1,(SHR2(,T_unary_operator_REDUCE_NAND,()       ,$2,$3);}
+	| OP1_REDUCE_NOR  attribute_instance_list module_path_primary {$$=SHR2(,T_module_path_expression_op1,(SHR2(,T_unary_operator_REDUCE_NOR,()        ,$2,$3);}
+	| module_path_expression OP2_EQU2 attribute_instance_list module_path_expression {$$=SHR2(,T_module_path_expression_op2,($1,SHR2(,T_binary_module_path_operator_EQU2,(),$3,$4);}
+	| module_path_expression OP2_NEQ2 attribute_instance_list module_path_expression {$$=SHR2(,T_module_path_expression_op2,($1,SHR2(,T_binary_module_path_operator_NEQ2,(),$3,$4);}
+	| module_path_expression OP2_AND2 attribute_instance_list module_path_expression {$$=SHR2(,T_module_path_expression_op2,($1,SHR2(,T_binary_module_path_operator_AND2,(),$3,$4);}
+	| module_path_expression OP2_OR2  attribute_instance_list module_path_expression {$$=SHR2(,T_module_path_expression_op2(($1,SHR2(,T_binary_module_path_operator_OR2,() ,$3,$4);}
+	| module_path_expression OP2_AND  attribute_instance_list module_path_expression {$$=SHR2(,T_module_path_expression_op2,($1,SHR2(,T_binary_module_path_operator_AND1,(),$3,$4);}
+	| module_path_expression OP2_OR   attribute_instance_list module_path_expression {$$=SHR2(,T_module_path_expression_op2(($1,SHR2(,T_binary_module_path_operator_OR1,() ,$3,$4);}
+	| module_path_expression OP2_XOR  attribute_instance_list module_path_expression {$$=SHR2(,T_module_path_expression_op2(($1,SHR2(,T_binary_module_path_operator_XOR,() ,$3,$4);}
+	| module_path_expression OP2_XNOR attribute_instance_list module_path_expression {$$=SHR2(,T_module_path_expression_op2,($1,SHR2(,T_binary_module_path_operator_XNOR,(),$3,$4);}
 	| module_path_conditional_expression
-		{$$=make_shared<T_module_path_expression_sel>($1);}
+		{$$=SHR2(,T_module_path_expression_sel,($1);}
 ;
 
 
 module_path_mintypmax_expression :
 	module_path_expression
-		{$$=make_shared<T_module_path_mintypmax_expression_1>($1);}
+		{$$=SHR2(,T_module_path_mintypmax_expression_1,($1);}
 	| module_path_expression COLON module_path_expression COLON module_path_expression
-		{$$=make_shared<T_module_path_mintypmax_expression_3>($1,$3,$5);}
+		{$$=SHR2(,T_module_path_mintypmax_expression_3,($1,$3,$5);}
 ;
 */
 
 /*range_expression :*/
 lsquare_range_expression_rsquare :
 	LSQUARE expression RSQUARE
-		{$$=make_shared<T_range_expression_1>($2);}
+		{$$=SHR2(range_expression,T_range_expression_1,($2));}
 	| LSQUARE expression COLON expression RSQUARE
-		{$$=make_shared<T_range_expression_2>($2,$4);}
+		{$$=SHR2(range_expression,T_range_expression_2,($2,$4));}
 	| LSQUARE base_expression ADDRANGE width_expression RSQUARE
-		{$$=make_shared<T_range_expression_addrange>($2,$4);}
+		{$$=SHR2(range_expression,T_range_expression_addrange,($2,$4));}
 	| LSQUARE base_expression SUBRANGE width_expression RSQUARE
-		{$$=make_shared<T_range_expression_subrange>($2,$4);}
+		{$$=SHR2(range_expression,T_range_expression_subrange,($2,$4));}
 ;
 
 
@@ -3510,40 +3507,38 @@ width_expression :
 /*
 module_path_primary :
 	number
-		{$$=make_shared<T_module_path_primary_num>($1);}
+		{$$=SHR2(,T_module_path_primary_num,($1);}
 	| identifier
-		{$$=make_shared<T_module_path_primary_id>($1);}
+		{$$=SHR2(,T_module_path_primary_id,($1);}
 	| module_path_concatenation
-		{$$=make_shared<T_module_path_primary_concat>($1);}
+		{$$=SHR2(,T_module_path_primary_concat,($1);}
 	| module_path_multiple_concatenation
-		{$$=make_shared<T_module_path_primary_mul_concat>($1);}
+		{$$=SHR2(,T_module_path_primary_mul_concat,($1);}
 	| function_call
-		{$$=make_shared<T_module_path_primary_func>($1);}
+		{$$=SHR2(,T_module_path_primary_func,($1);}
 	| system_function_call
-		{$$=make_shared<T_module_path_primary_sysfunc>($1);}
+		{$$=SHR2(,T_module_path_primary_sysfunc,($1);}
 	| LPARENT module_path_mintypmax_expression RPARENT
-		{$$=make_shared<T_module_path_primary_mintypmax>($2);}
+		{$$=SHR2(,T_module_path_primary_mintypmax,($2);}
 ;
 */
 primary :
 	number
-		{$$=make_shared<T_primary_num>($1);}
+		{$$=SHR2(primary,T_primary_num,($1));}
 	| hierarchical_identifier 
-		{$$=make_shared<T_primary_id>($1);}
+		{$$=SHR2(primary,T_primary_id,($1));}
 	| concatenation
-		{$$=make_shared<T_primary_concat>($1);}
+		{$$=SHR2(primary,T_primary_concat,($1));}
 	| multiple_concatenation
-		{$$=make_shared<T_primary_mulcon>($1);}
+		{$$=SHR2(primary,T_primary_mulcon,($1));}
 	| function_call
-		{$$=make_shared<T_primary_func>($1);}
+		{$$=SHR2(primary,T_primary_func,($1));}
 	| system_function_call
-		{$$=make_shared<T_primary_sysfunc>($1);}
+		{$$=SHR2(primary,T_primary_sysfunc,($1));}
 	| LPARENT mintypmax_expression RPARENT
-		{$$=make_shared<T_primary_mintypmax>($2);}
+		{$$=SHR2(primary,T_primary_mintypmax,($2));}
 	| string_typedef
-		{
-			$$=make_shared<T_primary_string>($1);
-		}
+		{ $$=SHR2(primary,T_primary_string,($1));}
 ;
 
 /*
@@ -3561,19 +3556,19 @@ square_expression_square :
 /*A.8.5 Expression left-side values*/
 net_lvalue :
 	hierarchical_identifier
-		{$$=make_shared<T_net_lvalue_id>($1);}
+		{$$=SHR2(net_lvalue,T_net_lvalue_id,($1));}
 	| LBRACE net_lvalue comma_net_lvalue_list RBRACE
 		{
 			auto p=$3;
 			p->push_front($2);
-			$$=make_shared<T_net_lvalue_lvlist>(p);
+			$$=SHR2(net_lvalue,T_net_lvalue_lvlist,(p));
 		}
 ;
 
 
 comma_net_lvalue_list :
 		{
-			$$=make_shared<list<net_lvalue>>();
+			$$=SHR_LIST_SHR(net_lvalue)();
 		}
 	| comma_net_lvalue_list COMMA net_lvalue 
 		{
@@ -3605,15 +3600,15 @@ comma_variable_lvalue_list :
 
 /*A.8.7 Numbers*/
 number :
-	UNSIGNED_NUMBER {$$=make_shared<T_number_UNSIGNED_NUMBER>($1);}
-	| UNSIGNED_NUMBER_size {$$=make_shared<T_number_UNSIGNED_NUMBER_size>($1);}
-	| OCTAL_NUMBER {$$=make_shared<T_number_OCTAL_NUMBER>($1);}
-	| BINARY_NUMBER {$$=make_shared<T_number_BINARY_NUMBER>($1);}
-	| HEX_NUMBER {$$=make_shared<T_number_HEX_NUMBER>($1);}
-	| REAL_NUMBER {$$=make_shared<T_number_REAL_NUMBER>($1);}
+	UNSIGNED_NUMBER {$$=SHR2(number,T_number_UNSIGNED_NUMBER,($1));}
+	| UNSIGNED_NUMBER_size {$$=SHR2(number,T_number_UNSIGNED_NUMBER_size,(get<0>($1) , get<1>($1)));}
+	| OCTAL_NUMBER {$$=SHR2(number,T_number_OCTAL_NUMBER,(get<0>($1) , get<1>($1)));}
+	| BINARY_NUMBER {$$=SHR2(number,T_number_BINARY_NUMBER,(get<0>($1) , get<1>($1)));}
+	| HEX_NUMBER {$$=SHR2(number,T_number_HEX_NUMBER,(get<0>($1) , get<1>($1)));}
+	| REAL_NUMBER {$$=SHR2(number,T_number_REAL_NUMBER,($1));}
 
 /*A.8.8 Strings*/
-string_typedef : STRING {$$=make_shared<T_string>($1);};
+string_typedef : STRING {$$=SHR2(string_typedef,T_string,($1));};
 
 
 /*A.9 General
@@ -3623,13 +3618,13 @@ attribute_instance : LPARENTSTART attr_spec  comma_attr_spec_list RPARENTSTART
 	{
 		auto p=$3;
 		p->push_front($2);
-		$$=make_shared<T_attribute_instance>(p);
+		$$=SHR2(attribute_instance,T_attribute_instance,(p));
 	}
 ;
 
 comma_attr_spec_list :
 		{
-			$$=make_shared<list<attr_spec>>();
+			$$=SHR_LIST_SHR(attr_spec)();
 		}
 	| comma_attr_spec_list COMMA attr_spec 
 		{
@@ -3641,9 +3636,9 @@ comma_attr_spec_list :
 
 attr_spec :
 	attr_name 
-		{$$=make_shared<T_attr_spec>($1,make_shared<T_expression_NOSPEC>());}
+		{$$=SHR2(attr_spec,T_attr_spec,($1,SHR2(expression,T_expression_NOSPEC,())));}
 	| attr_name  EQU1 expression 
-		{$$=make_shared<T_attr_spec>($1,$3);}
+		{$$=SHR2(attr_spec,T_attr_spec,($1,$3));}
 ;
 
 attr_name :
@@ -3670,12 +3665,12 @@ genvar_identifier : identifier {$$=$1;};
 
 hierarchical_identifier : 
 	identifier_lsq_expression_rsq_opt_list  
-		{$$=make_shared<T_hierarchical_identifier>($1);}
+		{$$=SHR2(hierarchical_identifier,T_hierarchical_identifier,($1));}
 ;
 identifier_lsq_expression_rsq_opt_list :
 	identifier_lsq_expression_rsq_opt 
 		{
-			auto p = make_shared<list<identifier_lsq_expression_rsq>>();
+			auto p = SHR_LIST_SHR(identifier_lsq_expression_rsq)();
 			p->push_back($1);
 			$$=p;
 		}
@@ -3689,11 +3684,11 @@ identifier_lsq_expression_rsq_opt_list :
 
 identifier_lsq_expression_rsq_opt :
 	identifier  lsquare_range_expression_rsquare_list
-		{$$=make_shared<T_identifier_lsq_expression_rsq>($1,$2);}
+		{$$=SHR2(identifier_lsq_expression_rsq,T_identifier_lsq_expression_rsq,($1,$2));}
 ;
 lsquare_range_expression_rsquare_list :
 		{
-			$$=make_shared<list<range_expression>>();
+			$$=SHR_LIST_SHR(range_expression)();
 		}
 	| lsquare_range_expression_rsquare_list lsquare_range_expression_rsquare
 		{
@@ -3706,8 +3701,8 @@ lsquare_range_expression_rsquare_list :
 /*hierarchical_variable_identifier : hierarchical_identifier {$1};*/
 
 identifier :
-	SIMPLE_IDENTIFIER {$$=make_shared<T_identifier>($1);}
-	| ESCAPED_IDENTIFIER {$$=make_shared<T_identifier>($1);}
+	SIMPLE_IDENTIFIER {$$=SHR2(identifier,T_identifier,($1));}
+	| ESCAPED_IDENTIFIER {$$=SHR2(identifier,T_identifier,($1));}
 ;
 
 /*inout_port_identifier : identifier {$$=$1;};
@@ -3726,8 +3721,7 @@ real_identifier : identifier {$$=$1;};
 
 system_function_identifier :
 	SYSTEM_TASK_FUNCTION_IDENTIFIER {
-		shared_ptr<string> pstr=make_shared<string>($1);
-		$$=make_shared<T_system_function_identifier>(pstr);
+		$$=SHR2(system_function_identifier,T_system_function_identifier,($1));
 	}
 ;
 

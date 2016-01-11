@@ -7,6 +7,12 @@
 #include<unistd.h>
 #include<vector>
 
+#include<memory>
+#include<list>
+
+#include"asthelpper.h"
+#include"variant_exp.h"
+#include"verilogast.h"
 using namespace std;
 
 bool testFileExistenceInDir(string dirname_filename) {
