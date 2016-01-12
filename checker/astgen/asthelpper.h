@@ -4,8 +4,8 @@
 #define SHR2(variant1,type2,init) \
 	make_shared<variant1>(make_shared<type2>init)
 
-#define SHR3(variant1,m1,type2,init) \
-	make_shared<variant1>(make_shared<m1>(make_shared<type2>init))
+#define SHR4(variant1,m1,m2,type2,init) \
+	make_shared<variant1>(make_shared<m1>(make_shared<m2>(make_shared<type2>init)))
 
 class ComponentBase {
 	

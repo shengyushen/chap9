@@ -1,13 +1,19 @@
+
+	#include<string>
+	#include<fstream>
+
 #undef yyFlexLexer
 #define yyFlexLexer veryFlexLexer
 #include <FlexLexer.h>
 
-#include<memory>
+//I just need the namespace yy
 #include<list>
-
-#include"asthelpper.h"
-#include"variant_exp.h"
+#include<memory>
+#include<boost/variant.hpp>
 #include"verilogast.h"
+#include"verilog_parser.h"
+//#include"location.hh"
+
 #include"veryscanner.h"
 void veryScanner::open( string * fn , ifstream * pis) {
 	loc.initialize(fn);
@@ -18,6 +24,5 @@ void veryScanner::print_pos () {
 	cerr<< loc << endl << flush; 
 }
 
-int veryScanner::yylex() {}
 
 

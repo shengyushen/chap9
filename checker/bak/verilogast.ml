@@ -15,7 +15,10 @@ and port_declaration =
 	T_port_declaration__inout_declaration of (attribute_instance list)*inout_declaration
 	| T_port_declaration__input_declaration of (attribute_instance list)*input_declaration
 	| T_port_declaration__output_declaration of (attribute_instance list)*output_declaration
-and module_item =
+and module_item = 
+	T_module_item__1 of module_item1
+	| T_module_item__2 of module_item2
+and module_item1 =
 	T_module_item__port_declaration of port_declaration
 	| T_module_item__generate_region of generate_region
 	| T_module_item__specify_block of specify_block
@@ -28,7 +31,8 @@ and module_item =
 	| T_module_item__time_declaration of (attribute_instance list)*time_declaration
 	| T_module_item__realtime_declaration of (attribute_instance list)*realtime_declaration
 	| T_module_item__event_declaration of (attribute_instance list)*event_declaration
-	| T_module_item__genvar_declaration of (attribute_instance list)*genvar_declaration
+and module_item2 =
+	T_module_item__genvar_declaration of (attribute_instance list)*genvar_declaration
 	| T_module_item__task_declaration of (attribute_instance list)*task_declaration
 	| T_module_item__function_declaration of (attribute_instance list)*function_declaration
 	| T_module_item__local_parameter_declaration of (attribute_instance list)*local_parameter_declaration
@@ -624,7 +628,7 @@ and unary_operator =
 	| T_unary_operator_REDUCE_OR
 	| T_unary_operator_REDUCE_XOR
 	| T_unary_operator_REDUCE_XNOR
-and binary_operator =
+and binary_operator1 =
 |	T_binary_operator_MUL
 |	T_binary_operator_DIV
 |	T_binary_operator_MOD
@@ -637,7 +641,8 @@ and binary_operator =
 |	T_binary_operator_LE
 |	T_binary_operator_GT
 |	T_binary_operator_GE
-|	T_binary_operator_LOGICAL_RIGHTSHIFT
+and binary_operator2 =
+	T_binary_operator_LOGICAL_RIGHTSHIFT
 |	T_binary_operator_LOGICAL_LEFTSHIFT
 |	T_binary_operator_ARITHMETIC_RIGHTSHIFT
 |	T_binary_operator_ARITHMETIC_LEFTSHIFT
@@ -649,6 +654,9 @@ and binary_operator =
 |	T_binary_operator_OR2
 |	T_binary_operator_XOR
 |	T_binary_operator_XNOR
+and binary_operator =
+	T_binary_operator_1 of binary_operator1
+	| T_binary_operator_2 of binary_operator2
 and unary_module_path_operator =
 	T_unary_module_path_operator_GANTANHAO
 	| T_unary_module_path_operator_BOLANGHAO

@@ -4,8 +4,8 @@
 #define SHR2(variant1,type2,init) \
 	make_shared<variant1>(make_shared<type2>init)
 
-#define SHR3(variant1,m1,type2,init) \
-	make_shared<variant1>(make_shared<m1>(make_shared<type2>init))
+#define SHR4(variant1,m1,m2,type2,init) \
+	make_shared<variant1>(make_shared<m1>(make_shared<m2>(make_shared<type2>init)))
 
 class ComponentBase {
 	
@@ -35,6 +35,10 @@ class T_port_declaration__input_declaration;
 typedef class T_port_declaration__input_declaration T_port_declaration__input_declaration ;
 class T_port_declaration__output_declaration;
 typedef class T_port_declaration__output_declaration T_port_declaration__output_declaration ;
+class T_module_item__1;
+typedef class T_module_item__1 T_module_item__1 ;
+class T_module_item__2;
+typedef class T_module_item__2 T_module_item__2 ;
 class T_module_item__port_declaration;
 typedef class T_module_item__port_declaration T_module_item__port_declaration ;
 class T_module_item__generate_region;
@@ -945,6 +949,10 @@ class T_binary_operator_XOR;
 typedef class T_binary_operator_XOR T_binary_operator_XOR ;
 class T_binary_operator_XNOR;
 typedef class T_binary_operator_XNOR T_binary_operator_XNOR ;
+class T_binary_operator_1;
+typedef class T_binary_operator_1 T_binary_operator_1 ;
+class T_binary_operator_2;
+typedef class T_binary_operator_2 T_binary_operator_2 ;
 class T_unary_module_path_operator_GANTANHAO;
 typedef class T_unary_module_path_operator_GANTANHAO T_unary_module_path_operator_GANTANHAO ;
 class T_unary_module_path_operator_BOLANGHAO;
@@ -1107,6 +1115,10 @@ typedef boost::variant<
  ,  std::shared_ptr<T_port_declaration__output_declaration>
  > port_declaration ; 
 typedef boost::variant<
+ std::shared_ptr<T_module_item__1>
+ ,  std::shared_ptr<T_module_item__2>
+ > module_item ; 
+typedef boost::variant<
  std::shared_ptr<T_module_item__port_declaration>
  ,  std::shared_ptr<T_module_item__generate_region>
  ,  std::shared_ptr<T_module_item__specify_block>
@@ -1119,7 +1131,9 @@ typedef boost::variant<
  ,  std::shared_ptr<T_module_item__time_declaration>
  ,  std::shared_ptr<T_module_item__realtime_declaration>
  ,  std::shared_ptr<T_module_item__event_declaration>
- ,  std::shared_ptr<T_module_item__genvar_declaration>
+ > module_item1 ; 
+typedef boost::variant<
+ std::shared_ptr<T_module_item__genvar_declaration>
  ,  std::shared_ptr<T_module_item__task_declaration>
  ,  std::shared_ptr<T_module_item__function_declaration>
  ,  std::shared_ptr<T_module_item__local_parameter_declaration>
@@ -1132,7 +1146,7 @@ typedef boost::variant<
  ,  std::shared_ptr<T_module_item__always_construct>
  ,  std::shared_ptr<T_module_item__loop_generate_construct>
  ,  std::shared_ptr<T_module_item__conditional_generate_construct>
- > module_item ; 
+ > module_item2 ; 
 typedef boost::variant<
  std::shared_ptr<T_config_declaration>
  > config_declaration ; 
@@ -1906,7 +1920,9 @@ typedef boost::variant<
  ,  std::shared_ptr<T_binary_operator_LE>
  ,  std::shared_ptr<T_binary_operator_GT>
  ,  std::shared_ptr<T_binary_operator_GE>
- ,  std::shared_ptr<T_binary_operator_LOGICAL_RIGHTSHIFT>
+ > binary_operator1 ; 
+typedef boost::variant<
+ std::shared_ptr<T_binary_operator_LOGICAL_RIGHTSHIFT>
  ,  std::shared_ptr<T_binary_operator_LOGICAL_LEFTSHIFT>
  ,  std::shared_ptr<T_binary_operator_ARITHMETIC_RIGHTSHIFT>
  ,  std::shared_ptr<T_binary_operator_ARITHMETIC_LEFTSHIFT>
@@ -1918,6 +1934,10 @@ typedef boost::variant<
  ,  std::shared_ptr<T_binary_operator_OR2>
  ,  std::shared_ptr<T_binary_operator_XOR>
  ,  std::shared_ptr<T_binary_operator_XNOR>
+ > binary_operator2 ; 
+typedef boost::variant<
+ std::shared_ptr<T_binary_operator_1>
+ ,  std::shared_ptr<T_binary_operator_2>
  > binary_operator ; 
 typedef boost::variant<
  std::shared_ptr<T_unary_module_path_operator_GANTANHAO>
@@ -2176,6 +2196,26 @@ class T_port_declaration__output_declaration : public ComponentBase {
   ):
        mem1(i1)
  ,     mem2(i2)
+  {}
+};
+class T_module_item__1 : public ComponentBase {
+  public :
+    std::shared_ptr<module_item1> mem1;
+
+  T_module_item__1( 
+       std::shared_ptr<module_item1> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_module_item__2 : public ComponentBase {
+  public :
+    std::shared_ptr<module_item2> mem1;
+
+  T_module_item__2( 
+       std::shared_ptr<module_item2> i1
+  ):
+       mem1(i1)
   {}
 };
 class T_module_item__port_declaration : public ComponentBase {
@@ -7431,6 +7471,26 @@ class T_binary_operator_XNOR : public ComponentBase {
 
   T_binary_operator_XNOR( 
   )
+  {}
+};
+class T_binary_operator_1 : public ComponentBase {
+  public :
+    std::shared_ptr<binary_operator1> mem1;
+
+  T_binary_operator_1( 
+       std::shared_ptr<binary_operator1> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_binary_operator_2 : public ComponentBase {
+  public :
+    std::shared_ptr<binary_operator2> mem1;
+
+  T_binary_operator_2( 
+       std::shared_ptr<binary_operator2> i1
+  ):
+       mem1(i1)
   {}
 };
 class T_unary_module_path_operator_GANTANHAO : public ComponentBase {

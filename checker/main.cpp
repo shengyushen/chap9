@@ -1,18 +1,13 @@
 #include<string>
 #include<iostream>
 #include<fstream>
-#include<stack>
-#include<assert.h>
-#include<regex>
-#include<unistd.h>
-#include<vector>
-
-#include<memory>
+//we need yy and yy::verilog_parser
 #include<list>
-
-#include"asthelpper.h"
-#include"variant_exp.h"
+#include<memory>
+#include<boost/variant.hpp>
 #include"verilogast.h"
+#include"verilog_parser.h"
+
 using namespace std;
 
 bool testFileExistenceInDir(string dirname_filename) {
@@ -29,7 +24,6 @@ void usage() {
 #include <FlexLexer.h>
 
 #include"veryscanner.h"
-
 veryScanner vs;
 yy::verilog_parser::symbol_type yylex() {
 	return vs.yylex1();
