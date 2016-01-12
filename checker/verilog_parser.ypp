@@ -544,6 +544,7 @@ using namespace std;
 %code {
 using namespace Verilogast;
 extern yy::verilog_parser::symbol_type yylex();
+extern std::shared_ptr<std::list<std::shared_ptr<Verilogast::description>>> ptr_source_text;
 }
 %%
 
@@ -552,7 +553,10 @@ extern yy::verilog_parser::symbol_type yylex();
 
 /*rules*/
 /*A.1.2 Verilog source text*/
-source_text : description_list {$$=$1;}
+source_text : description_list {
+	$$=$1;
+	ptr_source_text=$1;
+}
 ;
 
 description_list : 

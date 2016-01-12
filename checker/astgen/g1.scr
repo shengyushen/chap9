@@ -5,3 +5,5 @@ echo "namespace Verilogast {" > haha_head.h
 echo "}" > haha_tail.h
 
 cat asthelpper.h haha_head.h haha1.h haha2.h haha3.h haha_tail.h > verilogast.h
+rm haha*
+

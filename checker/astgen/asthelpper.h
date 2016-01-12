@@ -8,7 +8,6 @@
 	make_shared<variant1>(make_shared<m1>(make_shared<m2>(make_shared<type2>init)))
 
 class ComponentBase {
-	
 };
 
 

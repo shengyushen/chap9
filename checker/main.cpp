@@ -9,6 +9,7 @@
 #include"verilog_parser.h"
 
 using namespace std;
+using namespace Verilogast;
 
 bool testFileExistenceInDir(string dirname_filename) {
 	ifstream foo( dirname_filename );
@@ -28,6 +29,11 @@ veryScanner vs;
 yy::verilog_parser::symbol_type yylex() {
 	return vs.yylex1();
 }
+
+//the result of parsing
+std::shared_ptr<std::list<std::shared_ptr<Verilogast::description>>> ptr_source_text;
+
+#include"printVisitor.h"
 
 int main ( int argc, char * argv[] ) {
 	if(argc!=2) {
@@ -50,6 +56,8 @@ int main ( int argc, char * argv[] ) {
 	} else {
 		cerr<<"all done!!!"<<endl;
 	}
+
+	printVerilog(ptr_source_text);
 	
 	return 0;
 }
