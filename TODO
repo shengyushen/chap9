@@ -20,3 +20,7 @@ you should in clude
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 after AM_INIT
 
+
+
+reset ro recent uncommit version
+git reset --hard HEAD

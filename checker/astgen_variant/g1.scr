@@ -1,0 +1,7 @@
+awk -f genemptystruct.awk ../bak/verilogast.ml > haha1.h
+awk -f genvariant.awk ../bak/verilogast.ml > haha2.h
+awk -f genconstuctor.awk ../bak/verilogast.ml > haha3.h
+echo "namespace Verilogast {" > haha_head.h
+echo "}" > haha_tail.h
+
+cat asthelpper.h haha_head.h haha1.h haha2.h haha3.h haha_tail.h > verilogast.h
