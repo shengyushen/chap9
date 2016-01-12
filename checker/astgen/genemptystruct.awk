@@ -9,7 +9,8 @@ function printclass (classname) {
 		disp_error();
 	}
 	print "class " classname ";";
-	print "typedef class " classname " " classname " ;";
+	# no need of typedef class xx xx
+#	print "typedef class " classname " " classname " ;";
 }
 
 {
