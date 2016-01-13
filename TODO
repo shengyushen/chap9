@@ -22,5 +22,8 @@ after AM_INIT
 
 
 
-reset ro recent uncommit version
+reset to recent uncommit version
 git reset --hard HEAD
+reset a file
+ git checkout -- filename
+
