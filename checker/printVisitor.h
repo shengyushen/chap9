@@ -1050,6 +1050,59 @@ public :
 		prt_keyword_space(")\n");
 		APP_PRINTV(mem2) 
 	}
+
+	OPERATOR(T_function_declaration_1,p) {  
+		prt_keyword_space("\n function");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(" ");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(" ");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(";\n");
+		APPLST_PRINTV(mem4 , prt_nothing , prt_nothing , prt_nothing)  
+		prt_keyword_space("\n");
+		APP_PRINTV(mem5) 
+		prt_keyword_space("\n endfunction");
+	}
+	OPERATOR(T_function_declaration_2,p) {  
+		prt_keyword_space("\n function");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(" ");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(" ");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(" ");
+		APPLST_PRINTV(mem4 , prt_lparent , prt_comma , prt_rparent)  
+		prt_keyword_space(";\n");
+		APPLST_PRINTV(mem5 , prt_nothing , prt_nothing, prt_nothing)  
+		prt_keyword_space(";\n");
+		APP_PRINTV(mem6) 
+	}
+
+	OPERATOR(T_function_range_or_type_NOSPEC,p) {  }
+	OPERATOR(T_function_range_or_type,p) { 
+		APP_PRINTV(mem1) 
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_function_range_or_type_INTEGER,p) { prt_keyword_space("integer"); }
+	OPERATOR(T_function_range_or_type_REAL,p) { prt_keyword_space("real"); }
+	OPERATOR(T_function_range_or_type_REALTIME,p) { prt_keyword_space("realtime"); }
+	OPERATOR(T_function_range_or_type_TIME,p) { prt_keyword_space("time"); }
+	OPERATOR(T_attribute_instance_list_tf_input_declaration,p) { 
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		prt_keyword_space(" ");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_function_item_declaration_block,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_function_item_declaration_input,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		prt_keyword_space(" ");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(";\n");
+	}
+
+
+
 	OPERATOR(T_module_item__specify_block,p) { assert(false); }
 	OPERATOR(T_module_item__parameter_declaration,p) { 
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
@@ -1093,8 +1146,11 @@ public :
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem2);
 	}
+	OPERATOR(T_module_item__function_declaration,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		APP_PRINTV(mem2);
+	}
 // above is finished
-	OPERATOR(T_module_item__function_declaration,p) {  }
 	OPERATOR(T_module_item__local_parameter_declaration,p) {  }
 	OPERATOR(T_module_item__parameter_override,p) {  }
 	OPERATOR(T_module_item__continuous_assign,p) {  }
