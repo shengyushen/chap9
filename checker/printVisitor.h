@@ -33,6 +33,12 @@ public :
 	bool operator()(std::shared_ptr<T>   ) const { return false; }
 };
 
+class  is_T_generate_block_NOSPEC: public boost::static_visitor<bool> {
+public :
+	bool operator()(std::shared_ptr<T_generate_block_NOSPEC>   ) const { return true; }
+	template <typename T>
+	bool operator()(std::shared_ptr<T>   ) const { return false; }
+};
 //macros for invoke visitor on T_* types and list of non-T_* types
 #define APP_PRINTV(x)                              \
 	boost::apply_visitor(printVisitor(),*(p->x));
@@ -1167,6 +1173,72 @@ public :
 		APPLST_PRINTV( mem3 , prt_nothing , prt_comma , prt_nothing);//net_assignment
 		prt_keyword_space(";\n");
 	}
+	OPERATOR(T_initial_construct,p) {  
+		prt_keyword_space("initial");
+		APP_PRINTV(mem1) 
+	}
+	OPERATOR(T_always_construct,p) {  
+		prt_keyword_space("always");
+		APP_PRINTV(mem1) 
+	}
+	OPERATOR(T_loop_generate_construct,p) {  
+		prt_keyword_space("for(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(";");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(";");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(")\n");
+		APP_PRINTV(mem4) 
+	}
+	OPERATOR(T_genvar_initialization,p) {  
+		APP_PRINTV(mem1) 
+		prt_keyword_space("=");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_genvar_iteration,p) {  
+		APP_PRINTV(mem1) 
+		prt_keyword_space("=");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_generate_block_NOSPEC,p) {  
+		prt_keyword_space(";\n");
+	}
+	OPERATOR(T_generate_block_mgi,p) {  
+		APP_PRINTV(mem1) 
+	}
+	OPERATOR(T_generate_block_begin,p) {  
+		prt_keyword_space("\n begin\n");
+		APP_PRINTV(mem1) 
+		APPLST_PRINTV( mem2 , prt_nothing , prt_nothing , prt_nothing);//module_item
+		prt_keyword_space("\n end\n");
+	}
+	OPERATOR(T_conditional_generate_construct_if,p) {  APP_PRINTV(mem1) }
+	OPERATOR(T_conditional_generate_construct_case,p) {  APP_PRINTV(mem1) }
+	OPERATOR(T_if_generate_construct,p) {
+		prt_keyword_space("\n if(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(")");
+		APP_PRINTV(mem2) 
+		if(false==(boost::apply_visitor(is_T_generate_block_NOSPEC(),*(p->mem3)))) {
+			prt_keyword_space("else");
+			APP_PRINTV(mem3) 
+		}
+	}
+	OPERATOR(T_case_generate_construct,p) {
+		prt_keyword_space("\n case(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(")\n");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_nothing , prt_nothing);//case_generate_item
+		prt_keyword_space("\n endcase\n");
+	}
+
+	OPERATOR(T_case_generate_item_case,p) {  
+		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//expression
+		prt_keyword_space(":");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_case_generate_item_default,p) {  }
 
 
 	OPERATOR(T_module_item__specify_block,p) { assert(false); }
@@ -1237,14 +1309,22 @@ public :
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem2);
 	}
-// above is finished
-	OPERATOR(T_module_item__initial_construct,p) {  }
-	OPERATOR(T_module_item__always_construct,p) {  }
-	OPERATOR(T_module_item__loop_generate_construct,p) {  }
-	OPERATOR(T_module_item__conditional_generate_construct,p) {  }
-	
-
-	
+	OPERATOR(T_module_item__initial_construct,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		APP_PRINTV(mem2);
+	}
+	OPERATOR(T_module_item__always_construct,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		APP_PRINTV(mem2);
+	}
+	OPERATOR(T_module_item__loop_generate_construct,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		APP_PRINTV(mem2);
+	}
+	OPERATOR(T_module_item__conditional_generate_construct,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		APP_PRINTV(mem2);
+	}
 };
 
 void printVerilog( std::shared_ptr<std::list<std::shared_ptr<Verilogast::description>>> ptr_source_text) {
