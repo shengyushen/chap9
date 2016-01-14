@@ -16,6 +16,9 @@ void prt_period  () { cout<<".";}
 void prt_star_rp () { cout<<"*)"; }
 void prt_lbrace  () { cout<<"{";}
 void prt_rbrace  () { cout<<"}";}
+template <typename T>
+void prt_keyword_space(T & str) { cout<<" "<<str<<" ";}
+//void prt_keyword_space(const char* const pstr  ) { cout<<" "<<pstr<<" ";}
 
 class is_T_expression_NOSPEC : public boost::static_visitor<bool> {
 public :
@@ -56,48 +59,48 @@ public :
 	OPERATOR(T_description__config_declaration,p) { assert(false);}
 	OPERATOR(T_description__module_declaration,p) { APP_PRINTV(mem1) }
 
-	OPERATOR(T_identifier_NOSPEC,p) { cout<<""; }
-	OPERATOR(T_identifier,       p) { cout<<(p->mem1); }
+	OPERATOR(T_identifier_NOSPEC,p) {  }
+	OPERATOR(T_identifier,       p) { prt_keyword_space(p->mem1); }
 
 	OPERATOR(T_attribute_instance,p) { assert(false); }
 
 	OPERATOR(T_parameter_declaration_gen_1,p) {
 		APP_PRINTV(mem1) //parameter type
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem2) //signed type
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem3) //range type
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem4) //pam assignment
 	}
 
-	OPERATOR(T_parameter_type__NOSPEC,p) { }
-	OPERATOR(T_parameter_type__INTEGER,p) { cout<<" integer ";}
-	OPERATOR(T_parameter_type__REAL,p) { cout<<" real "; }
-	OPERATOR(T_parameter_type__REALTIME,p) { cout<<" realtime "; }
-	OPERATOR(T_parameter_type__TIME,p) { cout<<" time "; }
+	OPERATOR(T_parameter_type__NOSPEC,p)   { }
+	OPERATOR(T_parameter_type__INTEGER,p)  { prt_keyword_space("integer" );}
+	OPERATOR(T_parameter_type__REAL,p)     { prt_keyword_space("real"    );}
+	OPERATOR(T_parameter_type__REALTIME,p) { prt_keyword_space("realtime");}
+	OPERATOR(T_parameter_type__TIME,p)     { prt_keyword_space("time"    );}
 
-	OPERATOR(T_unary_operator_LOGIC_NEG,p)   { cout<<" ! "; }
-	OPERATOR(T_unary_operator_BITWISE_NEG,p) { cout<<" ~ "; }
-	OPERATOR(T_unary_operator_REDUCE_NOR ,p) { cout<<" ~|  "; }
-	OPERATOR(T_unary_operator_REDUCE_NAND,p) { cout<<" ~& "; }
-	OPERATOR(T_unary_operator_ADD        ,p) { cout<<" + "; }
-	OPERATOR(T_unary_operator_SUB        ,p) { cout<<" - "; }
-	OPERATOR(T_unary_operator_REDUCE_AND ,p) { cout<<" & "; }
-	OPERATOR(T_unary_operator_REDUCE_OR  ,p) { cout<<" | "; }
-	OPERATOR(T_unary_operator_REDUCE_XOR ,p) { cout<<" ^ "; }
-	OPERATOR(T_unary_operator_REDUCE_XNOR,p) { cout<<" ~^ "; }
+	OPERATOR(T_unary_operator_LOGIC_NEG,p)   { prt_keyword_space("!"); }
+	OPERATOR(T_unary_operator_BITWISE_NEG,p) { prt_keyword_space("~"); }
+	OPERATOR(T_unary_operator_REDUCE_NOR ,p) { prt_keyword_space("~|"); }
+	OPERATOR(T_unary_operator_REDUCE_NAND,p) { prt_keyword_space("~&"); }
+	OPERATOR(T_unary_operator_ADD        ,p) { prt_keyword_space("+"); }
+	OPERATOR(T_unary_operator_SUB        ,p) { prt_keyword_space("-"); }
+	OPERATOR(T_unary_operator_REDUCE_AND ,p) { prt_keyword_space("&"); }
+	OPERATOR(T_unary_operator_REDUCE_OR  ,p) { prt_keyword_space("|"); }
+	OPERATOR(T_unary_operator_REDUCE_XOR ,p) { prt_keyword_space("^"); }
+	OPERATOR(T_unary_operator_REDUCE_XNOR,p) { prt_keyword_space("~^"); }
 
 	OPERATOR(T_signed_FALSE,p) {  }
-	OPERATOR(T_signed_TRUE,p) { cout<<" signed "; }
+	OPERATOR(T_signed_TRUE,p) { prt_keyword_space("signed"); }
 
 	OPERATOR(T_range_NOSPEC,p) {  }
 	OPERATOR(T_range,p) { 
-		cout<<"[";
+		prt_keyword_space("[");
 		APP_PRINTV(mem1) //exp1
-		cout<<":";
+		prt_keyword_space(":");
 		APP_PRINTV(mem2) //exp2
-		cout<<"]";
+		prt_keyword_space("]");
 	}
 
 	OPERATOR(T_expression_NOSPEC,p) { }
@@ -117,7 +120,7 @@ public :
 	
 	OPERATOR(T_param_assignment,p) {
 		APP_PRINTV(mem1) //identifier
-		cout<<" = ";
+		prt_keyword_space("=");
 		APP_PRINTV(mem2) //mintypmax_expression
 	}
 
@@ -125,9 +128,9 @@ public :
 	OPERATOR(T_mintypmax_expression_1,p) { APP_PRINTV(mem1)}
 	OPERATOR(T_mintypmax_expression_3,p) {
 		APP_PRINTV(mem1) //exp1
-		cout<<" : ";
+		prt_keyword_space(":");
 		APP_PRINTV(mem2) //exp2
-		cout<<" : ";
+		prt_keyword_space(":");
 		APP_PRINTV(mem3) //exp3
 	}
 	OPERATOR(T_primary_num,p)    { APP_PRINTV(mem1)}
@@ -150,15 +153,13 @@ public :
 		APPLST_PRINTV(mem1 , prt_nothing , prt_period , prt_nothing); }
 	
 	OPERATOR(T_concatenation     ,p) { 
-		cout<<"{";
 		APPLST_PRINTV(mem1,prt_lbrace , prt_comma , prt_rbrace);//explist
-		cout<<"}";
 	}
 	OPERATOR(T_multiple_concatenation     ,p) { 
-		cout<<"{";
+		prt_keyword_space("{");
 			APP_PRINTV(mem1) //exp1
 			APP_PRINTV(mem2) //concat
-		cout<<"}";
+		prt_keyword_space("}");
 	}
 	OPERATOR(T_function_call     ,p) { 
 		APP_PRINTV(mem1)//func name
@@ -169,43 +170,43 @@ public :
 		APP_PRINTV(mem1)//func name
 		APPLST_PRINTV(mem2 , prt_lparent , prt_comma , prt_rparent);//exp list for parameter
 	}
-	OPERATOR(T_system_function_identifier     ,p) { cout<<p->mem1; }
-	OPERATOR(T_string     ,p) { cout<<p->mem1; }
+	OPERATOR(T_system_function_identifier     ,p) { prt_keyword_space(p->mem1); }
+	OPERATOR(T_string     ,p) { prt_keyword_space(p->mem1); }
 
-	OPERATOR(T_binary_operator_1     ,p) { cout<<p->mem1; }
-	OPERATOR(T_binary_operator_2     ,p) { cout<<p->mem1; }
+	OPERATOR(T_binary_operator_1     ,p) { APP_PRINTV(mem1); }
+	OPERATOR(T_binary_operator_2     ,p) { APP_PRINTV(mem1); }
 
-	OPERATOR(T_binary_operator_MUL   ,p) { cout<<"*"; }
-	OPERATOR(T_binary_operator_DIV   ,p) { cout<<"/"; }
-	OPERATOR(T_binary_operator_MOD   ,p) { cout<<"%"; }
-	OPERATOR(T_binary_operator_EQU2  ,p) { cout<<"=="; }
-	OPERATOR(T_binary_operator_NEQ2  ,p) { cout<<"!="; }
-	OPERATOR(T_binary_operator_EQU3  ,p) { cout<<"==="; }
-	OPERATOR(T_binary_operator_NEQ3  ,p) { cout<<"!=="; }
-	OPERATOR(T_binary_operator_POWER ,p) { cout<<"**"; }
-	OPERATOR(T_binary_operator_LT    ,p) { cout<<"<"; } 
-	OPERATOR(T_binary_operator_LE    ,p) { cout<<"<="; } 
-	OPERATOR(T_binary_operator_GT    ,p) { cout<<">"; } 
-	OPERATOR(T_binary_operator_GE    ,p) { cout<<">="; } 
-	OPERATOR(T_binary_operator_LOGICAL_RIGHTSHIFT,p) { cout<<">>"; } 
-	OPERATOR(T_binary_operator_LOGICAL_LEFTSHIFT,p) { cout<<"<<"; } 
-	OPERATOR(T_binary_operator_ARITHMETIC_RIGHTSHIFT,p) { cout<<">>>"; } 
-	OPERATOR(T_binary_operator_ARITHMETIC_LEFTSHIFT,p) { cout<<"<<<"; } 
-	OPERATOR(T_binary_operator_ADD,p) { cout<<"+"; } 
-	OPERATOR(T_binary_operator_SUB,p) { cout<<"-"; } 
-	OPERATOR(T_binary_operator_AND,p) { cout<<"&"; } 
-	OPERATOR(T_binary_operator_OR,p) { cout<<"|"; } 
-	OPERATOR(T_binary_operator_AND2,p) { cout<<"&&"; } 
-	OPERATOR(T_binary_operator_OR2,p) { cout<<"||"; } 
-	OPERATOR(T_binary_operator_XOR,p) { cout<<"^"; } 
-	OPERATOR(T_binary_operator_XNOR,p) { cout<<"~^"; } 
+	OPERATOR(T_binary_operator_MUL   ,p) { prt_keyword_space("*"); }
+	OPERATOR(T_binary_operator_DIV   ,p) { prt_keyword_space("/"); }
+	OPERATOR(T_binary_operator_MOD   ,p) { prt_keyword_space("%"); }
+	OPERATOR(T_binary_operator_EQU2  ,p) { prt_keyword_space("=="); }
+	OPERATOR(T_binary_operator_NEQ2  ,p) { prt_keyword_space("!="); }
+	OPERATOR(T_binary_operator_EQU3  ,p) { prt_keyword_space("==="); }
+	OPERATOR(T_binary_operator_NEQ3  ,p) { prt_keyword_space("!=="); }
+	OPERATOR(T_binary_operator_POWER ,p) { prt_keyword_space("**"); }
+	OPERATOR(T_binary_operator_LT    ,p) { prt_keyword_space("<"); } 
+	OPERATOR(T_binary_operator_LE    ,p) { prt_keyword_space("<="); } 
+	OPERATOR(T_binary_operator_GT    ,p) { prt_keyword_space(">"); } 
+	OPERATOR(T_binary_operator_GE    ,p) { prt_keyword_space(">="); } 
+	OPERATOR(T_binary_operator_LOGICAL_RIGHTSHIFT,p) { prt_keyword_space(">>"); } 
+	OPERATOR(T_binary_operator_LOGICAL_LEFTSHIFT,p) { prt_keyword_space("<<"); } 
+	OPERATOR(T_binary_operator_ARITHMETIC_RIGHTSHIFT,p) { prt_keyword_space(">>>"); } 
+	OPERATOR(T_binary_operator_ARITHMETIC_LEFTSHIFT,p) { prt_keyword_space("<<<"); } 
+	OPERATOR(T_binary_operator_ADD,p) { prt_keyword_space("+"); } 
+	OPERATOR(T_binary_operator_SUB,p) { prt_keyword_space("-"); } 
+	OPERATOR(T_binary_operator_AND,p) { prt_keyword_space("&"); } 
+	OPERATOR(T_binary_operator_OR,p) { prt_keyword_space("|"); } 
+	OPERATOR(T_binary_operator_AND2,p) { prt_keyword_space("&&"); } 
+	OPERATOR(T_binary_operator_OR2,p) { prt_keyword_space("||"); } 
+	OPERATOR(T_binary_operator_XOR,p) { prt_keyword_space("^"); } 
+	OPERATOR(T_binary_operator_XNOR,p) { prt_keyword_space("~^"); } 
 
 	OPERATOR(T_conditional_expression,p) {
 		APP_PRINTV(mem1)
-		cout << "?";
+		prt_keyword_space("?");
 		APPLST_PRINTV(mem2 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem3)
-		cout<<":";
+		prt_keyword_space(":");
 		APP_PRINTV(mem4)
 	}
 
@@ -215,90 +216,95 @@ public :
 	}
 	OPERATOR(T_range_expression_NOSPEC,p) {}
 	OPERATOR(T_range_expression_1,p) {
-		cout<<"[";
+		prt_keyword_space("[");
 		APP_PRINTV(mem1)
-		cout<<"]";
+		prt_keyword_space("]");
 	}
 	OPERATOR(T_range_expression_2,p) {
-		cout<<"[";
+		prt_keyword_space("[");
 		APP_PRINTV(mem1)
-		cout<<":";
+		prt_keyword_space(":");
 		APP_PRINTV(mem2)
-		cout<<"]";
+		prt_keyword_space("]");
 	}
 	OPERATOR(T_range_expression_addrange,p) {
-		cout<<"[";
+		prt_keyword_space("[");
 		APP_PRINTV(mem1)
-		cout<<"+:";
+		prt_keyword_space("+:");
 		APP_PRINTV(mem2)
-		cout<<"]";
+		prt_keyword_space("]");
 	}
 	OPERATOR(T_range_expression_subrange,p) {
-		cout<<"[";
+		prt_keyword_space("[");
 		APP_PRINTV(mem1)
-		cout<<"-:";
+		prt_keyword_space("-:");
 		APP_PRINTV(mem2)
-		cout<<"]";
+		prt_keyword_space("]");
 	}
 
 	OPERATOR(T_io_type_NOSPEC,p) {}
-	OPERATOR(T_io_type_output,p) {cout<<"output";}
-	OPERATOR(T_io_type_input,p) {cout<<"input";}
-	OPERATOR(T_io_type_inout,p) {cout<<"inout";}
+	OPERATOR(T_io_type_output,p) {prt_keyword_space("output");}
+	OPERATOR(T_io_type_input,p) {prt_keyword_space("input");}
+	OPERATOR(T_io_type_inout,p) {prt_keyword_space("inout");}
 
 	OPERATOR(T_netreg_type__NOSPEC,p) {}
-	OPERATOR(T_netreg_type__KEY_SUPPLY0,p) {cout<<"supply0";}
-	OPERATOR(T_netreg_type__KEY_SUPPLY1,p) {cout<<"supply1";}
-	OPERATOR(T_netreg_type__KEY_TRI,p) {cout<<"tri";}
-	OPERATOR(T_netreg_type__KEY_TRIAND,p) {cout<<"triand";}
-	OPERATOR(T_netreg_type__KEY_TRIOR,p) {cout<<"trior";}
-	OPERATOR(T_netreg_type__KEY_TRI0,p) {cout<<"tri0";}
-	OPERATOR(T_netreg_type__KEY_TRI1,p) {cout<<"tri1";}
-	OPERATOR(T_netreg_type__KEY_UWIRE,p) {cout<<"uwire";}
-	OPERATOR(T_netreg_type__KEY_WIRE,p) {cout<<"wire";}
-	OPERATOR(T_netreg_type__KEY_WAND,p) {cout<<"wand";}
-	OPERATOR(T_netreg_type__KEY_WOR,p) {cout<<"wor";}
-	OPERATOR(T_netreg_type__KEY_REG,p) {cout<<"reg";}
-	OPERATOR(T_netreg_type__KEY_INTEGER,p) {cout<<"integer";}
-	OPERATOR(T_netreg_type__KEY_TIME,p) {cout<<"time";}
+	OPERATOR(T_netreg_type__KEY_SUPPLY0,p) {prt_keyword_space("supply0");}
+	OPERATOR(T_netreg_type__KEY_SUPPLY1,p) {prt_keyword_space("supply1");}
+	OPERATOR(T_netreg_type__KEY_TRI,p) {prt_keyword_space("tri");}
+	OPERATOR(T_netreg_type__KEY_TRIAND,p) {prt_keyword_space("triand");}
+	OPERATOR(T_netreg_type__KEY_TRIOR,p) {prt_keyword_space("trior");}
+	OPERATOR(T_netreg_type__KEY_TRI0,p) {prt_keyword_space("tri0");}
+	OPERATOR(T_netreg_type__KEY_TRI1,p) {prt_keyword_space("tri1");}
+	OPERATOR(T_netreg_type__KEY_UWIRE,p) {prt_keyword_space("uwire");}
+	OPERATOR(T_netreg_type__KEY_WIRE,p) {prt_keyword_space("wire");}
+	OPERATOR(T_netreg_type__KEY_WAND,p) {prt_keyword_space("wand");}
+	OPERATOR(T_netreg_type__KEY_WOR,p) {prt_keyword_space("wor");}
+	OPERATOR(T_netreg_type__KEY_REG,p) {prt_keyword_space("reg");}
+	OPERATOR(T_netreg_type__KEY_INTEGER,p) {prt_keyword_space("integer");}
+	OPERATOR(T_netreg_type__KEY_TIME,p) {prt_keyword_space("time");}
 
 	OPERATOR(T_port_reference,p) {
 		APP_PRINTV(mem1)
 		APP_PRINTV(mem2)
 	}
 	OPERATOR(T_port_exp,         p) {
-		cout<<".";
+		prt_keyword_space(".");
 		APP_PRINTV(mem1) //port name
-		cout<<"(";
+		prt_keyword_space("(");
 		APP_PRINTV(mem2) //expression
-		cout<<")";
+		prt_keyword_space(")");
 	}
 	OPERATOR(T_port_net,         p) {
 		APP_PRINTV(mem1)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem2)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem3)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem4)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem5)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem6)
 	}
 
 	OPERATOR(T_port_expression,         p) {
-		APPLST_PRINTV(mem1 , prt_lbrace , prt_comma , prt_rbrace);//ports refs
+		assert(((p->mem1)->size())>=1);
+		if(((p->mem1)->size())==1) {
+			boost::apply_visitor(printVisitor(),*((p->mem1)->front()));
+		} else {
+			APPLST_PRINTV(mem1 , prt_lbrace , prt_comma , prt_rbrace); 
+		}//ports refs
 	}
 	OPERATOR(T_module_declaration__1,p) {
 		APPLST_PRINTV(mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 
-		cout<<"module ";
+		prt_keyword_space("module");
 		APP_PRINTV(mem2) //module name
 		APPLST_PRINTV(mem3 , prt_jinglparent , prt_comma , prt_rparent); // parameter list
 		APPLST_PRINTV(mem4 , prt_lparent , prt_comma , prt_rparent_semicolon);//ports
 		APPLST_PRINTV(mem5 , prt_return , prt_return , prt_return);//module_item
-		cout<<endl<<"endmodule"<<endl;
+		prt_keyword_space("\n endmodule\n");
 	}
 	OPERATOR(T_module_item__1,p) { APP_PRINTV(mem1)}
 	OPERATOR(T_module_item__2,p) { APP_PRINTV(mem1)}
@@ -316,92 +322,92 @@ public :
 		APP_PRINTV(mem2)
 	}
 	OPERATOR(T_inout_declaration,p) {  
-		cout<<"inout ";
+		prt_keyword_space("inout");
 		APP_PRINTV(mem1);
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem2);
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem3);
-		cout<<" ";
+		prt_space();
 		APPLST_PRINTV( mem4 , prt_nothing , prt_comma , prt_nothing);//identifier
 	}
 	OPERATOR(T_input_declaration,p) {  
-		cout<<"input ";
+		prt_keyword_space("input");
 		APP_PRINTV(mem1);
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem2);
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem3);
-		cout<<" ";
+		prt_space();
 		APPLST_PRINTV( mem4 , prt_nothing , prt_comma , prt_nothing);//identifier
 	}
 	OPERATOR(T_output_declaration_net,p) {  
-		cout<<"output ";
+		prt_keyword_space("output");
 		APP_PRINTV(mem1);
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem2);
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem3);
-		cout<<" ";
+		prt_space();
 		APPLST_PRINTV( mem4 , prt_nothing , prt_comma , prt_nothing);//identifier
 	}
 	OPERATOR(T_output_declaration_reg,p) {  
-		cout<<"output reg ";
+		prt_keyword_space("output reg");
 		APP_PRINTV(mem1);
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem2);
-		cout<<" ";
+		prt_space();
 		APPLST_PRINTV( mem3 , prt_nothing , prt_comma , prt_nothing);//identifier
 	}
 	OPERATOR(T_output_declaration_var,p) {
-		cout<<"output ";
+		prt_keyword_space("output");
 		APP_PRINTV(mem1);
-		cout<<" ";
+		prt_space();
 		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);//identifier
 	}
 	OPERATOR(T_net_type_NOSPEC,p) {  }
-	OPERATOR(T_net_type__KEY_SUPPLY0,p) { cout<<"supply0"; }
-	OPERATOR(T_net_type__KEY_SUPPLY1,p) { cout<<"supply1"; }
-	OPERATOR(T_net_type__KEY_TRI,p) { cout<<"tri"; }
-	OPERATOR(T_net_type__KEY_TRIAND,p) { cout<<"triand"; }
-	OPERATOR(T_net_type__KEY_TRIOR,p) {cout<<"trior";  }
-	OPERATOR(T_net_type__KEY_TRI0,p) { cout<<"tri0"; }
-	OPERATOR(T_net_type__KEY_TRI1,p) { cout<<"tri1"; }
-	OPERATOR(T_net_type__KEY_UWIRE,p) { cout<<"uwire"; }
-	OPERATOR(T_net_type__KEY_WIRE,p) { cout<<"wire"; }
-	OPERATOR(T_net_type__KEY_WAND,p) {cout<<"wand";  }
-	OPERATOR(T_net_type__KEY_WOR,p) { cout<<"wor"; }
+	OPERATOR(T_net_type__KEY_SUPPLY0,p) { prt_keyword_space("supply0"); }
+	OPERATOR(T_net_type__KEY_SUPPLY1,p) { prt_keyword_space("supply1"); }
+	OPERATOR(T_net_type__KEY_TRI,p) { prt_keyword_space("tri"); }
+	OPERATOR(T_net_type__KEY_TRIAND,p) { prt_keyword_space("triand"); }
+	OPERATOR(T_net_type__KEY_TRIOR,p) {prt_keyword_space("trior");  }
+	OPERATOR(T_net_type__KEY_TRI0,p) { prt_keyword_space("tri0"); }
+	OPERATOR(T_net_type__KEY_TRI1,p) { prt_keyword_space("tri1"); }
+	OPERATOR(T_net_type__KEY_UWIRE,p) { prt_keyword_space("uwire"); }
+	OPERATOR(T_net_type__KEY_WIRE,p) { prt_keyword_space("wire"); }
+	OPERATOR(T_net_type__KEY_WAND,p) {prt_keyword_space("wand");  }
+	OPERATOR(T_net_type__KEY_WOR,p) { prt_keyword_space("wor"); }
 
 	OPERATOR(T_port_identifier_equ1_expression_opt,p) { 
 		APP_PRINTV(mem1);
 		if(false==(boost::apply_visitor(is_T_expression_NOSPEC(),*(p->mem2)))) {
 			//it is not NOSPEC, we can print =
-			cout<<" = ";
+			prt_keyword_space("=");
 			APP_PRINTV(mem2);
 		}
 	}
-	OPERATOR(T_output_variable_type_INTEGER,p) { cout<<"integer"; }
-	OPERATOR(T_output_variable_type_TIME,p) {cout <<"time";}
+	OPERATOR(T_output_variable_type_INTEGER,p) { prt_keyword_space("integer"); }
+	OPERATOR(T_output_variable_type_TIME,p) {prt_keyword_space("time");}
 
 	OPERATOR(T_module_item__generate_region,p) { APP_PRINTV(mem1); }
 	OPERATOR(T_generate_region,p) { 
-		cout<<endl<<"generate"<<endl;
+		prt_keyword_space("\n generate\n");
 			APPLST_PRINTV( mem1 , prt_return , prt_return , prt_return);//module_item_list
-		cout<<endl<<"endgenerate"<<endl;
+		prt_keyword_space("\n endgenerate\n");
 	}
 
 	OPERATOR(T_parameter_declaration_1,p) { 
-		cout<<"parameter ";
+		prt_keyword_space("parameter");
 		APP_PRINTV(mem1);
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem2);
-		cout<<" ";
+		prt_space();
 		APPLST_PRINTV( mem3 , prt_nothing , prt_comma , prt_nothing);//param_assignment list
 	}
 	OPERATOR(T_parameter_declaration_2,p) {
-		cout<<"parameter ";
+		prt_keyword_space("parameter");
 		APP_PRINTV(mem1);
-		cout<<" ";
+		prt_space();
 		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);//param_assignment list
 	}
 	
@@ -409,36 +415,36 @@ public :
 	OPERATOR(T_net_declaration_net_type2,p) { assert(false); }
 	OPERATOR(T_net_declaration_net_type3,p) { 
 		APP_PRINTV(mem1) 
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem2)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem3)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem4)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem5)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem6)
-		cout<<" ";
+		prt_space();
 		APPLST_PRINTV( mem7 , prt_nothing , prt_comma , prt_nothing);//net_identifier_dimension_list
-		cout<<" ;"<<endl;
+		prt_keyword_space(";\n");
 	}
 
 	OPERATOR(T_net_declaration_net_type4,p) {  
 		APP_PRINTV(mem1) 
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem2)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem3)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem4)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem5)
-		cout<<" ";
+		prt_space();
 		APP_PRINTV(mem6)
-		cout<<" ";
+		prt_space();
 		APPLST_PRINTV( mem7 , prt_nothing , prt_comma , prt_nothing);//net_decl_assignment
-		cout<<" ;"<<endl;
+		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_net_declaration_trireg_1,p) { assert(false); }
 	OPERATOR(T_net_declaration_trireg_2,p) { assert(false); }
@@ -451,80 +457,80 @@ public :
 	}
 	OPERATOR(T_net_decl_assignment,p) {
 		APP_PRINTV(mem1)
-		cout<<" = ";
+		prt_keyword_space("=");
 		APP_PRINTV(mem2)
 	}
 	OPERATOR(T_drive_strength_NOSPEC,p) { }
 	OPERATOR(T_drive_strength,p) { 
-		cout<<" (";
+		prt_keyword_space("(");
 			APP_PRINTV(mem1)
-		cout<<":";
+		prt_keyword_space(":");
 			APP_PRINTV(mem2)
-		cout<<") ";
+		prt_keyword_space(")");
 	}
 
-	OPERATOR(KEY_HIGHZ0,p)  { cout<<" highz0 "; }
-	OPERATOR(KEY_HIGHZ1,p)  { cout<<" highz1 "; }
-	OPERATOR(KEY_SUPPLY0,p) { cout<<" supply0 "; }
-	OPERATOR(KEY_STRONG0,p) { cout<<" strong0 "; }
-	OPERATOR(KEY_PULL0,p)   { cout<<" pull0 "; }
-	OPERATOR(KEY_WEAK0,p)   { cout<<" weak0 "; }
-	OPERATOR(KEY_SUPPLY1,p) { cout<<" supply1 "; }
-	OPERATOR(KEY_STRONG1,p) { cout<<" strong1 "; }
-	OPERATOR(KEY_PULL1,p)   { cout<<" pull1 "; }
-	OPERATOR(KEY_WEAK1,p)   { cout<<" weak1 "; }
+	OPERATOR(KEY_HIGHZ0,p)  { prt_keyword_space("highz0"); }
+	OPERATOR(KEY_HIGHZ1,p)  { prt_keyword_space("highz1"); }
+	OPERATOR(KEY_SUPPLY0,p) { prt_keyword_space("supply0"); }
+	OPERATOR(KEY_STRONG0,p) { prt_keyword_space("strong0"); }
+	OPERATOR(KEY_PULL0,p)   { prt_keyword_space("pull0"); }
+	OPERATOR(KEY_WEAK0,p)   { prt_keyword_space("weak0"); }
+	OPERATOR(KEY_SUPPLY1,p) { prt_keyword_space("supply1"); }
+	OPERATOR(KEY_STRONG1,p) { prt_keyword_space("strong1"); }
+	OPERATOR(KEY_PULL1,p)   { prt_keyword_space("pull1"); }
+	OPERATOR(KEY_WEAK1,p)   { prt_keyword_space("weak1"); }
 
 	OPERATOR(T_vectored_scalared_NOSPEC,p) {  }
-	OPERATOR(T_vectored_scalared_vectored,p) { cout<<" vectored ";  }
-	OPERATOR(T_vectored_scalared_scalared,p) { cout<<" scalared ";  }
+	OPERATOR(T_vectored_scalared_vectored,p) { prt_keyword_space("vectored");  }
+	OPERATOR(T_vectored_scalared_scalared,p) { prt_keyword_space("scalared");  }
 
 	OPERATOR(T_delay3_NOSPEC,p) {  }
 	OPERATOR(T_delay3_1,p) { 
-		cout<<" #";
+		prt_keyword_space("#");
 		APP_PRINTV(mem1) 
-		cout<<" ";
+		prt_space();
 	}
 	OPERATOR(T_delay3_minmax1,p) {
-		cout<<" #(";
+		prt_keyword_space("#(");
 		APP_PRINTV(mem1) 
-		cout<<") ";
+		prt_keyword_space(")");
 	}
 	OPERATOR(T_delay3_minmax2,p) { 
-		cout<<" #(";
+		prt_keyword_space("#(");
 		APP_PRINTV(mem1) 
-		cout<<" , ";
+		prt_keyword_space(",");
 		APP_PRINTV(mem2) 
-		cout<<") ";
+		prt_keyword_space(")");
 	}
 	OPERATOR(T_delay3_minmax3,p) { 
-		cout<<" #(";
+		prt_keyword_space("#(");
 		APP_PRINTV(mem1) 
-		cout<<" , ";
+		prt_keyword_space(",");
 		APP_PRINTV(mem2) 
-		cout<<" , ";
+		prt_keyword_space(",");
 		APP_PRINTV(mem3) 
-		cout<<") ";
+		prt_keyword_space(")");
 	}
 
 	OPERATOR(T_dimension,p) { 
-		cout<<" [ ";
+		prt_keyword_space("[");
 			APP_PRINTV(mem1) 
-		cout<<" : ";
+		prt_keyword_space(":");
 			APP_PRINTV(mem2) 
-		cout<<" ] ";
+		prt_keyword_space("]");
 	}
-	OPERATOR(T_delay_value_UNSIGNED_NUMBER,p) { cout<<" "<<p->mem1<<" ";  }
-	OPERATOR(T_delay_value_REAL_NUMBER,p) { cout<<" "<<p->mem1<<" ";  }
+	OPERATOR(T_delay_value_UNSIGNED_NUMBER,p) { prt_keyword_space(p->mem1);  }
+	OPERATOR(T_delay_value_REAL_NUMBER,p) { prt_keyword_space(p->mem1);  }
 	OPERATOR(T_delay_value_id,p) { APP_PRINTV(mem1) }
 
 	OPERATOR(T_reg_declaration,p) {
-		cout<<" reg ";
+		prt_keyword_space("reg");
 			APP_PRINTV(mem1) 
-		cout<<" ";
+		prt_space();
 			APP_PRINTV(mem2) 
-		cout<<" ";
+		prt_space();
 			APPLST_PRINTV( mem3 , prt_nothing , prt_comma , prt_nothing);//variable_type
-		cout<<" ; "<<endl;
+		prt_keyword_space(";\n");
 	}
 
 	OPERATOR(T_variable_type_noass,p) { 
@@ -533,45 +539,49 @@ public :
 	}
 	OPERATOR(T_variable_type_ass,p) { 
 		APP_PRINTV(mem1) 
-		cout<<" = ";
+		prt_keyword_space("=");
 		APP_PRINTV(mem2) 
 	}
 	OPERATOR(T_integer_declaration,p) { 
-		cout<<" integer ";
+		prt_keyword_space("integer");
 		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//variable_type
-		cout<<" ; "<<endl;
+		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_real_declaration,p) { 
-		cout<<" real ";
+		prt_keyword_space("real");
 		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//variable_type
-		cout<<" ; "<<endl;
+		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_real_type_noass,p) {  
 		APP_PRINTV(mem1) 
-		cout<<" ";
+		prt_space();
 		APPLST_PRINTV( mem2 , prt_nothing , prt_nothing , prt_nothing);//dimension
 	}
 	OPERATOR(T_real_type_ass,p) { 
 		APP_PRINTV(mem1) 
-		cout<<" = ";
+		prt_keyword_space("=");
 		APP_PRINTV(mem2) 
 	}
 	OPERATOR(T_time_declaration,p) { 
-		cout<<" time ";
+		prt_keyword_space("time");
 		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//variable_type
-		cout<<" ; "<<endl;
+		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_realtime_declaration,p) { 
-		cout<<" realtime ";
+		prt_keyword_space("realtime");
 		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//variable_type
-		cout<<" ; "<<endl;
+		prt_keyword_space(";\n");
+	}
+
+	OPERATOR(T_event_declaration,p) { 
+		prt_keyword_space("event");
 	}
 
 	OPERATOR(T_module_item__specify_block,p) { assert(false); }
 	OPERATOR(T_module_item__parameter_declaration,p) { 
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem2);
-		cout<<";"<<endl;
+		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_module_item__specparam_declaration,p) { assert(false); }
 	OPERATOR(T_module_item__net_declaration,p) {  
@@ -598,8 +608,11 @@ public :
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem2);
 	}
+	OPERATOR(T_module_item__event_declaration,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		APP_PRINTV(mem2);
+	}
 // above is finished
-	OPERATOR(T_module_item__event_declaration,p) {  }
 	OPERATOR(T_module_item__genvar_declaration,p) {  }
 	OPERATOR(T_module_item__task_declaration,p) {  }
 	OPERATOR(T_module_item__function_declaration,p) {  }
