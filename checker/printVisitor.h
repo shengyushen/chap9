@@ -1101,6 +1101,72 @@ public :
 		prt_keyword_space(";\n");
 	}
 
+	OPERATOR(T_defparam_assignment,p) {  
+		APP_PRINTV(mem1) 
+		prt_keyword_space("=");
+		APP_PRINTV(mem2) 
+	}
+
+	OPERATOR(T_module_instantiation,p) {  
+		APP_PRINTV(mem1) 
+		prt_keyword_space(" ");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(" ");
+		APPLST_PRINTV( mem3 , prt_nothing, prt_comma , prt_nothing);//attribute_instance_list
+		prt_keyword_space(";\n");
+	}
+
+	OPERATOR(T_parameter_value_assignment_NOSPEC,p) {  }
+	OPERATOR(T_parameter_value_assignment_order,p) { 
+		APPLST_PRINTV( mem1 , prt_nothing, prt_comma , prt_nothing);//expression
+	}
+	OPERATOR(T_parameter_value_assignment_named,p) {  
+		APPLST_PRINTV( mem1 , prt_nothing, prt_comma , prt_nothing);//expression
+	}
+	OPERATOR(T_module_instance,p) {  
+		APP_PRINTV(mem1) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_named_parameter_assignment,p) {  
+		prt_keyword_space(".");
+		APP_PRINTV(mem1) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_list_of_port_connections_ordered,p) {  
+		APPLST_PRINTV( mem1 , prt_nothing, prt_comma , prt_nothing);//ordered_port_connection
+	}
+	OPERATOR(T_list_of_port_connections_named,p) {  
+		APPLST_PRINTV( mem1 , prt_nothing, prt_comma , prt_nothing);//named_port_connection
+	}
+	OPERATOR(T_ordered_port_connection,p) {  
+		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//attribute_instance_list
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_named_port_connection,p) {  
+		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//attribute_instance_list
+		prt_keyword_space(".");
+		APP_PRINTV(mem2) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_name_of_module_instance,p) {  
+		APP_PRINTV(mem1) 
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_continuous_assign,p) {  
+		prt_keyword_space("assign");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(" ");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(" ");
+		APPLST_PRINTV( mem3 , prt_nothing , prt_comma , prt_nothing);//net_assignment
+		prt_keyword_space(";\n");
+	}
 
 
 	OPERATOR(T_module_item__specify_block,p) { assert(false); }
@@ -1150,13 +1216,28 @@ public :
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem2);
 	}
+	OPERATOR(T_module_item__local_parameter_declaration,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		APP_PRINTV(mem2);
+		prt_keyword_space(";\n");
+	}
+	OPERATOR(T_module_item__parameter_override,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		prt_keyword_space("defparam");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);//attribute_instance_list
+		prt_keyword_space(";\n");
+	}
+	OPERATOR(T_module_item__continuous_assign,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		APP_PRINTV(mem2);
+	}
+	OPERATOR(T_module_item__gate_instantiation,p) {  assert(false); }
+	OPERATOR(T_module_item__udp_instantiation,p) {  assert(false); }
+	OPERATOR(T_module_item__module_instantiation,p) {  
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		APP_PRINTV(mem2);
+	}
 // above is finished
-	OPERATOR(T_module_item__local_parameter_declaration,p) {  }
-	OPERATOR(T_module_item__parameter_override,p) {  }
-	OPERATOR(T_module_item__continuous_assign,p) {  }
-	OPERATOR(T_module_item__gate_instantiation,p) {  }
-	OPERATOR(T_module_item__udp_instantiation,p) {  }
-	OPERATOR(T_module_item__module_instantiation,p) {  }
 	OPERATOR(T_module_item__initial_construct,p) {  }
 	OPERATOR(T_module_item__always_construct,p) {  }
 	OPERATOR(T_module_item__loop_generate_construct,p) {  }
