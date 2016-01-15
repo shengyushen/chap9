@@ -1,1 +1,4 @@
 the initial CHAP9 software package
+
+./cf.scr is used to regenerate the build tree
+autoscan is used to rebuild the configure.scan, modify it and mv to configure.ac

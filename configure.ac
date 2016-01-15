@@ -18,10 +18,11 @@ AM_PROG_LEX
 AC_CHECK_LIB([asmrun], [main])
 
 # Checks for header files.
-AC_CHECK_HEADERS([inttypes.h limits.h stdlib.h string.h unistd.h])
+AC_CHECK_HEADERS([inttypes.h libintl.h limits.h stdlib.h string.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
+AC_C_INLINE
 AC_TYPE_INT16_T
 AC_TYPE_INT32_T
 AC_TYPE_INT8_T
@@ -31,6 +32,7 @@ AC_TYPE_UINT32_T
 AC_TYPE_UINT8_T
 
 # Checks for library functions.
+AC_FUNC_ERROR_AT_LINE
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_CHECK_FUNCS([memset strchr strstr])
@@ -38,5 +40,6 @@ AC_CHECK_FUNCS([memset strchr strstr])
 AC_CONFIG_FILES([Makefile
                  checker/Makefile
                  step1_noinc_comment/Makefile
-                 step2_nodef/Makefile])
+                 step2_nodef/Makefile
+                 tokenizer/Makefile])
 AC_OUTPUT

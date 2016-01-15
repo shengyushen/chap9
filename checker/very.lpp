@@ -38,12 +38,14 @@
 		if ('0' <= c && c <= '7') return true;
 		else if('x'==c || 'X'==c) return true;
 		else if('z'==c || 'Z'==c) return true;
+		else if('?'==c ) return true;
 		else return false;
 	}
 	bool isBINchar (char c ) {
 		if ('0' <= c && c <= '1') return true;
 		else if('x'==c || 'X'==c) return true;
 		else if('z'==c || 'Z'==c) return true;
+		else if('?'==c ) return true;
 		else return false;
 	}
 	bool isHEXchar (char c ) {
@@ -52,6 +54,7 @@
 		else if ('A' <= c && c <= 'F') return true;
 		else if('x'==c || 'X'==c) return true;
 		else if('z'==c || 'Z'==c) return true;
+		else if('?'==c ) return true;
 		else return false;
 	}
 

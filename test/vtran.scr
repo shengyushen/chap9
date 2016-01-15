@@ -1,0 +1,3 @@
+#!/bin/bash -v
+tokenizer $1 > $1.add
+cat $1.add | sed -e '/^$/d' > $1.new

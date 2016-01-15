@@ -63,7 +63,7 @@ and local_parameter_declaration =
 	T_local_parameter_declaration_1 of signedType*range*(param_assignment list)
 	| T_local_parameter_declaration_2 of parameter_type*(param_assignment list)
 and parameter_declaration_gen =
-	T_parameter_declaration_gen_1 of parameter_type*signedType*range*param_assignment
+	T_parameter_declaration_gen_1 of int*parameter_type*signedType*range*param_assignment
 and parameter_declaration =
 	T_parameter_declaration_1 of signedType*range*(param_assignment list)
 	| T_parameter_declaration_2 of parameter_type*(param_assignment list)

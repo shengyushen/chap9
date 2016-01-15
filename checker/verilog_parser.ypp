@@ -1026,13 +1026,13 @@ parameter_declaration :
 parameter_declaration_gen :
 	key_parameter_opt parameter_type_opt signed_opt range_opt param_assignment
 		{
-			$$=SHR2(parameter_declaration_gen,T_parameter_declaration_gen_1,($2,$3,$4,$5));
+			$$=SHR2(parameter_declaration_gen,T_parameter_declaration_gen_1,($1,$2,$3,$4,$5));
 		}
 ;
 
 key_parameter_opt :
 	{$$=0;}
-	| KEY_PARAMETER {$$=0;}
+	| KEY_PARAMETER {$$=1;}
 ;
 
 /*specparam_declaration :

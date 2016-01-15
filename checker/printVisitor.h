@@ -12,6 +12,7 @@ void prt_rparent () { cout<<")";}
 void prt_rparent_semicolon () { cout<<");";}
 void prt_lp_star () { cout<<"(*"; }
 void prt_comma   () { cout<<" , ";}
+void prt_or   () { cout<<" or ";}
 void prt_period  () { cout<<".";}
 void prt_star_rp () { cout<<"*)"; }
 void prt_lbrace  () { cout<<"{";}
@@ -77,13 +78,18 @@ public :
 	OPERATOR(T_attribute_instance,p) { assert(false); }
 
 	OPERATOR(T_parameter_declaration_gen_1,p) {
-		APP_PRINTV(mem1) //parameter type
+		if(0==(p->mem1)) {
+			prt_keyword_space("");
+		} else {
+			prt_keyword_space("parameter");
+		}
+		APP_PRINTV(mem2) //parameter type
 		prt_space();
-		APP_PRINTV(mem2) //signed type
+		APP_PRINTV(mem3) //signed type
 		prt_space();
-		APP_PRINTV(mem3) //range type
+		APP_PRINTV(mem4) //range type
 		prt_space();
-		APP_PRINTV(mem4) //pam assignment
+		APP_PRINTV(mem5) //pam assignment
 	}
 
 	OPERATOR(T_parameter_type__NOSPEC,p)   { }
@@ -151,7 +157,11 @@ public :
 	OPERATOR(T_primary_mulcon,p) { APP_PRINTV(mem1)}
 	OPERATOR(T_primary_func,p)   { APP_PRINTV(mem1)}
 	OPERATOR(T_primary_sysfunc,p){ APP_PRINTV(mem1)}
-	OPERATOR(T_primary_mintypmax,p) { APP_PRINTV(mem1)}
+	OPERATOR(T_primary_mintypmax,p) {
+		prt_keyword_space("(");
+		APP_PRINTV(mem1)
+		prt_keyword_space(")");
+	}
 	OPERATOR(T_primary_string,p) { APP_PRINTV(mem1)}
 
 	OPERATOR(T_number_UNSIGNED_NUMBER      ,p) { cout<<p->mem1;}
@@ -313,14 +323,19 @@ public :
 
 		prt_keyword_space("module");
 		APP_PRINTV(mem2) //module name
+		prt_keyword_space("\n");
 		APPLST_PRINTV(mem3 , prt_jinglparent , prt_comma , prt_rparent); // parameter list
-		APPLST_PRINTV(mem4 , prt_lparent , prt_comma , prt_rparent_semicolon);//ports
+		prt_keyword_space("\n (\n");
+		APPLST_PRINTV(mem4 , prt_nothing , prt_comma , prt_rparent_semicolon);//ports
 		APPLST_PRINTV(mem5 , prt_return , prt_return , prt_return);//module_item
 		prt_keyword_space("\n endmodule\n");
 	}
 	OPERATOR(T_module_item__1,p) { APP_PRINTV(mem1)}
 	OPERATOR(T_module_item__2,p) { APP_PRINTV(mem1)}
-	OPERATOR(T_module_item__port_declaration,p) { APP_PRINTV(mem1)}
+	OPERATOR(T_module_item__port_declaration,p) { 
+		APP_PRINTV(mem1)
+		prt_keyword_space(";\n");
+	}
 	OPERATOR(T_port_declaration__inout_declaration,p) {
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem2)
@@ -787,7 +802,16 @@ public :
 		prt_keyword_space(":");
 		APP_PRINTV(mem2) 
 	}
-	OPERATOR(T_case_item_default,p) {  }
+	OPERATOR(T_case_item_default,p) {  
+		prt_keyword_space("default");
+		APP_PRINTV(mem1) 
+		prt_keyword_space("\n");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_colon_opt_false,p) {  }
+	OPERATOR(T_colon_opt_true,p) {  
+		prt_keyword_space(":");
+	}
 
 	OPERATOR(T_statement_or_block_item_statement,p) { APP_PRINTV(mem1) }
 	OPERATOR(T_statement_or_block_item_block,p) {  APP_PRINTV(mem1) }
@@ -809,7 +833,9 @@ public :
 	OPERATOR(T_reg_false,p) {  }
 	OPERATOR(T_reg_true,p) { prt_keyword_space("reg"); }
 
-	OPERATOR(T_statement_NOSPEC,p) { }
+	OPERATOR(T_statement_NOSPEC,p) {
+		prt_keyword_space(";");
+	}
 	OPERATOR(T_statement_blocking_assignment,p) {  
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem2) 
@@ -846,14 +872,16 @@ public :
 		prt_keyword_space(")");
 	}
 	OPERATOR(T_event_control_eventid,p) {  
-		prt_keyword_space("@");
+		prt_keyword_space("@(");
 		APP_PRINTV(mem1) 
+		prt_keyword_space(")");
 	}
 	OPERATOR(T_event_control_event_exp,p) {  
-		prt_keyword_space("@");
-		APPLST_PRINTV( mem1 , prt_lparent , prt_comma , prt_rparent);//event_expression_orcomma_list
+		prt_keyword_space("@(");
+		APPLST_PRINTV( mem1 , prt_nothing , prt_or , prt_nothing);//event_expression_orcomma_list
+		prt_keyword_space(")");
 	}
-	OPERATOR(T_event_control_start,p) { prt_keyword_space("(*)"); }
+	OPERATOR(T_event_control_start,p) { prt_keyword_space("@(*)"); }
 	
 	OPERATOR(T_disable_statement,p) { 
 		prt_keyword_space("\n disable");
@@ -882,11 +910,11 @@ public :
 			APP_PRINTV(mem2) 
 	}
 	OPERATOR(T_loop_statement_for,p) {  
-		prt_keyword_space("while(");
+		prt_keyword_space("for(");
 			APP_PRINTV(mem1) 
-		prt_keyword_space(":");
+		prt_keyword_space(";");
 			APP_PRINTV(mem2) 
-		prt_keyword_space(":");
+		prt_keyword_space(";");
 			APP_PRINTV(mem3) 
 		prt_keyword_space(")\n");
 			APP_PRINTV(mem4) 
@@ -966,8 +994,8 @@ public :
 	OPERATOR(T_case_statement_case,p) { 
 		prt_keyword_space("case(");
 			APP_PRINTV(mem1) 
-		prt_keyword_space(")");
-			APPLST_PRINTV( mem2 , prt_nothing , prt_nothing , prt_nothing);//case_item_list
+		prt_keyword_space(")\n");
+			APPLST_PRINTV( mem2 , prt_nothing , prt_return , prt_nothing);//case_item_list
 		prt_keyword_space("\n endcase\n");
 	}
 	OPERATOR(T_case_statement_casez,p) {  
@@ -1035,6 +1063,7 @@ public :
 	OPERATOR(T_seq_block,p) { 
 		prt_keyword_space("begin");
 		APP_PRINTV(mem1) 
+		prt_keyword_space("\n");
 		APPLST_PRINTV( mem2 , prt_nothing , prt_nothing , prt_nothing);//statement_or_block_item_list
 		prt_keyword_space("end");
 	}
@@ -1115,23 +1144,27 @@ public :
 
 	OPERATOR(T_module_instantiation,p) {  
 		APP_PRINTV(mem1) 
-		prt_keyword_space(" ");
+		prt_keyword_space("");
 		APP_PRINTV(mem2) 
-		prt_keyword_space(" ");
+		prt_keyword_space("");
 		APPLST_PRINTV( mem3 , prt_nothing, prt_comma , prt_nothing);//attribute_instance_list
 		prt_keyword_space(";\n");
 	}
 
 	OPERATOR(T_parameter_value_assignment_NOSPEC,p) {  }
 	OPERATOR(T_parameter_value_assignment_order,p) { 
+		prt_keyword_space("#(");
 		APPLST_PRINTV( mem1 , prt_nothing, prt_comma , prt_nothing);//expression
+		prt_keyword_space(")");
 	}
 	OPERATOR(T_parameter_value_assignment_named,p) {  
+		prt_keyword_space("#(");
 		APPLST_PRINTV( mem1 , prt_nothing, prt_comma , prt_nothing);//expression
+		prt_keyword_space(")");
 	}
 	OPERATOR(T_module_instance,p) {  
 		APP_PRINTV(mem1) 
-		prt_keyword_space("(");
+		prt_keyword_space("(\n");
 		APP_PRINTV(mem2) 
 		prt_keyword_space(")");
 	}
@@ -1178,7 +1211,7 @@ public :
 		APP_PRINTV(mem1) 
 	}
 	OPERATOR(T_always_construct,p) {  
-		prt_keyword_space("always");
+		prt_keyword_space("always\n");
 		APP_PRINTV(mem1) 
 	}
 	OPERATOR(T_loop_generate_construct,p) {  
@@ -1208,8 +1241,9 @@ public :
 		APP_PRINTV(mem1) 
 	}
 	OPERATOR(T_generate_block_begin,p) {  
-		prt_keyword_space("\n begin\n");
+		prt_keyword_space("\n begin : ");
 		APP_PRINTV(mem1) 
+		prt_keyword_space("\n");
 		APPLST_PRINTV( mem2 , prt_nothing , prt_nothing , prt_nothing);//module_item
 		prt_keyword_space("\n end\n");
 	}
@@ -1328,7 +1362,6 @@ public :
 };
 
 void printVerilog( std::shared_ptr<std::list<std::shared_ptr<Verilogast::description>>> ptr_source_text) {
-	cout<<"//about to print"<<endl;
 	for(auto x = ptr_source_text->begin() ; x!=ptr_source_text->end() ; x++) {        
 		prt_return();
 		boost::apply_visitor(printVisitor(),**x);                   

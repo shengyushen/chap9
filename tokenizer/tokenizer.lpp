@@ -1,0 +1,571 @@
+%{
+	#include<string>
+	#include<iostream>
+	#include<fstream>
+	#include<assert.h>
+	#include<list>
+	#include<memory>
+
+	using namespace std;
+
+	class tokenizerScanner : public tokenizerFlexLexer {
+	public :
+		int linenumber ;
+		int charnumber ;
+		string filename ;
+		tokenizerScanner(const string & fn , ifstream * pis) :
+			filename{fn},
+			linenumber(1),
+			charnumber(0),
+			tokenizerFlexLexer(pis)
+		{ }
+		int yylex();
+		void print_pos () { cerr<< filename << " : " << linenumber << " : " << charnumber << endl << flush; }
+		void incLineNumber () { linenumber++; charnumber=0 ; }
+		void incCharNumber (int n) { charnumber+=n ; }
+	};
+
+	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
+	void prt_info (string str)  { cerr<<"INFO  : "<<str<<endl<<flush; return; }
+	
+	string stringssy_string;
+	unsigned int ln;
+	std::string * ps=nullptr;
+	void deleteblank(string & s) {
+		while(s[0]==' '|| s[0]=='\t')  {s.erase(0,1);}
+		while(s[0]==' '|| s[0]=='\t')  {s.pop_back();}
+	}
+	bool isDECchar (char c ) {
+		if ('0' <= c && c <= '9') return true;
+		else return false;
+	}
+	bool isOCTchar (char c ) {
+		if ('0' <= c && c <= '7') return true;
+		else if('x'==c || 'X'==c) return true;
+		else if('z'==c || 'Z'==c) return true;
+		else return false;
+	}
+	bool isBINchar (char c ) {
+		if ('0' <= c && c <= '1') return true;
+		else if('x'==c || 'X'==c) return true;
+		else if('z'==c || 'Z'==c) return true;
+		else return false;
+	}
+	bool isHEXchar (char c ) {
+		if ('0' <= c && c <= '9') return true;
+		else if ('a' <= c && c <= 'f') return true;
+		else if ('A' <= c && c <= 'F') return true;
+		else if('x'==c || 'X'==c) return true;
+		else if('z'==c || 'Z'==c) return true;
+		else return false;
+	}
+
+%}
+
+%option noyywrap
+%option yylineno
+ /*%option nounput batch debug noinput*/
+ /*these are command line transfer to here*/
+%option outfile="tokenizer.cpp"
+%option warn
+%option c++
+%option prefix="tokenizer"
+%option yyclass="tokenizerScanner"
+%option header-file="tokenizer.h"
+
+
+  /*A.8.7 Numbers */
+x_digit       [xX]
+z_digit       [zZ\?]
+binary_digit  {x_digit}|{z_digit}|[01]
+octal_digit   {x_digit}|{z_digit}|[0-7]
+decimal_digit [0-9]
+hex_digit     {x_digit}|{z_digit}|[0-9A-Fa-f]
+non_zero_decimal_digit  [1-9]
+decimal_base  (\'[sS]?d)|(\'[sS]?D)
+binary_base   (\'[sS]?b)|(\'[sS]?B)
+octal_base    (\'[sS]?o)|(\'[sS]?O)
+hex_base      (\'[sS]?h)|(\'[sS]?H)
+binary_value  {binary_digit}(_|{binary_digit})*
+octal_value   {octal_digit}(_|{octal_digit})*
+hex_value     {hex_digit}(_|{hex_digit})*
+unsigned_number  {decimal_digit}(_|{decimal_digit})*
+non_zero_unsigned_number  {non_zero_decimal_digit}(_|{decimal_digit})*
+size          {non_zero_unsigned_number}
+sign          [+-]
+exp           [eE]
+real_number     ({unsigned_number}\.{unsigned_number})|({unsigned_number}(\.{unsigned_number})?{exp}{sign}?{unsigned_number})
+time_precision "s"|"ms"|"us"|"ns"|"ps"|"fs"
+
+  /*A.8.8 Strings*/
+  /*already deal with below*/
+
+  /*A.9.2 Comments*/
+  /*already deal with below*/
+
+
+  /*A.9.3 Identifiers*/
+escaped_identifier     \\[^ \t\n]+[ ]
+system_task_function_identifier [\$][a-zA-Z0-9_\$]+
+simple_identifier  [a-zA-Z_][a-zA-Z0-9_\$]*
+  /*A.9.4 White space*/
+  /*white space only used in escaped_identifier*/
+
+useless_directives "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_distributed"|"`delay_mode_path"|"`delay_mode_unit"|"`delay_mode_zero"|"`accelerate"|"`autoexpand_vectornets"|"`begin_keywords"|"`celldefine"|"`default_nettype"|"`endcelldefine"|"`end_keywords"|"`endprotect"|"`endprotected"|"`expand_vectornets"|"`include"|"`noaccelerate"|"`noexpand_vectornets"|"`noremove_gatenames"|"`noremove_netnames"|"`nounconnected_drive"|"`pragma"|"`protect"|"`protected"|"`remove_gatenames"|"`remove_netnames"|"`resetall"|"`timescale"|"`unconnected_drive"
+
+harful_directives "`define"|"`else"|"`elsif"|"`endif"|"`ifdef"|"`ifndef"|"`resetall"|"`undef"
+
+blank [ \t]
+digit [0-9]
+
+%x line_skip_blank line_number line_skip_blank2 line_filename endofline stringssy
+
+%%
+
+{blank}+ 
+
+{system_task_function_identifier} {
+	string s(yytext);
+	cout<<s<<endl;
+}
+
+{escaped_identifier} {
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+"always"						 {string s(yytext);cout<<s<<endl;}
+"and"								 {string s(yytext);cout<<s<<endl;}
+"assign"             {string s(yytext);cout<<s<<endl;}
+"automatic"          {string s(yytext);cout<<s<<endl;}
+"begin"              {string s(yytext);cout<<s<<endl;}
+"buf"                {string s(yytext);cout<<s<<endl;}
+"bufif0"             {string s(yytext);cout<<s<<endl;}
+"bufif1"             {string s(yytext);cout<<s<<endl;}
+"case"               {string s(yytext);cout<<s<<endl;}
+"casex"              {string s(yytext);cout<<s<<endl;}
+"casez"              {string s(yytext);cout<<s<<endl;}
+"cell"               {string s(yytext);cout<<s<<endl;}
+"cmos"               {string s(yytext);cout<<s<<endl;}
+"config"             {string s(yytext);cout<<s<<endl;}
+"deassign"           {string s(yytext);cout<<s<<endl;}
+"default"            {string s(yytext);cout<<s<<endl;}
+"defparam"           {string s(yytext);cout<<s<<endl;}
+"design"             {string s(yytext);cout<<s<<endl;}
+"disable"            {string s(yytext);cout<<s<<endl;}
+"edge"							 {string s(yytext);cout<<s<<endl;}
+"else"               {string s(yytext);cout<<s<<endl;}
+"end"                {string s(yytext);cout<<s<<endl;}
+"endcase"            {string s(yytext);cout<<s<<endl;}
+"endconfig"          {string s(yytext);cout<<s<<endl;}
+"endfunction"        {string s(yytext);cout<<s<<endl;}
+"endgenerate"        {string s(yytext);cout<<s<<endl;}
+"endmodule"          {string s(yytext);cout<<s<<endl;}
+"endprimitive"       {string s(yytext);cout<<s<<endl;}
+"endspecify"         {string s(yytext);cout<<s<<endl;}
+"endtable"           {string s(yytext);cout<<s<<endl;}
+"endtask"            {string s(yytext);cout<<s<<endl;}
+"event"              {string s(yytext);cout<<s<<endl;}
+"for"                {string s(yytext);cout<<s<<endl;}
+"force"              {string s(yytext);cout<<s<<endl;}
+"forever"            {string s(yytext);cout<<s<<endl;}
+"fork"               {string s(yytext);cout<<s<<endl;}
+"function"           {string s(yytext);cout<<s<<endl;}
+"generate"           {string s(yytext);cout<<s<<endl;}
+"genvar"						 {string s(yytext);cout<<s<<endl;}
+"highz0"             {string s(yytext);cout<<s<<endl;}
+"highz1"             {string s(yytext);cout<<s<<endl;}
+"if"                 {string s(yytext);cout<<s<<endl;}
+"ifnone"             {string s(yytext);cout<<s<<endl;}
+"incdir"             {string s(yytext);cout<<s<<endl;}
+"include"            {string s(yytext);cout<<s<<endl;}
+"initial"            {string s(yytext);cout<<s<<endl;}
+"inout"              {string s(yytext);cout<<s<<endl;}
+"input"              {string s(yytext);cout<<s<<endl;}
+"instance"           {string s(yytext);cout<<s<<endl;}
+"integer"            {string s(yytext);cout<<s<<endl;}
+"join"               {string s(yytext);cout<<s<<endl;}
+"large"              {string s(yytext);cout<<s<<endl;}
+"liblist"            {string s(yytext);cout<<s<<endl;}
+"library"            {string s(yytext);cout<<s<<endl;}
+"localparam"         {string s(yytext);cout<<s<<endl;}
+"macromodule"        {string s(yytext);cout<<s<<endl;}
+"medium"             {string s(yytext);cout<<s<<endl;}
+"module"						 {string s(yytext);cout<<s<<endl;}
+"nand"               {string s(yytext);cout<<s<<endl;}
+"negedge"            {string s(yytext);cout<<s<<endl;}
+"nmos"               {string s(yytext);cout<<s<<endl;}
+"nor"                {string s(yytext);cout<<s<<endl;}
+"noshowcancelled"    {string s(yytext);cout<<s<<endl;}
+"not"                {string s(yytext);cout<<s<<endl;}
+"notif0"             {string s(yytext);cout<<s<<endl;}
+"notif1"             {string s(yytext);cout<<s<<endl;}
+"or"                 {string s(yytext);cout<<s<<endl;}
+"output"             {string s(yytext);cout<<s<<endl;}
+"parameter"          {string s(yytext);cout<<s<<endl;}
+"pmos"               {string s(yytext);cout<<s<<endl;}
+"posedge"            {string s(yytext);cout<<s<<endl;}
+"primitive"          {string s(yytext);cout<<s<<endl;}
+"pull0"              {string s(yytext);cout<<s<<endl;}
+"pull1"              {string s(yytext);cout<<s<<endl;}
+"pulldown"           {string s(yytext);cout<<s<<endl;}
+"pullup"             {string s(yytext);cout<<s<<endl;}
+"pulsestyle_onevent"	{string s(yytext);cout<<s<<endl;}
+"pulsestyle_ondetect" {string s(yytext);cout<<s<<endl;}
+"rcmos"              {string s(yytext);cout<<s<<endl;}
+"real"               {string s(yytext);cout<<s<<endl;}
+"realtime"           {string s(yytext);cout<<s<<endl;}
+"reg"                {string s(yytext);cout<<s<<endl;}
+"release"            {string s(yytext);cout<<s<<endl;}
+"repeat"             {string s(yytext);cout<<s<<endl;}
+"rnmos"              {string s(yytext);cout<<s<<endl;}
+"rpmos"              {string s(yytext);cout<<s<<endl;}
+"rtran"              {string s(yytext);cout<<s<<endl;}
+"rtranif0"           {string s(yytext);cout<<s<<endl;}
+"rtranif1"           {string s(yytext);cout<<s<<endl;}
+"scalared"           {string s(yytext);cout<<s<<endl;}
+"showcancelled"      {string s(yytext);cout<<s<<endl;}
+"signed"             {string s(yytext);cout<<s<<endl;}
+"small"              {string s(yytext);cout<<s<<endl;}
+"specify"            {string s(yytext);cout<<s<<endl;}
+"specparam"          {string s(yytext);cout<<s<<endl;}
+"strong0"						{string s(yytext);cout<<s<<endl;}
+"strong1"            {string s(yytext);cout<<s<<endl;}
+"supply0"            {string s(yytext);cout<<s<<endl;}
+"supply1"            {string s(yytext);cout<<s<<endl;}
+"table"              {string s(yytext);cout<<s<<endl;}
+"task"               {string s(yytext);cout<<s<<endl;}
+"time"               {string s(yytext);cout<<s<<endl;}
+"tran"               {string s(yytext);cout<<s<<endl;}
+"tranif0"            {string s(yytext);cout<<s<<endl;}
+"tranif1"            {string s(yytext);cout<<s<<endl;}
+"tri"                {string s(yytext);cout<<s<<endl;}
+"tri0"               {string s(yytext);cout<<s<<endl;}
+"tri1"               {string s(yytext);cout<<s<<endl;}
+"triand"             {string s(yytext);cout<<s<<endl;}
+"trior"              {string s(yytext);cout<<s<<endl;}
+"trireg"             {string s(yytext);cout<<s<<endl;}
+"unsigned"           {string s(yytext);cout<<s<<endl;}
+"use"                {string s(yytext);cout<<s<<endl;}
+"uwire"              {string s(yytext);cout<<s<<endl;}
+"vectored"						{string s(yytext);cout<<s<<endl;}
+"wait"               {string s(yytext);cout<<s<<endl;}
+"wand"               {string s(yytext);cout<<s<<endl;}
+"weak0"              {string s(yytext);cout<<s<<endl;}
+"weak1"              {string s(yytext);cout<<s<<endl;}
+"while"              {string s(yytext);cout<<s<<endl;}
+"wire"               {string s(yytext);cout<<s<<endl;}
+"wor"                {string s(yytext);cout<<s<<endl;}
+"xnor"               {string s(yytext);cout<<s<<endl;}
+"xor"                {string s(yytext);cout<<s<<endl;}
+
+"PATHPULSE\$"				 {
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+{simple_identifier}	 { 
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+{unsigned_number} {
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+{size}?{decimal_base}{blank}*{unsigned_number} {
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+
+{size}?{decimal_base}{blank}*{x_digit}[_]* {
+	assert(false);
+}
+
+{size}?{decimal_base}{blank}*{z_digit}[_]* {
+	assert(false);
+}
+
+{size}?{octal_base}{blank}*{octal_value} {
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+{size}?{binary_base}{blank}*{binary_value} {
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+
+{size}?{hex_base}{blank}*{hex_value} {
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+
+{real_number} {
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+
+"+"		{string s(yytext);cout<<s<<endl;}
+"-"		{string s(yytext);cout<<s<<endl;}
+"&"		{string s(yytext);cout<<s<<endl;}
+"|"		{string s(yytext);cout<<s<<endl;}
+"^"		{string s(yytext);cout<<s<<endl;}
+"~^"|"^~"		{string s(yytext);cout<<s<<endl;}
+"!"		{string s(yytext);cout<<s<<endl;}
+"~"		{string s(yytext);cout<<s<<endl;}
+"~&"	{string s(yytext);cout<<s<<endl;}
+"~|"	{string s(yytext);cout<<s<<endl;}
+"*"		{string s(yytext);cout<<s<<endl;}
+"/"		{string s(yytext);cout<<s<<endl;}
+"%"		{string s(yytext);cout<<s<<endl;}
+"=="	{string s(yytext);cout<<s<<endl;}
+"!="	{string s(yytext);cout<<s<<endl;}
+"==="	{string s(yytext);cout<<s<<endl;}
+"!=="	{string s(yytext);cout<<s<<endl;}
+"&&"	{string s(yytext);cout<<s<<endl;}
+"||"	{string s(yytext);cout<<s<<endl;}
+"**"	{string s(yytext);cout<<s<<endl;}
+"<"		{string s(yytext);cout<<s<<endl;}
+"<="	{string s(yytext);cout<<s<<endl;}
+">"		{string s(yytext);cout<<s<<endl;}
+">="	{string s(yytext);cout<<s<<endl;}
+">>"	{string s(yytext);cout<<s<<endl;}
+"<<"	{string s(yytext);cout<<s<<endl;}
+">>>"	{string s(yytext);cout<<s<<endl;}
+"<<<"	{string s(yytext);cout<<s<<endl;}
+"?"		{string s(yytext);cout<<s<<endl;}
+"("		{string s(yytext);cout<<s<<endl;}
+"(*"		{string s(yytext);cout<<s<<endl;}
+")"		{string s(yytext);cout<<s<<endl;}
+"*)"		{string s(yytext);cout<<s<<endl;}
+","		{string s(yytext);cout<<s<<endl;}
+";"		{string s(yytext);cout<<s<<endl;}
+":"		{string s(yytext);cout<<s<<endl;}
+"["		{string s(yytext);cout<<s<<endl;}
+"]"		{string s(yytext);cout<<s<<endl;}
+"="		{string s(yytext);cout<<s<<endl;}
+"{"   {string s(yytext);cout<<s<<endl;}
+"}"		{string s(yytext);cout<<s<<endl;}
+"."		{string s(yytext);cout<<s<<endl;}
+"@"		{string s(yytext);cout<<s<<endl;}
+"#"		{string s(yytext);cout<<s<<endl;}
+"+:"	{string s(yytext);cout<<s<<endl;}
+"-:"	{string s(yytext);cout<<s<<endl;}
+"$"		{string s(yytext);cout<<s<<endl;}
+"->"	{string s(yytext);cout<<s<<endl;}
+"=>"	{string s(yytext);cout<<s<<endl;}
+"*>"	{string s(yytext);cout<<s<<endl;}
+
+\r
+
+\n {
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+
+\"		{ 
+	string s{yytext};
+	cout<<s<<endl;
+}
+
+
+   /*2005 standard directive*/
+"`default_decay_time"{blank}+{unsigned_number} |
+"`default_decay_time"{blank}+{real_number} |
+"`default_decay_time"{blank}+"infinite" |
+"`default_trireg_strength"{blank}+{unsigned_number} |
+"`delay_mode_distributed" |
+"`delay_mode_path" |
+"`delay_mode_unit" |
+"`delay_mode_zero" |
+"`begin_keywords"{blank}+"1364-1995" |
+"`begin_keywords"{blank}+"1364-2001-noconfig" |
+"`begin_keywords"{blank}+"1364-2001" |
+"`begin_keywords"{blank}+"1364-2005" |
+"`end_keywords" |
+"`celldefine" |
+"`endcelldefine" |
+"`default_nettype"{blank}+"wire" |
+"`default_nettype"{blank}+"tri0" |
+"`default_nettype"{blank}+"tri1" |
+"`default_nettype"{blank}+"wand" |
+"`default_nettype"{blank}+"triand" |
+"`default_nettype"{blank}+"wor" |
+"`default_nettype"{blank}+"trior" |
+"`default_nettype"{blank}+"trireg" |
+"`default_nettype"{blank}+"uwire" |
+"`default_nettype"{blank}+"none" |
+"`default_nettype"{blank}+"tri" |
+"`nounconnected_drive" |
+"`pragma"[^\n]* |
+"`resetall" |
+"`timescale"{blank}+{unsigned_number}{blank}*{time_precision}{blank}*"/"{blank}*{unsigned_number}{blank}*{time_precision} |
+"`unconnected_drive"{blank}+"pull1" |
+"`unconnected_drive"{blank}+"pull0" {
+}
+
+"`accelerate" |
+"`noaccelerate" |
+"`autoexpand_vectornets" |
+"`endprotect" |
+"`endprotected" |
+"`expand_vectornets" |
+"`noexpand_vectornets" |
+"`noremove_gatenames" |
+"`noremove_netnames" |
+"`protect" |
+"`protected" |
+"`remove_gatenames" |
+"`remove_netnames" {
+}
+
+"`line"			{
+	ECHO;
+	yy_push_state(line_skip_blank);
+}
+
+. {
+	string s{yytext};
+	prt_fatal("improper syntax "+s);
+	print_pos();
+	exit(1);
+}
+
+
+<line_skip_blank>{
+	{blank}+ {
+		ECHO;
+		yy_pop_state();
+		yy_push_state(line_number);
+	}
+	. {
+		string s{yytext};
+		prt_fatal("improper `line statement"+s);
+		print_pos();
+		exit(1);
+	}
+}
+
+<line_number>{
+	{digit}+ {
+		sscanf(yytext,"%d",&ln);
+		ECHO;
+		yy_pop_state();
+		yy_push_state(line_skip_blank2);
+	}
+
+	. {
+		string s{yytext};
+		prt_fatal("improper `line number"+s);
+		print_pos();
+		exit(1);
+	}
+}
+
+<line_skip_blank2>{
+	{blank}+ {
+		ECHO;
+		yy_pop_state();
+		yy_push_state(line_filename);
+	}
+	. {
+		string s{yytext};
+		prt_fatal("improper `line file name"+s);
+		print_pos();
+		exit(1);
+	}
+}
+
+<line_filename>{
+	[^\n\t ]+ {
+		string s{yytext};
+		if(ps) {delete ps;}
+		ps=new std::string(s);
+		ECHO;
+//		cout<<endl<<"getting line "<<s<<endl;
+		yy_pop_state();
+		yy_push_state(endofline);
+	}
+
+	. {
+		string s{yytext};
+		prt_fatal("improper `line file name 2"+s);
+		print_pos();
+		exit(1);
+	}
+}
+
+
+<endofline>{
+	[^\n]*\n {
+		ECHO;
+		yy_pop_state();
+	}
+}
+
+<stringssy>{
+	\n {
+		prt_fatal("incomplet string"+stringssy_string);
+		print_pos();
+		exit(1);
+	}
+	"\\\"" {
+	string s{yytext};
+	cout<<s<<endl;
+	}
+	\" {
+	string s{yytext};
+	cout<<s<<endl;
+		yy_pop_state();
+	} 
+	. {
+	string s{yytext};
+	cout<<s<<endl;
+	}
+}
+%%
+
+
+void usage() {
+	cerr<<"tokenizer [input filenamea] "<<endl;
+	return;
+}
+
+bool testFileExistenceInDir(string dirname_filename) {
+	ifstream foo( dirname_filename );
+	return foo.is_open();
+}
+
+int main ( int argc, char * argv[] ) {
+	if(argc!=2)  {
+		prt_fatal ( "only allow 1 filename");
+		cout<<argc<<endl;
+		usage();
+		return 1;
+	}
+
+	//testing existence of file
+	if( false == testFileExistenceInDir(argv[argc-1])) {
+	   prt_fatal ( "input file doesn't exist " ) ;
+		 return 1;
+	}
+
+	ifstream foo( argv[argc-1] );
+	//creating files handler and scanner
+	tokenizerScanner * lexer= new tokenizerScanner(argv[argc-1],&foo);
+	while(lexer->yylex()!=0) {
+		prt_fatal ("improper return");
+		//cout<<"// return here\n"<<flush;
+	}
+
+	return 0;
+}
+
+
