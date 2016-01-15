@@ -193,7 +193,11 @@ public :
 		APPLST_PRINTV(mem2 , prt_lparent , prt_comma , prt_rparent);//exp list for parameter
 	}
 	OPERATOR(T_system_function_identifier     ,p) { prt_keyword_space(p->mem1); }
-	OPERATOR(T_string     ,p) { prt_keyword_space(p->mem1); }
+	OPERATOR(T_string     ,p) { 
+		prt_keyword_space("\"");
+		prt_keyword_space(p->mem1); 
+		prt_keyword_space("\"");
+	}
 
 	OPERATOR(T_binary_operator_1     ,p) { APP_PRINTV(mem1); }
 	OPERATOR(T_binary_operator_2     ,p) { APP_PRINTV(mem1); }
