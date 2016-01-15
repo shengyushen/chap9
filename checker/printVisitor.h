@@ -315,11 +315,11 @@ public :
 	}
 
 	OPERATOR(T_port_expression,         p) {
-		assert(((p->mem1)->size())>=1);
 		if(((p->mem1)->size())==1) {
 			boost::apply_visitor(printVisitor(),*((p->mem1)->front()));
-		} else {
+		} else if(((p->mem1)->size())>1) {
 			APPLST_PRINTV(mem1 , prt_lbrace , prt_comma , prt_rbrace); 
+		} else {//no port_reference
 		}//ports refs
 	}
 	OPERATOR(T_module_declaration__1,p) {

@@ -11,6 +11,8 @@
 
 	using namespace std;
 
+	bool fatal=false; //used to flag FATAL
+
 	class step1_noinc_commentScanner : public step1_noinc_commentFlexLexer {
 	public :
 		int linenumber ;
@@ -26,11 +28,12 @@
 		void print_pos () { cerr<< filename << " : " << linenumber << " : " << charnumber << endl << flush; }
 		void incLineNumber () { linenumber++; charnumber=0 ; }
 		void incCharNumber (int n) { charnumber+=n ; }
-		void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; print_pos();return; }
+		void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; print_pos();fatal=true;return; }
 		void prt_info (string str)  { cerr<<"INFO  : "<<str<<endl<<flush; print_pos();return; }
 	};
 
-	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
+
+	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; fatal = true; return; }
 	void prt_info (string str)  { cerr<<"INFO  : "<<str<<endl<<flush; return; }
 
 	vector<string> includePath;
@@ -226,6 +229,6 @@ int main ( int argc, char * argv[] ) {
 	std::cerr << "step1 finished computation at " << std::ctime(&end_time)
 	<< "elapsed time: " << elapsed_seconds.count() << "s\n";
 
-	return 0;
+	return fatal;
 }
 

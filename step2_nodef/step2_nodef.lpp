@@ -130,8 +130,8 @@
 		return vs;
 	}
 	void deleteblank(string & s) {
-		while(s[0]==' '|| s[0]=='\t')  {s.erase(0,1);}
-		while(s[s.length()-1]==' '|| s[s.length()-1]=='\t')  {s.pop_back();}
+		while((s[0]==' '|| s[0]=='\t') && (s.length()>0))  {s.erase(0,1);}
+		while((s[s.length()-1]==' '|| s[s.length()-1]=='\t')&& (s.length()>0))  {s.pop_back();}
 	}
 	void replaceMacro(string & body , string fn, int ln) {
 		size_t last_pos=0;

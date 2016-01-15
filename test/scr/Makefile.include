@@ -1,0 +1,22 @@
+# $^ all depende files
+# $< first depend file
+# $@ target file
+
+checksdf : sdf.v nodef.v
+	../scr/tran.scr
+	vimdiff *.new
+
+all : sdf.v
+
+sdf.v : nodef.v
+	checker $< > $@ 2>error3
+
+nodef.v : noinclude.v
+	step2_nodef $< > $@ 2>error2
+
+noinclude.v : ${SRCFILE}
+	step1_noinc_comment $< ${OPTIONS} > $@ 2>error1
+	
+
+clean :
+	rm -f *.v error* *.v.add *.v.new

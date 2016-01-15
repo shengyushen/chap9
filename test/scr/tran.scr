@@ -1,0 +1,5 @@
+#!/bin/bash -v
+rm -f *.add *.new
+../scr/vtran.scr sdf.v 
+../scr/vtran.scr nodef.v 
+
