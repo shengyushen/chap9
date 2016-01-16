@@ -1,3 +1,4 @@
 #!/bin/bash -v
 rm -f dd no*.v 
+rm -f */*.new */*.add *_test/no*.v *_test/sdf.v
 

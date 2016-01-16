@@ -119,7 +119,12 @@ digit [0-9]a
 		
 		string fullpathname = findFile( s );
 		if( "" == fullpathname ) {
-			prt_fatal ( "can not find file " + s ) ;
+			//this file include may be ruled out by macro processing
+			// so just leave it here
+			//when step2 see this, then flag an error
+			//prt_fatal ( "can not find file " + s ) ;
+			string filenameNotFound {yytext};
+			cout<<endl<<"`include "<<filenameNotFound<<endl;
 		} else  {
 			prt_info ( "including "+fullpathname ) ;
 			cout<<"\n`line 1 "<<fullpathname<<" 1 \n";
@@ -220,7 +225,7 @@ int main ( int argc, char * argv[] ) {
 	//creating files handler and scanner
 	step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(argv[argc-1],&foo);
 	while(lexer->yylex()!=0) {
-		prt_fatal ("improper return");
+		prt_fatal ("improper return from yylex");
 		//cout<<"// return here\n"<<flush;
 	}
 

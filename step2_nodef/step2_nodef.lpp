@@ -239,7 +239,7 @@ alnum_ {alnum}|[_]
 alpha_ {alpha}|[_]
 identifier {alpha_}{alnum_}*
 
-useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_distributed"|"`delay_mode_path"|"`delay_mode_unit"|"`delay_mode_zero"|"`accelerate"|"`autoexpand_vectornets"|"`begin_keywords"|"`celldefine"|"`default_nettype"|"`endcelldefine"|"`end_keywords"|"`endprotect"|"`endprotected"|"`expand_vectornets"|"`include"|"`noaccelerate"|"`noexpand_vectornets"|"`noremove_gatenames"|"`noremove_netnames"|"`nounconnected_drive"|"`pragma"|"`protect"|"`protected"|"`remove_gatenames"|"`remove_netnames"|"`resetall"|"`timescale"|"`unconnected_drive"
+useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_distributed"|"`delay_mode_path"|"`delay_mode_unit"|"`delay_mode_zero"|"`accelerate"|"`autoexpand_vectornets"|"`begin_keywords"|"`celldefine"|"`default_nettype"|"`endcelldefine"|"`end_keywords"|"`endprotect"|"`endprotected"|"`expand_vectornets"|"`noaccelerate"|"`noexpand_vectornets"|"`noremove_gatenames"|"`noremove_netnames"|"`nounconnected_drive"|"`pragma"|"`protect"|"`protected"|"`remove_gatenames"|"`remove_netnames"|"`resetall"|"`timescale"|"`unconnected_drive"
 
 
 %x macro proc_ifdef do_then proc_ifndef line_skip_blank line_number line_skip_blank2 line_filename endofline proc_undef do_else do_else_in skip_else proc_ifdef_inskip
@@ -304,6 +304,13 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	prt_warning("useless_directive "+s);
 	print_pos_cerr ();
 	ECHO;
+}
+
+"`include"{blank}*"\"".*"\""+ {
+	string s{yytext};
+	prt_fatal("can not found included file\n"+s);
+	print_pos_cerr ();
+	exit(1);
 }
 
 "`line"			{
