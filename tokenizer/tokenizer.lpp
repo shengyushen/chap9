@@ -373,6 +373,7 @@ digit [0-9]
 \"		{ 
 	string s{yytext};
 	cout<<s<<endl;
+	yy_push_state(stringssy);
 }
 
 
