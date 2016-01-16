@@ -66,6 +66,7 @@
 %option prefix="step1_noinc_comment"
 %option yyclass="step1_noinc_commentScanner"
 %option header-file="step1_noinc_comment.h"
+ /*%option full*/
 
 string \"[^\n"]+\"
 alpha [A-Za-z]

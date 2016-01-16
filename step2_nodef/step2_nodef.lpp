@@ -142,7 +142,9 @@
 				return ;
 			} else if(pos==body.length()-1) {
 				//last char
-				return;
+				prt_fatal ("` at the last postion ");
+				cerr<<fn<<" : "<<ln<<endl<<flush;
+				exit(1);
 			} else if(isIDheadchar(body[pos+1])) {
 				size_t postail = searchID(body , pos+1);
 				string nm = body.substr(pos+1,postail-(pos+1)+1);
@@ -192,7 +194,7 @@
 						last_pos = 0 ;//restart
 					}
 				} else {
-					prt_warning("not defined macro "+nm);
+					prt_fatal("not defined macro "+nm);
 					cerr<<fn<<" : "<<ln<<endl<<flush;
 					exit(1);
 				}
@@ -342,7 +344,9 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		print_pos_cerr ();
 		exit(1);
 	}
-	cout<<mp.body;
+	string oldbody = mp.body;
+	replaceMacro(oldbody , filename , linenumber);
+	cout<<oldbody;
 	incCharNumber(mp.body.size()-oldsize);
 }
 
@@ -479,7 +483,9 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 			print_pos_cerr ();
 			exit(1);
 		}
-		cout<<mp.body;
+		string oldbody = mp.body;
+		replaceMacro(oldbody , filename , linenumber);
+		cout<<oldbody;
 		incCharNumber(mp.body.size()-oldsize);
 	}
 	
@@ -659,7 +665,9 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 			print_pos_cerr ();
 			exit(1);
 		}
-		cout<<mp.body;
+		string oldbody = mp.body;
+		replaceMacro(oldbody , filename , linenumber);
+		cout<<oldbody;
 		incCharNumber(mp.body.size()-oldsize);
 	}
 	
@@ -756,20 +764,23 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 
 <macro>{
 	[(]({blank}*{identifier}{blank}*[,])*{blank}*{identifier}{blank}*[)][^\n]*\n {
+		// (arg1,arg2,...) <macro body>
 		string s(yytext);
-		s.pop_back();
-		deleteblank(s);
+		s.pop_back();//removing the return
+		deleteblank(s);//removing all blanks
 		assert(s[0]=='(');
-		size_t rppos = s.find_first_of(")");
-		string paramlist = s.substr(1,rppos-1);
-		vector<string> vs=splitStringChar(paramlist , ',');
-		for(auto & s : vs) {deleteblank(s);}
+		size_t rppos = s.find_first_of(")");//find )
+		string paramlist = s.substr(1,rppos-1); // arg1,arg2,...
+		vector<string> vs=splitStringChar(paramlist , ',');//list of args
+		for(auto & s : vs) {deleteblank(s);} //deleting blank for each args
 		for(auto & s : vs) {cerr << "param "<<s<<"X\n";}
 		macrobody mb;
-		mb.params = vs;
-		string body = s.substr(rppos+1,(s.length()-1-(rppos+1)+1));
-		deleteblank(body);
-		replaceMacro(body , filename , linenumber );
+		mb.params = vs;//setting args
+		string body = s.substr(rppos+1,(s.length()-1-(rppos+1)+1));//<macro body>
+		deleteblank(body);//deleting blank for <macro body>
+		//should not replace now, verilog 2005 
+		// require us to replace only when using this macro
+		//replaceMacro(body , filename , linenumber );
 		mb.body = body;
 		insertMacro(currentMacroName,mb);
 		cerr<<"macro body "<<body<<endl;
@@ -778,10 +789,13 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	}
 
 	[^(\n].*\n {
+		// <macro body> only
 		string s {yytext};
-		s.pop_back();
-		deleteblank(s);
-		replaceMacro(s , filename , linenumber );
+		s.pop_back();//removing return
+		deleteblank(s);//removing blank
+		//should not replace now, verilog 2005 
+		// require us to replace only when using this macro
+		//replaceMacro(s , filename , linenumber );
 		macrobody mb;
 		mb.params.clear();
 		mb.body=s;

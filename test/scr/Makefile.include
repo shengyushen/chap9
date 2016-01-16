@@ -13,9 +13,14 @@ nodef.v : noinclude.v
 noinclude.v : ${SRCFILE}
 	step1_noinc_comment $< ${OPTIONS} > $@ 2>error1
 	
-checksdf : sdf.v nodef.v
-	../scr/tran.scr
-	vimdiff *.new
+sdf.v.new : sdf.v
+	../scr/vtran.scr $<
+
+nodef.v.new : nodef.v
+	../scr/vtran.scr $<
+
+check : sdf.v.new nodef.v.new
+	diff sdf.v.new nodef.v.new |grep -v "\`line"|grep -v "[0-9]\+[ad][0-9]\+"|more
 
 clean :
 	rm -f *.v error* *.v.add *.v.new

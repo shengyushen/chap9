@@ -1074,7 +1074,7 @@ public :
 	
 	OPERATOR(T_system_task_enable,p) { 
 		APP_PRINTV(mem1)
-		APPLST_PRINTV(mem2 , prt_lparent , prt_comma , prt_lparent)  
+		APPLST_PRINTV(mem2 , prt_lparent , prt_comma , prt_rparent)  
 		prt_keyword_space(";");
 	}
 
