@@ -1,4 +1,6 @@
-SRCFILE = src/test_step2_reverse_define.v
+SRCFILE = ./src/numberWithUnderScore.v
 OPTIONS = 
+
+
 include ../scr/Makefile.include
 

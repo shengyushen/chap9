@@ -9,3 +9,5 @@ assign b = `y;
 
 
 endmodule
+
+`include "./src/test_step2_define.v"
