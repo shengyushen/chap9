@@ -165,10 +165,34 @@ public :
 	OPERATOR(T_primary_string,p) { APP_PRINTV(mem1)}
 
 	OPERATOR(T_number_UNSIGNED_NUMBER      ,p) { cout<<p->mem1;}
-	OPERATOR(T_number_UNSIGNED_NUMBER_size ,p) { cout<<p->mem1<<"'d"<<p->mem2;}
-	OPERATOR(T_number_OCTAL_NUMBER         ,p) { cout<<p->mem1<<"'o"<<p->mem2;}
-	OPERATOR(T_number_BINARY_NUMBER        ,p) { cout<<p->mem1<<"'b"<<p->mem2;}
-	OPERATOR(T_number_HEX_NUMBER           ,p) { cout<<p->mem1<<"'h"<<p->mem2;}
+	OPERATOR(T_number_UNSIGNED_NUMBER_size ,p) { 
+		if(0==(p->mem1)) {
+			cout<<"'d"<<p->mem2;
+		} else {
+			cout<<p->mem1<<"'d"<<p->mem2;
+		}
+	}
+	OPERATOR(T_number_OCTAL_NUMBER         ,p) { 
+		if(0==(p->mem1)) {
+			cout<<"'o"<<p->mem2;
+		} else {
+			cout<<p->mem1<<"'o"<<p->mem2;
+		}
+	}
+	OPERATOR(T_number_BINARY_NUMBER        ,p) { 
+		if(0==(p->mem1)) {
+			cout<<"'b"<<p->mem2;
+		} else {
+			cout<<p->mem1<<"'b"<<p->mem2;
+		}
+	}
+	OPERATOR(T_number_HEX_NUMBER           ,p) { 
+		if(0==(p->mem1)) {
+			cout<<"'h"<<p->mem2;
+		} else {
+			cout<<p->mem1<<"'h"<<p->mem2;
+		}
+	}
 	OPERATOR(T_number_REAL_NUMBER          ,p) { cout<<p->mem1;}
 
 	OPERATOR(T_hierarchical_identifier     ,p) { 

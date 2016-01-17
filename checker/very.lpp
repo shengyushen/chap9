@@ -293,7 +293,7 @@ digit [0-9]
 	deleteblank(szstr);
 	unsigned int sz;
 	if(szstr.size()==0) {
-		sz=32;
+		sz=0;
 	} else {
 		sz=stoul(szstr);
 	}
@@ -323,7 +323,7 @@ digit [0-9]
 	deleteblank(szstr);
 	unsigned int sz;
 	if(szstr.size()==0) {
-		sz=32;
+		sz=0;
 	} else {
 		sz=stoul(szstr);
 	}
@@ -343,7 +343,7 @@ digit [0-9]
 	deleteblank(szstr);
 	unsigned int sz;
 	if(szstr.size()==0) {
-		sz=32;
+		sz=0;
 	} else {
 		sz=stoul(szstr);
 	}
@@ -364,7 +364,7 @@ digit [0-9]
 	deleteblank(szstr);
 	unsigned int sz;
 	if(szstr.size()==0) {
-		sz=32;
+		sz=0;
 	} else {
 		sz=stoul(szstr);
 	}
