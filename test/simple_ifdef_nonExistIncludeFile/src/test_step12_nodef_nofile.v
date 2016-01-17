@@ -1,8 +1,8 @@
 `define ssy
 
 `ifdef ssy
-`include"empty.v"
-`include  "exp.v"
+`include"./src/empty.v"
+`include  "./src/exp.v"
 `else
 `include  "e1.v"
 `endif

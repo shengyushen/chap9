@@ -1,4 +1,4 @@
-SRCFILE = ./src/outputreg.v
+SRCFILE = ./src/test_step12_nodef_nofile.v
 OPTIONS = 
 
 
