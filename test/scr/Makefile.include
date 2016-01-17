@@ -1,22 +1,25 @@
 # $^ all depende files
 # $< first depend file
 # $@ target file
+# $?  all the prerequisites that are newer than the target
 
-all : sdf.v
+.PHONY: build
+.PHONY: clean
+.PHONY: test
 
-
-step1 : noinclude.v
-step2 : nodef.v
-step3 : sdf.v
+build : sdf.v
 
 sdf.v : nodef.v
-	checker $< > $@ 2>error3
+	checker $< > step3.v 2>error3
+	mv step3.v $@
 
 nodef.v : noinclude.v
-	step2_nodef $< > $@ 2>error2
+	step2_nodef $< > step2.v 2>error2
+	mv step2.v $@
 
 noinclude.v : ${SRCFILE}
-	step1_noinc_comment $< ${OPTIONS} > $@ 2>error1
+	step1_noinc_comment $< ${OPTIONS} > step1.v 2>error1
+	mv step1.v $@
 	
 sdf.v.new : sdf.v
 	../scr/vtran.scr $<
@@ -30,3 +33,5 @@ test : sdf.v.new nodef.v.new
 
 clean :
 	rm -f *.v error* *.v.add *.v.new
+
+
