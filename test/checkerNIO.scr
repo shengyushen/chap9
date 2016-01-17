@@ -1,7 +1,0 @@
-#!/bin/bash -v
-ulimit -s unlimited
-step1_noinc_comment /nio_nr/nio_source/top/nio_top_manifest.v  >noinclude.v 2>error1
-step2_nodef  noinclude.v > nodef.v 2>error2
-checker nodef.v > sdf.v
-source tran.scr
-
