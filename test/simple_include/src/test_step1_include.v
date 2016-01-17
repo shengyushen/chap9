@@ -1,6 +1,6 @@
 
 
-`include " comment.v" haha to test something after include but on the same line
+`include "src/test_step1_comment.v" haha to test something after include but on the same line
 
 //`include "sss.v"
 /*`include "sss.v"
@@ -9,7 +9,7 @@
 
 
 `include // sdf
-"directive.v "
+"src/test_step23_directive.v"
 
 `include /*comment*/ "file_in_include.v"
 

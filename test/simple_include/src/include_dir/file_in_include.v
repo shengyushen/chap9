@@ -1,5 +1,4 @@
 //first line in file_in_include.v
-`celldefine
 
 
 `define ssy 1
