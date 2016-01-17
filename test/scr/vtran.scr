@@ -1,3 +1,3 @@
 #!/bin/bash -v
 tokenizer $1 > $1.add
-cat $1.add | sed -e '/^[ \t]*$/d' | sed -e "s/'d[ \t]*\([0-9]\)/'d\1/g" | sed -e "s/'d0\([0-9]\)/'d\1/g" | sed -e "s/^0\+\(.\)/\1/g"> $1.new
+cat $1.add | sed -e '/^[ \t]*$/d' | sed -e "s/'d[ \t]*\([0-9]\)/'d\1/g" | sed -e "s/'d0\([0-9]\)/'d\1/g" | sed -e "s/^0\+\(.\)/\1/g" |grep -v "\`line" | sed -e "s/\('[dDbBoOhH][0-9]\+\)_/\1/g" |sed -e "s/'D/'d/g"| sed -e "s/'O/'o/g" | sed -e "s/'H/'h/g" | sed -e "s/'B/'b/g" > $1.new

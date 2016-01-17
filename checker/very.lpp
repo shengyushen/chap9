@@ -26,12 +26,22 @@
 	string stringssy_string;
 	unsigned int ln;
 	std::string * ps=nullptr;
+	void deleteUnderScore(string & s) {
+		while(true) {
+			auto pos=s.find("_");
+			if(pos==(std::string::npos)) return;
+			else {
+				s.erase(pos,1);
+			}
+		}
+	}
 	void deleteblank(string & s) {
 		while(s[0]==' '|| s[0]=='\t')  {s.erase(0,1);}
 		while(s[0]==' '|| s[0]=='\t')  {s.pop_back();}
 	}
 	bool isDECchar (char c ) {
 		if ('0' <= c && c <= '9') return true;
+		else if (c == '_') return true;
 		else return false;
 	}
 	bool isOCTchar (char c ) {
@@ -39,6 +49,7 @@
 		else if('x'==c || 'X'==c) return true;
 		else if('z'==c || 'Z'==c) return true;
 		else if('?'==c ) return true;
+		else if (c == '_') return true;
 		else return false;
 	}
 	bool isBINchar (char c ) {
@@ -46,6 +57,7 @@
 		else if('x'==c || 'X'==c) return true;
 		else if('z'==c || 'Z'==c) return true;
 		else if('?'==c ) return true;
+		else if (c == '_') return true;
 		else return false;
 	}
 	bool isHEXchar (char c ) {
@@ -55,6 +67,7 @@
 		else if('x'==c || 'X'==c) return true;
 		else if('z'==c || 'Z'==c) return true;
 		else if('?'==c ) return true;
+		else if (c == '_') return true;
 		else return false;
 	}
 
@@ -278,8 +291,9 @@ digit [0-9]
 }
 
 {unsigned_number} {
-	unsigned int lxm_no_;
-	sscanf(yytext,"%d",&lxm_no_);
+	string s{yytext};
+	deleteUnderScore(s);
+	unsigned int lxm_no_=stoul(s);
 	return yy::verilog_parser::make_UNSIGNED_NUMBER(lxm_no_,loc);
 }
 
@@ -291,6 +305,7 @@ digit [0-9]
 	int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
+	deleteUnderScore(szstr);
 	unsigned int sz;
 	if(szstr.size()==0) {
 		sz=0;
@@ -302,6 +317,7 @@ digit [0-9]
 	while(isDECchar(s[numpos])==false) { numpos++; }
 	string numstr =s.substr(numpos,(s.size()-1-numpos+1));
 	deleteblank(numstr);
+	deleteUnderScore(numstr);
 	unsigned int num =stoul(numstr);
 
 	return yy::verilog_parser::make_UNSIGNED_NUMBER_size(std::make_tuple(sz,num),loc);
@@ -321,6 +337,7 @@ digit [0-9]
 	int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
+	deleteUnderScore(szstr);
 	unsigned int sz;
 	if(szstr.size()==0) {
 		sz=0;
@@ -341,6 +358,7 @@ digit [0-9]
 	int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
+	deleteUnderScore(szstr);
 	unsigned int sz;
 	if(szstr.size()==0) {
 		sz=0;
@@ -362,6 +380,7 @@ digit [0-9]
 	int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
+	deleteUnderScore(szstr);
 	unsigned int sz;
 	if(szstr.size()==0) {
 		sz=0;
