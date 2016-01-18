@@ -40,6 +40,12 @@ public :
 	template <typename T>
 	bool operator()(std::shared_ptr<T>   ) const { return false; }
 };
+class  is_T_identifier_NOSPEC: public boost::static_visitor<bool> {
+public :
+	bool operator()(std::shared_ptr<T_identifier_NOSPEC>   ) const { return true; }
+	template <typename T>
+	bool operator()(std::shared_ptr<T>   ) const { return false; }
+};
 //macros for invoke visitor on T_* types and list of non-T_* types
 #define APP_PRINTV(x)                              \
 	boost::apply_visitor(printVisitor(),*(p->x));
@@ -353,8 +359,11 @@ public :
 		APP_PRINTV(mem2) //module name
 		prt_keyword_space("\n");
 		APPLST_PRINTV(mem3 , prt_jinglparent , prt_comma , prt_rparent); // parameter list
-		prt_keyword_space("\n (\n");
-		APPLST_PRINTV(mem4 , prt_nothing , prt_comma , prt_rparent_semicolon);//ports
+		if(((p->mem4)->size())>0) {
+			prt_keyword_space("\n (\n");
+			APPLST_PRINTV(mem4 , prt_nothing , prt_comma , prt_rparent);//ports
+		}
+		prt_keyword_space(";");
 		APPLST_PRINTV(mem5 , prt_return , prt_return , prt_return);//module_item
 		prt_keyword_space("\n endmodule\n");
 	}
@@ -1053,7 +1062,7 @@ public :
 		APP_PRINTV(mem1) 
 		prt_keyword_space("\n");
 		APPLST_PRINTV( mem2 , prt_nothing , prt_nothing , prt_nothing);//statement_or_block_item_list
-		prt_keyword_space("\n end\n");
+		prt_keyword_space("\n join\n");
 	}
 
 	OPERATOR(T_colon_block_identifier_NOSPEC,p) {  }
@@ -1269,8 +1278,11 @@ public :
 		APP_PRINTV(mem1) 
 	}
 	OPERATOR(T_generate_block_begin,p) {  
-		prt_keyword_space("\n begin : ");
-		APP_PRINTV(mem1) 
+		prt_keyword_space("\n begin");
+		if(false==(boost::apply_visitor(is_T_identifier_NOSPEC(),*(p->mem1)))) {
+			cout<<":  ";
+			APP_PRINTV(mem1) 
+		}
 		prt_keyword_space("\n");
 		APPLST_PRINTV( mem2 , prt_nothing , prt_nothing , prt_nothing);//module_item
 		prt_keyword_space("\n end\n");

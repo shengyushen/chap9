@@ -39,6 +39,7 @@ AC_CHECK_FUNCS([memset strchr strstr])
 
 AC_CONFIG_FILES([Makefile
                  checker/Makefile
+                 genivlppcfg/Makefile
                  step1_noinc_comment/Makefile
                  step2_nodef/Makefile
                  tokenizer/Makefile])

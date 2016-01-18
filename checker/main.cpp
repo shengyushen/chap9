@@ -17,7 +17,7 @@ bool testFileExistenceInDir(string dirname_filename) {
 }
 
 void usage() {
-	cout<<"Usage : checker.exe [input file]"<<endl;
+	cout<<"  Usage : checker.exe [input file]"<<endl;
 }
 
 #undef yyFlexLexer
@@ -43,7 +43,7 @@ int main ( int argc, char * argv[] ) {
 	//testing existence of file
 	string filename{argv[1]};
 	if( false == testFileExistenceInDir(filename)) {
-	   cerr << "FATAL : input file doesn't exist " <<endl;
+	   cerr << "  FATAL : input file doesn't exist " <<endl;
 		 return 1;
 	}
 
@@ -52,9 +52,9 @@ int main ( int argc, char * argv[] ) {
 	yy::verilog_parser vp(&filename);
 	int res=vp.parse();
 	if(0!=res) {
-		cerr<<"improper structure"<<endl;
+		cerr<<"  improper structure"<<endl;
 	} else {
-		cerr<<"all done!!!"<<endl;
+		cerr<<"  all done!!!"<<endl;
 	}
 
 	printVerilog(ptr_source_text);

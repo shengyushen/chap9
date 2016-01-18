@@ -5481,7 +5481,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile checker/Makefile step1_noinc_comment/Makefile step2_nodef/Makefile tokenizer/Makefile"
+ac_config_files="$ac_config_files Makefile checker/Makefile genivlppcfg/Makefile step1_noinc_comment/Makefile step2_nodef/Makefile tokenizer/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -6216,6 +6216,7 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "checker/Makefile") CONFIG_FILES="$CONFIG_FILES checker/Makefile" ;;
+    "genivlppcfg/Makefile") CONFIG_FILES="$CONFIG_FILES genivlppcfg/Makefile" ;;
     "step1_noinc_comment/Makefile") CONFIG_FILES="$CONFIG_FILES step1_noinc_comment/Makefile" ;;
     "step2_nodef/Makefile") CONFIG_FILES="$CONFIG_FILES step2_nodef/Makefile" ;;
     "tokenizer/Makefile") CONFIG_FILES="$CONFIG_FILES tokenizer/Makefile" ;;

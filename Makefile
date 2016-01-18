@@ -316,7 +316,7 @@ top_build_prefix =
 top_builddir = .
 top_srcdir = .
 AM_CXXFLAGS = -std=gnu++11
-SUBDIRS = step1_noinc_comment step2_nodef checker tokenizer
+SUBDIRS = step1_noinc_comment step2_nodef checker tokenizer genivlppcfg
 dist_doc_DATA = README
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive

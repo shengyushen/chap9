@@ -25,8 +25,8 @@
 		void incCharNumber (int n) { charnumber+=n ; }
 	};
 
-	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
-	void prt_info (string str)  { cerr<<"INFO  : "<<str<<endl<<flush; return; }
+	void prt_fatal(string str)  { cerr<<"  FATAL : "<<str<<endl<<flush; return; }
+	void prt_info (string str)  { cerr<<"  INFO  : "<<str<<endl<<flush; return; }
 	
 	string stringssy_string;
 	unsigned int ln;

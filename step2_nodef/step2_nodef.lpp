@@ -31,9 +31,9 @@
 		void setPosition(int ln , string fn) {linenumber=ln;filename=fn;charnumber=0;}
 	};
 
-	void prt_fatal   (const string typ ,const string str)  { cerr<<"FATAL ["<<typ<<"] : "<<str<<endl<<flush; return; }
-	void prt_info    (const string typ ,const string str)  { cerr<<"INFO  ["<<typ<<"] : "<<str<<endl<<flush; return; }
-	void prt_warning (const string typ ,const string str)  { cerr<<"WARNING ["<<typ<<"] : "<<str<<endl<<flush; return; }
+	void prt_fatal   (const string typ ,const string str)  { cerr<<"  FATAL ["<<typ<<"] : "<<str<<endl<<flush; return; }
+	void prt_info    (const string typ ,const string str)  { cerr<<"  INFO  ["<<typ<<"] : "<<str<<endl<<flush; return; }
+	void prt_warning (const string typ ,const string str)  { cerr<<"  WARNING ["<<typ<<"] : "<<str<<endl<<flush; return; }
 
 	//storing the map from macro name to body
 	struct macrobody{
@@ -930,7 +930,7 @@ int main ( int argc, char * argv[] ) {
 	std::chrono::time_point<std::chrono::system_clock> start, end;
 	start = std::chrono::system_clock::now();
 	std::time_t st_time = std::chrono::system_clock::to_time_t(start);
-	std::cerr << "step2 start computation at " << std::ctime(&st_time);
+	std::cerr << "  step2 start computation at " << std::ctime(&st_time);
 
 	//handling options
 	int c;
@@ -984,7 +984,7 @@ int main ( int argc, char * argv[] ) {
 	end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
 	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-	std::cerr << "step2 finished computation at " << std::ctime(&end_time)
+	std::cerr << "  step2 finished computation at " << std::ctime(&end_time)
 	<< "elapsed time: " << elapsed_seconds.count() << "s\n";
 
 	return 0;

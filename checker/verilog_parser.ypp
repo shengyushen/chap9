@@ -671,7 +671,10 @@ comma_parameter_declaration_list :
 ;
 
 list_of_ports : 
-	LPARENT 
+	 {
+			$$=SHR_LIST_SHR(port)();
+		}
+	| LPARENT 
 		port comma_port_list
 	RPARENT
 		{

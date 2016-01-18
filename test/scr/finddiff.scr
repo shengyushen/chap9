@@ -1,0 +1,2 @@
+#!/bin/bash -v
+ls -l */diff*|awk '{if($5!=0) print}'

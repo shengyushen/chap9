@@ -20,8 +20,8 @@
 
 
 	using namespace std;
-	void prt_fatal(const string typ,const string str)  { cerr<<"FATAL ["<<typ<<"]: "<<str<<endl<<flush; return; }
-	void prt_info (const string typ,const string str)  { cerr<<"INFO  ["<<typ<<"]: "<<str<<endl<<flush; return; }
+	void prt_fatal(const string typ,const string str)  { cerr<<"  FATAL ["<<typ<<"]: "<<str<<endl<<flush; return; }
+	void prt_info (const string typ,const string str)  { cerr<<"  INFO  ["<<typ<<"]: "<<str<<endl<<flush; return; }
 	
 	string stringssy_string;
 	unsigned int ln;

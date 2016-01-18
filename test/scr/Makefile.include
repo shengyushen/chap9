@@ -3,12 +3,11 @@
 # $@ target file
 # $?  all the prerequisites that are newer than the target
 
-.PHONY: build
 .PHONY: clean
 .PHONY: test
 
-build : sdf.v
 
+#step1 to 3 of my prpgram
 sdf.v : nodef.v
 	checker $< > step3.v 2>>error
 	mv step3.v $@
@@ -20,18 +19,36 @@ nodef.v : noinclude.v
 noinclude.v : ${SRCFILE}
 	step1_noinc_comment $< ${OPTIONS} > step1.v 2>error
 	mv step1.v $@
-	
-sdf.v.new : sdf.v
+
+# tokenrize parser result and step2 result
+sdf.v.tok : sdf.v
 	../scr/vtran.scr $<
 
-nodef.v.new : nodef.v
+nodef.v.tok : nodef.v
 	../scr/vtran.scr $<
 
-test : sdf.v.new nodef.v.new
-	- diff sdf.v.new nodef.v.new |grep -v "\`line"|grep -v "[0-9]\+[ad][0-9]\+" > diff_parse
-	- diff sdf.v std/sdf.v > diff_2old
+# trying ivlpp to generate its tokenrize file
+ivlpp.v : $(SRCFILE)
+	genivlppcfg ${OPTIONS} > cfg
+	ivlpp -L -F cfg $< > ivlpp.v
+
+ivlpp.v.noinc : ivlpp.v
+	step1_noinc_comment $< > ivlpp.v.noinc
+
+ivlpp.v.noinc.tok : ivlpp.v.noinc
+	../scr/vtran.scr $<
+
+test : sdf.v.tok nodef.v.tok 
+	# comparing before and after checher
+	- diff sdf.v.tok nodef.v.tok  > diff_parse
+	# comparing after checker with previous run
+	diff sdf.v std/sdf.v > diff_2old
+
+test_ivlpp : ivlpp.v.noinc.tok
+	# comparing after checher and ivlpp
+	- diff sdf.v.tok ivlpp.v.noinc.tok > diff_2ivl
 
 clean :
-	rm -f *.v error* *.v.add *.v.new diff_*
+	rm -f *.v error* *.v.add *.v.new diff_* ivlpp* *.tok *cfg*
 
 
