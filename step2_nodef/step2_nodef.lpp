@@ -26,7 +26,7 @@
 		int yylex();
 		void print_pos_cerr () { cerr<< "print_pos_cerr " << filename << " : " << linenumber << " : " << charnumber << endl << flush; }
 		void print_pos_cout () { cout<< "`line "<< (linenumber+1) << " " << filename << " 1" << endl << flush; }
-		void incLineNumber () { linenumber++; charnumber=0 ; }
+		void incLineNumber (unsigned i=1) { linenumber=linenumber+i; charnumber=0 ; }
 		void incCharNumber (int n) { charnumber+=n ; }
 		void setPosition(int ln , string fn) {linenumber=ln;filename=fn;charnumber=0;}
 	};
@@ -166,6 +166,21 @@
 	void deleteblank(string & s) {
 		while((s[0]==' '|| s[0]=='\t') && (s.length()>0))  {s.erase(0,1);}
 		while(isBlank(s[s.length()-1])&& (s.length()>0))  {s.pop_back();}
+	}
+	unsigned deleteBackslach(string & s) {
+		unsigned del=0;
+		cerr<<"deleteBackslach in :"<<s<<endl;
+		while(true) {
+			auto pos = s.find("\\\n");
+			if(pos==string::npos) {
+				cerr<<"deleteBackslach out :"<<s<<endl;
+				return del;
+			} else {
+				s.erase(pos,1);
+				del++;
+				cerr<<"deleteBackslach delete :"<<s<<endl;
+			}
+		}
 	}
 	size_t searchRParentMatched(const string & s,const size_t pos1) {
 		size_t pos=pos1;
@@ -842,11 +857,13 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 }
 
 <macro>{
-	[(]({blank}*{simple_identifier}{blank}*[,])*{blank}*{simple_identifier}{blank}*[)][^\n]*\n {
-		// (arg1,arg2,...) <macro body>
+	[(]({blank}*{simple_identifier}{blank}*[,])*{blank}*{simple_identifier}{blank}*[)]([^\n]|"\\\n")*\n {
+		// (arg1,arg2,...) <macro body> 
+		// where <macro body> contains < backslash +\n>
 		string s(yytext);
 		s.pop_back();//removing the return
 		deleteblank(s);//removing all blanks
+		auto num_del_backslash=deleteBackslach(s); //deleting backslash before \n
 		assert(s[0]=='(');
 		size_t rppos = searchRParentMatched(s,0);//find )
 		string paramlist = s.substr(1,rppos-1); // arg1,arg2,...
@@ -864,15 +881,17 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		insertMacro(currentMacroName,mb);
 		cerr<<"macro name : "<<currentMacroName<<endl;
 		cerr<<"macro body : "<<body<<endl;
-		incLineNumber();
+		incLineNumber(num_del_backslash+1);
+		print_pos_cout();
 		yy_pop_state();
 	}
 
-	[^(\n].*\n {
+	([^\n]|"\\\n")*\n {
 		// <macro body> only
 		string s {yytext};
 		s.pop_back();//removing return
 		deleteblank(s);//removing blank
+		auto num_del_backslash=deleteBackslach(s); //deleting backslash before \n
 		//should not replace now, verilog 2005 
 		// require us to replace only when using this macro
 		//replaceMacro(s , filename , linenumber );
@@ -881,8 +900,9 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		mb.body=s;
 		insertMacro(currentMacroName,mb);
 		cerr<<"macro name : "<<currentMacroName<<endl;
-		cerr<<"macro body without param : "<<s<<endl;
-		incLineNumber();
+		cerr<<"multi-line macro body without param : "<<s<<endl;
+		incLineNumber(num_del_backslash+1);
+		print_pos_cout();
 		yy_pop_state();
 	}
 
