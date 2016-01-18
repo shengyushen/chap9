@@ -29,9 +29,9 @@ nodef.v.new : nodef.v
 
 test : sdf.v.new nodef.v.new
 	- diff sdf.v.new nodef.v.new |grep -v "\`line"|grep -v "[0-9]\+[ad][0-9]\+" > diff_parse
-	- diff sdf.v std/sdf.v > diff_sdf
+	- diff sdf.v std/sdf.v > diff_2old
 
 clean :
-	rm -f *.v error* *.v.add *.v.new
+	rm -f *.v error* *.v.add *.v.new diff_*
 
 

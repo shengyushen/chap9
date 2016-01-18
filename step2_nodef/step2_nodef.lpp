@@ -55,23 +55,47 @@
 			macros.insert( make_pair ( macroname , macrobody_inst )  );
 		}
 	}
+	bool isBlank(char c) {
+		if(c==' ') return true;
+		else if (c=='\t') return true;
+		else if (c=='\n') return true;
+		else if (c=='\r') return true;
+		else return false;
+	}
 	bool isIDheadchar (char c) {
 		if('a' <= c && c <= 'z') return true;
 		else if('A' <= c && c <= 'Z') return true;
 		else if(c == '_') return true;
+		else if(c == '\\') return true;
 		else return false;
 	}
-	bool isIDchar (char c ) {
-		if(isIDheadchar(c)) return true;
+	bool isIDnonHeadChar (char c ) {
+		if('a' <= c && c <= 'z') return true;
+		else if('A' <= c && c <= 'Z') return true;
+		else if(c == '_') return true;
 		else if ('0' <= c && c <= '9') return true;
 		else return false;
 	}
-	size_t searchID(string body , size_t pos) {
+	size_t searchID(const string body , const size_t pos1) {
+		cerr<<"searchID in "<<body<<" at pos "<<pos1<<endl;
+		size_t pos=pos1;
 		if( isIDheadchar (body[pos] ) ) {
-			pos++;
-			while(isIDchar(body[pos]) && pos< body.length()) {pos++;}
-			pos--;
-			return pos;
+			if(body[pos]=='\\') {
+				//escaped_identifier
+				cerr<<"escaped_identifier"<<endl;
+				while(isBlank(body[pos])==false && pos<body.size()) {pos++; cerr<<pos<<endl;}
+				return pos;
+			} else {
+				//simple_identifier
+				cerr<<"simple_identifier"<<endl;
+				pos++;
+				while(isIDnonHeadChar(body[pos]) && pos< body.length()) {pos++;}
+				pos--;
+				return pos;
+			}
+		} else {
+			prt_fatal("searchID start with non head char");
+			exit(1);
 		}
 	}
 	void replaceBody(string &body , const vector<string> &formallist ,const vector<string> &pamvec) {
@@ -103,11 +127,20 @@
 			}
 		}
 	}
-	vector<string> splitStringChar(const string s ,  char sep) {
+	vector<string> splitStringChar(const string s ,  const char sep) {
 		vector<string> vs;
 		size_t bg=0;
+		int nest=0;
 		for(size_t i=0 ; i< s.length() ;i++) {
-			if( sep == s[i] ) {
+			if(nest<0) {
+				prt_fatal("unmatched () in : "+s);
+				exit(1);
+			}
+
+			if(s[i]=='(') nest++;
+			else if(s[i]==')') nest--;
+
+			if( sep == s[i] && nest==0) { //must only use sep when () is matched
 				if(i==bg) {
 					vs.push_back("");
 				} else {
@@ -131,7 +164,28 @@
 	}
 	void deleteblank(string & s) {
 		while((s[0]==' '|| s[0]=='\t') && (s.length()>0))  {s.erase(0,1);}
-		while((s[s.length()-1]==' '|| s[s.length()-1]=='\t')&& (s.length()>0))  {s.pop_back();}
+		while(isBlank(s[s.length()-1])&& (s.length()>0))  {s.pop_back();}
+	}
+	size_t searchRParentMatched(const string & s,const size_t pos1) {
+		size_t pos=pos1;
+		int nest=0;
+		while((pos<s.size())) {
+			if(nest<0) {
+				prt_fatal("unmatched () in : "+s);
+				exit(1);
+			}
+			if(s[pos]=='(') {
+				nest++;
+			} else if(s[pos]==')') {
+				if(nest==1) return pos;//the last matched right parent
+				else nest--;
+			} 
+			pos++;
+		}
+		if(pos!=0) {
+			prt_fatal("unmatched () in : "+s);
+			exit(0);
+		}
 	}
 	void replaceMacro(string & body , string fn, int ln) {
 		size_t last_pos=0;
@@ -163,7 +217,7 @@
 							cerr<<fn<<" : "<<ln<<endl<<flush;
 							exit(1);
 						}
-						size_t rppos = body.find(')',lppos);
+						size_t rppos = searchRParentMatched(body,lppos);
 						if(rppos==string::npos) {
 							prt_fatal("macro "+nm+" should have parameter list with )");
 							cerr<<fn<<" : "<<ln<<endl<<flush;
@@ -237,7 +291,10 @@ blank [ \t]
 alnum {alpha}|{digit}
 alnum_ {alnum}|[_]
 alpha_ {alpha}|[_]
-identifier {alpha_}{alnum_}*
+
+escaped_identifier     \\[^ \t\n]+[ \t\n\r]
+simple_identifier  [a-zA-Z_][a-zA-Z0-9_\$]*
+identifier_comb {escaped_identifier}|{simple_identifier}
 
 useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_distributed"|"`delay_mode_path"|"`delay_mode_unit"|"`delay_mode_zero"|"`accelerate"|"`autoexpand_vectornets"|"`begin_keywords"|"`celldefine"|"`default_nettype"|"`endcelldefine"|"`end_keywords"|"`endprotect"|"`endprotected"|"`expand_vectornets"|"`noaccelerate"|"`noexpand_vectornets"|"`noremove_gatenames"|"`noremove_netnames"|"`nounconnected_drive"|"`pragma"|"`protect"|"`protected"|"`remove_gatenames"|"`remove_netnames"|"`resetall"|"`timescale"|"`unconnected_drive"
 
@@ -253,14 +310,13 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	this->incLineNumber();
 }
 
-"`define"{blank}+{identifier} {
+"`define"{blank}+{identifier_comb} {
 	string s(yytext);
 
 	s.erase(0,7);
 	deleteblank(s);
 	cerr<<s<<endl;
 	currentMacroName=s;
-
 
 	yy_push_state(macro);
 }
@@ -320,25 +376,27 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	yy_push_state(line_skip_blank);
 }
 
-[`]{identifier}{blank}*[(]({blank}*{identifier}{blank}*[,])*{blank}*{identifier}{blank}*[)] {
+[`]{identifier_comb}{blank}*[(]({blank}*[^\n\r,]+{blank}*[,])*{blank}*[^\n\r,]+{blank}*[)] {
 	//replacing macros
 	string s(yytext);
 	int oldsize = s.size();
 
 	cerr<<"wo "<<s<<endl;
 	int lppos = s.find('(',1);
-	int rppos = s.find(')',lppos);
+	int rppos = s.size()-1;
+	assert(s[rppos]==')');
 	string oldbody = s.substr(0,rppos+1);
 	replaceMacro(oldbody , filename , linenumber);
 	cout<<oldbody;
 	incCharNumber(oldbody.size()-oldsize);
 }
 
-[`]{identifier} {
+[`]{identifier_comb} {
 	string s(yytext);
 	int oldsize = s.size();
 
 	s.erase(0,1);
+	deleteblank(s);
 	if(isInMacro(s) == false) {
 		prt_fatal("undefined macro "+s);
 		print_pos_cerr ();
@@ -372,8 +430,9 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 <proc_ifdef>{
 	{blank}+ 
 
-	{identifier} {
+	{identifier_comb} {
 		string s{yytext};
+		deleteblank(s);
 		if(isInMacro(s)) {
 			yy_pop_state();
 			yy_push_state(do_then);
@@ -389,8 +448,9 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 <proc_ifndef>{
 	{blank}+ 
 
-	{identifier} {
+	{identifier_comb} {
 		string s{yytext};
+		deleteblank(s);
 		if(isInMacro(s)) {
 			yy_pop_state();
 			yy_push_state(do_else);
@@ -434,12 +494,14 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		yy_pop_state();
 	}
 
-	"`define"{blank}+{identifier} {
+	"`define"{blank}+{identifier_comb} {
 		string s(yytext);
+
 		s.erase(0,7);
 		deleteblank(s);
 		cerr<<s<<endl;
 		currentMacroName=s;
+
 		yy_push_state(macro);
 	}
 	
@@ -461,23 +523,26 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	}
 	
 	
-	[`]{identifier}{blank}*[(]({blank}*{identifier}{blank}*[,])*{blank}*{identifier}{blank}*[)] {
+	[`]{identifier_comb}{blank}*[(]({blank}*[^\n\r,]+{blank}*[,])*{blank}*[^\n\r,]+{blank}*[)] {
 		//replacing macros
 		string s(yytext);
 		int oldsize = s.size();
 		cerr<<"wo "<<s<<endl;
 		int lppos = s.find('(',1);
-		int rppos = s.find(')',lppos);
+		int rppos = s.size()-1;
+		assert(s[rppos]==')');
 		string oldbody = s.substr(0,rppos+1);
 		replaceMacro(oldbody , filename , linenumber);
 		cout<<oldbody;
 		incCharNumber(oldbody.size()-oldsize);
 	}
 	
-	[`]{identifier} {
+	[`]{identifier_comb} {
 		string s(yytext);
 		int oldsize = s.size();
+
 		s.erase(0,1);
+		deleteblank(s);
 		if(isInMacro(s) == false) {
 			prt_fatal("undefined macro "+s);
 			print_pos_cerr ();
@@ -597,13 +662,14 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		incLineNumber();
 	}
 
-	"`define"{blank}+{identifier} {
+	"`define"{blank}+{identifier_comb} {
 		string s(yytext);
+
 		s.erase(0,7);
 		deleteblank(s);
 		cerr<<s<<endl;
 		currentMacroName=s;
-	//	ECHO;
+
 		yy_push_state(macro);
 	}
 
@@ -643,23 +709,27 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		yy_push_state(line_skip_blank);
 	}
 	
-	[`]{identifier}{blank}*[(]({blank}*{identifier}{blank}*[,])*{blank}*{identifier}{blank}*[)] {
+	[`]{identifier_comb}{blank}*[(]({blank}*[^\n\r,]+{blank}*[,])*{blank}*[^\n\r,]+{blank}*[)] {
 		//replacing macros
 		string s(yytext);
 		int oldsize = s.size();
+
 		cerr<<"wo "<<s<<endl;
 		int lppos = s.find('(',1);
-		int rppos = s.find(')',lppos);
+		int rppos = s.size()-1;
+		assert(s[rppos]==')');
 		string oldbody = s.substr(0,rppos+1);
 		replaceMacro(oldbody , filename , linenumber);
 		cout<<oldbody;
 		incCharNumber(oldbody.size()-oldsize);
 	}
 	
-	[`]{identifier} {
+	[`]{identifier_comb} {
 		string s(yytext);
 		int oldsize = s.size();
+
 		s.erase(0,1);
+		deleteblank(s);
 		if(isInMacro(s) == false) {
 			prt_fatal("undefined macro "+s);
 			print_pos_cerr ();
@@ -747,13 +817,14 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 
 <proc_undef>{
 	{blank}+ 
-	{identifier} {
+	{identifier_comb} {
 		string s{yytext};
+		deleteblank(s);
 		if(isInMacro(s)) {
 			macros.erase(s);
 			yy_pop_state();
 		} else {
-			prt_warning("undefining macro "+s+" that have been defined");
+			prt_warning("undefining macro "+s+" that have not been defined");
 			yy_pop_state();
 		}
 	}
@@ -770,13 +841,13 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 }
 
 <macro>{
-	[(]({blank}*{identifier}{blank}*[,])*{blank}*{identifier}{blank}*[)][^\n]*\n {
+	[(]({blank}*{simple_identifier}{blank}*[,])*{blank}*{simple_identifier}{blank}*[)][^\n]*\n {
 		// (arg1,arg2,...) <macro body>
 		string s(yytext);
 		s.pop_back();//removing the return
 		deleteblank(s);//removing all blanks
 		assert(s[0]=='(');
-		size_t rppos = s.find_first_of(")");//find )
+		size_t rppos = searchRParentMatched(s,0);//find )
 		string paramlist = s.substr(1,rppos-1); // arg1,arg2,...
 		vector<string> vs=splitStringChar(paramlist , ',');//list of args
 		for(auto & s : vs) {deleteblank(s);} //deleting blank for each args
@@ -790,7 +861,8 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		//replaceMacro(body , filename , linenumber );
 		mb.body = body;
 		insertMacro(currentMacroName,mb);
-		cerr<<"macro body "<<body<<endl;
+		cerr<<"macro name : "<<currentMacroName<<endl;
+		cerr<<"macro body : "<<body<<endl;
 		incLineNumber();
 		yy_pop_state();
 	}
@@ -807,12 +879,14 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		mb.params.clear();
 		mb.body=s;
 		insertMacro(currentMacroName,mb);
-		cerr<<"macro body without param "<<s<<endl;
+		cerr<<"macro name : "<<currentMacroName<<endl;
+		cerr<<"macro body without param : "<<s<<endl;
 		incLineNumber();
 		yy_pop_state();
 	}
 
 	\n {
+		cerr<<"macro name : "<<currentMacroName<<endl;
 		cerr<<"macro body without param "<<endl;
 		macrobody mb;
 		mb.params.clear();

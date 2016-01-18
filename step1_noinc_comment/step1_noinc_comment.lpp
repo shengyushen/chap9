@@ -228,6 +228,8 @@ int main ( int argc, char * argv[] ) {
 		prt_fatal ("improper return from yylex");
 		//cout<<"// return here\n"<<flush;
 	}
+	//add more return to avoid meeting eof at latter steps
+	cout<<endl<<endl;
 
 	end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end-start;
