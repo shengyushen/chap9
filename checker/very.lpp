@@ -20,8 +20,8 @@
 
 
 	using namespace std;
-	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
-	void prt_info (string str)  { cerr<<"INFO  : "<<str<<endl<<flush; return; }
+	void prt_fatal(const string typ,const string str)  { cerr<<"FATAL ["<<typ<<"]: "<<str<<endl<<flush; return; }
+	void prt_info (const string typ,const string str)  { cerr<<"INFO  ["<<typ<<"]: "<<str<<endl<<flush; return; }
 	
 	string stringssy_string;
 	unsigned int ln;
@@ -502,7 +502,7 @@ digit [0-9]
 "`unconnected_drive"{blank}+"pull1" |
 "`unconnected_drive"{blank}+"pull0" {
 	string s{yytext};
-	prt_info("ignoring directive "+s);
+	prt_info("COMPILING_0001","ignoring directive "+s);
 }
 
 "`accelerate" |
@@ -519,7 +519,7 @@ digit [0-9]
 "`remove_gatenames" |
 "`remove_netnames" {
 	string s{yytext};
-	prt_info("deprecated directive "+s);
+	prt_info("COMPILING_0002","deprecated directive "+s);
 }
 
 "`line"			{
@@ -529,7 +529,7 @@ digit [0-9]
 
 . {
 	string s{yytext};
-	prt_fatal("improper syntax "+s);
+	prt_fatal("COMPILING_0003","improper syntax "+s);
 	print_pos();
 	exit(1);
 }
@@ -543,7 +543,7 @@ digit [0-9]
 	}
 	. {
 		string s{yytext};
-		prt_fatal("improper `line statement"+s);
+		prt_fatal("COMPILING_0004","improper `line statement"+s);
 		print_pos();
 		exit(1);
 	}
@@ -559,7 +559,7 @@ digit [0-9]
 
 	. {
 		string s{yytext};
-		prt_fatal("improper `line number"+s);
+		prt_fatal("COMPILING_0005","improper `line number"+s);
 		print_pos();
 		exit(1);
 	}
@@ -573,7 +573,7 @@ digit [0-9]
 	}
 	. {
 		string s{yytext};
-		prt_fatal("improper `line file name"+s);
+		prt_fatal("COMPILING_0006","improper `line file name"+s);
 		print_pos();
 		exit(1);
 	}
@@ -593,7 +593,7 @@ digit [0-9]
 
 	. {
 		string s{yytext};
-		prt_fatal("improper `line file name 2"+s);
+		prt_fatal("COMPILING_0007","improper `line file name 2"+s);
 		print_pos();
 		exit(1);
 	}
@@ -609,7 +609,7 @@ digit [0-9]
 
 <stringssy>{
 	\n {
-		prt_fatal("incomplet string"+stringssy_string);
+		prt_fatal("COMPILING_0008","incomplet string"+stringssy_string);
 		print_pos();
 		exit(1);
 	}

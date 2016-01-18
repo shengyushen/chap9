@@ -31,9 +31,9 @@
 		void setPosition(int ln , string fn) {linenumber=ln;filename=fn;charnumber=0;}
 	};
 
-	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; return; }
-	void prt_info (string str)  { cerr<<"INFO  : "<<str<<endl<<flush; return; }
-	void prt_warning (string str)  { cerr<<"WARNING  : "<<str<<endl<<flush; return; }
+	void prt_fatal   (const string typ ,const string str)  { cerr<<"FATAL ["<<typ<<"] : "<<str<<endl<<flush; return; }
+	void prt_info    (const string typ ,const string str)  { cerr<<"INFO  ["<<typ<<"] : "<<str<<endl<<flush; return; }
+	void prt_warning (const string typ ,const string str)  { cerr<<"WARNING ["<<typ<<"] : "<<str<<endl<<flush; return; }
 
 	//storing the map from macro name to body
 	struct macrobody{
@@ -48,7 +48,7 @@
 	}
 	void insertMacro(string macroname, macrobody macrobody_inst) {
 		if(isInMacro(macroname)) {
-			prt_warning ("redefined macro "+macroname);
+			prt_warning ("PREPROC_1001","redefined macro "+macroname);
 			auto x = macros.find(macroname);
 			x->second=macrobody_inst;
 		} else {
@@ -84,6 +84,7 @@
 				//escaped_identifier
 				cerr<<"escaped_identifier"<<endl;
 				while(isBlank(body[pos])==false && pos<body.size()) {pos++; cerr<<pos<<endl;}
+				pos--;
 				return pos;
 			} else {
 				//simple_identifier
@@ -94,7 +95,7 @@
 				return pos;
 			}
 		} else {
-			prt_fatal("searchID start with non head char");
+			prt_fatal("PREPROC_1002","searchID start with non head char");
 			exit(1);
 		}
 	}
@@ -133,7 +134,7 @@
 		int nest=0;
 		for(size_t i=0 ; i< s.length() ;i++) {
 			if(nest<0) {
-				prt_fatal("unmatched () in : "+s);
+				prt_fatal("PREPROC_1003","unmatched () in : "+s);
 				exit(1);
 			}
 
@@ -171,7 +172,7 @@
 		int nest=0;
 		while((pos<s.size())) {
 			if(nest<0) {
-				prt_fatal("unmatched () in : "+s);
+				prt_fatal("PREPROC_1004","unmatched () in : "+s);
 				exit(1);
 			}
 			if(s[pos]=='(') {
@@ -183,7 +184,7 @@
 			pos++;
 		}
 		if(pos!=0) {
-			prt_fatal("unmatched () in : "+s);
+			prt_fatal("PREPROC_1005","unmatched () in : "+s);
 			exit(0);
 		}
 	}
@@ -196,7 +197,7 @@
 				return ;
 			} else if(pos==body.length()-1) {
 				//last char
-				prt_fatal ("` at the last postion ");
+				prt_fatal ("PREPROC_1006","` at the last postion ");
 				cerr<<fn<<" : "<<ln<<endl<<flush;
 				exit(1);
 			} else if(isIDheadchar(body[pos+1])) {
@@ -213,13 +214,13 @@
 						//find (
 						size_t lppos=body.find('(',postail);
 						if(lppos==string::npos) {
-							prt_fatal("macro "+nm+" should have parameter list with (");
+							prt_fatal("PREPROC_1007","macro "+nm+" should have parameter list with (");
 							cerr<<fn<<" : "<<ln<<endl<<flush;
 							exit(1);
 						}
 						size_t rppos = searchRParentMatched(body,lppos);
 						if(rppos==string::npos) {
-							prt_fatal("macro "+nm+" should have parameter list with )");
+							prt_fatal("PREPROC_1008","macro "+nm+" should have parameter list with )");
 							cerr<<fn<<" : "<<ln<<endl<<flush;
 							exit(1);
 						}
@@ -236,7 +237,7 @@
 						//now we have the parameter vector in pamvec
 						//and mp is the macrobody
 						if((mp.params).size()!=pamvec.size()) {
-							prt_fatal("length of macro "+nm+"'s parameter list are not the same");
+							prt_fatal("PREPROC_1009","length of macro "+nm+"'s parameter list are not the same");
 							cerr<<fn<<" : "<<ln<<endl<<flush;
 							exit(1);
 						}
@@ -248,7 +249,7 @@
 						last_pos = 0 ;//restart
 					}
 				} else {
-					prt_fatal("not defined macro "+nm);
+					prt_fatal("PREPROC_1010","not defined macro "+nm);
 					cerr<<fn<<" : "<<ln<<endl<<flush;
 					exit(1);
 				}
@@ -336,14 +337,14 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 "`else"|"elsif" {
 	string s(yytext);
 
-	prt_fatal("mismatched "+s);
+	prt_fatal("PREPROC_1011","mismatched "+s);
 	exit(1);
 }
 
 "`endif" {
 	string s(yytext);
 
-	prt_fatal("mismatched "+s);
+	prt_fatal("PREPROC_1012","mismatched "+s);
 	exit(1);
 }
 
@@ -357,14 +358,14 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	string s(yytext);
 	incCharNumber(s.size());
 
-	prt_warning("useless_directive "+s);
+	prt_warning("PREPROC_1013","useless_directive "+s);
 	print_pos_cerr ();
 	ECHO;
 }
 
 "`include"{blank}*"\"".*"\""+ {
 	string s{yytext};
-	prt_fatal("can not found included file\n"+s);
+	prt_fatal("PREPROC_1014","can not found included file\n"+s);
 	print_pos_cerr ();
 	exit(1);
 }
@@ -398,14 +399,14 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	s.erase(0,1);
 	deleteblank(s);
 	if(isInMacro(s) == false) {
-		prt_fatal("undefined macro "+s);
+		prt_fatal("PREPROC_1015","undefined macro "+s);
 		print_pos_cerr ();
 		exit(1);
 	}
 	//now we have defined
 	auto mp = (macros.find(s))->second;
 	if((mp.params).size()!=0) {
-		prt_fatal("mismatching parameter length of macro "+s);
+		prt_fatal("PREPROC_1016","mismatching parameter length of macro "+s);
 		print_pos_cerr ();
 		exit(1);
 	}
@@ -442,7 +443,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		}
 	}
 
-	. {prt_fatal("improper ifdef statement");exit(1);}
+	. {prt_fatal("PREPROC_1017","improper ifdef statement");exit(1);}
 }
 
 <proc_ifndef>{
@@ -460,7 +461,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		}
 	}
 
-	. {prt_fatal("improper ifndef statement");exit(1);}
+	. {prt_fatal("PREPROC_1018","improper ifndef statement");exit(1);}
 }
 
 <do_then>{
@@ -512,7 +513,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	{useless_directive} {
 		string s(yytext);
 		incCharNumber(s.size());
-		prt_warning("useless_directive "+s);
+		prt_warning("PREPROC_1019","useless_directive "+s);
 		print_pos_cerr ();
 		ECHO;
 	}
@@ -544,14 +545,14 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		s.erase(0,1);
 		deleteblank(s);
 		if(isInMacro(s) == false) {
-			prt_fatal("undefined macro "+s);
+			prt_fatal("PREPROC_1020","undefined macro "+s);
 			print_pos_cerr ();
 			exit(1);
 		}
 		//now we have defined
 		auto mp = (macros.find(s))->second;
 		if((mp.params).size()!=0) {
-			prt_fatal("mismatching parameter length of macro "+s);
+			prt_fatal("PREPROC_1021","mismatching parameter length of macro "+s);
 			print_pos_cerr ();
 			exit(1);
 		}
@@ -580,7 +581,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		yy_pop_state();
 		yy_push_state(line_number);
 	}
-	. {prt_fatal("improper `line statement");exit(1);}
+	. {prt_fatal("PREPROC_1022","improper `line statement");exit(1);}
 }
 
 <line_number>{
@@ -591,7 +592,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		yy_push_state(line_skip_blank2);
 	}
 
-	. {prt_fatal("improper `line number");exit(1);}
+	. {prt_fatal("PREPROC_1023","improper `line number");exit(1);}
 }
 
 <line_skip_blank2>{
@@ -600,7 +601,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		yy_pop_state();
 		yy_push_state(line_filename);
 	}
-	. {prt_fatal("improper `line file name");exit(1);}
+	. {prt_fatal("PREPROC_1024","improper `line file name");exit(1);}
 }
 
 <line_filename>{
@@ -612,7 +613,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		yy_push_state(endofline);
 	}
 
-	. {prt_fatal("improper `line file name 2");exit(1);}
+	. {prt_fatal("PREPROC_1025","improper `line file name 2");exit(1);}
 }
 
 
@@ -683,7 +684,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 
 	"`else"|"elsif" {
 		string s(yytext);
-		prt_fatal("mismatched "+s);
+		prt_fatal("PREPROC_1026","mismatched "+s);
 		exit(1);
 	}
 
@@ -699,7 +700,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	{useless_directive} {
 		string s(yytext);
 		incCharNumber(s.size());
-		prt_warning("useless_directive "+s);
+		prt_warning("PREPROC_1027","useless_directive "+s);
 		print_pos_cerr ();
 		ECHO;
 	}
@@ -731,14 +732,14 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		s.erase(0,1);
 		deleteblank(s);
 		if(isInMacro(s) == false) {
-			prt_fatal("undefined macro "+s);
+			prt_fatal("PREPROC_1028","undefined macro "+s);
 			print_pos_cerr ();
 			exit(1);
 		}
 		//now we have defined
 		auto mp = (macros.find(s))->second;
 		if((mp.params).size()!=0) {
-			prt_fatal("mismatching parameter length of macro "+s);
+			prt_fatal("PREPROC_1029","mismatching parameter length of macro "+s);
 			print_pos_cerr ();
 			exit(1);
 		}
@@ -824,12 +825,12 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 			macros.erase(s);
 			yy_pop_state();
 		} else {
-			prt_warning("undefining macro "+s+" that have not been defined");
+			prt_warning("PREPROC_1030","undefining macro "+s+" that have not been defined");
 			yy_pop_state();
 		}
 	}
 
-	. {prt_fatal("improper undef statement");exit(1);}
+	. {prt_fatal("PREPROC_1031","improper undef statement");exit(1);}
 }
 
 <endofline>{
@@ -896,7 +897,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		yy_pop_state();
 	}
 
-	. {prt_fatal("improper define");exit(1);}
+	. {prt_fatal("PREPROC_1032","improper define");exit(1);}
 }
 
 %%
@@ -941,14 +942,14 @@ int main ( int argc, char * argv[] ) {
 	}
 
 	if(optind<argc-1)  {
-		prt_fatal ( "only allow 1 filename");
+		prt_fatal ("PREPROC_1033", "only allow 1 filename");
 		usage();
 		return 1;
 	}
 
 	//testing existence of file
 	if( false == testFileExistenceInDir(argv[argc-1])) {
-	   prt_fatal ( "input file doesn't exist " ) ;
+	   prt_fatal ("PREPROC_1034", "input file doesn't exist " ) ;
 		 return 1;
 	}
 
@@ -956,7 +957,7 @@ int main ( int argc, char * argv[] ) {
 	//creating files handler and scanner
 	step2_nodefScanner * lexer= new step2_nodefScanner(argv[argc-1],&foo);
 	while(lexer->yylex()!=0) {
-		prt_fatal ("improper return");
+		prt_fatal ("PREPROC_1035","improper return");
 		cout<<"// return here\n"<<flush;
 	}
 	

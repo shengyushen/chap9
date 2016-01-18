@@ -28,13 +28,13 @@
 		void print_pos () { cerr<< filename << " : " << linenumber << " : " << charnumber << endl << flush; }
 		void incLineNumber () { linenumber++; charnumber=0 ; }
 		void incCharNumber (int n) { charnumber+=n ; }
-		void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; print_pos();fatal=true;return; }
+		void prt_fatal(const string typ ,const string str)  { cerr<<"FATAL ["<<typ<<"] : "<<str<<endl<<flush; print_pos();fatal=true;return; }
 		void prt_info (string str)  { cerr<<"INFO  : "<<str<<endl<<flush; print_pos();return; }
 	};
 
 
-	void prt_fatal(string str)  { cerr<<"FATAL : "<<str<<endl<<flush; fatal = true; return; }
-	void prt_info (string str)  { cerr<<"INFO  : "<<str<<endl<<flush; return; }
+	void prt_fatal(const string typ , const string str)  { cerr<<"FATAL ["<<typ<<"] : "<<str<<endl<<flush; fatal = true; return; }
+	void prt_info (const string str)  { cerr<<"INFO  : "<<str<<endl<<flush; return; }
 
 	vector<string> includePath;
 	void usage() {
@@ -210,14 +210,14 @@ int main ( int argc, char * argv[] ) {
 	}
 
 	if(optind<argc-1)  {
-		prt_fatal ( "only allow 1 filename");
+		prt_fatal ( "PREPROC_0001" , "only allow 1 filename");
 		usage();
 		return 1;
 	}
 
 	//testing existence of file
 	if( false == testFileExistenceInDir(argv[argc-1])) {
-	   prt_fatal ( "input file doesn't exist " ) ;
+	   prt_fatal ( "PREPROC_0002" ,"input file doesn't exist " ) ;
 		 return 1;
 	}
 
@@ -225,7 +225,7 @@ int main ( int argc, char * argv[] ) {
 	//creating files handler and scanner
 	step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(argv[argc-1],&foo);
 	while(lexer->yylex()!=0) {
-		prt_fatal ("improper return from yylex");
+		prt_fatal ("PREPROC_0003" , "improper return from yylex");
 		//cout<<"// return here\n"<<flush;
 	}
 	//add more return to avoid meeting eof at latter steps
