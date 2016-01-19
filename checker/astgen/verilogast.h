@@ -272,6 +272,7 @@ class T_udp_port_declaration_input;
 class T_udp_port_declaration_reg;
 class T_udp_output_declaration_output;
 class T_udp_output_declaration_reg;
+class T_udp_input_declaration_singular;
 class T_udp_input_declaration;
 class T_udp_reg_declaration;
 class T_udp_body_comb;
@@ -283,6 +284,7 @@ class T_udp_initial_statement;
 class T_init_val_bin;
 class T_init_val_unsigned;
 class T_sequential_entry;
+class T_sequential_entry_comb;
 class T_seq_input_list_level;
 class T_seq_input_list_edge;
 class T_edge_input_list;
@@ -498,9 +500,14 @@ class T_binary_module_path_operator_AND1;
 class T_binary_module_path_operator_OR1;
 class T_binary_module_path_operator_XOR;
 class T_binary_module_path_operator_XNOR;
-class T_level_symbol_UNSIGNED_NUMBER;
-class T_level_symbol_SIMID;
+class T_level_symbol_0;
+class T_level_symbol_1;
+class T_level_symbol_x;
+class T_level_symbol_X;
 class T_level_symbol_QUESTION;
+class T_level_symbol_b;
+class T_level_symbol_B;
+class T_level_symbol_SUB;
 class T_output_symbol_UNSIGNED_NUMBER;
 class T_output_symbol_SIMID;
 class T_number_UNSIGNED_NUMBER;
@@ -509,14 +516,17 @@ class T_number_OCTAL_NUMBER;
 class T_number_BINARY_NUMBER;
 class T_number_HEX_NUMBER;
 class T_number_REAL_NUMBER;
-class T_current_state_UNSIGNED_NUMBER;
-class T_current_state_SIMID;
-class T_current_state_OP2_QUESTION;
 class T_next_state_UNSIGNED_NUMBER;
 class T_next_state_SIMID;
 class T_next_state_SUB;
-class T_edge_symbol_SIMID;
-class T_edge_symbol_MUL;
+class T_edge_symbol_r;
+class T_edge_symbol_R;
+class T_edge_symbol_f;
+class T_edge_symbol_F;
+class T_edge_symbol_p;
+class T_edge_symbol_P;
+class T_edge_symbol_n;
+class T_edge_symbol_N;
 class T_string;
 class T_system_function_identifier;
 class T_io_declaration_net;
@@ -1022,6 +1032,9 @@ typedef boost::variant<
  ,  std::shared_ptr<T_udp_output_declaration_reg>
  > udp_output_declaration ; 
 typedef boost::variant<
+ std::shared_ptr<T_udp_input_declaration_singular>
+ > udp_input_declaration_sigular ; 
+typedef boost::variant<
  std::shared_ptr<T_udp_input_declaration>
  > udp_input_declaration ; 
 typedef boost::variant<
@@ -1047,6 +1060,7 @@ typedef boost::variant<
  > init_val ; 
 typedef boost::variant<
  std::shared_ptr<T_sequential_entry>
+ ,  std::shared_ptr<T_sequential_entry_comb>
  > sequential_entry ; 
 typedef boost::variant<
  std::shared_ptr<T_seq_input_list_level>
@@ -1420,9 +1434,14 @@ typedef boost::variant<
  ,  std::shared_ptr<T_binary_module_path_operator_XNOR>
  > binary_module_path_operator ; 
 typedef boost::variant<
- std::shared_ptr<T_level_symbol_UNSIGNED_NUMBER>
- ,  std::shared_ptr<T_level_symbol_SIMID>
+ std::shared_ptr<T_level_symbol_0>
+ ,  std::shared_ptr<T_level_symbol_1>
+ ,  std::shared_ptr<T_level_symbol_x>
+ ,  std::shared_ptr<T_level_symbol_X>
  ,  std::shared_ptr<T_level_symbol_QUESTION>
+ ,  std::shared_ptr<T_level_symbol_b>
+ ,  std::shared_ptr<T_level_symbol_B>
+ ,  std::shared_ptr<T_level_symbol_SUB>
  > level_symbol ; 
 typedef boost::variant<
  std::shared_ptr<T_output_symbol_UNSIGNED_NUMBER>
@@ -1437,18 +1456,19 @@ typedef boost::variant<
  ,  std::shared_ptr<T_number_REAL_NUMBER>
  > number ; 
 typedef boost::variant<
- std::shared_ptr<T_current_state_UNSIGNED_NUMBER>
- ,  std::shared_ptr<T_current_state_SIMID>
- ,  std::shared_ptr<T_current_state_OP2_QUESTION>
- > current_state ; 
-typedef boost::variant<
  std::shared_ptr<T_next_state_UNSIGNED_NUMBER>
  ,  std::shared_ptr<T_next_state_SIMID>
  ,  std::shared_ptr<T_next_state_SUB>
  > next_state ; 
 typedef boost::variant<
- std::shared_ptr<T_edge_symbol_SIMID>
- ,  std::shared_ptr<T_edge_symbol_MUL>
+ std::shared_ptr<T_edge_symbol_r>
+ ,  std::shared_ptr<T_edge_symbol_R>
+ ,  std::shared_ptr<T_edge_symbol_f>
+ ,  std::shared_ptr<T_edge_symbol_F>
+ ,  std::shared_ptr<T_edge_symbol_p>
+ ,  std::shared_ptr<T_edge_symbol_P>
+ ,  std::shared_ptr<T_edge_symbol_n>
+ ,  std::shared_ptr<T_edge_symbol_N>
  > edge_symbol ; 
 typedef boost::variant<
  std::shared_ptr<T_string>
@@ -4538,11 +4558,11 @@ class T_udp_port_list : public ComponentBase {
 class T_udp_declaration_port_list : public ComponentBase {
   public :
     std::shared_ptr<udp_output_declaration> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< udp_input_declaration>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr< udp_input_declaration_sigular>>> mem2;
 
   T_udp_declaration_port_list( 
        std::shared_ptr<udp_output_declaration> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< udp_input_declaration>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr< udp_input_declaration_sigular>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4601,6 +4621,22 @@ class T_udp_output_declaration_reg : public ComponentBase {
        std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
  ,     std::shared_ptr<identifier> i2
  ,     std::shared_ptr<expression> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_udp_input_declaration_singular : public ComponentBase {
+  public :
+    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    int mem2;
+    std::shared_ptr<identifier> mem3;
+
+  T_udp_input_declaration_singular( 
+       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+ ,     int i2
+ ,     std::shared_ptr<identifier> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4725,17 +4761,30 @@ class T_init_val_unsigned : public ComponentBase {
 class T_sequential_entry : public ComponentBase {
   public :
     std::shared_ptr<seq_input_list> mem1;
-    std::shared_ptr<current_state> mem2;
-    std::shared_ptr<next_state> mem3;
+    std::shared_ptr<level_symbol> mem2;
+    std::shared_ptr<level_symbol> mem3;
 
   T_sequential_entry( 
        std::shared_ptr<seq_input_list> i1
- ,     std::shared_ptr<current_state> i2
- ,     std::shared_ptr<next_state> i3
+ ,     std::shared_ptr<level_symbol> i2
+ ,     std::shared_ptr<level_symbol> i3
   ):
        mem1(i1)
  ,     mem2(i2)
  ,     mem3(i3)
+  {}
+};
+class T_sequential_entry_comb : public ComponentBase {
+  public :
+    std::shared_ptr<seq_input_list> mem1;
+    std::shared_ptr<level_symbol> mem2;
+
+  T_sequential_entry_comb( 
+       std::shared_ptr<seq_input_list> i1
+ ,     std::shared_ptr<level_symbol> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
   {}
 };
 class T_seq_input_list_level : public ComponentBase {
@@ -7068,30 +7117,59 @@ class T_binary_module_path_operator_XNOR : public ComponentBase {
   )
   {}
 };
-class T_level_symbol_UNSIGNED_NUMBER : public ComponentBase {
+class T_level_symbol_0 : public ComponentBase {
   public :
-    int mem1;
 
-  T_level_symbol_UNSIGNED_NUMBER( 
-       int i1
-  ):
-       mem1(i1)
+  T_level_symbol_0( 
+  )
   {}
 };
-class T_level_symbol_SIMID : public ComponentBase {
+class T_level_symbol_1 : public ComponentBase {
   public :
-    std::string mem1;
 
-  T_level_symbol_SIMID( 
-       std::string i1
-  ):
-       mem1(i1)
+  T_level_symbol_1( 
+  )
+  {}
+};
+class T_level_symbol_x : public ComponentBase {
+  public :
+
+  T_level_symbol_x( 
+  )
+  {}
+};
+class T_level_symbol_X : public ComponentBase {
+  public :
+
+  T_level_symbol_X( 
+  )
   {}
 };
 class T_level_symbol_QUESTION : public ComponentBase {
   public :
 
   T_level_symbol_QUESTION( 
+  )
+  {}
+};
+class T_level_symbol_b : public ComponentBase {
+  public :
+
+  T_level_symbol_b( 
+  )
+  {}
+};
+class T_level_symbol_B : public ComponentBase {
+  public :
+
+  T_level_symbol_B( 
+  )
+  {}
+};
+class T_level_symbol_SUB : public ComponentBase {
+  public :
+
+  T_level_symbol_SUB( 
   )
   {}
 };
@@ -7187,33 +7265,6 @@ class T_number_REAL_NUMBER : public ComponentBase {
        mem1(i1)
   {}
 };
-class T_current_state_UNSIGNED_NUMBER : public ComponentBase {
-  public :
-    int mem1;
-
-  T_current_state_UNSIGNED_NUMBER( 
-       int i1
-  ):
-       mem1(i1)
-  {}
-};
-class T_current_state_SIMID : public ComponentBase {
-  public :
-    std::string mem1;
-
-  T_current_state_SIMID( 
-       std::string i1
-  ):
-       mem1(i1)
-  {}
-};
-class T_current_state_OP2_QUESTION : public ComponentBase {
-  public :
-
-  T_current_state_OP2_QUESTION( 
-  )
-  {}
-};
 class T_next_state_UNSIGNED_NUMBER : public ComponentBase {
   public :
     int mem1;
@@ -7241,20 +7292,59 @@ class T_next_state_SUB : public ComponentBase {
   )
   {}
 };
-class T_edge_symbol_SIMID : public ComponentBase {
+class T_edge_symbol_r : public ComponentBase {
   public :
-    std::string mem1;
 
-  T_edge_symbol_SIMID( 
-       std::string i1
-  ):
-       mem1(i1)
+  T_edge_symbol_r( 
+  )
   {}
 };
-class T_edge_symbol_MUL : public ComponentBase {
+class T_edge_symbol_R : public ComponentBase {
   public :
 
-  T_edge_symbol_MUL( 
+  T_edge_symbol_R( 
+  )
+  {}
+};
+class T_edge_symbol_f : public ComponentBase {
+  public :
+
+  T_edge_symbol_f( 
+  )
+  {}
+};
+class T_edge_symbol_F : public ComponentBase {
+  public :
+
+  T_edge_symbol_F( 
+  )
+  {}
+};
+class T_edge_symbol_p : public ComponentBase {
+  public :
+
+  T_edge_symbol_p( 
+  )
+  {}
+};
+class T_edge_symbol_P : public ComponentBase {
+  public :
+
+  T_edge_symbol_P( 
+  )
+  {}
+};
+class T_edge_symbol_n : public ComponentBase {
+  public :
+
+  T_edge_symbol_n( 
+  )
+  {}
+};
+class T_edge_symbol_N : public ComponentBase {
+  public :
+
+  T_edge_symbol_N( 
   )
   {}
 };

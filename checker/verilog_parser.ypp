@@ -153,6 +153,24 @@
 
 %token KEY_PATHPULSE;
 
+%token TABLESC_LEVEL_SYMBOL_0;
+%token TABLESC_LEVEL_SYMBOL_1;
+%token TABLESC_LEVEL_SYMBOL_x;
+%token TABLESC_LEVEL_SYMBOL_X;
+%token TABLESC_LEVEL_SYMBOL_QUESTION;
+%token TABLESC_LEVEL_SYMBOL_b;
+%token TABLESC_LEVEL_SYMBOL_B;
+%token TABLESC_LEVEL_SYMBOL_SUB;
+
+%token TABLESC_EDGE_SYMBOL_r;
+%token TABLESC_EDGE_SYMBOL_R;
+%token TABLESC_EDGE_SYMBOL_f;
+%token TABLESC_EDGE_SYMBOL_F;
+%token TABLESC_EDGE_SYMBOL_p;
+%token TABLESC_EDGE_SYMBOL_P;
+%token TABLESC_EDGE_SYMBOL_n;
+%token TABLESC_EDGE_SYMBOL_N;
+
 %token
 /*op for both unary and binary*/
 OP2_ADD                      "+"	 
@@ -244,11 +262,50 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::description>>>> description_list
 %type <std::shared_ptr<Verilogast::description>> description
 
+
+%type <std::shared_ptr<Verilogast::udp_port_declaration>> udp_port_declaration
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::udp_port_declaration>>>>  udp_port_declaration_list
+
 %type <std::shared_ptr<Verilogast::module_declaration>> module_declaration
+%type <std::shared_ptr<Verilogast::udp_declaration>> udp_declaration
+%type <std::shared_ptr<Verilogast::udp_port_list>> udp_port_list
+%type <std::shared_ptr<Verilogast::udp_body>> udp_body
+%type <std::shared_ptr<Verilogast::udp_declaration_port_list>> udp_declaration_port_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::identifier>>>>  comma_input_port_identifier_list
+%type <std::shared_ptr<Verilogast::udp_output_declaration>>  udp_output_declaration
+%type <std::shared_ptr<Verilogast::udp_input_declaration>>  udp_input_declaration
+%type <std::shared_ptr<Verilogast::udp_input_declaration_sigular>>  udp_input_declaration_sigular
+%type <std::shared_ptr<Verilogast::udp_reg_declaration>>  udp_reg_declaration
+/*%type <std::shared_ptr<Verilogast::combinational_body>>  combinational_body*/
+%type <std::shared_ptr<Verilogast::sequential_body>>  sequential_body
+/*%type <std::shared_ptr<Verilogast::combinational_entry>>  combinational_entry*/
+/*%type <std::shared_ptr<Verilogast::output_symbol>>  output_symbol*/
+%type <std::shared_ptr<Verilogast::udp_initial_statement>>  udp_initial_statement_opt
+%type <std::shared_ptr<Verilogast::udp_initial_statement>>  udp_initial_statement
+%type <std::shared_ptr<Verilogast::sequential_entry>>  sequential_entry
+%type <std::shared_ptr<Verilogast::init_val>>  init_val
+%type <std::shared_ptr<Verilogast::seq_input_list>>  seq_input_list
+/*%type <std::shared_ptr<Verilogast::current_next_state>>  current_next_state*/
+/*%type <std::shared_ptr<Verilogast::current_state>>  current_state
+%type <std::shared_ptr<Verilogast::next_state>>  next_state*/
+%type <std::shared_ptr<Verilogast::edge_input_list>>  edge_input_list
+%type <std::shared_ptr<Verilogast::level_symbol>>  level_symbol
+%type <std::shared_ptr<Verilogast::edge_indicator>>  edge_indicator
+%type <std::shared_ptr<Verilogast::edge_symbol>>  edge_symbol
+
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::sequential_entry>>>>  sequential_entry_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::udp_input_declaration_sigular>>>>  comma_udp_input_declaration_list
+/*%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::combinational_entry>>>>  combinational_entry_list*/
+/*%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::level_symbol>>>>  level_input_list*/
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::level_symbol>>>>  level_symbol_list
+
 
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::attribute_instance>>>>  attribute_instance_list
 %type <std::shared_ptr<Verilogast::attribute_instance>>  attribute_instance
 
+%type <std::shared_ptr<Verilogast::identifier>>  input_port_identifier
+%type <std::shared_ptr<Verilogast::identifier>>  output_port_identifier
+%type <std::shared_ptr<Verilogast::identifier>>  udp_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  module_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  port_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  net_identifier
@@ -289,6 +346,7 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::module_item>> non_port_module_item
 
 %type <int>  module_keyword
+%type <int>  key_input_opt
 
 %type <std::shared_ptr<Verilogast::io_type>>   io_type
 %type <std::shared_ptr<Verilogast::netreg_type>>    netreg_type
@@ -575,8 +633,12 @@ description :
 	module_declaration	{
 		$$=SHR2(description,T_description__module_declaration,($1));
 	}
-/*	| udp_declaration		{T_description__udp_declaration($1)}
-	| config_declaration	{T_description__config_declaration($1)}*/
+	| udp_declaration		{
+		$$=SHR2(description, T_description__udp_declaration,($1));
+	}
+	/*| config_declaration	{
+		$$=SHR2(description, T_description__config_declaration($1));
+	}*/
 ;
 
 module_declaration :
@@ -591,6 +653,7 @@ module_declaration :
 		{
 			$$=SHR2(module_declaration,T_module_declaration__1,($1,$3,$4,$5,$7));
 		}
+		/*removed because subsumed by above*/
 /*	| attribute_instance_list 
 		module_keyword 
 		module_identifier 
@@ -639,12 +702,14 @@ module_keyword :
 		KEY_MODULE			{$$=0;}
 	|	KEY_MACROMODULE	{$$=0;}
 ;
+
 /*non_port_module_item_list :
 	{[]}
 	|  non_port_module_item_list non_port_module_item
 		{$1@[$2]}
 ;
 */
+
 /*A.1.3 Module parameters and ports*/
 module_parameter_port_list :
 	JING 
@@ -808,12 +873,12 @@ non_port_module_item :
 	module_or_generate_item {$$=$1;}
 	| generate_region {
 		$$=SHR4(module_item,T_module_item__1,module_item1,T_module_item__generate_region,($1));}
-/*	| specify_block {
-		T_module_item__specify_block($1)}*/
+	/*| specify_block {
+		$$=SHR4(module_item,T_module_item__1,module_item1,T_module_item__specify_block,($1));}*/
 	| attribute_instance_list parameter_declaration SEMICOLON {
 		$$=SHR4(module_item,T_module_item__1,module_item1,T_module_item__parameter_declaration,($1,$2));}
-/*	| attribute_instance_list specparam_declaration {
-		T_module_item__specparam_declaration($1,$2)}*/
+	/*| attribute_instance_list specparam_declaration {
+		$$=SHR4(module_item,T_module_item__1,module_item1,T_module_item__specparam_declaration,($1,$2));}*/
 ;
 
 module_or_generate_item :
@@ -2362,171 +2427,233 @@ generate_block_or_null :
 /*A.5 UDP declaration and instantiation
 A.5.1 UDP declaration*/
 
-/*udp_declaration :
+udp_declaration :
 	attribute_instance_list KEY_PRIMITIVE udp_identifier LPARENT udp_port_list RPARENT SEMICOLON
 	udp_port_declaration udp_port_declaration_list
 	udp_body
 	KEY_ENDPRIMITIVE
-		{T_udp_declaration_1($1,$3,$5,$8::$9,$10)}
+		{
+			auto p=$9;
+			p->push_front($8);
+			$$=SHR2(udp_declaration,T_udp_declaration_1,($1,$3,$5,p,$10));
+		}
 | attribute_instance_list KEY_PRIMITIVE udp_identifier LPARENT udp_declaration_port_list RPARENT SEMICOLON
 	udp_body
 	KEY_ENDPRIMITIVE
-		{T_udp_declaration_2($1,$3,$5,$8)}
+		{$$=SHR2(udp_declaration,T_udp_declaration_2,($1,$3,$5,$8));}
 ;
 
 
 udp_port_declaration_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(udp_port_declaration)();
+	}
 	| udp_port_declaration_list udp_port_declaration 
-		{$1@[$2]}
+		{
+			auto p = $1;
+			p->push_back($2);
+			$$=p;
+		}
 ;
-*/
+
 /*A.5.2 UDP ports*/
-/*
+
 udp_port_list :
 	output_port_identifier COMMA input_port_identifier comma_input_port_identifier_list
-		{T_udp_port_list($1,$3::$4)}
+		{
+			auto p = $4;
+			p->push_front($3);
+			$$=SHR2(udp_port_list,T_udp_port_list,($1,p));
+		}
 ;
 
 comma_input_port_identifier_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(identifier)();
+	}
 	| comma_input_port_identifier_list COMMA input_port_identifier 
-		{$1@[$3]}
+		{
+			auto p = $1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 udp_declaration_port_list :
-	udp_output_declaration COMMA udp_input_declaration comma_udp_input_declaration_list
-		{T_udp_declaration_port_list($1,$3::$4)}
+	udp_output_declaration COMMA udp_input_declaration_sigular comma_udp_input_declaration_list
+		{
+			auto p = $4;
+			p->push_front($3);
+			$$=SHR2(udp_declaration_port_list,T_udp_declaration_port_list,($1,p));
+		}
 ;
 
 comma_udp_input_declaration_list :
-	{[]}
-	| comma_udp_input_declaration_list COMMA udp_input_declaration 
-		{$1@[$3]}
+	{
+		$$=SHR_LIST_SHR(udp_input_declaration_sigular)();
+	}
+	| comma_udp_input_declaration_list COMMA udp_input_declaration_sigular 
+		{
+			auto p = $1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 
 udp_port_declaration :
 	udp_output_declaration SEMICOLON
-		{T_udp_port_declaration_out($1)}
+		{$$=SHR2(udp_port_declaration,T_udp_port_declaration_out,($1));}
 	| udp_input_declaration SEMICOLON
-		{T_udp_port_declaration_input($1)}
+		{$$=SHR2(udp_port_declaration,T_udp_port_declaration_input,($1));}
 	| udp_reg_declaration SEMICOLON
-		{T_udp_port_declaration_reg($1)}
+		{$$=SHR2(udp_port_declaration,T_udp_port_declaration_reg,($1));}
 ;
 
 udp_output_declaration :
 	attribute_instance_list KEY_OUTPUT port_identifier
-		{T_udp_output_declaration_output($1,$3)}
+		{$$=SHR2(udp_output_declaration,T_udp_output_declaration_output,($1,$3));}
 	| attribute_instance_list KEY_OUTPUT KEY_REG port_identifier equ1_expression_opt
-		{T_udp_output_declaration_reg($1,$4,$5)}
+		{$$=SHR2(udp_output_declaration,T_udp_output_declaration_reg,($1,$4,$5));}
 ;
 
 udp_input_declaration : 
 	attribute_instance_list KEY_INPUT list_of_port_identifiers
-		{T_udp_input_declaration($1,$3)}
+		{$$=SHR2(udp_input_declaration,T_udp_input_declaration,($1,$3));}
 ;
+
+udp_input_declaration_sigular : 
+	attribute_instance_list key_input_opt identifier
+		{$$=SHR2(udp_input_declaration_sigular,T_udp_input_declaration_singular,($1,$2,$3));}
+;
+
+key_input_opt :
+	{$$=0;}
+	| KEY_INPUT {$$=1;}
 
 udp_reg_declaration :
 	attribute_instance_list  KEY_REG variable_identifier
-		{T_udp_reg_declaration($1,$3)}
+		{$$=SHR2(udp_reg_declaration,T_udp_reg_declaration,($1,$3));}
 ;
-*/
+
 /*A.5.3 UDP body*/
-/*
+
 udp_body : 
-	combinational_body 
-		{T_udp_body_comb($1)}
-	| sequential_body
-		{T_udp_body_seq($1)}
+	/*this is subsummed by sequential_body*/
+/*	combinational_body 
+		{$$=SHR2(udp_body,T_udp_body_comb,($1));}
+	|*/ sequential_body
+		{$$=SHR2(udp_body,T_udp_body_seq,($1));}
 ;
 
 
-combinational_body :
+/*combinational_body :
 	KEY_TABLE combinational_entry combinational_entry_list KEY_ENDTABLE
-		{$2::$3}
+		{
+			auto p=$3;
+			p->push_front($2);
+			$$=p;
+		}
 ;
 
 combinational_entry_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(combinational_entry)();
+	}
 	| combinational_entry_list combinational_entry 
-		{$1@[$2]}
+		{
+			auto p = $1;
+			p->push_back($2);
+			$$=p;
+		}
 ;
 
 combinational_entry :
 	level_input_list COLON output_symbol SEMICOLON
-		{T_combinational_entry($1,$3)}
+		{$$=SHR2(combinational_entry,T_combinational_entry,($1,$3));}
 ;
-
+*/
 sequential_body :
 	udp_initial_statement_opt KEY_TABLE sequential_entry sequential_entry_list KEY_ENDTABLE
-		{T_sequential_body($1,$3::$4)}
+		{
+			auto p = $4;
+			p->push_front($3);
+			$$=SHR2(sequential_body,T_sequential_body,($1,p));
+		}
 ;
 
 udp_initial_statement_opt :
-	{T_udp_initial_statement_NOSPEC}
+	{$$=SHR2(udp_initial_statement,T_udp_initial_statement_NOSPEC,());}
 	| udp_initial_statement
-		{$1}
+		{$$=$1;}
 ;
 
-
 sequential_entry_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(sequential_entry)();
+	}
 	| sequential_entry_list sequential_entry 
-		{$1@[$2]}
+		{
+			auto p = $1;
+			p->push_back($2);
+			$$=p;
+		}
 ;
 
 udp_initial_statement :
 	KEY_INITIAL output_port_identifier EQU1 init_val SEMICOLON
-		{T_udp_initial_statement($2,$4)}
+		{$$=SHR2(udp_initial_statement,T_udp_initial_statement,($2,$4));}
 ;
-
-*/
 
 /*init_val ::= 1'b0 | 1'b1 | 1'bx | 1'bX | 1'B0 | 1'B1 | 1'Bx | 1'BX | 1 | 0*/
 /*actually lex only return number*/
-/*init_val :
+init_val :
 	BINARY_NUMBER  
-		{T_init_val_bin(get1 $1, get2 $1, get3 $1)}
+		{$$=SHR2(init_val,T_init_val_bin,(get<0>($1), get<1>($1)));}
 	| UNSIGNED_NUMBER
-		{T_init_val_unsigned(get1 $1, get2 $1, get3 $1)}
+		{$$=SHR2(init_val,T_init_val_unsigned,($1));}
 ;
 
 sequential_entry :
-	seq_input_list COLON current_state COLON next_state SEMICOLON
-		{T_sequential_entry($1,$3,$5)}
+	seq_input_list COLON level_symbol SEMICOLON {
+		// this is a super set of combinational_entry
+		$$=SHR2(sequential_entry,T_sequential_entry_comb,($1,$3));
+	}
+	| seq_input_list COLON level_symbol COLON level_symbol SEMICOLON
+		{$$=SHR2(sequential_entry,T_sequential_entry,($1,$3,$5));}
 ;
 
 seq_input_list :
-	level_input_list 
-		{T_seq_input_list_level($1)}
+	level_symbol_list 
+		{$$=SHR2(seq_input_list,T_seq_input_list_level,($1));}
 	| edge_input_list
-		{T_seq_input_list_edge($1)}
-;
-
-level_input_list :
-	level_symbol_list level_symbol 
-		{$1@[$2]}
+		{$$=SHR2(seq_input_list,T_seq_input_list_edge,($1));}
 ;
 
 level_symbol_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(level_symbol)();
+	}
 	| level_symbol_list level_symbol 
-		{$1@[$2]}
+		{
+			auto p = $1;
+			p->push_back($2);
+			$$=p;
+		}
 ;
 
 edge_input_list :
 	level_symbol_list edge_indicator level_symbol_list
-		{T_edge_input_list($1,$2,$3)}
+		{$$=SHR2(edge_input_list,T_edge_input_list,($1,$2,$3));}
 ;
 
 edge_indicator :
 	LPARENT level_symbol level_symbol RPARENT 
-		{T_edge_indicator_level($2,$3)}
+		{$$=SHR2(edge_indicator,T_edge_indicator_level,($2,$3));}
 	| edge_symbol
-		{T_edge_indicator_edge($1)}
+		{$$=SHR2(edge_indicator,T_edge_indicator_edge,($1));}
 ;
-*/
+
 /*current_state : level_symbol
 next_state ::= output_symbol | -
 output_symbol ::= 0 | 1 | x | X
@@ -2535,42 +2662,44 @@ edge_symbol ::= r | R | f | F | p | P | n | N | *
 */
 /*lexer only return UNSIGNED_NUMBER, SIMPLE_IDENTIFIER and * and -*/
 
-/*edge_symbol :
-	SIMPLE_IDENTIFIER	{T_edge_symbol_SIMID(get1 $1, get2 $1, get3 $1)}
-	| OP2_MULTIPLE	{T_edge_symbol_MUL(get1 $1, get2 $1)}
+edge_symbol :
+ TABLESC_EDGE_SYMBOL_r   {$$=SHR2(edge_symbol,T_edge_symbol_r,());}
+ | TABLESC_EDGE_SYMBOL_R {$$=SHR2(edge_symbol,T_edge_symbol_R,());}
+ | TABLESC_EDGE_SYMBOL_f {$$=SHR2(edge_symbol,T_edge_symbol_f,());}
+ | TABLESC_EDGE_SYMBOL_F {$$=SHR2(edge_symbol,T_edge_symbol_F,());}
+ | TABLESC_EDGE_SYMBOL_p {$$=SHR2(edge_symbol,T_edge_symbol_p,());}
+ | TABLESC_EDGE_SYMBOL_P {$$=SHR2(edge_symbol,T_edge_symbol_P,());}
+ | TABLESC_EDGE_SYMBOL_n {$$=SHR2(edge_symbol,T_edge_symbol_n,());}
+ | TABLESC_EDGE_SYMBOL_N {$$=SHR2(edge_symbol,T_edge_symbol_N,());}
 ;
 
 level_symbol :
-	UNSIGNED_NUMBER 
-	 {T_level_symbol_UNSIGNED_NUMBER(get1 $1, get2 $1, get3 $1)}
-	| SIMPLE_IDENTIFIER  {T_level_symbol_SIMID(get1 $1, get2 $1, get3 $1)}
-	| OP2_QUESTION {T_level_symbol_QUESTION(get1 $1, get2 $1)}
+ TABLESC_LEVEL_SYMBOL_0 {$$=SHR2(level_symbol,T_level_symbol_0,());}
+ | TABLESC_LEVEL_SYMBOL_1 {$$=SHR2(level_symbol,T_level_symbol_1,());}
+ | TABLESC_LEVEL_SYMBOL_x {$$=SHR2(level_symbol,T_level_symbol_x,());}
+ | TABLESC_LEVEL_SYMBOL_X {$$=SHR2(level_symbol,T_level_symbol_X,());}
+ | TABLESC_LEVEL_SYMBOL_QUESTION {$$=SHR2(level_symbol,T_level_symbol_QUESTION,());}
+ | TABLESC_LEVEL_SYMBOL_b {$$=SHR2(level_symbol,T_level_symbol_b,());}
+ | TABLESC_LEVEL_SYMBOL_B {$$=SHR2(level_symbol,T_level_symbol_B,());}
+ | TABLESC_LEVEL_SYMBOL_SUB {$$=SHR2(level_symbol,T_level_symbol_SUB,());}
 ;
 
-output_symbol :
+/*output_symbol :
 	UNSIGNED_NUMBER 
-	 {T_output_symbol_UNSIGNED_NUMBER(get1 $1, get2 $1, get3 $1)}
-	| SIMPLE_IDENTIFIER  {T_output_symbol_SIMID(get1 $1, get2 $1, get3 $1)}
-;
+	 {$$=SHR2(output_symbol,T_output_symbol_UNSIGNED_NUMBER,($1));}
+	| SIMPLE_IDENTIFIER  {$$=SHR2(output_symbol,T_output_symbol_SIMID,($1));}
+;*/
 
-next_state :
+/*current_next_state : 
 	UNSIGNED_NUMBER 
-	 {T_next_state_UNSIGNED_NUMBER(get1 $1, get2 $1, get3 $1)}
-	| SIMPLE_IDENTIFIER  {T_next_state_SIMID(get1 $1, get2 $1, get3 $1)}
-	| OP2_SUB  {T_next_state_SUB(get1 $1, get2 $1)}
-;
-
-current_state :
-	UNSIGNED_NUMBER 
-	 {T_current_state_UNSIGNED_NUMBER(get1 $1, get2 $1, get3 $1)}
+		{$$=SHR2(current_next_state,T_current_next_state_UNSIGNED_NUMBER,($1));}
 	| SIMPLE_IDENTIFIER  
-		{T_current_state_SIMID(get1 $1, get2 $1, get3 $1)}
+		{$$=SHR2(current_next_state,T_current_next_state_SIMID,($1));}
+	| OP2_SUB  
+		{$$=SHR2(current_next_state,T_current_next_state_SUB,());}
 	| OP2_QUESTION 
-		{T_current_state_OP2_QUESTION(get1 $1, get2 $1)}
-;
-	
+		{$$=SHR2(current_next_state,T_current_next_state_OP2_QUESTION,());}
 */
-
 
 
 /*A.5.4 UDP instantiation*/
@@ -3712,13 +3841,13 @@ identifier :
 ;
 
 /*inout_port_identifier : identifier {$$=$1;};
-input_port_identifier : identifier {$$=$1;};
 instance_identifier : identifier {$$=$1;};
 library_identifier : identifier {$$=$1;};*/
+input_port_identifier : identifier {$$=$1;};
 module_identifier : identifier {$$=$1;};
 module_instance_identifier : identifier {$$=$1;};
 net_identifier : identifier {$$=$1;};
-/*output_port_identifier : identifier {$$=$1;};*/
+output_port_identifier : identifier {$$=$1;};
 parameter_identifier : identifier {$$=$1;};
 port_identifier : identifier {$$=$1;};
 real_identifier : identifier {$$=$1;};
@@ -3736,8 +3865,8 @@ task_identifier : identifier {$$=$1;};
  /*terminal_identifier : identifier {$$=$1;};
 text_macro_identifier : identifier {$$=$1;};
 topmodule_identifier : identifier {$$=$1;};
-udp_identifier : identifier {$$=$1;};
 udp_instance_identifier : identifier {$$=$1;};*/
+udp_identifier : identifier {$$=$1;};
 variable_identifier : identifier {$$=$1;};
 
 

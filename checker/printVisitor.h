@@ -81,7 +81,17 @@ public :
 	OPERATOR(T_identifier_NOSPEC,p) {  }
 	OPERATOR(T_identifier,       p) { prt_keyword_space(p->mem1); }
 
-	OPERATOR(T_attribute_instance,p) { assert(false); }
+	OPERATOR(T_attribute_instance,p) { 
+		APPLST_PRINTV(mem1 , prt_lp_star , prt_comma , prt_star_rp) 
+	}
+
+	OPERATOR(T_attr_spec,p) { 
+		APP_PRINTV(mem1);
+		if(false==(boost::apply_visitor(is_T_expression_NOSPEC(),*(p->mem2)))) {
+			prt_keyword_space("=");
+			APP_PRINTV(mem2);
+		}
+	}
 
 	OPERATOR(T_parameter_declaration_gen_1,p) {
 		if(0==(p->mem1)) {
@@ -363,7 +373,7 @@ public :
 			prt_keyword_space("\n (\n");
 			APPLST_PRINTV(mem4 , prt_nothing , prt_comma , prt_rparent);//ports
 		}
-		prt_keyword_space(";");
+		cout<<";";
 		APPLST_PRINTV(mem5 , prt_return , prt_return , prt_return);//module_item
 		prt_keyword_space("\n endmodule\n");
 	}

@@ -355,7 +355,7 @@ and	udp_declaration =
 and	udp_port_list =
 	T_udp_port_list of identifier*(identifier list)
 and	udp_declaration_port_list =
-	T_udp_declaration_port_list of udp_output_declaration*(udp_input_declaration list)
+	T_udp_declaration_port_list of udp_output_declaration*(udp_input_declaration_sigular list)
 and	udp_port_declaration =
 	T_udp_port_declaration_out of udp_output_declaration
 	| T_udp_port_declaration_input of udp_input_declaration
@@ -363,6 +363,8 @@ and	udp_port_declaration =
 and	udp_output_declaration =
 	T_udp_output_declaration_output of (attribute_instance list)*identifier
 	| T_udp_output_declaration_reg of (attribute_instance list)*identifier*expression
+and udp_input_declaration_sigular = 
+	T_udp_input_declaration_singular of (attribute_instance list)*int*identifier
 and	udp_input_declaration =
 	T_udp_input_declaration of (attribute_instance list)*(identifier list)
 and	udp_reg_declaration =
@@ -381,7 +383,8 @@ and init_val =
 	T_init_val_bin of int*string
 	| T_init_val_unsigned of int
 and	sequential_entry =
-	T_sequential_entry of seq_input_list*current_state*next_state
+	T_sequential_entry of seq_input_list*level_symbol*level_symbol
+	| T_sequential_entry_comb of seq_input_list*level_symbol
 and	seq_input_list =
 	T_seq_input_list_level of level_symbol list
 	| T_seq_input_list_edge of edge_input_list
@@ -676,9 +679,14 @@ and binary_module_path_operator =
   | T_binary_module_path_operator_XOR
   | T_binary_module_path_operator_XNOR
 and level_symbol =
-	T_level_symbol_UNSIGNED_NUMBER of int
-	| T_level_symbol_SIMID of string 
-	| T_level_symbol_QUESTION
+	 T_level_symbol_0
+	 | T_level_symbol_1
+	 | T_level_symbol_x
+	 | T_level_symbol_X
+	 | T_level_symbol_QUESTION
+	 | T_level_symbol_b
+	 | T_level_symbol_B
+	 | T_level_symbol_SUB
 and output_symbol =
 	T_output_symbol_UNSIGNED_NUMBER of int
 	| T_output_symbol_SIMID of string
@@ -689,17 +697,19 @@ and number =
 	| T_number_BINARY_NUMBER of int*string
 	| T_number_HEX_NUMBER of int*string
 	| T_number_REAL_NUMBER of string
-and current_state =
-	T_current_state_UNSIGNED_NUMBER of int
-	| T_current_state_SIMID of string
-	| T_current_state_OP2_QUESTION
 and next_state =
 	T_next_state_UNSIGNED_NUMBER of int
 	| T_next_state_SIMID of  string
 	| T_next_state_SUB
 and edge_symbol =
-	T_edge_symbol_SIMID of string
-	| T_edge_symbol_MUL
+	T_edge_symbol_r
+	| T_edge_symbol_R
+	| T_edge_symbol_f
+	| T_edge_symbol_F
+	| T_edge_symbol_p
+	| T_edge_symbol_P
+	| T_edge_symbol_n
+	| T_edge_symbol_N
 and	string_typedef =
 	T_string of string
 and	system_function_identifier =

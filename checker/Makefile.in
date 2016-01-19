@@ -274,7 +274,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CXXFLAGS = -std=gnu++11 
 AM_LFLAGS = 
-AM_YFLAGS = -d
+AM_YFLAGS = -d -r all
 checker_SOURCES = verilog_parser.ypp very.lpp main.cpp
 all: all-am
 

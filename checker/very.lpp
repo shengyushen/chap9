@@ -133,7 +133,7 @@ harful_directives "`define"|"`else"|"`elsif"|"`endif"|"`ifdef"|"`ifndef"|"`reset
 blank [ \t]
 digit [0-9]
 
-%x line_skip_blank line_number line_skip_blank2 line_filename endofline stringssy
+%x line_skip_blank line_number line_skip_blank2 line_filename endofline stringssy tableSC
 
 %%
 
@@ -183,7 +183,10 @@ digit [0-9]
 "endmodule"          { return yy::verilog_parser::make_KEY_ENDMODULE(loc);}
 "endprimitive"       { return yy::verilog_parser::make_KEY_ENDPRIMITIVE(loc);}
 "endspecify"         { return yy::verilog_parser::make_KEY_ENDSPECIFY(loc);}
-"endtable"           { return yy::verilog_parser::make_KEY_ENDTABLE(loc);}
+"endtable"           { 
+	yy_pop_state();
+	return yy::verilog_parser::make_KEY_ENDTABLE(loc);
+}
 "endtask"            { return yy::verilog_parser::make_KEY_ENDTASK(loc);}
 "event"              { return yy::verilog_parser::make_KEY_EVENT(loc);}
 "for"                { return yy::verilog_parser::make_KEY_FOR(loc);}
@@ -253,7 +256,10 @@ digit [0-9]
 "strong1"            { return yy::verilog_parser::make_KEY_STRONG1(loc);}
 "supply0"            { return yy::verilog_parser::make_KEY_SUPPLY0(loc);}
 "supply1"            { return yy::verilog_parser::make_KEY_SUPPLY1(loc);}
-"table"              { return yy::verilog_parser::make_KEY_TABLE(loc);}
+"table"              { 
+	yy_push_state(tableSC);
+	return yy::verilog_parser::make_KEY_TABLE(loc);
+}
 "task"               { return yy::verilog_parser::make_KEY_TASK(loc);}
 "time"               { return yy::verilog_parser::make_KEY_TIME(loc);}
 "tran"               { return yy::verilog_parser::make_KEY_TRAN(loc);}
@@ -625,6 +631,33 @@ digit [0-9]
 		string s{yytext};
 		stringssy_string = stringssy_string+s;
 	}
+}
+
+<tableSC>{
+	
+"("		{return yy::verilog_parser::make_LPARENT(loc);}
+")"		{return yy::verilog_parser::make_RPARENT(loc);}
+":"		{return yy::verilog_parser::make_COLON(loc);}
+";"		{return yy::verilog_parser::make_SEMICOLON(loc);}
+
+"0"		{return yy::verilog_parser::make_TABLESC_LEVEL_SYMBOL_0(loc);}
+"1"		{return yy::verilog_parser::make_TABLESC_LEVEL_SYMBOL_1(loc);}
+"x"		{return yy::verilog_parser::make_TABLESC_LEVEL_SYMBOL_x(loc);}
+"X"		{return yy::verilog_parser::make_TABLESC_LEVEL_SYMBOL_X(loc);}
+"?"		{return yy::verilog_parser::make_TABLESC_LEVEL_SYMBOL_QUESTION(loc);}
+"b"		{return yy::verilog_parser::make_TABLESC_LEVEL_SYMBOL_b(loc);}
+"B"		{return yy::verilog_parser::make_TABLESC_LEVEL_SYMBOL_B(loc);}
+"-"		{return yy::verilog_parser::make_TABLESC_LEVEL_SYMBOL_SUB(loc);}
+
+"r"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_r(loc);}
+"R"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_R(loc);}
+"f"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_f(loc);}
+"F"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_F(loc);}
+"p"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_p(loc);}
+"P"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_P(loc);}
+"n"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_n(loc);}
+"N"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_N(loc);}
+
 }
 %%
 
