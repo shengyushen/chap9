@@ -299,10 +299,59 @@ IMPLYSTART                   "*>"
 /*%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::level_symbol>>>>  level_input_list*/
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::level_symbol>>>>  level_symbol_list
 
+%type <std::shared_ptr<Verilogast::delay2>>  delay2
+%type <std::shared_ptr<Verilogast::delay2>>  delay2_opt
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>  comma_input_terminal_list
 
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::attribute_instance>>>>  attribute_instance_list
 %type <std::shared_ptr<Verilogast::attribute_instance>>  attribute_instance
 
+%type <std::shared_ptr<Verilogast::enable_gate_instance>>  enable_gate_instance
+%type <std::shared_ptr<Verilogast::enable_gatetype>>  enable_gatetype
+%type <std::shared_ptr<Verilogast::gate_instantiation>>  gate_instantiation
+%type <std::shared_ptr<Verilogast::cmos_switch_instance>>  cmos_switch_instance
+%type <std::shared_ptr<Verilogast::cmos_switchtype>>  cmos_switchtype
+%type <std::shared_ptr<Verilogast::mos_switchtype>>  mos_switchtype
+%type <std::shared_ptr<Verilogast::mos_switch_instance>>  mos_switch_instance
+%type <std::shared_ptr<Verilogast::n_input_gatetype>>  n_input_gatetype
+%type <std::shared_ptr<Verilogast::n_input_gate_instance>>  n_input_gate_instance
+%type <std::shared_ptr<Verilogast::n_output_gatetype>>  n_output_gatetype
+%type <std::shared_ptr<Verilogast::n_output_gate_instance>>  n_output_gate_instance
+%type <std::shared_ptr<Verilogast::pass_en_switchtype>>  pass_en_switchtype
+%type <std::shared_ptr<Verilogast::pass_enable_switch_instance>>  pass_enable_switch_instance
+%type <std::shared_ptr<Verilogast::pass_switchtype>>  pass_switchtype
+%type <std::shared_ptr<Verilogast::pass_switch_instance>>  pass_switch_instance
+%type <std::shared_ptr<Verilogast::pulldown_strength>>  pulldown_strength_opt
+%type <std::shared_ptr<Verilogast::pulldown_strength>>  pulldown_strength
+%type <std::shared_ptr<Verilogast::pullup_strength>>  pullup_strength_opt
+%type <std::shared_ptr<Verilogast::pullup_strength>>  pullup_strength
+%type <std::shared_ptr<Verilogast::pull_gate_instance>>  pull_gate_instance
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::pull_gate_instance>>>>  comma_pull_gate_instance_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::pass_switch_instance>>>>  comma_pass_switch_instance_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::pass_enable_switch_instance>>>>  comma_pass_enable_switch_instance_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::cmos_switch_instance>>>>  comma_cmos_switch_instance_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::enable_gate_instance>>>>  comma_enable_gate_instance_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::mos_switch_instance>>>>  comma_mos_switch_instance_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::n_input_gate_instance>>>>  comma_n_input_gate_instance_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::n_output_gate_instance>>>>  comma_n_output_gate_instance_list
+
+%type <std::shared_ptr<Verilogast::name_of_gate_instance>>  name_of_gate_instance
+%type <std::shared_ptr<Verilogast::name_of_gate_instance>>  name_of_gate_instance_opt
+%type <std::shared_ptr<Verilogast::net_lvalue>>  output_terminal
+%type <std::shared_ptr<Verilogast::net_lvalue>>  inout_terminal
+%type <std::shared_ptr<Verilogast::expression>>  input_terminal
+%type <std::shared_ptr<Verilogast::expression>>  enable_terminal
+%type <std::shared_ptr<Verilogast::expression>>  ncontrol_terminal
+%type <std::shared_ptr<Verilogast::expression>>  pcontrol_terminal
+%type <std::shared_ptr<Verilogast::udp_instantiation>>  udp_instantiation
+%type <std::shared_ptr<Verilogast::udp_instance>>  udp_instance
+%type <std::shared_ptr<Verilogast::name_of_udp_instance>>  name_of_udp_instance_opt
+%type <std::shared_ptr<Verilogast::name_of_udp_instance>>  name_of_udp_instance
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::udp_instance>>>>  comma_udp_instance_list
+
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::net_lvalue>>>>  comma_output_terminal_list
+%type <std::shared_ptr<Verilogast::identifier>>  udp_instance_identifier
+%type <std::shared_ptr<Verilogast::identifier>>  gate_instance_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  input_port_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  output_port_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  udp_identifier
@@ -908,10 +957,10 @@ module_or_generate_item :
 		$$=SHR4(module_item,T_module_item__2,module_item2,T_module_item__parameter_override,($1,$2));}
 | attribute_instance_list continuous_assign {
 		$$=SHR4(module_item,T_module_item__2,module_item2,T_module_item__continuous_assign,($1,$2));}
-/*| attribute_instance_list gate_instantiation {
-		T_module_item__gate_instantiation($1,$2)}
+| attribute_instance_list gate_instantiation {
+		$$=SHR4(module_item,T_module_item__2,module_item2,T_module_item__gate_instantiation,($1,$2));}
 | attribute_instance_list udp_instantiation {
-		T_module_item__udp_instantiation($1,$2)}*/
+		$$=SHR4(module_item,T_module_item__2,module_item2,T_module_item__udp_instantiation,($1,$2));}
 | attribute_instance_list module_instantiation {
 		$$=SHR4(module_item,T_module_item__2,module_item2,T_module_item__module_instantiation,($1,$2));}
 | attribute_instance_list initial_construct {
@@ -1344,16 +1393,15 @@ delay3 :
 ;
 
 
-/*delay2 :
+delay2 :
 	JING delay_value
-		{$$=SHR2(,T_delay2_1,($2);}
+		{$$=SHR2(delay2,T_delay2_1,($2));}
 	| JING LPARENT mintypmax_expression RPARENT
-		{$$=SHR2(,T_delay2_minmax1,($3);}
+		{$$=SHR2(delay2,T_delay2_minmax1,($3));}
 	| JING LPARENT mintypmax_expression COMMA mintypmax_expression  RPARENT
-		{$$=SHR2(,T_delay2_minmax2,($3,$5);}
+		{$$=SHR2(delay2,T_delay2_minmax2,($3,$5));}
 ;
 
-*/
 delay_value :
 	UNSIGNED_NUMBER {$$=SHR2(delay_value,T_delay_value_UNSIGNED_NUMBER,($1));}
 	| REAL_NUMBER   {$$=SHR2(delay_value,T_delay_value_REAL_NUMBER,($1));}
@@ -1913,226 +1961,304 @@ block_real_type :
 /*A.3 Primitive instances
 A.3.1 Primitive instantiation and instances*/
 
-/*gate_instantiation :
-	cmos_switchtype delay3_opt cmos_switch_instance comma_cmos_switch_instance_list SEMICOLON
-		{T_gate_instantiation_cmos($1,$2,$3::$4)}
-	| enable_gatetype drive_strength_opt delay3_opt enable_gate_instance comma_enable_gate_instance_list SEMICOLON
-		{T_gate_instantiation_enable($1,$2,$3,$4::$5)}
-	| mos_switchtype delay3_opt mos_switch_instance comma_mos_switch_instance_list SEMICOLON
-		{T_gate_instantiation_mos($1,$2,$3::$4)}
-	| n_input_gatetype drive_strength_opt delay2_opt n_input_gate_instance comma_n_input_gate_instance_list SEMICOLON
-		{T_gate_instantiation_input($1,$2,$3,$4::$5)}
-	| n_output_gatetype drive_strength_opt delay2_opt n_output_gate_instance comma_n_output_gate_instance_list SEMICOLON
-		{T_gate_instantiation_output($1,$2,$3,$4::$5)}
-	| pass_en_switchtype delay2_opt pass_enable_switch_instance comma_pass_enable_switch_instance_list SEMICOLON
-		{T_gate_instantiation_pass_en($1,$2,$3::$4)}
-	| pass_switchtype pass_switch_instance comma_pass_switch_instance_list SEMICOLON
-		{T_gate_instantiation_pass($1,$2::$3)}
-	| KEY_PULLDOWN pulldown_strength_opt pull_gate_instance comma_pull_gate_instance_list SEMICOLON
-		{T_gate_instantiation_pulldown($2,$3::$4)}
-	| KEY_PULLUP pullup_strength_opt pull_gate_instance comma_pull_gate_instance_list SEMICOLON
-		{T_gate_instantiation_pullup($2,$3::$4)}
+gate_instantiation :
+	cmos_switchtype delay3_opt cmos_switch_instance comma_cmos_switch_instance_list SEMICOLON {
+		auto p=$4;
+		p->push_front($3);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_cmos,($1,$2,p));
+	}
+	| enable_gatetype drive_strength_opt delay3_opt enable_gate_instance comma_enable_gate_instance_list SEMICOLON {
+		auto p=$5;
+		p->push_front($4);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_enable,($1,$2,$3,p));
+	}
+	| mos_switchtype delay3_opt mos_switch_instance comma_mos_switch_instance_list SEMICOLON {
+		auto p=$4;
+		p->push_front($3);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_mos,($1,$2,p));
+	}
+	| n_input_gatetype drive_strength_opt delay2_opt n_input_gate_instance comma_n_input_gate_instance_list SEMICOLON {
+		auto p=$5;
+		p->push_front($4);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_input,($1,$2,$3,p));
+	}
+	| n_output_gatetype drive_strength_opt delay2_opt n_output_gate_instance comma_n_output_gate_instance_list SEMICOLON 
+	{
+		auto p=$5;
+		p->push_front($4);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_output,($1,$2,$3,p));
+	}
+	| pass_en_switchtype delay2_opt pass_enable_switch_instance comma_pass_enable_switch_instance_list SEMICOLON {
+		auto p=$4;
+		p->push_front($3);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_pass_en,($1,$2,p));
+	}
+	| pass_switchtype pass_switch_instance comma_pass_switch_instance_list SEMICOLON {
+		auto p=$3;
+		p->push_front($2);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_pass,($1,p));
+	}
+	| KEY_PULLDOWN pulldown_strength_opt pull_gate_instance comma_pull_gate_instance_list SEMICOLON {
+		auto p=$4;
+		p->push_front($3);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_pulldown,($2,p));
+	}
+	| KEY_PULLUP pullup_strength_opt pull_gate_instance comma_pull_gate_instance_list SEMICOLON {
+		auto p=$4;
+		p->push_front($3);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_pullup,($2,p));
+	}
 ;
 
 comma_n_output_gate_instance_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(n_output_gate_instance)();
+	}
 	| comma_n_output_gate_instance_list COMMA n_output_gate_instance 
-		{$1@$3}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 comma_pass_enable_switch_instance_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(pass_enable_switch_instance)();
+	}
 	| comma_pass_enable_switch_instance_list COMMA pass_enable_switch_instance 
-		{$1@[$3]}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 comma_pass_switch_instance_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(pass_switch_instance)();
+	}
 	| comma_pass_switch_instance_list COMMA pass_switch_instance 
-		{$1@[$3]}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 comma_pull_gate_instance_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(pull_gate_instance)();
+	}
 	| comma_pull_gate_instance_list COMMA pull_gate_instance 
-		{$1@[$3]}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 comma_cmos_switch_instance_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(cmos_switch_instance)();
+	}
 	| comma_cmos_switch_instance_list COMMA cmos_switch_instance 
-		{$1@[$3]}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 comma_enable_gate_instance_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(enable_gate_instance)();
+	}
 	| comma_enable_gate_instance_list COMMA enable_gate_instance  
-		{$1@[$3]}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 comma_mos_switch_instance_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(mos_switch_instance)();
+	}
 	| comma_mos_switch_instance_list COMMA mos_switch_instance 
-		{$1@[$3]}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 comma_n_input_gate_instance_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(n_input_gate_instance)();
+	}
 	| comma_n_input_gate_instance_list COMMA n_input_gate_instance  
-		{$1@[$3]}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 
 delay2_opt :
-	{T_delay2_NOSPEC}
-	| delay2 {$1}
+	{$$=SHR2(delay2,T_delay2_NOSPEC,());}
+	| delay2 {$$=$1;}
 ;
 
 pulldown_strength_opt :
-	{T_pulldown_strength_NOSPEC}
-	| pulldown_strength {$1}
+	{$$=SHR2(pulldown_strength,T_pulldown_strength_NOSPEC,());}
+	| pulldown_strength {$$=$1;}
 ;
 
 pullup_strength_opt :
-	{T_pullup_strength_NOSPEC}
-	| pullup_strength {$1}
+	{$$=SHR2(pullup_strength,T_pullup_strength_NOSPEC,());}
+	| pullup_strength {$$=$1;}
 ;
 
 cmos_switch_instance :
 	name_of_gate_instance_opt LPARENT output_terminal COMMA input_terminal COMMA ncontrol_terminal COMMA pcontrol_terminal RPARENT
-		{T_cmos_switch_instance($1,$3,$5,$7,$9)}
+		{$$=SHR2(cmos_switch_instance,T_cmos_switch_instance,($1,$3,$5,$7,$9));}
 ;
 
 
 name_of_gate_instance_opt :
-	{T_name_of_gate_instance_NOSPEC}
-	| name_of_gate_instance {$1}
+	{$$=SHR2(name_of_gate_instance,T_name_of_gate_instance_NOSPEC,());}
+	| name_of_gate_instance {$$=$1;}
 ;
 
 enable_gate_instance :
 	name_of_gate_instance_opt LPARENT output_terminal COMMA input_terminal COMMA enable_terminal RPARENT
-		{T_enable_gate_instance($1,$3,$5,$7)}
+		{$$=SHR2(enable_gate_instance,T_enable_gate_instance,($1,$3,$5,$7));}
 ;
 
 mos_switch_instance : 
 	name_of_gate_instance_opt LPARENT output_terminal COMMA input_terminal COMMA enable_terminal RPARENT
-		{T_mos_switch_instance($1,$3,$5,$7)}
+		{$$=SHR2(mos_switch_instance,T_mos_switch_instance,($1,$3,$5,$7));}
 ;
 
 n_input_gate_instance : 
 	name_of_gate_instance_opt LPARENT output_terminal COMMA input_terminal comma_input_terminal_list RPARENT
-		{T_n_input_gate_instance($1,$3,$5,$6)}
+		{$$=SHR2(n_input_gate_instance,T_n_input_gate_instance,($1,$3,$5,$6));}
 ;
 
 n_output_gate_instance :
 	name_of_gate_instance_opt LPARENT output_terminal comma_output_terminal_list COMMA input_terminal RPARENT
-		{T_n_output_gate_instance($1,$3,$4,$6)}
+		{$$=SHR2(n_output_gate_instance,T_n_output_gate_instance,($1,$3,$4,$6));}
 ;
 
 comma_output_terminal_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(net_lvalue)();
+	}
 	| comma_output_terminal_list COMMA output_terminal 
-		{$1@[$3]}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 pass_switch_instance :
 	name_of_gate_instance_opt LPARENT inout_terminal COMMA inout_terminal RPARENT
-		{T_pass_switch_instance($1,$3,$5)}
+		{$$=SHR2(pass_switch_instance,T_pass_switch_instance,($1,$3,$5));}
 ;
 
 pass_enable_switch_instance :
 	name_of_gate_instance_opt LPARENT inout_terminal COMMA inout_terminal COMMA enable_terminal RPARENT
-		{T_pass_enable_switch_instance($1,$3,$5,$7)}
+		{$$=SHR2(pass_enable_switch_instance,T_pass_enable_switch_instance,($1,$3,$5,$7));}
 ;
 
 
 pull_gate_instance :
 	name_of_gate_instance_opt LPARENT output_terminal RPARENT
-		{T_pull_gate_instance($1,$3)}
+		{$$=SHR2(pull_gate_instance,T_pull_gate_instance,($1,$3));}
 ;
 
 name_of_gate_instance :
 	gate_instance_identifier LSQUARE range RSQUARE
-		{T_name_of_gate_instance($1,$3)}
+		{$$=SHR2(name_of_gate_instance,T_name_of_gate_instance,($1,$3));}
 ;
-*/
+
 /*A.3.2 Primitive strengths*/
 
-/*pulldown_strength :
+pulldown_strength :
 	LPARENT strength0 COMMA strength1 RPARENT
-		{T_pulldown_strength01($2,$4)}
+		{$$=SHR2(pulldown_strength,T_pulldown_strength01,($2,$4));}
 	| LPARENT strength1 COMMA strength0 RPARENT
-		{T_pulldown_strength10($2,$4)}
+		{$$=SHR2(pulldown_strength,T_pulldown_strength10,($2,$4));}
 	| LPARENT strength0 RPARENT
-		{T_pulldown_strength0($2)}
+		{$$=SHR2(pulldown_strength,T_pulldown_strength0,($2));}
 ;
 
 pullup_strength :
 	LPARENT strength0 COMMA strength1 RPARENT
-		{T_pullup_strength01($2,$4)}
+		{$$=SHR2(pullup_strength,T_pullup_strength01,($2,$4));}
 	| LPARENT strength1 COMMA strength0 RPARENT
-		{T_pullup_strength10($2,$4)}
+		{$$=SHR2(pullup_strength,T_pullup_strength10,($2,$4));}
 	| LPARENT strength1 RPARENT
-		{T_pullup_strength1($2)}
+		{$$=SHR2(pullup_strength,T_pullup_strength1,($2));}
 ;
 
-*/
 /*A.3.3 Primitive terminals*/
-/*enable_terminal : expression {$1} ;
-inout_terminal : net_lvalue {$1} ;
-input_terminal : expression {$1} ;
-ncontrol_terminal : expression {$1} ;
-output_terminal : net_lvalue {$1} ;
-pcontrol_terminal : expression {$1};
-
-*/
+enable_terminal : expression {$$=$1;} ;
+inout_terminal : net_lvalue {$$=$1;} ;
+input_terminal : expression {$$=$1;} ;
+ncontrol_terminal : expression {$$=$1;} ;
+output_terminal : net_lvalue {$$=$1;} ;
+pcontrol_terminal : expression {$$=$1;};
 
 /*A.3.4 Primitive gate and switch types*/
 
-/*cmos_switchtype :
-	KEY_CMOS    {record_pos $1T_cmos_switchtype_CMOS}
-	| KEY_RCMOS {record_pos $1T_cmos_switchtype_RCMOS}
+cmos_switchtype :
+	KEY_CMOS    {$$=SHR2(cmos_switchtype,T_cmos_switchtype_CMOS,());}
+	| KEY_RCMOS {$$=SHR2(cmos_switchtype,T_cmos_switchtype_RCMOS,());}
 ;
 
 enable_gatetype :
-		KEY_BUFIF0 	{T_enable_gatetype__BUFIF0}
-	| KEY_BUFIF1 	{T_enable_gatetype__BUFIF1}
-	| KEY_NOTIF0 	{T_enable_gatetype__NOTIF0}
-	| KEY_NOTIF1	{T_enable_gatetype__NOTIF1}
+		KEY_BUFIF0 	{$$=SHR2(enable_gatetype,T_enable_gatetype__BUFIF0,());}
+	| KEY_BUFIF1 	{$$=SHR2(enable_gatetype,T_enable_gatetype__BUFIF1,());}
+	| KEY_NOTIF0 	{$$=SHR2(enable_gatetype,T_enable_gatetype__NOTIF0,());}
+	| KEY_NOTIF1	{$$=SHR2(enable_gatetype,T_enable_gatetype__NOTIF1,());}
 ;
 
 mos_switchtype : 
-		KEY_NMOS 	{T_mos_switchtype_NMOS }	
-	| KEY_PMOS 	{T_mos_switchtype_PMOS }
-	| KEY_RNMOS	{T_mos_switchtype_RNMOS} 
-	| KEY_RPMOS	{T_mos_switchtype_RPMOS}
+		KEY_NMOS 	{$$=SHR2(mos_switchtype,T_mos_switchtype_NMOS ,());}	
+	| KEY_PMOS 	{$$=SHR2(mos_switchtype,T_mos_switchtype_PMOS ,());}
+	| KEY_RNMOS	{$$=SHR2(mos_switchtype,T_mos_switchtype_RNMOS,());} 
+	| KEY_RPMOS	{$$=SHR2(mos_switchtype,T_mos_switchtype_RPMOS,());}
 ;
 
 n_input_gatetype :
-   	KEY_AND  {T_n_input_gatetype_AND }  
-	| KEY_NAND {T_n_input_gatetype_NAND}
-	| KEY_OR 	 {T_n_input_gatetype_OR 	}
-	| KEY_NOR  {T_n_input_gatetype_NOR }
-	| KEY_XOR  {T_n_input_gatetype_XOR }
-	| KEY_XNOR {T_n_input_gatetype_XNOR} 
+   	KEY_AND  {$$=SHR2(n_input_gatetype,T_n_input_gatetype_AND ,());}  
+	| KEY_NAND {$$=SHR2(n_input_gatetype,T_n_input_gatetype_NAND,());}
+	| KEY_OR 	 {$$=SHR2(n_input_gatetype,T_n_input_gatetype_OR  ,());}
+	| KEY_NOR  {$$=SHR2(n_input_gatetype,T_n_input_gatetype_NOR ,());}
+	| KEY_XOR  {$$=SHR2(n_input_gatetype,T_n_input_gatetype_XOR ,());}
+	| KEY_XNOR {$$=SHR2(n_input_gatetype,T_n_input_gatetype_XNOR,());} 
 ;
 
 n_output_gatetype :
-	KEY_BUF   {T_n_output_gatetype_BUF}
-	| KEY_NOT {T_n_output_gatetype_NOT}
+	KEY_BUF   {$$=SHR2(n_output_gatetype,T_n_output_gatetype_BUF,());}
+	| KEY_NOT {$$=SHR2(n_output_gatetype,T_n_output_gatetype_NOT,());}
 ;
 
 pass_en_switchtype :
-	  KEY_TRANIF0 {T_pass_en_switchtype_TRANIF0 } 
-	| KEY_TRANIF1 {T_pass_en_switchtype_TRANIF1 }   
-	| KEY_RTRANIF1{T_pass_en_switchtype_RTRANIF1}  
-	| KEY_RTRANIF0{T_pass_en_switchtype_RTRANIF0} 
+	  KEY_TRANIF0 {$$=SHR2(pass_en_switchtype,T_pass_en_switchtype_TRANIF0 ,());} 
+	| KEY_TRANIF1 {$$=SHR2(pass_en_switchtype,T_pass_en_switchtype_TRANIF1 ,());}   
+	| KEY_RTRANIF1{$$=SHR2(pass_en_switchtype,T_pass_en_switchtype_RTRANIF1,());}  
+	| KEY_RTRANIF0{$$=SHR2(pass_en_switchtype,T_pass_en_switchtype_RTRANIF0,());} 
 ;
 pass_switchtype :
-	  KEY_TRAN  {T_pass_switchtype_TRAN } 
-	| KEY_RTRAN {T_pass_switchtype_RTRAN} 
+	  KEY_TRAN  {$$=SHR2(pass_switchtype,T_pass_switchtype_TRAN ,());} 
+	| KEY_RTRAN {$$=SHR2(pass_switchtype,T_pass_switchtype_RTRAN,());} 
 ;
-*/
 
 
 /*A.4 Module instantiation and generate construct
@@ -2703,40 +2829,59 @@ level_symbol :
 
 
 /*A.5.4 UDP instantiation*/
-/*udp_instantiation :
+udp_instantiation :
 	udp_identifier drive_strength_opt delay2_opt
-		udp_instance comma_udp_instance_list  ;
-		{T_udp_instantiation($1,$2,$3,$4::$5)}
+		udp_instance comma_udp_instance_list  SEMICOLON
+		{
+			auto p = $5;
+			p->push_front($4);
+			$$=SHR2(udp_instantiation,T_udp_instantiation,($1,$2,$3,p));
+		}
 ;
 
 comma_udp_instance_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(udp_instance)();
+	}
 	| comma_udp_instance_list COMMA udp_instance 
-		{$1@[$3]}
+		{
+			auto p = $1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 udp_instance :
 	name_of_udp_instance_opt LPARENT output_terminal COMMA input_terminal comma_input_terminal_list RPARENT
-	{T_udp_instance($1,$3,$5::$6)}
+	{
+		auto p = $6;
+		p->push_front($5);
+		$$=SHR2(udp_instance,T_udp_instance,($1,$3,p));}
 ;
 
 name_of_udp_instance_opt :
-	{T_name_of_udp_instance_NOSPEC}
+	{$$=SHR2(name_of_udp_instance,T_name_of_udp_instance_NOSPEC,());}
 	| name_of_udp_instance
-			{$1}
+			{$$=$1;}
 ;
 
 comma_input_terminal_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(expression)();
+	}
 	| comma_input_terminal_list COMMA input_terminal 
-		{$1@[$3]}
+		{
+			auto p = $1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
 name_of_udp_instance :
 	udp_instance_identifier range_opt
-		{T_name_of_udp_instance($1,$2)}
+		{$$=SHR2(name_of_udp_instance,T_name_of_udp_instance,($1,$2));}
 ;
-*/
+
 /*A.6 Behavioral statements
 A.6.1 Continuous assignment statements*/
 
@@ -3793,7 +3938,7 @@ block_identifier : identifier {$$=$1;};
 config_identifier : identifier {$1};*/
 event_identifier : identifier {$$=$1;};
 function_identifier : identifier {$$=$1;};
-/*gate_instance_identifier : identifier {$1};*/
+gate_instance_identifier : identifier {$$=$1;};
 generate_block_identifier : identifier {$$=$1;};
 genvar_identifier : identifier {$$=$1;};
 
@@ -3864,8 +4009,8 @@ system_function_identifier :
 task_identifier : identifier {$$=$1;};
  /*terminal_identifier : identifier {$$=$1;};
 text_macro_identifier : identifier {$$=$1;};
-topmodule_identifier : identifier {$$=$1;};
-udp_instance_identifier : identifier {$$=$1;};*/
+topmodule_identifier : identifier {$$=$1;};*/
+udp_instance_identifier : identifier {$$=$1;};
 udp_identifier : identifier {$$=$1;};
 variable_identifier : identifier {$$=$1;};
 
