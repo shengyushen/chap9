@@ -3759,11 +3759,11 @@ class T_gate_instantiation_pass : public ComponentBase {
 };
 class T_gate_instantiation_pulldown : public ComponentBase {
   public :
-    std::shared_ptr<pulldown_strength> mem1;
+    int mem1;
     std::shared_ptr<std::list<std::shared_ptr< pull_gate_instance>>> mem2;
 
   T_gate_instantiation_pulldown( 
-       std::shared_ptr<pulldown_strength> i1
+       int i1
  ,     std::shared_ptr<std::list<std::shared_ptr< pull_gate_instance>>> i2
   ):
        mem1(i1)
@@ -3772,11 +3772,11 @@ class T_gate_instantiation_pulldown : public ComponentBase {
 };
 class T_gate_instantiation_pullup : public ComponentBase {
   public :
-    std::shared_ptr<pullup_strength> mem1;
+    int mem1;
     std::shared_ptr<std::list<std::shared_ptr< pull_gate_instance>>> mem2;
 
   T_gate_instantiation_pullup( 
-       std::shared_ptr<pullup_strength> i1
+       int i1
  ,     std::shared_ptr<std::list<std::shared_ptr< pull_gate_instance>>> i2
   ):
        mem1(i1)

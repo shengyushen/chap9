@@ -131,6 +131,7 @@ useless_directives "`default_decay_time"|"`default_trireg_strength"|"`delay_mode
 harful_directives "`define"|"`else"|"`elsif"|"`endif"|"`ifdef"|"`ifndef"|"`resetall"|"`undef"
 
 blank [ \t]
+blankrn [ \t\r\n]
 digit [0-9]
 
 %x line_skip_blank line_number line_skip_blank2 line_filename endofline stringssy tableSC
@@ -231,8 +232,17 @@ digit [0-9]
 "primitive"          { return yy::verilog_parser::make_KEY_PRIMITIVE(loc);}
 "pull0"              { return yy::verilog_parser::make_KEY_PULL0(loc);}
 "pull1"              { return yy::verilog_parser::make_KEY_PULL1(loc);}
-"pulldown"           { return yy::verilog_parser::make_KEY_PULLDOWN(loc);}
-"pullup"             { return yy::verilog_parser::make_KEY_PULLUP(loc);}
+"pulldown"{blankrn}+"("{blankrn}+"strength0"{blankrn}+","{blankrn}+"strength1"{blankrn}+")"           { return yy::verilog_parser::make_KEY_PULLDOWN(1,loc);}
+"pulldown"{blankrn}+"("{blankrn}+"strength1"{blankrn}+","{blankrn}+"strength0"{blankrn}+")"           { return yy::verilog_parser::make_KEY_PULLDOWN(2,loc);}
+"pulldown"{blankrn}+"("{blankrn}+"strength0"{blankrn}+")"                                             { return yy::verilog_parser::make_KEY_PULLDOWN(0,loc);}
+
+"pullup"{blankrn}+"("{blankrn}+"strength0"{blankrn}+","{blankrn}+"strength1"{blankrn}+")"             { return yy::verilog_parser::make_KEY_PULLUP(1,loc);}
+"pullup"{blankrn}+"("{blankrn}+"strength1"{blankrn}+","{blankrn}+"strength0"{blankrn}+")"             { return yy::verilog_parser::make_KEY_PULLUP(2,loc);}
+"pullup"{blankrn}+"("{blankrn}+"strength1"{blankrn}+")"                                               { return yy::verilog_parser::make_KEY_PULLUP(3,loc);}
+
+"pulldown"             { return yy::verilog_parser::make_KEY_PULLDOWN(4,loc);}
+"pullup"             { return yy::verilog_parser::make_KEY_PULLUP(4,loc);}
+
 "pulsestyle_onevent"	{ return yy::verilog_parser::make_KEY_PULSESTYLE_ONEVENT(loc);}
 "pulsestyle_ondetect" { return yy::verilog_parser::make_KEY_PULSESTYLE_ONDETECT(loc);}
 "rcmos"              { return yy::verilog_parser::make_KEY_RCMOS(loc);}

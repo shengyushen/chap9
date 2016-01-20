@@ -244,8 +244,8 @@ and gate_instantiation =
 	| T_gate_instantiation_output of n_output_gatetype*drive_strength*delay2*(n_output_gate_instance list)
 	| T_gate_instantiation_pass_en of pass_en_switchtype*delay2*(pass_enable_switch_instance list)
 	| T_gate_instantiation_pass of pass_switchtype*(pass_switch_instance list)
-	| T_gate_instantiation_pulldown of pulldown_strength*(pull_gate_instance list)
-	| T_gate_instantiation_pullup of pullup_strength*(pull_gate_instance list)
+	| T_gate_instantiation_pulldown of int*(pull_gate_instance list)
+	| T_gate_instantiation_pullup of int*(pull_gate_instance list)
 and cmos_switch_instance =
 	T_cmos_switch_instance of name_of_gate_instance*net_lvalue*expression*expression*expression
 and enable_gate_instance =
