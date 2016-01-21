@@ -3,10 +3,11 @@ type description =
 	| T_description__udp_declaration of udp_declaration
 	| T_description__config_declaration of config_declaration
 and module_declaration =
-	T_module_declaration__1 of (attribute_instance list)*identifier*(parameter_declaration_gen list)*(port list)*(module_item list)
+	T_module_declaration__1 of (attribute_instance list)*identifier*(parameter_declaration list)*(port list)*(module_item list)
+	T_module_declaration__2 of (attribute_instance list)*identifier*(parameter_declaration list)*(port_declaration list)*(module_item list)
 and port =
-	T_port_exp of identifier*port_expression
-	| T_port_net of io_type*netreg_type*signedType*range*port_expression*expression
+	T_port_named of identifier*port_expression
+	| T_port_unnamed of port_expression
 and port_expression =
 	T_port_expression of (port_reference list)
 and	port_reference =
@@ -62,8 +63,6 @@ and use_clause =
 and local_parameter_declaration =
 	T_local_parameter_declaration_1 of signedType*range*(param_assignment list)
 	| T_local_parameter_declaration_2 of parameter_type*(param_assignment list)
-and parameter_declaration_gen =
-	T_parameter_declaration_gen_1 of int*parameter_type*signedType*range*param_assignment
 and parameter_declaration =
 	T_parameter_declaration_1 of signedType*range*(param_assignment list)
 	| T_parameter_declaration_2 of parameter_type*(param_assignment list)
@@ -244,24 +243,24 @@ and gate_instantiation =
 	| T_gate_instantiation_output of n_output_gatetype*drive_strength*delay2*(n_output_gate_instance list)
 	| T_gate_instantiation_pass_en of pass_en_switchtype*delay2*(pass_enable_switch_instance list)
 	| T_gate_instantiation_pass of pass_switchtype*(pass_switch_instance list)
-	| T_gate_instantiation_pulldown of int*(pull_gate_instance list)
-	| T_gate_instantiation_pullup of int*(pull_gate_instance list)
+	| T_gate_instantiation_pulldown of pulldown_strength*(pull_gate_instance list)
+	| T_gate_instantiation_pullup of pullup_strength*(pull_gate_instance list)
 and cmos_switch_instance =
-	T_cmos_switch_instance of name_of_gate_instance*net_lvalue*expression*expression*expression
+	T_cmos_switch_instance of name_of_gate_instance*expression*expression*expression*expression
 and enable_gate_instance =
-	T_enable_gate_instance of name_of_gate_instance*net_lvalue*expression*expression
+	T_enable_gate_instance of name_of_gate_instance*expression*expression*expression
 and mos_switch_instance =
-	T_mos_switch_instance of name_of_gate_instance*net_lvalue*expression*expression
+	T_mos_switch_instance of name_of_gate_instance*expression*expression*expression
 and n_input_gate_instance =
-	T_n_input_gate_instance of name_of_gate_instance*net_lvalue*expression*(expression list)
+	T_n_input_gate_instance of name_of_gate_instance*expression*expression*(expression list)
 and n_output_gate_instance =
-	T_n_output_gate_instance of name_of_gate_instance*net_lvalue*(net_lvalue list)*expression
+	T_n_output_gate_instance of name_of_gate_instance*expression*(expression list)*expression
 and pass_switch_instance =
-	T_pass_switch_instance of name_of_gate_instance*net_lvalue*net_lvalue
+	T_pass_switch_instance of name_of_gate_instance*expression*expression
 and pass_enable_switch_instance =
-	T_pass_enable_switch_instance of name_of_gate_instance*net_lvalue*net_lvalue*expression
+	T_pass_enable_switch_instance of name_of_gate_instance*expression*expression*expression
 and pull_gate_instance =
-	T_pull_gate_instance of name_of_gate_instance*net_lvalue
+	T_pull_gate_instance of name_of_gate_instance*expression
 and name_of_gate_instance =
 	T_name_of_gate_instance_NOSPEC
 	| T_name_of_gate_instance of identifier*range
@@ -307,14 +306,15 @@ and pass_switchtype =
 	  T_pass_switchtype_TRAN  
 	| T_pass_switchtype_RTRAN 
 and module_instantiation =
-	T_module_instantiation of identifier*parameter_value_assignment*(module_instance list)
+	T_module_instantiation of identifier*drive_strength*parameter_value_assignment*(module_instance list)
 and	module_instance =
 	T_module_instance of name_of_module_instance*list_of_port_connections
 and name_of_module_instance =
-	T_name_of_module_instance of identifier*range
+	T_name_of_module_instance_NOSPEC
+	| T_name_of_module_instance of identifier*range
 and parameter_value_assignment =
 	T_parameter_value_assignment_NOSPEC
-	| T_parameter_value_assignment_order of (expression list)
+	| T_parameter_value_assignment_order of (mintypmax_expression list)
 	| T_parameter_value_assignment_named of (named_parameter_assignment list)
 and named_parameter_assignment =
 	T_named_parameter_assignment of identifier*mintypmax_expression
@@ -396,7 +396,7 @@ and	edge_indicator =
 and	udp_instantiation =
 	T_udp_instantiation of identifier*drive_strength*delay2*(udp_instance list)
 and udp_instance =
-	T_udp_instance of name_of_udp_instance*net_lvalue*(expression list)
+	T_udp_instance of name_of_udp_instance*expression*(expression list)
 and	name_of_udp_instance =
 	T_name_of_udp_instance_NOSPEC
 	| T_name_of_udp_instance of identifier*range
@@ -692,10 +692,10 @@ and output_symbol =
 	| T_output_symbol_SIMID of string
 and number =
 	T_number_UNSIGNED_NUMBER of int
-	| T_number_UNSIGNED_NUMBER_size of int*int
-	| T_number_OCTAL_NUMBER of int*string
-	| T_number_BINARY_NUMBER of int*string
-	| T_number_HEX_NUMBER of int*string
+	| T_number_UNSIGNED_NUMBER_size of int*string*string
+	| T_number_OCTAL_NUMBER of int*string*string
+	| T_number_BINARY_NUMBER of int*string*string
+	| T_number_HEX_NUMBER of int*string*string
 	| T_number_REAL_NUMBER of string
 and next_state =
 	T_next_state_UNSIGNED_NUMBER of int

@@ -93,21 +93,6 @@ public :
 		}
 	}
 
-	OPERATOR(T_parameter_declaration_gen_1,p) {
-		if(0==(p->mem1)) {
-			prt_keyword_space("");
-		} else {
-			prt_keyword_space("parameter");
-		}
-		APP_PRINTV(mem2) //parameter type
-		prt_space();
-		APP_PRINTV(mem3) //signed type
-		prt_space();
-		APP_PRINTV(mem4) //range type
-		prt_space();
-		APP_PRINTV(mem5) //pam assignment
-	}
-
 	OPERATOR(T_parameter_type__NOSPEC,p)   { }
 	OPERATOR(T_parameter_type__INTEGER,p)  { prt_keyword_space("integer" );}
 	OPERATOR(T_parameter_type__REAL,p)     { prt_keyword_space("real"    );}
@@ -333,25 +318,15 @@ public :
 		APP_PRINTV(mem1)
 		APP_PRINTV(mem2)
 	}
-	OPERATOR(T_port_exp,         p) {
+	OPERATOR(T_port_named,         p) {
 		prt_keyword_space(".");
 		APP_PRINTV(mem1) //port name
 		prt_keyword_space("(");
 		APP_PRINTV(mem2) //expression
 		prt_keyword_space(")");
 	}
-	OPERATOR(T_port_net,         p) {
+	OPERATOR(T_port_unnamed,         p) {
 		APP_PRINTV(mem1)
-		prt_space();
-		APP_PRINTV(mem2)
-		prt_space();
-		APP_PRINTV(mem3)
-		prt_space();
-		APP_PRINTV(mem4)
-		prt_space();
-		APP_PRINTV(mem5)
-		prt_space();
-		APP_PRINTV(mem6)
 	}
 
 	OPERATOR(T_port_expression,         p) {
@@ -377,6 +352,20 @@ public :
 		APPLST_PRINTV(mem5 , prt_return , prt_return , prt_return);//module_item
 		prt_keyword_space("\n endmodule\n");
 	}
+	OPERATOR(T_module_declaration__2,p) {
+		APPLST_PRINTV(mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+
+		prt_keyword_space("module");
+		APP_PRINTV(mem2) //module name
+		prt_keyword_space("\n");
+		APPLST_PRINTV(mem3 , prt_jinglparent , prt_comma , prt_rparent); // parameter list
+		prt_keyword_space("\n (\n");
+		APPLST_PRINTV(mem4 , prt_nothing , prt_comma , prt_rparent);//port_declaration
+		cout<<";";
+		APPLST_PRINTV(mem5 , prt_return , prt_return , prt_return);//module_item
+		prt_keyword_space("\n endmodule\n");
+	}
+
 	OPERATOR(T_module_item__1,p) { APP_PRINTV(mem1)}
 	OPERATOR(T_module_item__2,p) { APP_PRINTV(mem1)}
 	OPERATOR(T_module_item__port_declaration,p) { 
@@ -538,7 +527,7 @@ public :
 	OPERATOR(T_drive_strength,p) { 
 		prt_keyword_space("(");
 			APP_PRINTV(mem1)
-		prt_keyword_space(":");
+		prt_keyword_space(",");
 			APP_PRINTV(mem2)
 		prt_keyword_space(")");
 	}
@@ -1194,7 +1183,9 @@ public :
 		prt_keyword_space("");
 		APP_PRINTV(mem2) 
 		prt_keyword_space("");
-		APPLST_PRINTV( mem3 , prt_nothing, prt_comma , prt_nothing);//attribute_instance_list
+		APP_PRINTV(mem3) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem4 , prt_nothing, prt_comma , prt_nothing);//attribute_instance_list
 		prt_keyword_space(";\n");
 	}
 
@@ -1239,6 +1230,8 @@ public :
 		prt_keyword_space("(");
 		APP_PRINTV(mem3) 
 		prt_keyword_space(")");
+	}
+	OPERATOR(T_name_of_module_instance_NOSPEC,p) {  
 	}
 	OPERATOR(T_name_of_module_instance,p) {  
 		APP_PRINTV(mem1) 
@@ -1322,8 +1315,223 @@ public :
 		prt_keyword_space(":");
 		APP_PRINTV(mem2) 
 	}
-	OPERATOR(T_case_generate_item_default,p) {  }
+	OPERATOR(T_case_generate_item_default,p) { 
+		prt_keyword_space("default");
+		prt_keyword_space(":");
+		APP_PRINTV(mem1) 
+	}
 
+	OPERATOR(T_cmos_switchtype_CMOS,p) { prt_keyword_space("cmos"); }
+	OPERATOR(T_cmos_switchtype_RCMOS,p) { prt_keyword_space("rcmos"); }
+	OPERATOR(T_name_of_gate_instance_NOSPEC,p) {}
+	OPERATOR(T_name_of_gate_instance,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_cmos_switch_instance,p) { 
+		APP_PRINTV(mem1) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem5) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_gate_instantiation_cmos,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem3 , prt_nothing , prt_comma , prt_nothing);//cmos_switch_instance
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_enable_gatetype__BUFIF0,p) {prt_keyword_space("bufif0");}
+	OPERATOR(T_enable_gatetype__BUFIF1,p) {prt_keyword_space("bufif1");}
+	OPERATOR(T_enable_gatetype__NOTIF0,p) {prt_keyword_space("notif0");}
+	OPERATOR(T_enable_gatetype__NOTIF1,p) {prt_keyword_space("notif1");}
+	OPERATOR(T_enable_gate_instance,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_gate_instantiation_enable,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+		prt_keyword_space("");
+		APP_PRINTV(mem3) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem4 , prt_nothing , prt_comma , prt_nothing);//enable_gate_instance
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_mos_switchtype_NMOS ,p)  {prt_keyword_space("nmos");}
+	OPERATOR(T_mos_switchtype_PMOS ,p)  {prt_keyword_space("pmos");}
+	OPERATOR(T_mos_switchtype_RNMOS,p)  {prt_keyword_space("rnmos");}
+	OPERATOR(T_mos_switchtype_RPMOS,p)  {prt_keyword_space("rpmos");}
+	OPERATOR(T_mos_switch_instance,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_gate_instantiation_mos,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem3 , prt_nothing , prt_comma , prt_nothing);//mos_switch_instance
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_n_input_gatetype_AND ,p) {prt_keyword_space("and");}
+	OPERATOR(T_n_input_gatetype_NAND,p) {prt_keyword_space("nand");}
+	OPERATOR(T_n_input_gatetype_OR  ,p) {prt_keyword_space("or");}
+	OPERATOR(T_n_input_gatetype_NOR ,p) {prt_keyword_space("nor");}
+	OPERATOR(T_n_input_gatetype_XOR ,p) {prt_keyword_space("xor");}
+	OPERATOR(T_n_input_gatetype_XNOR,p) {prt_keyword_space("xnor");}
+	OPERATOR(T_n_input_gate_instance,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APPLST_PRINTV( mem4 , prt_nothing , prt_comma , prt_nothing);//expression
+		prt_keyword_space(")");
+	}
+
+	OPERATOR(T_gate_instantiation_input,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+		prt_keyword_space("");
+		APP_PRINTV(mem3) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem4 , prt_nothing , prt_comma , prt_nothing);//n_input_gate_instance
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_delay2_NOSPEC,p) {}
+	OPERATOR(T_delay2_1,p) {
+		prt_keyword_space("#");
+		APP_PRINTV(mem1) 
+	}
+	OPERATOR(T_delay2_minmax1,p) {
+		prt_keyword_space("# (");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_delay2_minmax2,p) {
+		prt_keyword_space("# (");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_n_output_gatetype_BUF,p) {prt_keyword_space("buf");}
+	OPERATOR(T_n_output_gatetype_NOT,p) {prt_keyword_space("not");}
+	OPERATOR(T_n_output_gate_instance,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem2) 
+		APPLST_PRINTV( mem3 , prt_comma , prt_comma , prt_nothing);//
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+	}
+
+	OPERATOR(T_gate_instantiation_output,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+		prt_keyword_space("");
+		APP_PRINTV(mem3) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem4 , prt_nothing , prt_comma , prt_nothing);//n_output_gate_instance
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_pass_en_switchtype_TRANIF0 ,p) {prt_keyword_space("tranif0");}
+	OPERATOR(T_pass_en_switchtype_TRANIF1 ,p) {prt_keyword_space("tranif1");}
+	OPERATOR(T_pass_en_switchtype_RTRANIF1,p) {prt_keyword_space("rtranif1");}
+	OPERATOR(T_pass_en_switchtype_RTRANIF0,p) {prt_keyword_space("rtranif0");}
+	OPERATOR(T_pass_enable_switch_instance,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_gate_instantiation_pass_en,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem3 , prt_nothing , prt_comma , prt_nothing);//pass_enable_switch_instance
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_pass_switchtype_TRAN ,p) {prt_keyword_space("tran");}
+	OPERATOR(T_pass_switchtype_RTRAN,p) {prt_keyword_space("rtran");}
+	OPERATOR(T_pass_switch_instance,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_gate_instantiation_pass,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);//pass_switch_instance
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_pulldown_strength_NOSPEC,p) {}
+	OPERATOR(T_pulldown_strength01,p) {prt_keyword_space(" ( strength0 , strength1 ) ");}
+	OPERATOR(T_pulldown_strength10,p) {prt_keyword_space(" ( strength1 , strength1 ) ");}
+	OPERATOR(T_pulldown_strength0 ,p) {prt_keyword_space(" ( strength0 ) ");}
+	OPERATOR(T_pull_gate_instance ,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("(");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_gate_instantiation_pulldown,p) {
+		prt_keyword_space("pulldown");
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);//pull_gate_instance
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_pullup_strength_NOSPEC,p) {}
+	OPERATOR(T_pullup_strength01,p) {prt_keyword_space(" ( strength0 , strength1 ) ");}
+	OPERATOR(T_pullup_strength10,p) {prt_keyword_space(" ( strength1 , strength1 ) ");}
+	OPERATOR(T_pullup_strength1 ,p) {prt_keyword_space(" ( strength1 ) ");}
+	OPERATOR(T_gate_instantiation_pullup,p) {
+		prt_keyword_space("pullup");
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);//pull_gate_instance
+		prt_keyword_space(";");
+	}
 
 	OPERATOR(T_module_item__specify_block,p) { assert(false); }
 	OPERATOR(T_module_item__parameter_declaration,p) { 
@@ -1387,7 +1595,10 @@ public :
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem2);
 	}
-	OPERATOR(T_module_item__gate_instantiation,p) {  assert(false); }
+	OPERATOR(T_module_item__gate_instantiation,p) { 
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		APP_PRINTV(mem2);
+	}
 	OPERATOR(T_module_item__udp_instantiation,p) {  assert(false); }
 	OPERATOR(T_module_item__module_instantiation,p) {  
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list

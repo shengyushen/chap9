@@ -21,9 +21,23 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 after AM_INIT
 
 
+git command
 
 reset to recent uncommit version
 git reset --hard HEAD
+
 reset a file
  git checkout -- filename
+
+branching on a particular version
+	git checkout <sha> file_name
+	git checkout <sha> 
+
+	git checkout filename
+
+clone with
+	git clone git@github.com:shengyushen/chap9.git
+don't use
+	git clone git@github.com/shengyushen/chap9.git
+
 

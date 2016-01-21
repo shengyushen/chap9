@@ -42,7 +42,9 @@ test : sdf.v.tok nodef.v.tok
 	# comparing before and after checher
 	- diff sdf.v.tok nodef.v.tok  > diff_parse
 	# comparing after checker with previous run
-	diff sdf.v std/sdf.v > diff_2old
+	cp std/sdf.v old.v
+	- ../scr/vtran.scr old.v
+	- diff sdf.v.tok old.v.tok > diff_2old
 
 test_ivlpp : ivlpp.v.noinc.tok
 	# comparing after checher and ivlpp

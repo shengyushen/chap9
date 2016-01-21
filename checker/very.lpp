@@ -70,7 +70,6 @@
 		else if (c == '_') return true;
 		else return false;
 	}
-
 	// The location of the current token.
 	 #define YY_USER_ACTION loc.step (); loc.columns(yyleng);
 	#undef YY_DECL
@@ -110,8 +109,12 @@ size          {non_zero_unsigned_number}
 sign          [+-]
 exp           [eE]
 real_number     ({unsigned_number}\.{unsigned_number})|({unsigned_number}(\.{unsigned_number})?{exp}{sign}?{unsigned_number})
-time_precision "s"|"ms"|"us"|"ns"|"ps"|"fs"
-
+time_precision "s"|"ms"|"us"|"ns"|"ps"|"fs"a
+ /*used on predetermine the ( */
+strength0  "supply0"|"strong0"|"pull0"|"weak0"
+strength1  "supply1"|"strong1"|"pull1"|"weak1"
+highz      "highz0"|"highz1"
+strength   {strength0}|{strength1}|{highz}
   /*A.8.8 Strings*/
   /*already deal with below*/
 
@@ -213,9 +216,17 @@ digit [0-9]
 "liblist"            { return yy::verilog_parser::make_KEY_LIBLIST(loc);}
 "library"            { return yy::verilog_parser::make_KEY_LIBRARY(loc);}
 "localparam"         { return yy::verilog_parser::make_KEY_LOCALPARAM(loc);}
-"macromodule"        { return yy::verilog_parser::make_KEY_MACROMODULE(loc);}
+"macromodule"        { 
+	assert(isInModuleDeclaration==false);
+	isInModuleDeclaration=true;
+	return yy::verilog_parser::make_KEY_MACROMODULE(loc);
+	}
 "medium"             { return yy::verilog_parser::make_KEY_MEDIUM(loc);}
-"module"						 { return yy::verilog_parser::make_KEY_MODULE(loc);}
+"module"						 {
+	assert(isInModuleDeclaration==false);
+	isInModuleDeclaration=true;
+	return yy::verilog_parser::make_KEY_MODULE(loc);
+	}
 "nand"               { return yy::verilog_parser::make_KEY_NAND(loc);}
 "negedge"            { return yy::verilog_parser::make_KEY_NEGEDGE(loc);}
 "nmos"               { return yy::verilog_parser::make_KEY_NMOS(loc);}
@@ -232,17 +243,8 @@ digit [0-9]
 "primitive"          { return yy::verilog_parser::make_KEY_PRIMITIVE(loc);}
 "pull0"              { return yy::verilog_parser::make_KEY_PULL0(loc);}
 "pull1"              { return yy::verilog_parser::make_KEY_PULL1(loc);}
-"pulldown"{blankrn}+"("{blankrn}+"strength0"{blankrn}+","{blankrn}+"strength1"{blankrn}+")"           { return yy::verilog_parser::make_KEY_PULLDOWN(1,loc);}
-"pulldown"{blankrn}+"("{blankrn}+"strength1"{blankrn}+","{blankrn}+"strength0"{blankrn}+")"           { return yy::verilog_parser::make_KEY_PULLDOWN(2,loc);}
-"pulldown"{blankrn}+"("{blankrn}+"strength0"{blankrn}+")"                                             { return yy::verilog_parser::make_KEY_PULLDOWN(0,loc);}
-
-"pullup"{blankrn}+"("{blankrn}+"strength0"{blankrn}+","{blankrn}+"strength1"{blankrn}+")"             { return yy::verilog_parser::make_KEY_PULLUP(1,loc);}
-"pullup"{blankrn}+"("{blankrn}+"strength1"{blankrn}+","{blankrn}+"strength0"{blankrn}+")"             { return yy::verilog_parser::make_KEY_PULLUP(2,loc);}
-"pullup"{blankrn}+"("{blankrn}+"strength1"{blankrn}+")"                                               { return yy::verilog_parser::make_KEY_PULLUP(3,loc);}
-
-"pulldown"             { return yy::verilog_parser::make_KEY_PULLDOWN(4,loc);}
-"pullup"             { return yy::verilog_parser::make_KEY_PULLUP(4,loc);}
-
+"pulldown"           { return yy::verilog_parser::make_KEY_PULLDOWN(loc);}
+"pullup"             { return yy::verilog_parser::make_KEY_PULLUP(loc);}
 "pulsestyle_onevent"	{ return yy::verilog_parser::make_KEY_PULSESTYLE_ONEVENT(loc);}
 "pulsestyle_ondetect" { return yy::verilog_parser::make_KEY_PULSESTYLE_ONDETECT(loc);}
 "rcmos"              { return yy::verilog_parser::make_KEY_RCMOS(loc);}
@@ -316,9 +318,9 @@ digit [0-9]
 <<EOF>>    return yy::verilog_parser::make_END(loc);
 
 
-{size}?{decimal_base}{blank}*{unsigned_number} {
+{size}?{decimal_base}{blankrn}*{unsigned_number} {
 	string s{yytext};
-	int dbpos=s.find_first_of('\'');
+	const int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	deleteUnderScore(szstr);
@@ -328,29 +330,35 @@ digit [0-9]
 	} else {
 		sz=stoul(szstr);
 	}
+
+	//finding the end of base
+	const int dbstart=dbpos+1;
+	auto x = dbstart;
+	while(s[x]!='d'&& s[x]!='D') {x++;}
+	const string db=s.substr(dbstart,x-dbstart+1);
 
 	int numpos=dbpos;
 	while(isDECchar(s[numpos])==false) { numpos++; }
 	string numstr =s.substr(numpos,(s.size()-1-numpos+1));
 	deleteblank(numstr);
 	deleteUnderScore(numstr);
-	unsigned int num =stoul(numstr);
+//	unsigned int num =stoul(numstr);
 
-	return yy::verilog_parser::make_UNSIGNED_NUMBER_size(std::make_tuple(sz,num),loc);
+	return yy::verilog_parser::make_UNSIGNED_NUMBER_size(std::make_tuple(sz,db,numstr),loc);
 }
 
 
-{size}?{decimal_base}{blank}*{x_digit}[_]* {
+{size}?{decimal_base}{blankrn}*{x_digit}[_]* {
 	assert(false);
 }
 
-{size}?{decimal_base}{blank}*{z_digit}[_]* {
+{size}?{decimal_base}{blankrn}*{z_digit}[_]* {
 	assert(false);
 }
 
-{size}?{octal_base}{blank}*{octal_value} {
+{size}?{octal_base}{blankrn}*{octal_value} {
 	string s{yytext};
-	int dbpos=s.find_first_of('\'');
+	const int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	deleteUnderScore(szstr);
@@ -360,18 +368,24 @@ digit [0-9]
 	} else {
 		sz=stoul(szstr);
 	}
+
+	//finding the end of base
+	const int dbstart=dbpos+1;
+	auto x = dbstart;
+	while(s[x]!='o'&& s[x]!='O') {x++;}
+	const string db=s.substr(dbstart,x-dbstart+1);
 
 	int numpos=dbpos;
 	while(isOCTchar(s[numpos])==false) { numpos++; }
 	string numstr =s.substr(numpos,(s.size()-1-numpos+1));
 	deleteblank(numstr);
 
-	return yy::verilog_parser::make_OCTAL_NUMBER(std::make_tuple(sz,numstr),loc);
+	return yy::verilog_parser::make_OCTAL_NUMBER(std::make_tuple(sz,db,numstr),loc);
 }
 
-{size}?{binary_base}{blank}*{binary_value} {
+{size}?{binary_base}{blankrn}*{binary_value} {
 	string s{yytext};
-	int dbpos=s.find_first_of('\'');
+	const int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	deleteUnderScore(szstr);
@@ -381,19 +395,25 @@ digit [0-9]
 	} else {
 		sz=stoul(szstr);
 	}
+
+	//finding the end of base
+	const int dbstart=dbpos+1;
+	auto x = dbstart;
+	while(s[x]!='b'&& s[x]!='B') {x++;}
+	const string db=s.substr(dbstart,x-dbstart+1);
 
 	int numpos=dbpos;
 	while(isBINchar(s[numpos])==false) { numpos++; }
 	string numstr =s.substr(numpos,(s.size()-1-numpos+1));
 	deleteblank(numstr);
 
-	return yy::verilog_parser::make_BINARY_NUMBER(std::make_tuple(sz,numstr),loc);
+	return yy::verilog_parser::make_BINARY_NUMBER(std::make_tuple(sz,db,numstr),loc);
 }
 
 
-{size}?{hex_base}{blank}*{hex_value} {
+{size}?{hex_base}{blankrn}*{hex_value} {
 	string s{yytext};
-	int dbpos=s.find_first_of('\'');
+	const int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	deleteUnderScore(szstr);
@@ -404,12 +424,18 @@ digit [0-9]
 		sz=stoul(szstr);
 	}
 
+	//finding the end of base
+	const int dbstart=dbpos+1;
+	auto x = dbstart;
+	while(s[x]!='h'&& s[x]!='H') {x++;}
+	const string db=s.substr(dbstart,x-dbstart+1);
+
 	int numpos=dbpos;
 	while(isHEXchar(s[numpos])==false) { numpos++; }
 	string numstr =s.substr(numpos,(s.size()-1-numpos+1));
 	deleteblank(numstr);
 
-	return yy::verilog_parser::make_HEX_NUMBER(std::make_tuple(sz,numstr),loc);
+	return yy::verilog_parser::make_HEX_NUMBER(std::make_tuple(sz,db,numstr),loc);
 }
 
 
@@ -448,12 +474,44 @@ digit [0-9]
 ">>>"	{return yy::verilog_parser::make_OP2_ARITHMETIC_RIGHTSHIFT(loc);}
 "<<<"	{return yy::verilog_parser::make_OP2_ARITHMETIC_LEFTSHIFT(loc);}
 "?"		{return yy::verilog_parser::make_OP2_QUESTION(loc);}
+"("/{blankrn}*{strength}		{
+	string s(yytext);
+	cerr<<"getting "<<s<<endl;
+return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 "("		{return yy::verilog_parser::make_LPARENT(loc);}
 "(*"		{return yy::verilog_parser::make_LPARENTSTART(loc);}
 ")"		{return yy::verilog_parser::make_RPARENT(loc);}
 "*)"		{return yy::verilog_parser::make_RPARENTSTART(loc);}
+ /*handling the comma between port_declaration*/
+","/{blankrn}*"(*" {
+	if(isInModuleDeclaration) return yy::verilog_parser::make_COMMA_port_dec(loc);
+	else return yy::verilog_parser::make_COMMA(loc);
+}
+","/{blankrn}*"input" {
+	//between port_declaration
+	if(isInModuleDeclaration) return yy::verilog_parser::make_COMMA_port_dec(loc);
+	else return yy::verilog_parser::make_COMMA(loc);
+}
+","/{blankrn}*"ioput" {
+	//between port_declaration
+	if(isInModuleDeclaration) return yy::verilog_parser::make_COMMA_port_dec(loc);
+	else return yy::verilog_parser::make_COMMA(loc);
+}
+","/{blankrn}*"output" {
+	//between port_declaration
+	if(isInModuleDeclaration) return yy::verilog_parser::make_COMMA_port_dec(loc);
+	else return yy::verilog_parser::make_COMMA(loc);
+}
+","/{blankrn}*"parameter" {
+	//between parameter_declaration
+	if(isInModuleDeclaration) return yy::verilog_parser::make_COMMA_port_dec(loc);
+	else return yy::verilog_parser::make_COMMA(loc);
+}
 ","		{return yy::verilog_parser::make_COMMA(loc);}
-";"		{return yy::verilog_parser::make_SEMICOLON(loc);}
+";"		{
+	isInModuleDeclaration=false;
+	return yy::verilog_parser::make_SEMICOLON(loc);
+	}
 ":"		{return yy::verilog_parser::make_COLON(loc);}
 "["		{return yy::verilog_parser::make_LSQUARE(loc);}
 "]"		{return yy::verilog_parser::make_RSQUARE(loc);}
@@ -485,38 +543,38 @@ digit [0-9]
 
 
    /*2005 standard directive*/
-"`default_decay_time"{blank}+{unsigned_number} |
-"`default_decay_time"{blank}+{real_number} |
-"`default_decay_time"{blank}+"infinite" |
-"`default_trireg_strength"{blank}+{unsigned_number} |
+"`default_decay_time"{blankrn}+{unsigned_number} |
+"`default_decay_time"{blankrn}+{real_number} |
+"`default_decay_time"{blankrn}+"infinite" |
+"`default_trireg_strength"{blankrn}+{unsigned_number} |
 "`delay_mode_distributed" |
 "`delay_mode_path" |
 "`delay_mode_unit" |
 "`delay_mode_zero" |
-"`begin_keywords"{blank}+"1364-1995" |
-"`begin_keywords"{blank}+"1364-2001-noconfig" |
-"`begin_keywords"{blank}+"1364-2001" |
-"`begin_keywords"{blank}+"1364-2005" |
+"`begin_keywords"{blankrn}+"1364-1995" |
+"`begin_keywords"{blankrn}+"1364-2001-noconfig" |
+"`begin_keywords"{blankrn}+"1364-2001" |
+"`begin_keywords"{blankrn}+"1364-2005" |
 "`end_keywords" |
 "`celldefine" |
 "`endcelldefine" |
-"`default_nettype"{blank}+"wire" |
-"`default_nettype"{blank}+"tri0" |
-"`default_nettype"{blank}+"tri1" |
-"`default_nettype"{blank}+"wand" |
-"`default_nettype"{blank}+"triand" |
-"`default_nettype"{blank}+"wor" |
-"`default_nettype"{blank}+"trior" |
-"`default_nettype"{blank}+"trireg" |
-"`default_nettype"{blank}+"uwire" |
-"`default_nettype"{blank}+"none" |
-"`default_nettype"{blank}+"tri" |
+"`default_nettype"{blankrn}+"wire" |
+"`default_nettype"{blankrn}+"tri0" |
+"`default_nettype"{blankrn}+"tri1" |
+"`default_nettype"{blankrn}+"wand" |
+"`default_nettype"{blankrn}+"triand" |
+"`default_nettype"{blankrn}+"wor" |
+"`default_nettype"{blankrn}+"trior" |
+"`default_nettype"{blankrn}+"trireg" |
+"`default_nettype"{blankrn}+"uwire" |
+"`default_nettype"{blankrn}+"none" |
+"`default_nettype"{blankrn}+"tri" |
 "`nounconnected_drive" |
 "`pragma"[^\n]* |
 "`resetall" |
-"`timescale"{blank}+{unsigned_number}{blank}*{time_precision}{blank}*"/"{blank}*{unsigned_number}{blank}*{time_precision} |
-"`unconnected_drive"{blank}+"pull1" |
-"`unconnected_drive"{blank}+"pull0" {
+"`timescale"{blankrn}+{unsigned_number}{blankrn}*{time_precision}{blankrn}*"/"{blankrn}*{unsigned_number}{blankrn}*{time_precision} |
+"`unconnected_drive"{blankrn}+"pull1" |
+"`unconnected_drive"{blankrn}+"pull0" {
 	string s{yytext};
 	prt_info("COMPILING_0001","ignoring directive "+s);
 }

@@ -19,6 +19,10 @@
 			cerr<< loc << endl << flush; 
 		}
 		yy::verilog_parser::symbol_type yylex1();
+
+		//set when in module or macromodule
+		//clean when met ;
+		bool isInModuleDeclaration;
 	};
 #endif
 

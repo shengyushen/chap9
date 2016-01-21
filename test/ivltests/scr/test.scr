@@ -1,0 +1,56 @@
+#!/bin/bash 
+
+# iterate through all options
+#for file in $*
+#set -o pipefail  # trace ERR through pipes
+#set -o errtrace  # trace ERR through 'time command' and other functions
+#set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
+#set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+stderr_log="error"
+exec 2>"$stderr_log"
+
+for file in $(ls src/)
+do
+	if [[ ${file} == analog* ]] ||          # analog verilog
+	   [[ ${file} == array_*packed* ]] ||   # sv packed array
+		 [[ ${file} == array_size* ]] ||      # sv 
+		 [[ ${file} == binary_nand* ]] ||     # using reduce nand as binary operator, not in any verilog stanard
+		 [[ ${file} == binary_nor* ]] ||      # using reduce nor  as binary operator, not in any verilog stanard
+		 [[ ${file} == bitp* ]] ||            # sv bit type
+		 [[ ${file} == bits* ]] ||            # sv byte type
+		 [[ ${file} == bool* ]] ||            # sv bool type
+		 [[ ${file} == br884* ]] ||           # sv logic type
+		 [[ ${file} == br917* ]] ||           # sv logic , int , shortint and longint type
+		 [[ ${file} == br921.v ]] ||          # sv function calling without parameter
+		 [[ ${file} == *string* ]]; then      # sv string type
+		echo "ignoring $file"
+	else 
+		echo ${file}
+		# step1
+		step1_noinc_comment src/${file} > ${file}.noinc.v || exit 1
+	
+		# step2
+		step2_nodef ${file}.noinc.v > ${file}.nodef.v || exit 1
+	
+		# step3
+		checker ${file}.nodef.v > ${file}.sdf.v || exit 1
+	
+		# tokenize the step2 result
+		#../scr/vtran.scr nodef.v || exit 1
+	
+		# tokenize the step3 result
+		../scr/vtran.scr ${file}.sdf.v || exit 1
+	
+		# ivlpp 
+		ivlpp -L src/${file} > ${file}.ivlpp.v || exit 1
+	
+		# removing ivlpp result's comment
+		step1_noinc_comment ${file}.ivlpp.v > ${file}.ivlpp.v.noinc || exit 1
+	
+		# tokenize the ivlpp result
+		../scr/vtran.scr ${file}.ivlpp.v.noinc  || exit 1
+	
+		# diff sdf.v.tok nodef.v.tok > diff_parse_${file}
+		diff ${file}.sdf.v.tok ${file}.ivlpp.v.noinc.tok > diff_2ivl_${file}
+	fi
+done

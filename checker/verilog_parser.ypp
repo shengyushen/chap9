@@ -100,8 +100,8 @@
 %token KEY_PRIMITIVE;
 %token KEY_PULL0;
 %token KEY_PULL1;
-%token <unsigned int> KEY_PULLDOWN;
-%token <unsigned int> KEY_PULLUP;
+%token KEY_PULLDOWN;
+%token KEY_PULLUP;
 %token KEY_PULSESTYLE_ONEVENT;
 %token KEY_PULSESTYLE_ONDETECT;
 %token KEY_RCMOS;
@@ -206,10 +206,12 @@ OP2_ARITHMETIC_LEFTSHIFT     "<<<"
 OP2_QUESTION                 "?"		
 /*other*/
 LPARENT                      "("	
+LPARENT_STRENGTH             "("	
 LPARENTSTART                 "(*"
 RPARENT                      ")"	
 RPARENTSTART                 "*)"
 COMMA                        ","	
+COMMA_port_dec               ","	
 SEMICOLON                    ";"	
 COLON                        ":"	
 LSQUARE                      "["	
@@ -229,10 +231,10 @@ IMPLYSTART                   "*>"
 ;
 
 %token <unsigned int> UNSIGNED_NUMBER;
-%token <std::tuple<unsigned int , unsigned int>> UNSIGNED_NUMBER_size
-%token <std::tuple<unsigned int,std::string        >> OCTAL_NUMBER
-%token <std::tuple<unsigned int,std::string        >> BINARY_NUMBER
-%token <std::tuple<unsigned int,std::string        >> HEX_NUMBER
+%token <std::tuple<unsigned int,std::string,std::string>> UNSIGNED_NUMBER_size
+%token <std::tuple<unsigned int,std::string,std::string>> OCTAL_NUMBER
+%token <std::tuple<unsigned int,std::string,std::string>> BINARY_NUMBER
+%token <std::tuple<unsigned int,std::string,std::string>> HEX_NUMBER
 %token <std::string> REAL_NUMBER
 /*A.8.8 Strings*/
 %token <std::string> STRING
@@ -321,10 +323,10 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::pass_enable_switch_instance>>  pass_enable_switch_instance
 %type <std::shared_ptr<Verilogast::pass_switchtype>>  pass_switchtype
 %type <std::shared_ptr<Verilogast::pass_switch_instance>>  pass_switch_instance
-/*%type <std::shared_ptr<Verilogast::pulldown_strength>>  pulldown_strength_opt
+%type <std::shared_ptr<Verilogast::pulldown_strength>>  pulldown_strength_opt
 %type <std::shared_ptr<Verilogast::pulldown_strength>>  pulldown_strength
 %type <std::shared_ptr<Verilogast::pullup_strength>>  pullup_strength_opt
-%type <std::shared_ptr<Verilogast::pullup_strength>>  pullup_strength*/
+%type <std::shared_ptr<Verilogast::pullup_strength>>  pullup_strength
 %type <std::shared_ptr<Verilogast::pull_gate_instance>>  pull_gate_instance
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::pull_gate_instance>>>>  comma_pull_gate_instance_list
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::pass_switch_instance>>>>  comma_pass_switch_instance_list
@@ -337,25 +339,27 @@ IMPLYSTART                   "*>"
 
 %type <std::shared_ptr<Verilogast::name_of_gate_instance>>  name_of_gate_instance
 %type <std::shared_ptr<Verilogast::name_of_gate_instance>>  name_of_gate_instance_opt
-%type <std::shared_ptr<Verilogast::net_lvalue>>  output_terminal
-%type <std::shared_ptr<Verilogast::net_lvalue>>  inout_terminal
+/*%type <std::shared_ptr<Verilogast::net_lvalue>>  output_terminal*/
+%type <std::shared_ptr<Verilogast::expression>>  output_terminal
+/*%type <std::shared_ptr<Verilogast::net_lvalue>>  inout_terminal*/
+%type <std::shared_ptr<Verilogast::expression>>  inout_terminal
 %type <std::shared_ptr<Verilogast::expression>>  input_terminal
 %type <std::shared_ptr<Verilogast::expression>>  enable_terminal
 %type <std::shared_ptr<Verilogast::expression>>  ncontrol_terminal
 %type <std::shared_ptr<Verilogast::expression>>  pcontrol_terminal
-%type <std::shared_ptr<Verilogast::udp_instantiation>>  udp_instantiation
+/*%type <std::shared_ptr<Verilogast::udp_instantiation>>  udp_instantiation
 %type <std::shared_ptr<Verilogast::udp_instance>>  udp_instance
 %type <std::shared_ptr<Verilogast::name_of_udp_instance>>  name_of_udp_instance_opt
 %type <std::shared_ptr<Verilogast::name_of_udp_instance>>  name_of_udp_instance
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::udp_instance>>>>  comma_udp_instance_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::udp_instance>>>>  comma_udp_instance_list*/
 
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::net_lvalue>>>>  comma_output_terminal_list
-%type <std::shared_ptr<Verilogast::identifier>>  udp_instance_identifier
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>  comma_output_terminal_list
+/*%type <std::shared_ptr<Verilogast::identifier>>  udp_instance_identifier*/
 %type <std::shared_ptr<Verilogast::identifier>>  gate_instance_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  input_port_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  output_port_identifier
-%type <std::shared_ptr<Verilogast::identifier>>  udp_identifier
-%type <std::shared_ptr<Verilogast::identifier>>  module_identifier
+/*%type <std::shared_ptr<Verilogast::identifier>>  udp_identifier
+%type <std::shared_ptr<Verilogast::identifier>>  module_identifier*/
 %type <std::shared_ptr<Verilogast::identifier>>  port_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  net_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  parameter_identifier
@@ -376,10 +380,9 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::identifier>>>>  list_of_port_identifiers
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::identifier>>>>  comma_port_identifier_list
 
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::parameter_declaration_gen>>>> module_parameter_port_list_opt
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::parameter_declaration_gen>>>> module_parameter_port_list
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::parameter_declaration_gen>>>> comma_parameter_declaration_list
-%type <std::shared_ptr<Verilogast::parameter_declaration_gen>> parameter_declaration_gen
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::parameter_declaration>>>> module_parameter_port_list_opt
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::parameter_declaration>>>> module_parameter_port_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::parameter_declaration>>>> comma_parameter_declaration_list
 
 %type <std::shared_ptr<Verilogast::port_expression>> port_expression_opt
 %type <std::shared_ptr<Verilogast::port_expression>> port_expression
@@ -398,7 +401,7 @@ IMPLYSTART                   "*>"
 %type <int>  key_input_opt
 
 %type <std::shared_ptr<Verilogast::io_type>>   io_type
-%type <std::shared_ptr<Verilogast::netreg_type>>    netreg_type
+/*%type <std::shared_ptr<Verilogast::netreg_type>>    netreg_type*/
 %type <std::shared_ptr<Verilogast::signedType>>    signed_opt
 %type <std::shared_ptr<Verilogast::range>>    range_opt
 %type <std::shared_ptr<Verilogast::range>>    range
@@ -410,6 +413,9 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::range_expression>> lsquare_range_expression_rsquare_opt
 %type <std::shared_ptr<Verilogast::range_expression>> lsquare_range_expression_rsquare
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::range_expression>>>> lsquare_range_expression_rsquare_list
+
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::port_declaration>>>>  list_of_port_declarations
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::port_declaration>>>>  comma_port_declaration_list
 
 %type <std::shared_ptr<Verilogast::inout_declaration>>   inout_declaration
 %type <std::shared_ptr<Verilogast::input_declaration>>   input_declaration
@@ -445,8 +451,6 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::param_assignment>>  param_assignment
 
 %type <std::shared_ptr<Verilogast::parameter_type>>    parameter_type
-%type <std::shared_ptr<Verilogast::parameter_type>>    parameter_type_opt
-%type <int> key_parameter_opt
 
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::real_type>>>>  list_of_real_identifiers
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::real_type>>>>  comma_real_type_list
@@ -492,8 +496,8 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::expression>>    expression
 %type <std::shared_ptr<Verilogast::expression>>    expression_opt
 %type <std::shared_ptr<Verilogast::expression>>    dimension_expression
-%type <std::shared_ptr<Verilogast::expression>>    ordered_parameter_assignment
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>    comma_ordered_parameter_assignment_list
+%type <std::shared_ptr<Verilogast::mintypmax_expression>>    ordered_parameter_assignment
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::mintypmax_expression>>>>    comma_ordered_parameter_assignment_list
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>    comma_expression_list
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>    lp_expression_opt_comma_expression_list_rp_opt
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>    lp_expression_comma_expression_list_rp_op
@@ -557,6 +561,7 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::named_parameter_assignment>>>>   comma_named_parameter_assignment_list 
 
 %type <std::shared_ptr<Verilogast::name_of_module_instance>>   name_of_module_instance
+%type <std::shared_ptr<Verilogast::name_of_module_instance>>   name_of_module_instance_opt
 %type <std::shared_ptr<Verilogast::list_of_port_connections>>   list_of_port_connections
 %type <std::shared_ptr<Verilogast::ordered_port_connection>>   ordered_port_connection
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::ordered_port_connection>>>>   comma_ordered_port_connection_list
@@ -693,7 +698,7 @@ description :
 module_declaration :
 		attribute_instance_list 
 		module_keyword 
-		module_identifier 
+		identifier 
 		module_parameter_port_list_opt 
 		list_of_ports 
 		SEMICOLON 
@@ -702,21 +707,38 @@ module_declaration :
 		{
 			$$=SHR2(module_declaration,T_module_declaration__1,($1,$3,$4,$5,$7));
 		}
-		/*removed because subsumed by above*/
-/*	| attribute_instance_list 
+	| attribute_instance_list 
 		module_keyword 
-		module_identifier 
+		identifier 
 		module_parameter_port_list_opt
-		list_of_io_declarations
+		list_of_port_declarations
 		SEMICOLON 
 		module_item_list
 		KEY_ENDMODULE
 		{	
-				record_pos $8;
-				T_module_declaration__2(
-				$1,$3,$4,$5,$7)
-		}*/
+			$$=SHR2(module_declaration, T_module_declaration__2,( $1,$3,$4,$5,$7));
+		}
 ;
+list_of_port_declarations : 
+	/*LPARENT RPARENT {
+		$$=SHR_LIST_SHR(Verilogast::port_declaration)(); 
+	}
+	| */LPARENT port_declaration comma_port_declaration_list RPARENT {
+		auto p=$3;
+		p->push_front($2);
+		$$=p;
+	}
+;
+
+comma_port_declaration_list :
+	{
+		$$=SHR_LIST_SHR(Verilogast::port_declaration)(); 
+	}
+	| comma_port_declaration_list COMMA_port_dec port_declaration {
+		auto p=$1;
+		p->push_front($3);
+		$$=p;
+	}
 
 attribute_instance_list :
 		{
@@ -731,7 +753,7 @@ attribute_instance_list :
 
 module_parameter_port_list_opt :
 	{
-		$$=SHR_LIST_SHR(parameter_declaration_gen)();
+		$$=SHR_LIST_SHR(parameter_declaration)();
 	}
 	| module_parameter_port_list {$$=$1;}
 ;
@@ -763,7 +785,7 @@ module_keyword :
 module_parameter_port_list :
 	JING 
 	LPARENT 
-		parameter_declaration_gen comma_parameter_declaration_list
+		parameter_declaration comma_parameter_declaration_list
 	RPARENT
 	{
 		auto p=$4;
@@ -774,9 +796,9 @@ module_parameter_port_list :
 
 comma_parameter_declaration_list :
 		{
-			$$=SHR_LIST_SHR(parameter_declaration_gen)();
+			$$=SHR_LIST_SHR(parameter_declaration)();
 		}
-	| comma_parameter_declaration_list COMMA parameter_declaration_gen 
+	| comma_parameter_declaration_list COMMA_port_dec parameter_declaration 
 		{
 			auto p=$1;
 			p->push_back($3);
@@ -785,10 +807,7 @@ comma_parameter_declaration_list :
 ;
 
 list_of_ports : 
-	 {
-			$$=SHR_LIST_SHR(port)();
-		}
-	| LPARENT 
+	LPARENT 
 		port comma_port_list
 	RPARENT
 		{
@@ -834,15 +853,11 @@ comma_port_list :
 ;
 */
 port :
-	/*port_expression_opt {T_port_position($1)}*/ /*merged ti last case*/
-	PERIOD  port_identifier LPARENT port_expression_opt RPARENT
-		{
-//			$$=make_shared<port>(make_shared<T_port_exp>($2,$4));
-			$$=SHR2(port,T_port_exp,($2,$4));
-		}
-	| io_type netreg_type signed_opt range_opt port_expression_opt equ1_expression_opt
-		{
-			$$=SHR2(port,T_port_net,($1,$2,$3,$4,$5,$6));
+	port_expression_opt {
+		$$=SHR2(port,T_port_unnamed,($1));
+	}
+	| PERIOD  port_identifier LPARENT port_expression_opt RPARENT {
+			$$=SHR2(port,T_port_named,($2,$4));
 		}
 ;
 
@@ -959,8 +974,8 @@ module_or_generate_item :
 		$$=SHR4(module_item,T_module_item__2,module_item2,T_module_item__continuous_assign,($1,$2));}
 | attribute_instance_list gate_instantiation {
 		$$=SHR4(module_item,T_module_item__2,module_item2,T_module_item__gate_instantiation,($1,$2));}
-| attribute_instance_list udp_instantiation {
-		$$=SHR4(module_item,T_module_item__2,module_item2,T_module_item__udp_instantiation,($1,$2));}
+/*| attribute_instance_list udp_instantiation {
+		$$=SHR4(module_item,T_module_item__2,module_item2,T_module_item__udp_instantiation,($1,$2));}*/
 | attribute_instance_list module_instantiation {
 		$$=SHR4(module_item,T_module_item__2,module_item2,T_module_item__module_instantiation,($1,$2));}
 | attribute_instance_list initial_construct {
@@ -1139,19 +1154,6 @@ parameter_declaration :
 ;
 
 
-/*genarized to avoid conflict*/
-parameter_declaration_gen :
-	key_parameter_opt parameter_type_opt signed_opt range_opt param_assignment
-		{
-			$$=SHR2(parameter_declaration_gen,T_parameter_declaration_gen_1,($1,$2,$3,$4,$5));
-		}
-;
-
-key_parameter_opt :
-	{$$=0;}
-	| KEY_PARAMETER {$$=1;}
-;
-
 /*specparam_declaration :
 	KEY_SPECPARAM range_opt list_of_specparam_assignments SEMICOLON
 		{
@@ -1160,10 +1162,6 @@ key_parameter_opt :
 		}
 ;
 */
-parameter_type_opt :
-	{$$=SHR2(parameter_type,T_parameter_type__NOSPEC,());}
-	| parameter_type {$$=$1;}
-;
 
 parameter_type :
 	KEY_INTEGER    {$$=SHR2(parameter_type,T_parameter_type__INTEGER,());}
@@ -1201,7 +1199,7 @@ output_declaration :
 /*io_declaration :
 	io_type netreg_type signed_opt range_opt port_identifier_equ1_expression_opt
 		{T_io_declaration_net($1,$2,$3,$4,$5)}
-;*/
+;
 
 netreg_type :
 	{$$=SHR2(netreg_type,T_netreg_type__NOSPEC,());}
@@ -1219,7 +1217,7 @@ netreg_type :
 	| KEY_REG					{$$=SHR2(netreg_type,T_netreg_type__KEY_REG,());}
 	| KEY_INTEGER			{$$=SHR2(netreg_type,T_netreg_type__KEY_INTEGER,());}
 	| KEY_TIME				{$$=SHR2(netreg_type,T_netreg_type__KEY_TIME,());}
-;
+;*/
 
 io_type :
 	{$$=SHR2(io_type,T_io_type_NOSPEC,());}
@@ -1344,17 +1342,17 @@ variable_type :
 /*A.2.2.2 Strengths*/
 
 drive_strength :
-	LPARENT strength0 COMMA strength1 RPARENT
+	LPARENT_STRENGTH strength0 COMMA strength1 RPARENT
 		{$$=SHR2(drive_strength,T_drive_strength,($2,$4));}
-	| LPARENT strength1 COMMA strength0 RPARENT
+	| LPARENT_STRENGTH strength1 COMMA strength0 RPARENT
 		{$$=SHR2(drive_strength,T_drive_strength,($2,$4));}
-	| LPARENT strength0 COMMA KEY_HIGHZ1 RPARENT
+	| LPARENT_STRENGTH strength0 COMMA KEY_HIGHZ1 RPARENT
 		{$$=SHR2(drive_strength,T_drive_strength,($2,SHR2(strength,KEY_HIGHZ1,())));}
-	| LPARENT strength1 COMMA KEY_HIGHZ0 RPARENT
+	| LPARENT_STRENGTH strength1 COMMA KEY_HIGHZ0 RPARENT
 		{$$=SHR2(drive_strength,T_drive_strength,($2,SHR2(strength,KEY_HIGHZ0,())));}
-	| LPARENT KEY_HIGHZ0 COMMA strength1 RPARENT
+	| LPARENT_STRENGTH KEY_HIGHZ0 COMMA strength1 RPARENT
 		{$$=SHR2(drive_strength,T_drive_strength,(SHR2(strength,KEY_HIGHZ0,()),$4));}
-	| LPARENT KEY_HIGHZ1 COMMA strength0 RPARENT
+	| LPARENT_STRENGTH KEY_HIGHZ1 COMMA strength0 RPARENT
 		{$$=SHR2(drive_strength,T_drive_strength,(SHR2(strength,KEY_HIGHZ1,()),$4));}
 ;
 
@@ -1998,15 +1996,15 @@ gate_instantiation :
 		p->push_front($2);
 		$$=SHR2(gate_instantiation,T_gate_instantiation_pass,($1,p));
 	}
-	| KEY_PULLDOWN pull_gate_instance comma_pull_gate_instance_list SEMICOLON {
-		auto p=$3;
-		p->push_front($2);
-		$$=SHR2(gate_instantiation,T_gate_instantiation_pulldown,($1,p));
+	| KEY_PULLDOWN pulldown_strength_opt pull_gate_instance comma_pull_gate_instance_list SEMICOLON {
+		auto p=$4;
+		p->push_front($3);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_pulldown,($2,p));
 	}
-	| KEY_PULLUP pull_gate_instance comma_pull_gate_instance_list SEMICOLON {
-		auto p=$3;
-		p->push_front($2);
-		$$=SHR2(gate_instantiation,T_gate_instantiation_pullup,($1,p));
+	| KEY_PULLUP pullup_strength_opt pull_gate_instance comma_pull_gate_instance_list SEMICOLON {
+		auto p=$4;
+		p->push_front($3);
+		$$=SHR2(gate_instantiation,T_gate_instantiation_pullup,($2,p));
 	}
 ;
 
@@ -2112,7 +2110,7 @@ delay2_opt :
 	| delay2 {$$=$1;}
 ;
 
-/*pulldown_strength_opt :
+pulldown_strength_opt :
 	{$$=SHR2(pulldown_strength,T_pulldown_strength_NOSPEC,());}
 	| pulldown_strength {$$=$1;}
 ;
@@ -2120,7 +2118,7 @@ delay2_opt :
 pullup_strength_opt :
 	{$$=SHR2(pullup_strength,T_pullup_strength_NOSPEC,());}
 	| pullup_strength {$$=$1;}
-;*/
+;
 
 cmos_switch_instance :
 	name_of_gate_instance_opt LPARENT output_terminal COMMA input_terminal COMMA ncontrol_terminal COMMA pcontrol_terminal RPARENT
@@ -2155,7 +2153,7 @@ n_output_gate_instance :
 
 comma_output_terminal_list :
 	{
-		$$=SHR_LIST_SHR(net_lvalue)();
+		$$=SHR_LIST_SHR(expression)();
 	}
 	| comma_output_terminal_list COMMA output_terminal 
 		{
@@ -2182,43 +2180,38 @@ pull_gate_instance :
 ;
 
 name_of_gate_instance :
-	gate_instance_identifier LSQUARE range RSQUARE
-		{$$=SHR2(name_of_gate_instance,T_name_of_gate_instance,($1,$3));}
+	gate_instance_identifier  range_opt 
+		{$$=SHR2(name_of_gate_instance,T_name_of_gate_instance,($1,$2));}
 ;
 
 /*A.3.2 Primitive strengths*/
-/* will be encoded as */
-/*
-0: strength0 
-1: strength0 strength1
-2: strength1 strength0
-3: strength1
-4: non-specified
-*/
-/*pulldown_strength :
-	LPARENT strength0 COMMA strength1 RPARENT
+
+pulldown_strength :
+	LPARENT_STRENGTH strength0 COMMA strength1 RPARENT
 		{$$=SHR2(pulldown_strength,T_pulldown_strength01,($2,$4));}
-	| LPARENT strength1 COMMA strength0 RPARENT
+	| LPARENT_STRENGTH strength1 COMMA strength0 RPARENT
 		{$$=SHR2(pulldown_strength,T_pulldown_strength10,($2,$4));}
-	| LPARENT strength0 RPARENT
+	| LPARENT_STRENGTH strength0 RPARENT
 		{$$=SHR2(pulldown_strength,T_pulldown_strength0,($2));}
 ;
 
 pullup_strength :
-	LPARENT strength0 COMMA strength1 RPARENT
+	LPARENT_STRENGTH strength0 COMMA strength1 RPARENT
 		{$$=SHR2(pullup_strength,T_pullup_strength01,($2,$4));}
-	| LPARENT strength1 COMMA strength0 RPARENT
+	| LPARENT_STRENGTH strength1 COMMA strength0 RPARENT
 		{$$=SHR2(pullup_strength,T_pullup_strength10,($2,$4));}
-	| LPARENT strength1 RPARENT
+	| LPARENT_STRENGTH strength1 RPARENT
 		{$$=SHR2(pullup_strength,T_pullup_strength1,($2));}
-;*/
+;
 
 /*A.3.3 Primitive terminals*/
 enable_terminal : expression {$$=$1;} ;
-inout_terminal : net_lvalue {$$=$1;} ;
 input_terminal : expression {$$=$1;} ;
 ncontrol_terminal : expression {$$=$1;} ;
-output_terminal : net_lvalue {$$=$1;} ;
+/*inout_terminal : net_lvalue {$$=$1;} ;
+output_terminal : net_lvalue {$$=$1;} ;*/
+inout_terminal  : expression {$$=$1;} ;
+output_terminal : expression {$$=$1;} ;
 pcontrol_terminal : expression {$$=$1;};
 
 /*A.3.4 Primitive gate and switch types*/
@@ -2271,12 +2264,13 @@ pass_switchtype :
 /*A.4 Module instantiation and generate construct
 A.4.1 Module instantiation*/
 
+/*merging udp_instantiation here to avoid conflict*/
 module_instantiation :
-	module_identifier parameter_value_assignment_opt module_instance comma_module_instance_list SEMICOLON
+	identifier drive_strength_opt parameter_value_assignment_opt module_instance comma_module_instance_list SEMICOLON
 		{
-			auto p=$4;
-			p->push_front($3);
-			$$=SHR2(module_instantiation,T_module_instantiation,($1,$2,p));
+			auto p=$5;
+			p->push_front($4);
+			$$=SHR2(module_instantiation,T_module_instantiation,($1,$2,$3,p));
 		}
 ;
 
@@ -2298,7 +2292,38 @@ parameter_value_assignment_opt :
 ;
 
 parameter_value_assignment :
-	JING LPARENT list_of_parameter_assignments RPARENT
+	JING UNSIGNED_NUMBER {// this come from delay2 of udp_instance
+		auto a1=SHR2(number,T_number_UNSIGNED_NUMBER,($2));
+		auto a2=SHR2(primary,T_primary_num,(a1));
+		auto a3=SHR2(expression,T_expression_prim,(a2));
+		auto a4=SHR2(mintypmax_expression,T_mintypmax_expression_1,(a3));
+		auto a5=SHR_LIST_SHR(mintypmax_expression)();
+		a5->push_back(a4);
+		$$=SHR2(parameter_value_assignment,T_parameter_value_assignment_order,(a5));
+	}
+	| JING REAL_NUMBER {//from udp_instance delay2
+		auto a1=SHR2(number,T_number_REAL_NUMBER,($2));
+		auto a2=SHR2(primary,T_primary_num,(a1));
+		auto a3=SHR2(expression,T_expression_prim,(a2));
+		auto a4=SHR2(mintypmax_expression,T_mintypmax_expression_1,(a3));
+		auto a5=SHR_LIST_SHR(mintypmax_expression)();
+		a5->push_back(a4);
+		$$=SHR2(parameter_value_assignment,T_parameter_value_assignment_order,(a5));
+	}
+	| JING identifier {
+		auto a11=SHR_LIST_SHR(range_expression)();
+		auto a12=SHR2(identifier_lsq_expression_rsq,T_identifier_lsq_expression_rsq,($2,a11));
+		auto a13 = SHR_LIST_SHR(identifier_lsq_expression_rsq)();
+		a13->push_back(a12);
+		auto a14=SHR2(hierarchical_identifier,T_hierarchical_identifier,(a13));
+		auto a2=SHR2(primary,T_primary_id,(a14));
+		auto a3=SHR2(expression,T_expression_prim,(a2));
+		auto a4=SHR2(mintypmax_expression,T_mintypmax_expression_1,(a3));
+		auto a5=SHR_LIST_SHR(mintypmax_expression)();
+		a5->push_back(a4);
+		$$=SHR2(parameter_value_assignment,T_parameter_value_assignment_order,(a5));
+	}
+	| JING LPARENT list_of_parameter_assignments RPARENT
 		{$$=$3;}
 ;
 
@@ -2319,7 +2344,7 @@ list_of_parameter_assignments :
 
 comma_ordered_parameter_assignment_list :
 		{
-			$$=SHR_LIST_SHR(expression)();
+			$$=SHR_LIST_SHR(mintypmax_expression)();
 		}
 	| comma_ordered_parameter_assignment_list COMMA ordered_parameter_assignment 
 		{
@@ -2342,7 +2367,8 @@ comma_named_parameter_assignment_list :
 ;
 
 ordered_parameter_assignment :
-	expression {$$=$1;}
+	/*expression {$$=$1;}*/
+	mintypmax_expression {$$=$1;}
 ;
 
 named_parameter_assignment :
@@ -2356,9 +2382,13 @@ mintypmax_expression_opt :
 ;
 
 module_instance :
-	name_of_module_instance LPARENT list_of_port_connections RPARENT
+	name_of_module_instance_opt LPARENT list_of_port_connections RPARENT
 		{$$=SHR2(module_instance,T_module_instance,($1,$3));}
 ;
+
+name_of_module_instance_opt :
+	{$$=SHR2(name_of_module_instance,T_name_of_module_instance_NOSPEC,()); }
+	| name_of_module_instance {$$=$1;}
 
 name_of_module_instance :
 	module_instance_identifier range_opt
@@ -2561,7 +2591,7 @@ generate_block_or_null :
 A.5.1 UDP declaration*/
 
 udp_declaration :
-	attribute_instance_list KEY_PRIMITIVE udp_identifier LPARENT udp_port_list RPARENT SEMICOLON
+	attribute_instance_list KEY_PRIMITIVE identifier LPARENT udp_port_list RPARENT SEMICOLON
 	udp_port_declaration udp_port_declaration_list
 	udp_body
 	KEY_ENDPRIMITIVE
@@ -2570,7 +2600,7 @@ udp_declaration :
 			p->push_front($8);
 			$$=SHR2(udp_declaration,T_udp_declaration_1,($1,$3,$5,p,$10));
 		}
-| attribute_instance_list KEY_PRIMITIVE udp_identifier LPARENT udp_declaration_port_list RPARENT SEMICOLON
+| attribute_instance_list KEY_PRIMITIVE identifier LPARENT udp_declaration_port_list RPARENT SEMICOLON
 	udp_body
 	KEY_ENDPRIMITIVE
 		{$$=SHR2(udp_declaration,T_udp_declaration_2,($1,$3,$5,$8));}
@@ -2836,8 +2866,8 @@ level_symbol :
 
 
 /*A.5.4 UDP instantiation*/
-udp_instantiation :
-	udp_identifier drive_strength_opt delay2_opt
+/*udp_instantiation :
+	identifier drive_strength_opt delay2_opt
 		udp_instance comma_udp_instance_list  SEMICOLON
 		{
 			auto p = $5;
@@ -2871,7 +2901,7 @@ name_of_udp_instance_opt :
 	| name_of_udp_instance
 			{$$=$1;}
 ;
-
+*/
 comma_input_terminal_list :
 	{
 		$$=SHR_LIST_SHR(expression)();
@@ -2884,11 +2914,11 @@ comma_input_terminal_list :
 		}
 ;
 
-name_of_udp_instance :
+/*name_of_udp_instance :
 	udp_instance_identifier range_opt
 		{$$=SHR2(name_of_udp_instance,T_name_of_udp_instance,($1,$2));}
 ;
-
+*/
 /*A.6 Behavioral statements
 A.6.1 Continuous assignment statements*/
 
@@ -3888,10 +3918,10 @@ comma_variable_lvalue_list :
 /*A.8.7 Numbers*/
 number :
 	UNSIGNED_NUMBER {$$=SHR2(number,T_number_UNSIGNED_NUMBER,($1));}
-	| UNSIGNED_NUMBER_size {$$=SHR2(number,T_number_UNSIGNED_NUMBER_size,(get<0>($1) , get<1>($1)));}
-	| OCTAL_NUMBER {$$=SHR2(number,T_number_OCTAL_NUMBER,(get<0>($1) , get<1>($1)));}
-	| BINARY_NUMBER {$$=SHR2(number,T_number_BINARY_NUMBER,(get<0>($1) , get<1>($1)));}
-	| HEX_NUMBER {$$=SHR2(number,T_number_HEX_NUMBER,(get<0>($1) , get<1>($1)));}
+	| UNSIGNED_NUMBER_size {$$=SHR2(number,T_number_UNSIGNED_NUMBER_size,(get<0>($1) , get<1>($1) , get<2>($1)));}
+	| OCTAL_NUMBER {$$=SHR2(number,T_number_OCTAL_NUMBER,(get<0>($1) , get<1>($1) , get<2>($1)));}
+	| BINARY_NUMBER {$$=SHR2(number,T_number_BINARY_NUMBER,(get<0>($1) , get<1>($1) , get<2>($1)));}
+	| HEX_NUMBER {$$=SHR2(number,T_number_HEX_NUMBER,(get<0>($1) , get<1>($1) , get<2>($1)));}
 	| REAL_NUMBER {$$=SHR2(number,T_number_REAL_NUMBER,($1));}
 
 /*A.8.8 Strings*/
@@ -3996,7 +4026,7 @@ identifier :
 instance_identifier : identifier {$$=$1;};
 library_identifier : identifier {$$=$1;};*/
 input_port_identifier : identifier {$$=$1;};
-module_identifier : identifier {$$=$1;};
+/*module_identifier : identifier {$$=$1;};*/
 module_instance_identifier : identifier {$$=$1;};
 net_identifier : identifier {$$=$1;};
 output_port_identifier : identifier {$$=$1;};
@@ -4017,8 +4047,8 @@ task_identifier : identifier {$$=$1;};
  /*terminal_identifier : identifier {$$=$1;};
 text_macro_identifier : identifier {$$=$1;};
 topmodule_identifier : identifier {$$=$1;};*/
-udp_instance_identifier : identifier {$$=$1;};
-udp_identifier : identifier {$$=$1;};
+/*udp_instance_identifier : identifier {$$=$1;};
+udp_identifier : identifier {$$=$1;};*/
 variable_identifier : identifier {$$=$1;};
 
 
