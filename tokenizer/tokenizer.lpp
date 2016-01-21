@@ -434,7 +434,7 @@ digit [0-9]
 
 . {
 	string s{yytext};
-	prt_fatal("improper syntax "+s);
+	prt_fatal("  tokenizer improper syntax "+s);
 	print_pos();
 	exit(1);
 }

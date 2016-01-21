@@ -487,22 +487,22 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 	if(isInModuleDeclaration) return yy::verilog_parser::make_COMMA_port_dec(loc);
 	else return yy::verilog_parser::make_COMMA(loc);
 }
-","/{blankrn}*"input" {
+","/{blankrn}*"input"[^0-9a-zA-Z_] {
 	//between port_declaration
 	if(isInModuleDeclaration) return yy::verilog_parser::make_COMMA_port_dec(loc);
 	else return yy::verilog_parser::make_COMMA(loc);
 }
-","/{blankrn}*"ioput" {
+","/{blankrn}*"inout"[^0-9a-zA-Z_] {
 	//between port_declaration
 	if(isInModuleDeclaration) return yy::verilog_parser::make_COMMA_port_dec(loc);
 	else return yy::verilog_parser::make_COMMA(loc);
 }
-","/{blankrn}*"output" {
+","/{blankrn}*"output"[^0-9a-zA-Z_] {
 	//between port_declaration
 	if(isInModuleDeclaration) return yy::verilog_parser::make_COMMA_port_dec(loc);
 	else return yy::verilog_parser::make_COMMA(loc);
 }
-","/{blankrn}*"parameter" {
+","/{blankrn}*"parameter"[^0-9a-zA-Z_] {
 	//between parameter_declaration
 	if(isInModuleDeclaration) return yy::verilog_parser::make_COMMA_port_dec(loc);
 	else return yy::verilog_parser::make_COMMA(loc);

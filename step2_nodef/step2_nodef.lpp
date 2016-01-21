@@ -973,6 +973,7 @@ int main ( int argc, char * argv[] ) {
 		 return 1;
 	}
 
+	cerr<<"  step2 working on "<<argv[argc-1]<<endl;
 	ifstream foo( argv[argc-1] );
 	//creating files handler and scanner
 	step2_nodefScanner * lexer= new step2_nodefScanner(argv[argc-1],&foo);

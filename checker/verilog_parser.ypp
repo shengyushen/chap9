@@ -301,6 +301,7 @@ IMPLYSTART                   "*>"
 /*%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::level_symbol>>>>  level_input_list*/
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::level_symbol>>>>  level_symbol_list
 
+%type <std::shared_ptr<Verilogast::charge_strength>>  charge_strength
 %type <std::shared_ptr<Verilogast::delay2>>  delay2
 %type <std::shared_ptr<Verilogast::delay2>>  delay2_opt
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>  comma_input_terminal_list
@@ -502,6 +503,7 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>    lp_expression_opt_comma_expression_list_rp_opt
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>    lp_expression_comma_expression_list_rp_op
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>    lp_expression_opt_comma_expression_list_rp
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>    comma_expression_opt_list
 
 %type <std::shared_ptr<Verilogast::strength>>    strength0
 %type <std::shared_ptr<Verilogast::strength>>    strength1
@@ -720,10 +722,14 @@ module_declaration :
 		}
 ;
 list_of_port_declarations : 
-	/*LPARENT RPARENT {
+	 {
 		$$=SHR_LIST_SHR(Verilogast::port_declaration)(); 
 	}
-	| */LPARENT port_declaration comma_port_declaration_list RPARENT {
+		/*empty () is matched to list_of_ports*/
+	/*|LPARENT RPARENT {
+		$$=SHR_LIST_SHR(Verilogast::port_declaration)(); 
+	}*/ 
+	| LPARENT port_declaration comma_port_declaration_list RPARENT {
 		auto p=$3;
 		p->push_front($2);
 		$$=p;
@@ -736,7 +742,7 @@ comma_port_declaration_list :
 	}
 	| comma_port_declaration_list COMMA_port_dec port_declaration {
 		auto p=$1;
-		p->push_front($3);
+		p->push_back($3);
 		$$=p;
 	}
 
@@ -1241,21 +1247,24 @@ net_declaration :
 		{$$=SHR2(net_declaration,T_net_declaration_net_type3,($1,$2,$3,$4,$5,$6,$7));}
 	| net_type drive_strength_opt vectored_scalared_opt signed_opt range_opt delay3_opt list_of_net_decl_assignments SEMICOLON
 		{$$=SHR2(net_declaration,T_net_declaration_net_type4,($1,$2,$3,$4,$5,$6,$7));}
+		/*merged*/
 /*	| KEY_TRIREG charge_strength_opt signed_opt delay3_opt list_of_net_identifiers SEMICOLON
 		{T_net_declaration_trireg_1($2,$3,$4,$5)}
 	| KEY_TRIREG drive_strength_opt signed_opt delay3_opt list_of_net_decl_assignments SEMICOLON
-		{T_net_declaration_trireg_2($2,$3,$4,$5)}
-	| KEY_TRIREG charge_strength_opt vectored_scalared_opt signed_opt range delay3_opt list_of_net_identifiers SEMICOLON
-		{T_net_declaration_trireg_3($2,$3,$4,$5,$6)}
-	| KEY_TRIREG drive_strength_opt vectored_scalared_opt signed_opt range delay3_opt list_of_net_decl_assignments SEMICOLON
-		{T_net_declaration_trireg_4($2,$3,$4,$5,$6,$7)}*/
+		{T_net_declaration_trireg_2($2,$3,$4,$5)}*/
+	| KEY_TRIREG vectored_scalared_opt signed_opt range delay3_opt list_of_net_identifiers SEMICOLON {
+		auto x=SHR2(charge_strength,T_charge_strength_NOSPEC,());
+		$$=SHR2(net_declaration,T_net_declaration_trireg_3,(x,$2,$3,$4,$5));}
+	| KEY_TRIREG charge_strength vectored_scalared_opt signed_opt range delay3_opt list_of_net_identifiers SEMICOLON
+		{$$=SHR2(net_declaration,T_net_declaration_trireg_3,($2,$3,$4,$5,$6));}
+	| KEY_TRIREG vectored_scalared_opt signed_opt range delay3_opt list_of_net_decl_assignments SEMICOLON {
+		auto x=SHR2(drive_strength,T_drive_strength_NOSPEC,());
+		$$=SHR2(net_declaration,T_net_declaration_trireg_4,(x,$2,$3,$4,$5,$6));}
+	| KEY_TRIREG drive_strength vectored_scalared_opt signed_opt range delay3_opt list_of_net_decl_assignments SEMICOLON
+		{$$=SHR2(net_declaration,T_net_declaration_trireg_4,($2,$3,$4,$5,$6,$7));}
 ;
 
-/*charge_strength_opt :
-	{T_charge_strength_NOSPEC}
-	| charge_strength {$1}
-;
-*/
+
 delay3_opt :
 	{$$=SHR2(delay3,T_delay3_NOSPEC,());}
 	| delay3 {$$=$1;}
@@ -1371,12 +1380,12 @@ strength1 :
 	| KEY_WEAK1     {$$=SHR2(strength,KEY_WEAK1,());}
 ;
 
-/*charge_strength : 
-	LPARENT KEY_SMALL RPARENT    {$$=SHR2(,T_charge_strength__small,();}
-	| LPARENT KEY_MEDIUM RPARENT {$$=SHR2(,T_charge_strength__medium,();}
-	| LPARENT KEY_LARGE RPARENT  {$$=SHR2(,T_charge_strength__large,();}
+charge_strength : 
+	LPARENT KEY_SMALL RPARENT    {$$=SHR2(charge_strength,T_charge_strength__small,());}
+	| LPARENT KEY_MEDIUM RPARENT {$$=SHR2(charge_strength,T_charge_strength__medium,());}
+	| LPARENT KEY_LARGE RPARENT  {$$=SHR2(charge_strength,T_charge_strength__large,());}
 ;
-*/
+
 /*A.2.2.3 Delays*/
 
 delay3 :
@@ -1818,9 +1827,14 @@ task_item_declaration :
 ;
 
 task_port_list :
-	task_port_item comma_task_port_item_list
 		{
 			$$=SHR_LIST_SHR(task_port_item)();
+		}
+	| task_port_item comma_task_port_item_list
+		{
+			auto p=$2;
+			p->push_front($1);
+			$$=p;
 		}
 ;
 
@@ -3304,7 +3318,7 @@ lp_expression_opt_comma_expression_list_rp_opt :
 
 
 lp_expression_opt_comma_expression_list_rp :
-	LPARENT expression comma_expression_list RPARENT
+	LPARENT expression_opt comma_expression_opt_list RPARENT
 		{
 			auto p=$3;
 			p->push_front($2);
@@ -3312,6 +3326,15 @@ lp_expression_opt_comma_expression_list_rp :
 		}
 ;
 
+comma_expression_opt_list :
+	{
+		$$=SHR_LIST_SHR(expression)();
+	}
+	| comma_expression_opt_list COMMA expression_opt {
+		auto p=$1;
+		p->push_back($3);
+		$$=p;
+	}
 
 task_enable :
 	hierarchical_identifier lp_expression_opt_comma_expression_list_rp_opt SEMICOLON

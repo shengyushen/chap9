@@ -25,7 +25,12 @@ $(TESTDIRS_IVLPP):
 clean: $(CLEANDIRS) 
 $(CLEANDIRS): 
 	$(MAKE) -C $(@:clean-%=%) clean
-
+	rm -f ivltests/*diff* 
+	rm -f ivltests/*sdf* 
+	rm -f ivltests/*nodef* 
+	rm -f ivltests/*noinc* 
+	rm -f ivltests/*ivlpp* 
+	rm -rf ivltests/INCA_libs/
 
 # declaring order
 #foo: baz

@@ -46,7 +46,7 @@ int main ( int argc, char * argv[] ) {
 	   cerr << "  FATAL : input file doesn't exist " <<endl;
 		 return 1;
 	}
-
+	cerr<<"  checker working on "<<filename<<endl;
 	ifstream foo( filename );
 	vs.open(&filename , &foo);
 	yy::verilog_parser vp(&filename);
