@@ -220,7 +220,7 @@ int main ( int argc, char * argv[] ) {
 	   prt_fatal ( "PREPROC_0002" ,"input file doesn't exist " ) ;
 		 return 1;
 	}
-	cerr<<"  step1 working on "<<argv[argc-1]<<endl;
+	cerr<<"step1 working on "<<argv[argc-1]<<endl;
 	cout<<"`line 1 "<<argv[argc-1]<<" 1"<<endl;
 	ifstream foo( argv[argc-1] );
 	//creating files handler and scanner

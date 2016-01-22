@@ -3518,7 +3518,7 @@ simple_path_declaration :
 	parallel_path_description EQU1 path_delay_value
 		{$$=SHR2(simple_path_declaration,T_simple_path_declaration_parallel,($1,$3));}
 	| full_path_description EQU1 path_delay_value
-		{$$=SHR2(full_path_description,T_simple_path_declaration_full,($1,$3));}
+		{$$=SHR2(simple_path_declaration,T_simple_path_declaration_full,($1,$3));}
 ;
 
 
@@ -3570,16 +3570,22 @@ specify_inout_terminal_descriptor :
 
 /*A.7.4 Specify path delays*/
 path_delay_value :
-	list_of_path_delay_expressions
+	mintypmax_expression 
+		{ $$=SHR2(list_of_path_delay_expressions,T_list_of_mintypmax_expressions_1,($1)); }
+		/*LPARENT mintypmax_expression RPARENT actually can be reduced to primary -> expression -> mintypmax_expression
+		 so it is covered by above case*/
+	/*| LPARENT mintypmax_expression RPARENT
+		{ $$=SHR2(list_of_path_delay_expressions,T_list_of_mintypmax_expressions_1,($2)); }*/
+	| list_of_path_delay_expressions
 		{$$=$1;}
 	| LPARENT list_of_path_delay_expressions RPARENT
 		{$$=$2;}
 ;
 
 list_of_path_delay_expressions :
-	mintypmax_expression
+	/*mintypmax_expression
 		{$$=SHR2(list_of_path_delay_expressions,T_list_of_mintypmax_expressions_1,($1));}
-	| mintypmax_expression COMMA mintypmax_expression
+	|*/ mintypmax_expression COMMA mintypmax_expression
 		{$$=SHR2(list_of_path_delay_expressions,T_list_of_mintypmax_expressions_2,($1,$3));}
 	| mintypmax_expression COMMA mintypmax_expression COMMA mintypmax_expression
 		{$$=SHR2(list_of_path_delay_expressions,T_list_of_mintypmax_expressions_3,($1,$3,$5));}
@@ -3645,18 +3651,18 @@ polarity_operator :
 /*A.7.5 System timing checks
 A.7.5.1 System timing check commands*/
 system_timing_check :
-	  dollor_setup_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_setup_timing_check,());}        
-	| dollor_hold_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_hold_timing_check,());}
-	| dollor_setuphold_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_setuphold_timing_check,());}
-	| dollor_recovery_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_recovery_timing_check,());}
-	| dollor_removal_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_removal_timing_check,());}
-	| dollor_recrem_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_recrem_timing_check,());}
-	| dollor_skew_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_skew_timing_check,());}
-	| dollor_timeskew_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_timeskew_timing_check,());}
-	| dollor_fullskew_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_fullskew_timing_check,());}
-	| dollor_period_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_period_timing_check,());}
-	| dollor_width_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_width_timing_check,());}
-	| dollor_nochange_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_nochange_timing_check,());}
+	  dollor_setup_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_setup_timing_check,($1));}        
+	| dollor_hold_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_hold_timing_check,($1));}
+	| dollor_setuphold_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_setuphold_timing_check,($1));}
+	| dollor_recovery_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_recovery_timing_check,($1));}
+	| dollor_removal_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_removal_timing_check,($1));}
+	| dollor_recrem_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_recrem_timing_check,($1));}
+	| dollor_skew_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_skew_timing_check,($1));}
+	| dollor_timeskew_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_timeskew_timing_check,($1));}
+	| dollor_fullskew_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_fullskew_timing_check,($1));}
+	| dollor_period_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_period_timing_check,($1));}
+	| dollor_width_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_width_timing_check,($1));}
+	| dollor_nochange_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_nochange_timing_check,($1));}
 ;
 
 dollor_setup_timing_check :
@@ -4116,7 +4122,12 @@ z_or_x :
 	| LPARENT scalar_timing_check_condition RPARENT 
 		{$$=SHR2(timing_check_condition,T_timing_check_condition,($2));}
 ;*/
-
+/*	repalcing timing_check_condition with expression in and3_timing_check_condition_opt
+ OP1_BITWISE_NEG expression may losted
+ but expression are all of the form op1 exp or exp1 op2 exp2,
+ so directly apply OP1_BITWISE_NEG before expression may not be appropriate
+ So ignore such case is OK, user should wrap expression with a pair of ()
+*/
 /*scalar_timing_check_condition :
 	expression 
 		{$$=SHR2(scalar_timing_check_condition,T_scalar_timing_check_condition_exp,($1));}

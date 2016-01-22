@@ -484,9 +484,12 @@ class T_notifier_NOSPEC;
 class T_notifier;
 class T_reference_event;
 class T_remain_active_flag;
+class T_remain_active_flag_NOSPEC;
 class T_stamptime_condition;
+class T_stamptime_condition_NOSPEC;
 class T_start_edge_offset;
 class T_threshold;
+class T_threshold_NOSPEC;
 class T_timing_check_limit;
 class T_timing_check_event;
 class T_controlled_timing_check_event;
@@ -1516,15 +1519,18 @@ typedef boost::variant<
  > reference_event ; 
 typedef boost::variant<
  std::shared_ptr<T_remain_active_flag>
+ ,  std::shared_ptr<T_remain_active_flag_NOSPEC>
  > remain_active_flag ; 
 typedef boost::variant<
  std::shared_ptr<T_stamptime_condition>
+ ,  std::shared_ptr<T_stamptime_condition_NOSPEC>
  > stamptime_condition ; 
 typedef boost::variant<
  std::shared_ptr<T_start_edge_offset>
  > start_edge_offset ; 
 typedef boost::variant<
  std::shared_ptr<T_threshold>
+ ,  std::shared_ptr<T_threshold_NOSPEC>
  > threshold ; 
 typedef boost::variant<
  std::shared_ptr<T_timing_check_limit>
@@ -6288,11 +6294,11 @@ class T_full_edge_sensitive_path_description : public ComponentBase {
 };
 class T_state_dependent_path_declaration_simple : public ComponentBase {
   public :
-    std::shared_ptr<module_path_expression> mem1;
+    std::shared_ptr<expression> mem1;
     std::shared_ptr<simple_path_declaration> mem2;
 
   T_state_dependent_path_declaration_simple( 
-       std::shared_ptr<module_path_expression> i1
+       std::shared_ptr<expression> i1
  ,     std::shared_ptr<simple_path_declaration> i2
   ):
        mem1(i1)
@@ -6301,11 +6307,11 @@ class T_state_dependent_path_declaration_simple : public ComponentBase {
 };
 class T_state_dependent_path_declaration_edge : public ComponentBase {
   public :
-    std::shared_ptr<module_path_expression> mem1;
+    std::shared_ptr<expression> mem1;
     std::shared_ptr<edge_sensitive_path_declaration> mem2;
 
   T_state_dependent_path_declaration_edge( 
-       std::shared_ptr<module_path_expression> i1
+       std::shared_ptr<expression> i1
  ,     std::shared_ptr<edge_sensitive_path_declaration> i2
   ):
        mem1(i1)
@@ -7288,30 +7294,18 @@ class T_dollor_fullskew_timing_check : public ComponentBase {
 };
 class T_dollor_period_timing_check : public ComponentBase {
   public :
-    std::shared_ptr<reference_event> mem1;
-    std::shared_ptr<data_event> mem2;
-    std::shared_ptr<timing_check_limit> mem3;
-    std::shared_ptr<timing_check_limit> mem4;
-    std::shared_ptr<notifier> mem5;
-    std::shared_ptr<event_based_flag> mem6;
-    std::shared_ptr<remain_active_flag> mem7;
+    std::shared_ptr<controlled_reference_event> mem1;
+    std::shared_ptr<timing_check_limit> mem2;
+    std::shared_ptr<notifier> mem3;
 
   T_dollor_period_timing_check( 
-       std::shared_ptr<reference_event> i1
- ,     std::shared_ptr<data_event> i2
- ,     std::shared_ptr<timing_check_limit> i3
- ,     std::shared_ptr<timing_check_limit> i4
- ,     std::shared_ptr<notifier> i5
- ,     std::shared_ptr<event_based_flag> i6
- ,     std::shared_ptr<remain_active_flag> i7
+       std::shared_ptr<controlled_reference_event> i1
+ ,     std::shared_ptr<timing_check_limit> i2
+ ,     std::shared_ptr<notifier> i3
   ):
        mem1(i1)
  ,     mem2(i2)
  ,     mem3(i3)
- ,     mem4(i4)
- ,     mem5(i5)
- ,     mem6(i6)
- ,     mem7(i7)
   {}
 };
 class T_dollor_width_timing_check : public ComponentBase {
@@ -7486,6 +7480,13 @@ class T_remain_active_flag : public ComponentBase {
        mem1(i1)
   {}
 };
+class T_remain_active_flag_NOSPEC : public ComponentBase {
+  public :
+
+  T_remain_active_flag_NOSPEC( 
+  )
+  {}
+};
 class T_stamptime_condition : public ComponentBase {
   public :
     std::shared_ptr<mintypmax_expression> mem1;
@@ -7494,6 +7495,13 @@ class T_stamptime_condition : public ComponentBase {
        std::shared_ptr<mintypmax_expression> i1
   ):
        mem1(i1)
+  {}
+};
+class T_stamptime_condition_NOSPEC : public ComponentBase {
+  public :
+
+  T_stamptime_condition_NOSPEC( 
+  )
   {}
 };
 class T_start_edge_offset : public ComponentBase {
@@ -7514,6 +7522,13 @@ class T_threshold : public ComponentBase {
        std::shared_ptr<expression> i1
   ):
        mem1(i1)
+  {}
+};
+class T_threshold_NOSPEC : public ComponentBase {
+  public :
+
+  T_threshold_NOSPEC( 
+  )
   {}
 };
 class T_timing_check_limit : public ComponentBase {

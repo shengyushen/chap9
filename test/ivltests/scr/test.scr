@@ -56,16 +56,20 @@ do
 		#../scr/vtran.scr nodef.v || exit 1
 	
 		# tokenize the step3 result
-		../scr/vtran.scr ${file}.sdf.v || exit 1
+		#../scr/vtran.scr ${file}.sdf.v || exit 1
+		../scr/vtran.scr ${file}.sdf.v 
 	
 		# ivlpp 
-		ivlpp -L src/${file} > ${file}.ivlpp.v || exit 1
+		#ivlpp -L src/${file} > ${file}.ivlpp.v || exit 1
+		ivlpp -L src/${file} > ${file}.ivlpp.v 
 	
 		# removing ivlpp result's comment
-		step1_noinc_comment ${file}.ivlpp.v > ${file}.ivlpp.v.noinc || exit 1
+		#step1_noinc_comment ${file}.ivlpp.v > ${file}.ivlpp.v.noinc || exit 1
+		step1_noinc_comment ${file}.ivlpp.v > ${file}.ivlpp.v.noinc
 	
 		# tokenize the ivlpp result
-		../scr/vtran.scr ${file}.ivlpp.v.noinc  || exit 1
+		#../scr/vtran.scr ${file}.ivlpp.v.noinc  || exit 1
+		../scr/vtran.scr ${file}.ivlpp.v.noinc 
 	
 		# diff sdf.v.tok nodef.v.tok > diff_parse_${file}
 		diff ${file}.sdf.v.tok ${file}.ivlpp.v.noinc.tok > diff_2ivl_${file}

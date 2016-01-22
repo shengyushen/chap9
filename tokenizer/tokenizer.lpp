@@ -557,7 +557,8 @@ int main ( int argc, char * argv[] ) {
 	   prt_fatal ( "input file doesn't exist " ) ;
 		 return 1;
 	}
-
+	
+	cerr<<"tokenizer working on "<< argv[argc-1] <<endl;
 	ifstream foo( argv[argc-1] );
 	//creating files handler and scanner
 	tokenizerScanner * lexer= new tokenizerScanner(argv[argc-1],&foo);

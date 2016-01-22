@@ -535,8 +535,8 @@ and	parallel_edge_sensitive_path_description =
 and	full_edge_sensitive_path_description =
 	T_full_edge_sensitive_path_description of edge_identifier*(specify_inout_terminal_descriptor list)*polarity_operator*(specify_inout_terminal_descriptor list)*polarity_operator*expression
 and	state_dependent_path_declaration =
-	T_state_dependent_path_declaration_simple of module_path_expression*simple_path_declaration
-	| T_state_dependent_path_declaration_edge of module_path_expression*edge_sensitive_path_declaration
+	T_state_dependent_path_declaration_simple of expression*simple_path_declaration
+	| T_state_dependent_path_declaration_edge of expression*edge_sensitive_path_declaration
 	| T_state_dependent_path_declaration_ifnone of simple_path_declaration
 and	concatenation =
 	T_concatenation of expression list
@@ -647,7 +647,7 @@ and dollor_timeskew_timing_check =
 and dollor_fullskew_timing_check =
 	T_dollor_fullskew_timing_check of reference_event*data_event*timing_check_limit*timing_check_limit*notifier*event_based_flag*remain_active_flag
 and dollor_period_timing_check =
-	T_dollor_period_timing_check of reference_event*data_event*timing_check_limit*timing_check_limit*notifier*event_based_flag*remain_active_flag
+	T_dollor_period_timing_check of controlled_reference_event*timing_check_limit*notifier
 and dollor_width_timing_check =
 	T_dollor_width_timing_check of controlled_reference_event*timing_check_limit*threshold*notifier
 and dollor_nochange_timing_check =
@@ -675,12 +675,15 @@ and reference_event =
 	T_reference_event of timing_check_event
 and remain_active_flag =
 	T_remain_active_flag of expression
+	| T_remain_active_flag_NOSPEC
 and stamptime_condition =
 	T_stamptime_condition of mintypmax_expression
+	| T_stamptime_condition_NOSPEC
 and start_edge_offset =
 	T_start_edge_offset of mintypmax_expression
 and threshold =
 	T_threshold of expression
+	| T_threshold_NOSPEC
 and timing_check_limit =
 	T_timing_check_limit of expression
 and timing_check_event =
