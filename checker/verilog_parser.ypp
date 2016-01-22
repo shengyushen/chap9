@@ -345,14 +345,14 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::timing_check_event_control>> timing_check_event_control_opt
 %type <std::shared_ptr<Verilogast::timing_check_event_control>> timing_check_event_control
 %type <std::shared_ptr<Verilogast::specify_terminal_descriptor>> specify_terminal_descriptor
-%type <std::shared_ptr<Verilogast::timing_check_condition>> and3_timing_check_condition_opt
-%type <std::shared_ptr<Verilogast::timing_check_condition>> timing_check_condition
+%type <std::shared_ptr<Verilogast::expression>> and3_timing_check_condition_opt
+/*%type <std::shared_ptr<Verilogast::timing_check_condition>> timing_check_condition*/
 %type <std::shared_ptr<Verilogast::edge_control_specifier>> edge_control_specifier
 %type <std::shared_ptr<Verilogast::edge_descriptor>> edge_descriptor
 %type <std::shared_ptr<Verilogast::zero_or_one>> zero_or_one
 %type <std::shared_ptr<Verilogast::z_or_x>> z_or_x
-%type <std::shared_ptr<Verilogast::scalar_timing_check_condition>> scalar_timing_check_condition
-%type <std::shared_ptr<Verilogast::scalar_constant>> scalar_constant
+/*%type <std::shared_ptr<Verilogast::scalar_timing_check_condition>> scalar_timing_check_condition*/
+/*%type <std::shared_ptr<Verilogast::scalar_constant>> scalar_constant*/
 
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::edge_descriptor>>>>  comma_edge_descriptor_list
 
@@ -3864,9 +3864,14 @@ timing_check_event_control_opt :
 	| timing_check_event_control {$$=$1;}
 ;
 
-and3_timing_check_condition_opt :
+/*and3_timing_check_condition_opt :
 	{$$=SHR2(timing_check_condition,T_timing_check_condition_NOSPEC,());}
 	| AND3 timing_check_condition {$$=$2;}
+;*/
+/*generalized to expression*/
+and3_timing_check_condition_opt :
+	{$$=SHR2(expression,T_expression_NOSPEC,());}
+	| AND3 expression {$$=$2;}
 ;
 
 controlled_timing_check_event :
@@ -3924,13 +3929,13 @@ z_or_x :
 	| EDGE_Z {$$=SHR2(z_or_x,T_z_or_x__Z,());}
 ;
 
-timing_check_condition :
+/*timing_check_condition :
 	scalar_timing_check_condition {$$=SHR2(timing_check_condition,T_timing_check_condition,($1));}
 	| LPARENT scalar_timing_check_condition RPARENT 
 		{$$=SHR2(timing_check_condition,T_timing_check_condition,($2));}
-;
+;*/
 
-scalar_timing_check_condition :
+/*scalar_timing_check_condition :
 	expression 
 		{$$=SHR2(scalar_timing_check_condition,T_scalar_timing_check_condition_exp,($1));}
 	| OP1_BITWISE_NEG expression 
@@ -3946,10 +3951,9 @@ scalar_timing_check_condition :
 ;
 
 scalar_constant :
- /*1'b0 | 1'b1 | 1'B0 | 1'B1 | 'b0 | 'b1 | 'B0 | 'B1 | 1 | 0*/
  UNSIGNED_NUMBER {$$=SHR2(scalar_constant,T_scalar_constant_unsigned,($1));}
  | BINARY_NUMBER {$$=SHR2(scalar_constant,T_scalar_constant_binary,(get<0>($1),get<1>($1),get<2>($1)));}
-;
+;*/
 
 /*A.8 Expressions
 A.8.1 Concatenations*/

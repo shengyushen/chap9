@@ -7530,12 +7530,12 @@ class T_timing_check_event : public ComponentBase {
   public :
     std::shared_ptr<timing_check_event_control> mem1;
     std::shared_ptr<specify_terminal_descriptor> mem2;
-    std::shared_ptr<timing_check_condition> mem3;
+    std::shared_ptr<expression> mem3;
 
   T_timing_check_event( 
        std::shared_ptr<timing_check_event_control> i1
  ,     std::shared_ptr<specify_terminal_descriptor> i2
- ,     std::shared_ptr<timing_check_condition> i3
+ ,     std::shared_ptr<expression> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -7546,12 +7546,12 @@ class T_controlled_timing_check_event : public ComponentBase {
   public :
     std::shared_ptr<timing_check_event_control> mem1;
     std::shared_ptr<specify_terminal_descriptor> mem2;
-    std::shared_ptr<timing_check_condition> mem3;
+    std::shared_ptr<expression> mem3;
 
   T_controlled_timing_check_event( 
        std::shared_ptr<timing_check_event_control> i1
  ,     std::shared_ptr<specify_terminal_descriptor> i2
- ,     std::shared_ptr<timing_check_condition> i3
+ ,     std::shared_ptr<expression> i3
   ):
        mem1(i1)
  ,     mem2(i2)

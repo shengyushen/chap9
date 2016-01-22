@@ -684,9 +684,9 @@ and threshold =
 and timing_check_limit =
 	T_timing_check_limit of expression
 and timing_check_event =
-	T_timing_check_event of timing_check_event_control*specify_terminal_descriptor*timing_check_condition
+	T_timing_check_event of timing_check_event_control*specify_terminal_descriptor*expression
 and controlled_timing_check_event =
-	T_controlled_timing_check_event of timing_check_event_control*specify_terminal_descriptor*timing_check_condition
+	T_controlled_timing_check_event of timing_check_event_control*specify_terminal_descriptor*expression
 and timing_check_event_control =
 	T_timing_check_event_control_NOSPEC
 	| T_timing_check_event_control_POSEDGE
