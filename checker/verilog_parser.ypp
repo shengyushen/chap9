@@ -307,21 +307,13 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::reference_event>> reference_event
 %type <std::shared_ptr<Verilogast::timing_check_limit>> timing_check_limit
 %type <std::shared_ptr<Verilogast::notifier>> comma_notifier_opt_opt
-%type <std::shared_ptr<Verilogast::notifier>> comma_notifier_opt
 %type <std::shared_ptr<Verilogast::notifier>> notifier
-%type <std::shared_ptr<Verilogast::stamptime_condition>> comma_stamptime_condition_opt
 %type <std::shared_ptr<Verilogast::stamptime_condition>> stamptime_condition
-%type <std::shared_ptr<Verilogast::checktime_condition>> comma_checktime_condition_opt
 %type <std::shared_ptr<Verilogast::checktime_condition>> checktime_condition
-%type <std::shared_ptr<Verilogast::delayed_reference>> comma_delayed_reference_opt
 %type <std::shared_ptr<Verilogast::delayed_reference>> delayed_reference
-%type <std::shared_ptr<Verilogast::delayed_data>> comma_delayed_data_opt
 %type <std::shared_ptr<Verilogast::delayed_data>> delayed_data
-%type <std::shared_ptr<Verilogast::event_based_flag>> comma_event_based_flag_opt
 %type <std::shared_ptr<Verilogast::event_based_flag>> event_based_flag
-%type <std::shared_ptr<Verilogast::remain_active_flag>> comma_remain_active_flag_opt
 %type <std::shared_ptr<Verilogast::remain_active_flag>> remain_active_flag
-%type <std::shared_ptr<Verilogast::threshold>> comma_threshold_opt
 %type <std::shared_ptr<Verilogast::threshold>> threshold
 
 %type <std::shared_ptr<Verilogast::dollor_setuphold_timing_check>> dollor_setuphold_timing_check
@@ -3684,33 +3676,78 @@ dollor_hold_timing_check :
 ;
 
 dollor_setuphold_timing_check :
-	DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit
-comma_notifier_opt comma_stamptime_condition_opt comma_checktime_condition_opt
-comma_delayed_reference_opt comma_delayed_data_opt RPARENT SEMICOLON
-	{$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$10,$11,$12,$13,$14));}
-;
-
-comma_stamptime_condition_opt:
-	{$$=SHR2(stamptime_condition,T_stamptime_condition_NOSPEC,());}
-	| COMMA stamptime_condition {$$=$2;}
-
-comma_notifier_opt :
-	{$$=SHR2(notifier,T_notifier_NOSPEC,());}
-	| COMMA notifier {$$=$2;}
-;
-
-comma_delayed_reference_opt :
-	{$$=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());}
-	| COMMA delayed_reference {$$=$2;}
-
-comma_checktime_condition_opt :
-	{$$=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());}
-	| COMMA checktime_condition {$$=$2}
-;
-
-comma_delayed_data_opt :
-	{$$=SHR2(delayed_data,T_delayed_data_NOSPEC,());}
-	| COMMA delayed_data { $$=$2; }
+	DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit RPARENT SEMICOLON
+	{
+		auto p10=SHR2(notifier,T_notifier_NOSPEC,());
+		auto p11=SHR2(stamptime_condition,T_stamptime_condition_NOSPEC,());
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,p10,p11,p12,p13,p14));
+	}
+	| DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA RPARENT SEMICOLON
+	{
+		auto p10=SHR2(notifier,T_notifier_NOSPEC,());
+		auto p11=SHR2(stamptime_condition,T_stamptime_condition_NOSPEC,());
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,p10,p11,p12,p13,p14));
+	}
+	| DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier RPARENT SEMICOLON
+	{
+		auto p11=SHR2(stamptime_condition,T_stamptime_condition_NOSPEC,());
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$11,p11,p12,p13,p14));
+	}
+	| DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA RPARENT SEMICOLON
+	{
+		auto p11=SHR2(stamptime_condition,T_stamptime_condition_NOSPEC,());
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$11,p11,p12,p13,p14));
+	}
+	| DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition RPARENT SEMICOLON
+	{
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$11,$13,p12,p13,p14));
+	}
+	| DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA RPARENT SEMICOLON
+	{
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$11,$13,p12,p13,p14));
+	}
+	| DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA checktime_condition RPARENT SEMICOLON
+	{
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$11,$13,$15,p13,p14));
+	}
+	| DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA checktime_condition COMMA RPARENT SEMICOLON
+	{
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$11,$13,$15,p13,p14));
+	}
+	| DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA checktime_condition COMMA delayed_reference RPARENT SEMICOLON
+	{
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$11,$13,$15,$17,p14));
+	}
+	| DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA checktime_condition COMMA delayed_reference COMMA RPARENT SEMICOLON
+	{
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$11,$13,$15,$17,p14));
+	}
+	| DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA checktime_condition COMMA delayed_reference COMMA delayed_data RPARENT SEMICOLON
+	{$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$11,$13,$15,$17,$19));}
 ;
 
 dollor_recovery_timing_check :
@@ -3724,10 +3761,79 @@ dollor_removal_timing_check :
 ;
 
 dollor_recrem_timing_check :
-	DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit
-comma_notifier_opt_opt comma_stamptime_condition_opt comma_checktime_condition_opt
-comma_delayed_reference_opt comma_delayed_data_opt RPARENT SEMICOLON
-	{$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$10,$11,$12,$13,$14));}
+	DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit RPARENT SEMICOLON
+	{
+		auto p10=SHR2(notifier,T_notifier_NOSPEC,());
+		auto p11=SHR2(stamptime_condition,T_stamptime_condition_NOSPEC,());
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,p10,p11,p12,p13,p14));
+	}
+	| DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA RPARENT SEMICOLON
+	{
+		auto p10=SHR2(notifier,T_notifier_NOSPEC,());
+		auto p11=SHR2(stamptime_condition,T_stamptime_condition_NOSPEC,());
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,p10,p11,p12,p13,p14));
+	}
+	| DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier RPARENT SEMICOLON
+	{
+		auto p11=SHR2(stamptime_condition,T_stamptime_condition_NOSPEC,());
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$11,p11,p12,p13,p14));
+	}
+	| DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA RPARENT SEMICOLON
+	{
+		auto p11=SHR2(stamptime_condition,T_stamptime_condition_NOSPEC,());
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$11,p11,p12,p13,p14));
+	}
+	| DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition RPARENT SEMICOLON
+	{
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$11,$13,p12,p13,p14));
+	}
+	| DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA RPARENT SEMICOLON
+	{
+		auto p12=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$11,$13,p12,p13,p14));
+	}
+	| DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA checktime_condition RPARENT SEMICOLON
+	{
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$11,$13,$15,p13,p14));
+	}
+	| DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA checktime_condition COMMA RPARENT SEMICOLON
+	{
+		auto p13=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$11,$13,$15,p13,p14));
+	}
+	| DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA checktime_condition COMMA delayed_reference RPARENT SEMICOLON
+	{
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$11,$13,$15,$17,p14));
+	}
+	| DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA checktime_condition COMMA delayed_reference COMMA RPARENT SEMICOLON
+	{
+		auto p14=SHR2(delayed_data,T_delayed_data_NOSPEC,());
+		$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$11,$13,$15,$17,p14));
+	}
+	| DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA stamptime_condition COMMA checktime_condition COMMA delayed_reference COMMA delayed_data RPARENT SEMICOLON
+	{$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$11,$13,$15,$17,$19));}
+;
 ;
 
 dollor_skew_timing_check :
@@ -3735,26 +3841,85 @@ dollor_skew_timing_check :
 	{$$=SHR2(dollor_skew_timing_check,T_dollor_skew_timing_check,($3,$5,$7,$8));}
 ;
 dollor_timeskew_timing_check :
-	DOLLOR_timeskew LPARENT reference_event COMMA data_event COMMA timing_check_limit
-comma_notifier_opt_opt comma_event_based_flag_opt comma_remain_active_flag_opt RPARENT SEMICOLON
-	{$$=SHR2(dollor_timeskew_timing_check,T_dollor_timeskew_timing_check,($3,$5,$7,$8,$9,$10));}
+	DOLLOR_timeskew LPARENT reference_event COMMA data_event COMMA timing_check_limit RPARENT SEMICOLON
+	{
+		auto p8 = SHR2(notifier,T_notifier_NOSPEC,());
+		auto p9 = SHR2(event_based_flag,T_event_based_flag_NOSPEC,());
+		auto p10 = SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_timeskew_timing_check,T_dollor_timeskew_timing_check,($3,$5,$7,p8,p9,p10));
+	}
+	| DOLLOR_timeskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA RPARENT SEMICOLON
+	{
+		auto p8 = SHR2(notifier,T_notifier_NOSPEC,());
+		auto p9 = SHR2(event_based_flag,T_event_based_flag_NOSPEC,());
+		auto p10 = SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_timeskew_timing_check,T_dollor_timeskew_timing_check,($3,$5,$7,p8,p9,p10));
+	}
+	| DOLLOR_timeskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA notifier RPARENT SEMICOLON
+	{
+		auto p9 = SHR2(event_based_flag,T_event_based_flag_NOSPEC,());
+		auto p10 = SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_timeskew_timing_check,T_dollor_timeskew_timing_check,($3,$5,$7,$9,p9,p10));
+	}
+	| DOLLOR_timeskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA notifier COMMA RPARENT SEMICOLON
+	{
+		auto p9 = SHR2(event_based_flag,T_event_based_flag_NOSPEC,());
+		auto p10 = SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_timeskew_timing_check,T_dollor_timeskew_timing_check,($3,$5,$7,$9,p9,p10));
+	}
+	| DOLLOR_timeskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA notifier COMMA event_based_flag RPARENT SEMICOLON
+	{
+		auto p10 = SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_timeskew_timing_check,T_dollor_timeskew_timing_check,($3,$5,$7,$9,$11,p10));
+	}
+	| DOLLOR_timeskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA notifier COMMA event_based_flag COMMA RPARENT SEMICOLON
+	{
+		auto p10 = SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_timeskew_timing_check,T_dollor_timeskew_timing_check,($3,$5,$7,$9,$11,p10));
+	}
+	| DOLLOR_timeskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA notifier COMMA event_based_flag COMMA remain_active_flag RPARENT SEMICOLON
+	{$$=SHR2(dollor_timeskew_timing_check,T_dollor_timeskew_timing_check,($3,$5,$7,$9,$11,$13));}
 ;
-
-comma_event_based_flag_opt :
-	{$$=SHR2(event_based_flag,T_event_based_flag_NOSPEC,());}
-	| COMMA event_based_flag {$$=$2;}
-;
-
-comma_remain_active_flag_opt:
-	{$$=SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());}
-	| COMMA remain_active_flag {$$=$2;}
-;
-
 
 dollor_fullskew_timing_check :
-	DOLLOR_fullskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit
-comma_notifier_opt_opt comma_event_based_flag_opt comma_remain_active_flag_opt RPARENT SEMICOLON
-	{$$=SHR2(dollor_fullskew_timing_check,T_dollor_fullskew_timing_check,($3,$5,$7,$9,$10,$11,$12));}
+	DOLLOR_fullskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit RPARENT SEMICOLON
+	{
+		auto p10=SHR2(notifier,T_notifier_NOSPEC,());
+		auto p11=SHR2(event_based_flag,T_event_based_flag_NOSPEC,());
+		auto p12=SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_fullskew_timing_check,T_dollor_fullskew_timing_check,($3,$5,$7,$9,p10,p11,p12));
+	}
+	| DOLLOR_fullskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA RPARENT SEMICOLON
+	{
+		auto p10=SHR2(notifier,T_notifier_NOSPEC,());
+		auto p11=SHR2(event_based_flag,T_event_based_flag_NOSPEC,());
+		auto p12=SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_fullskew_timing_check,T_dollor_fullskew_timing_check,($3,$5,$7,$9,p10,p11,p12));
+	}
+	| DOLLOR_fullskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier RPARENT SEMICOLON
+	{
+		auto p11=SHR2(event_based_flag,T_event_based_flag_NOSPEC,());
+		auto p12=SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_fullskew_timing_check,T_dollor_fullskew_timing_check,($3,$5,$7,$9,$11,p11,p12));
+	}
+	| DOLLOR_fullskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA RPARENT SEMICOLON
+	{
+		auto p11=SHR2(event_based_flag,T_event_based_flag_NOSPEC,());
+		auto p12=SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_fullskew_timing_check,T_dollor_fullskew_timing_check,($3,$5,$7,$9,$11,p11,p12));
+	}
+	| DOLLOR_fullskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA event_based_flag RPARENT SEMICOLON
+	{
+		auto p12=SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_fullskew_timing_check,T_dollor_fullskew_timing_check,($3,$5,$7,$9,$11,$13,p12));
+	}
+	| DOLLOR_fullskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA event_based_flag COMMA  RPARENT SEMICOLON
+	{
+		auto p12=SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());
+		$$=SHR2(dollor_fullskew_timing_check,T_dollor_fullskew_timing_check,($3,$5,$7,$9,$11,$13,p12));
+	}
+	| DOLLOR_fullskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit COMMA notifier COMMA event_based_flag COMMA remain_active_flag RPARENT SEMICOLON
+	{$$=SHR2(dollor_fullskew_timing_check,T_dollor_fullskew_timing_check,($3,$5,$7,$9,$11,$13,$15));}
 ;
 
 dollor_period_timing_check :
@@ -3763,13 +3928,30 @@ dollor_period_timing_check :
 ;
 
 dollor_width_timing_check :
-	DOLLOR_width LPARENT controlled_reference_event COMMA timing_check_limit comma_threshold_opt comma_notifier_opt_opt RPARENT SEMICOLON
-	{$$=SHR2(dollor_width_timing_check,T_dollor_width_timing_check,($3,$5,$6,$7));}
-;
-
-comma_threshold_opt :
-	{$$=SHR2(threshold,T_threshold_NOSPEC,());}
-	| COMMA threshold {$$=$2;}
+	DOLLOR_width LPARENT controlled_reference_event COMMA timing_check_limit RPARENT SEMICOLON
+	{
+		auto p6=SHR2(threshold,T_threshold_NOSPEC,());
+		auto p7=SHR2(notifier,T_notifier_NOSPEC,());
+		$$=SHR2(dollor_width_timing_check,T_dollor_width_timing_check,($3,$5,p6,p7));
+	}
+	| DOLLOR_width LPARENT controlled_reference_event COMMA timing_check_limit COMMA RPARENT SEMICOLON
+	{
+		auto p6=SHR2(threshold,T_threshold_NOSPEC,());
+		auto p7=SHR2(notifier,T_notifier_NOSPEC,());
+		$$=SHR2(dollor_width_timing_check,T_dollor_width_timing_check,($3,$5,p6,p7));
+	}
+	| DOLLOR_width LPARENT controlled_reference_event COMMA timing_check_limit COMMA threshold RPARENT SEMICOLON
+	{
+		auto p7=SHR2(notifier,T_notifier_NOSPEC,());
+		$$=SHR2(dollor_width_timing_check,T_dollor_width_timing_check,($3,$5,$7,p7));
+	}
+	| DOLLOR_width LPARENT controlled_reference_event COMMA timing_check_limit COMMA threshold COMMA RPARENT SEMICOLON
+	{
+		auto p7=SHR2(notifier,T_notifier_NOSPEC,());
+		$$=SHR2(dollor_width_timing_check,T_dollor_width_timing_check,($3,$5,$7,p7));
+	}
+	| DOLLOR_width LPARENT controlled_reference_event COMMA timing_check_limit COMMA threshold COMMA notifier RPARENT SEMICOLON
+	{$$=SHR2(dollor_width_timing_check,T_dollor_width_timing_check,($3,$5,$7,$9));}
 ;
 
 dollor_nochange_timing_check :
@@ -3796,15 +3978,15 @@ data_event :
 delayed_data :
 	terminal_identifier
 		{$$=SHR2(delayed_data,T_delayed_data_id,($1));}
-	| terminal_identifier mintypmax_expression_opt 
-		{ $$=SHR2(delayed_data,T_delayed_data_idmtmexp,($1,$2)); }
+	| terminal_identifier LSQUARE mintypmax_expression RSQUARE
+		{ $$=SHR2(delayed_data,T_delayed_data_idmtmexp,($1,$3)); }
 ;
 
 delayed_reference :
 	terminal_identifier
 		{$$=SHR2(delayed_reference,T_delayed_reference_id,($1));}
-	|	terminal_identifier mintypmax_expression_opt 
-		{$$=SHR2(delayed_reference,T_delayed_reference_idmtmexp,($1,$2));}
+	|	terminal_identifier LSQUARE mintypmax_expression RSQUARE 
+		{$$=SHR2(delayed_reference,T_delayed_reference_idmtmexp,($1,$3));}
 ;
 
 end_edge_offset :
