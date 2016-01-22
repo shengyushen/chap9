@@ -3537,8 +3537,8 @@ simple_path_declaration :
 
 
 parallel_path_description :
-	LPARENT specify_input_terminal_descriptor polarity_operator_opt IMPLY2 specify_output_terminal_descriptor RPARENT
-		{$$=SHR2(parallel_path_description,T_parallel_path_description,($2,$3,$5));}
+	LPARENT edge_identifier_opt list_of_path_inputs polarity_operator_opt IMPLY2 specify_output_terminal_descriptor RPARENT
+		{$$=SHR2(parallel_path_description,T_parallel_path_description,($2,$3,$4,$6));}
 ;
 
 polarity_operator_opt :
@@ -3547,8 +3547,8 @@ polarity_operator_opt :
 ;
 
 full_path_description :
-	LPARENT list_of_path_inputs  polarity_operator_opt IMPLYSTART list_of_path_outputs RPARENT
-		{$$=SHR2(full_path_description,T_full_path_description,($2,$3,$5));}
+	LPARENT edge_identifier_opt list_of_path_inputs  polarity_operator_opt IMPLYSTART list_of_path_outputs RPARENT
+		{$$=SHR2(full_path_description,T_full_path_description,($2,$3,$4,$6));}
 ;
 
 
@@ -3645,9 +3645,9 @@ edge_sensitive_path_declaration :
 
 
 parallel_edge_sensitive_path_description :
-LPARENT edge_identifier_opt  specify_input_terminal_descriptor IMPLY2
+LPARENT edge_identifier_opt  list_of_path_inputs polarity_operator_opt IMPLY2
 LPARENT specify_output_terminal_descriptor polarity_operator_opt COLON data_source_expression RPARENT RPARENT
-		{$$=SHR2(parallel_edge_sensitive_path_description,T_parallel_edge_sensitive_path_description,($2,$3,$6,$7,$9));}
+		{$$=SHR2(parallel_edge_sensitive_path_description,T_parallel_edge_sensitive_path_description,($2,$3,$4,$7,$8,$10));}
 ;
 
 edge_identifier_opt :
@@ -3656,9 +3656,9 @@ edge_identifier_opt :
 ;
 
 full_edge_sensitive_path_description :
-	LPARENT edge_identifier_opt list_of_path_inputs IMPLYSTART
+	LPARENT edge_identifier_opt list_of_path_inputs polarity_operator_opt IMPLYSTART
 LPARENT list_of_path_outputs polarity_operator_opt COLON data_source_expression RPARENT RPARENT
-		{$$=SHR2(full_edge_sensitive_path_description,T_full_edge_sensitive_path_description,($2,$3,$6,$7,$9));}
+		{$$=SHR2(full_edge_sensitive_path_description,T_full_edge_sensitive_path_description,($2,$3,$4,$7,$8,$10));}
 ;
 
 data_source_expression :
