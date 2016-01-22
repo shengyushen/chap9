@@ -7,7 +7,8 @@
 		veryScanner() {}
 		veryScanner( string * fn , ifstream * pis) :
 			loc{fn},
-			veryFlexLexer(pis)
+			veryFlexLexer(pis),
+			isInModuleDeclaration(false)
 		{ }
 
 		void open( string * fn , ifstream * pis) {

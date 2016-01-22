@@ -153,6 +153,31 @@
 
 %token KEY_PATHPULSE;
 
+%token DOLLOR_setup;
+%token DOLLOR_hold;
+%token DOLLOR_setuphold;
+%token DOLLOR_recovery;
+%token DOLLOR_removal;
+%token DOLLOR_recrem;
+%token DOLLOR_skew;
+%token DOLLOR_timeskew;
+%token DOLLOR_fullskew;
+%token DOLLOR_period;
+%token DOLLOR_width;
+%token DOLLOR_nochange;
+
+%token AND3;
+
+%token EDGE_01
+%token EDGE_10
+%token EDGE_0
+%token EDGE_1
+%token EDGE_x
+%token EDGE_X
+%token EDGE_z
+%token EDGE_Z
+
+
 %token TABLESC_LEVEL_SYMBOL_0;
 %token TABLESC_LEVEL_SYMBOL_1;
 %token TABLESC_LEVEL_SYMBOL_x;
@@ -267,6 +292,70 @@ IMPLYSTART                   "*>"
 
 %type <std::shared_ptr<Verilogast::udp_port_declaration>> udp_port_declaration
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::udp_port_declaration>>>>  udp_port_declaration_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specparam_assignment>>>>  list_of_specparam_assignments
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specparam_assignment>>>>  comma_specparam_assignment_list
+
+%type <std::shared_ptr<Verilogast::specparam_assignment>> specparam_assignment
+%type <std::shared_ptr<Verilogast::specparam_assignment>> pulse_control_specparam
+%type <std::shared_ptr<Verilogast::mintypmax_expression>> reject_limit_value
+%type <std::shared_ptr<Verilogast::mintypmax_expression>> limit_value
+%type <std::shared_ptr<Verilogast::mintypmax_expression>> comma_error_limit_value_opt
+%type <std::shared_ptr<Verilogast::specify_output_terminal_descriptor>> specify_output_terminal_descriptor
+%type <std::shared_ptr<Verilogast::mintypmax_expression>> error_limit_value
+%type <std::shared_ptr<Verilogast::system_timing_check>> system_timing_check
+%type <std::shared_ptr<Verilogast::expression>> data_source_expression
+%type <std::shared_ptr<Verilogast::data_event>> data_event
+%type <std::shared_ptr<Verilogast::reference_event>> reference_event
+%type <std::shared_ptr<Verilogast::timing_check_limit>> timing_check_limit
+%type <std::shared_ptr<Verilogast::notifier>> comma_notifier_opt_opt
+%type <std::shared_ptr<Verilogast::notifier>> comma_notifier_opt
+%type <std::shared_ptr<Verilogast::notifier>> notifier
+%type <std::shared_ptr<Verilogast::stamptime_condition>> comma_stamptime_condition_opt
+%type <std::shared_ptr<Verilogast::stamptime_condition>> stamptime_condition
+%type <std::shared_ptr<Verilogast::checktime_condition>> comma_checktime_condition_opt
+%type <std::shared_ptr<Verilogast::checktime_condition>> checktime_condition
+%type <std::shared_ptr<Verilogast::delayed_reference>> comma_delayed_reference_opt
+%type <std::shared_ptr<Verilogast::delayed_reference>> delayed_reference
+%type <std::shared_ptr<Verilogast::delayed_data>> comma_delayed_data_opt
+%type <std::shared_ptr<Verilogast::delayed_data>> delayed_data
+%type <std::shared_ptr<Verilogast::event_based_flag>> comma_event_based_flag_opt
+%type <std::shared_ptr<Verilogast::event_based_flag>> event_based_flag
+%type <std::shared_ptr<Verilogast::remain_active_flag>> comma_remain_active_flag_opt
+%type <std::shared_ptr<Verilogast::remain_active_flag>> remain_active_flag
+%type <std::shared_ptr<Verilogast::threshold>> comma_threshold_opt
+%type <std::shared_ptr<Verilogast::threshold>> threshold
+
+%type <std::shared_ptr<Verilogast::dollor_setuphold_timing_check>> dollor_setuphold_timing_check
+%type <std::shared_ptr<Verilogast::dollor_setup_timing_check>> dollor_setup_timing_check
+%type <std::shared_ptr<Verilogast::dollor_hold_timing_check>> dollor_hold_timing_check
+%type <std::shared_ptr<Verilogast::dollor_recovery_timing_check>> dollor_recovery_timing_check
+%type <std::shared_ptr<Verilogast::dollor_removal_timing_check>> dollor_removal_timing_check
+%type <std::shared_ptr<Verilogast::dollor_recrem_timing_check>> dollor_recrem_timing_check
+%type <std::shared_ptr<Verilogast::dollor_skew_timing_check>> dollor_skew_timing_check
+%type <std::shared_ptr<Verilogast::dollor_timeskew_timing_check>> dollor_timeskew_timing_check
+%type <std::shared_ptr<Verilogast::dollor_fullskew_timing_check>> dollor_fullskew_timing_check
+%type <std::shared_ptr<Verilogast::dollor_period_timing_check>> dollor_period_timing_check
+%type <std::shared_ptr<Verilogast::dollor_width_timing_check>> dollor_width_timing_check
+%type <std::shared_ptr<Verilogast::dollor_nochange_timing_check>> dollor_nochange_timing_check
+
+%type <std::shared_ptr<Verilogast::controlled_reference_event>> controlled_reference_event
+%type <std::shared_ptr<Verilogast::start_edge_offset>> start_edge_offset
+%type <std::shared_ptr<Verilogast::end_edge_offset>> end_edge_offset
+%type <std::shared_ptr<Verilogast::controlled_timing_check_event>> controlled_timing_check_event
+%type <std::shared_ptr<Verilogast::timing_check_event>> timing_check_event
+%type <std::shared_ptr<Verilogast::timing_check_event_control>> timing_check_event_control_opt
+%type <std::shared_ptr<Verilogast::timing_check_event_control>> timing_check_event_control
+%type <std::shared_ptr<Verilogast::specify_terminal_descriptor>> specify_terminal_descriptor
+%type <std::shared_ptr<Verilogast::timing_check_condition>> and3_timing_check_condition_opt
+%type <std::shared_ptr<Verilogast::timing_check_condition>> timing_check_condition
+%type <std::shared_ptr<Verilogast::edge_control_specifier>> edge_control_specifier
+%type <std::shared_ptr<Verilogast::edge_descriptor>> edge_descriptor
+%type <std::shared_ptr<Verilogast::zero_or_one>> zero_or_one
+%type <std::shared_ptr<Verilogast::z_or_x>> z_or_x
+%type <std::shared_ptr<Verilogast::scalar_timing_check_condition>> scalar_timing_check_condition
+%type <std::shared_ptr<Verilogast::scalar_constant>> scalar_constant
+
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::edge_descriptor>>>>  comma_edge_descriptor_list
 
 %type <std::shared_ptr<Verilogast::module_declaration>> module_declaration
 %type <std::shared_ptr<Verilogast::udp_declaration>> udp_declaration
@@ -278,6 +367,7 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::udp_input_declaration>>  udp_input_declaration
 %type <std::shared_ptr<Verilogast::udp_input_declaration_sigular>>  udp_input_declaration_sigular
 %type <std::shared_ptr<Verilogast::udp_reg_declaration>>  udp_reg_declaration
+%type <std::shared_ptr<Verilogast::specparam_declaration>>  specparam_declaration
 /*%type <std::shared_ptr<Verilogast::combinational_body>>  combinational_body*/
 %type <std::shared_ptr<Verilogast::sequential_body>>  sequential_body
 /*%type <std::shared_ptr<Verilogast::combinational_entry>>  combinational_entry*/
@@ -357,6 +447,7 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>  comma_output_terminal_list
 /*%type <std::shared_ptr<Verilogast::identifier>>  udp_instance_identifier*/
 %type <std::shared_ptr<Verilogast::identifier>>  gate_instance_identifier
+%type <std::shared_ptr<Verilogast::identifier>>  specparam_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  input_port_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  output_port_identifier
 /*%type <std::shared_ptr<Verilogast::identifier>>  udp_identifier
@@ -376,6 +467,7 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::identifier>>  colon_generate_block_identifier_opt
 %type <std::shared_ptr<Verilogast::identifier>>  block_identifier
 %type <std::shared_ptr<Verilogast::identifier>>  attr_name
+%type <std::shared_ptr<Verilogast::identifier>>  terminal_identifier
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::identifier>>>>  list_of_genvar_identifiers
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::identifier>>>>  comma_genvar_identifier_list
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::identifier>>>>  list_of_port_identifiers
@@ -640,6 +732,33 @@ IMPLYSTART                   "*>"
 
 %type <std::shared_ptr<Verilogast::identifier_lsq_expression_rsq>>    identifier_lsq_expression_rsq_opt
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::identifier_lsq_expression_rsq>>>>    identifier_lsq_expression_rsq_opt_list
+
+%type <std::shared_ptr<Verilogast::specify_block>> specify_block
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_item>>>>    specify_item_list
+%type <std::shared_ptr<Verilogast::specify_item>> specify_item
+%type <std::shared_ptr<Verilogast::pulsestyle_declaration>> pulsestyle_declaration
+%type <std::shared_ptr<Verilogast::showcancelled_declaration>> showcancelled_declaration
+%type <std::shared_ptr<Verilogast::path_declaration>> path_declaration
+%type <std::shared_ptr<Verilogast::simple_path_declaration>> simple_path_declaration
+%type <std::shared_ptr<Verilogast::parallel_path_description>> parallel_path_description
+%type <std::shared_ptr<Verilogast::polarity_operator>> polarity_operator_opt
+%type <std::shared_ptr<Verilogast::polarity_operator>> polarity_operator
+%type <std::shared_ptr<Verilogast::full_path_description>> full_path_description
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_input_terminal_descriptor>>>> list_of_path_inputs
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_input_terminal_descriptor>>>> comma_specify_input_terminal_descriptor_list
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_output_terminal_descriptor>>>> list_of_path_outputs
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_output_terminal_descriptor>>>> comma_specify_output_terminal_descriptor_list
+%type <std::shared_ptr<Verilogast::specify_input_terminal_descriptor>> specify_input_terminal_descriptor
+%type <std::shared_ptr<Verilogast::identifier>> input_identifier
+%type <std::shared_ptr<Verilogast::identifier>> output_identifier
+%type <std::shared_ptr<Verilogast::list_of_path_delay_expressions>> path_delay_value
+%type <std::shared_ptr<Verilogast::list_of_path_delay_expressions>> list_of_path_delay_expressions
+%type <std::shared_ptr<Verilogast::edge_sensitive_path_declaration>> edge_sensitive_path_declaration
+%type <std::shared_ptr<Verilogast::parallel_edge_sensitive_path_description>> parallel_edge_sensitive_path_description
+%type <std::shared_ptr<Verilogast::edge_identifier>> edge_identifier_opt
+%type <std::shared_ptr<Verilogast::edge_identifier>> edge_identifier
+%type <std::shared_ptr<Verilogast::full_edge_sensitive_path_description>> full_edge_sensitive_path_description
+%type <std::shared_ptr<Verilogast::state_dependent_path_declaration>> state_dependent_path_declaration
 
 
 %code top{
@@ -943,12 +1062,12 @@ non_port_module_item :
 	module_or_generate_item {$$=$1;}
 	| generate_region {
 		$$=SHR4(module_item,T_module_item__1,module_item1,T_module_item__generate_region,($1));}
-	/*| specify_block {
-		$$=SHR4(module_item,T_module_item__1,module_item1,T_module_item__specify_block,($1));}*/
+	| specify_block {
+		$$=SHR4(module_item,T_module_item__1,module_item1,T_module_item__specify_block,($1));}
 	| attribute_instance_list parameter_declaration SEMICOLON {
 		$$=SHR4(module_item,T_module_item__1,module_item1,T_module_item__parameter_declaration,($1,$2));}
-	/*| attribute_instance_list specparam_declaration {
-		$$=SHR4(module_item,T_module_item__1,module_item1,T_module_item__specparam_declaration,($1,$2));}*/
+	| attribute_instance_list specparam_declaration {
+		$$=SHR4(module_item,T_module_item__1,module_item1,T_module_item__specparam_declaration,($1,$2));}
 ;
 
 module_or_generate_item :
@@ -1160,14 +1279,12 @@ parameter_declaration :
 ;
 
 
-/*specparam_declaration :
+specparam_declaration :
 	KEY_SPECPARAM range_opt list_of_specparam_assignments SEMICOLON
 		{
-			record_pos $4;
-			T_specparam_declaration($2,$3)
+			$$=SHR2(specparam_declaration,T_specparam_declaration,($2,$3));
 		}
 ;
-*/
 
 parameter_type :
 	KEY_INTEGER    {$$=SHR2(parameter_type,T_parameter_type__INTEGER,());}
@@ -1575,17 +1692,25 @@ comma_real_type_list :
 		}
 ;
 
-/*list_of_specparam_assignments :
+list_of_specparam_assignments :
 	specparam_assignment comma_specparam_assignment_list
-		{$1::$2}
+		{
+			auto p=$2;
+			p->push_front($1);
+			$$=p;
+		}
 ;
 
 comma_specparam_assignment_list :
-	{[]}
+	{$$=SHR_LIST_SHR(specparam_assignment)();}
 	| comma_specparam_assignment_list COMMA specparam_assignment 
-		{$1@[$3]}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
-*/
+
 list_of_variable_identifiers :
 	variable_type comma_variable_type_list
 		{
@@ -1654,9 +1779,9 @@ param_assignment :
 		{$$=SHR2(param_assignment,T_param_assignment,($1,$3));}
 ;
 
-/*specparam_assignment :
+specparam_assignment :
 	specparam_identifier EQU1 mintypmax_expression
-		{$$=SHR2(,T_specparam_assignment,($1,$3);}
+		{$$=SHR2(specparam_assignment,T_specparam_assignment,($1,$3));}
 	| pulse_control_specparam
 		{$$=$1;}
 ;
@@ -1664,12 +1789,12 @@ param_assignment :
 
 pulse_control_specparam :
 	KEY_PATHPULSE EQU1 LPARENT reject_limit_value comma_error_limit_value_opt RPARENT
-		{$$=SHR2(,T_specparam_assignment_pulse1,($4,$5));}
+		{$$=SHR2(specparam_assignment,T_specparam_assignment_pulse1,($4,$5));}
 	| KEY_PATHPULSE specify_input_terminal_descriptor DOLLOR specify_output_terminal_descriptor EQU1 LPARENT reject_limit_value comma_error_limit_value_opt RPARENT
-		{$$=SHR2(,T_specparam_assignment_pulse2,($2,$4,$7,$8));}
+		{$$=SHR2(specparam_assignment,T_specparam_assignment_pulse2,($2,$4,$7,$8));}
 ;
 comma_error_limit_value_opt :
-	{$$=SHR2(,T_mintypmax_expression_NOSPEC,());}
+	{$$=SHR2(mintypmax_expression,T_mintypmax_expression_NOSPEC,());}
 	| COMMA error_limit_value {$$=$2;}
 ;	
 
@@ -1687,8 +1812,6 @@ limit_value :
 	mintypmax_expression
 		{$$=$1;}
 ;
-
-*/
 
 /*A.2.5 Declaration ranges*/
 dimension :
@@ -3345,315 +3468,529 @@ task_enable :
 
 /*A.7 Specify section
 A.7.1 Specify block declaration*/
-/*specify_block :
+specify_block :
 	KEY_SPECIFY specify_item_list KEY_ENDSPECIFY
-		{T_specify_block($2)}
+		{$$=SHR2(specify_block,T_specify_block,($2));}
 ;
 
 specify_item_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(specify_item)();
+	}
 	| specify_item_list specify_item 
-		{$1@[$2]}
+		{
+			auto p=$1;
+			p->push_back($2);
+			$$=p;
+		}
 ;
 
 
 specify_item :
 	specparam_declaration
-		{T_specify_item_specparam($1)}
+		{$$=SHR2(specify_item,T_specify_item_specparam,($1));}
 	| pulsestyle_declaration
-		{T_specify_item_pulsestyle($1)}
+		{$$=SHR2(specify_item,T_specify_item_pulsestyle,($1));}
 	| showcancelled_declaration
-		{T_specify_item_showcancelled($1)}
+		{$$=SHR2(specify_item,T_specify_item_showcancelled,($1));}
 	| path_declaration
-		{T_specify_item_path($1)}
+		{$$=SHR2(specify_item,T_specify_item_path,($1));}
 	| system_timing_check
-		{T_specify_item_system($1)}
+		{$$=SHR2(specify_item,T_specify_item_system,($1));}
 ;
 
 
 pulsestyle_declaration :
 	KEY_PULSESTYLE_ONEVENT list_of_path_outputs SEMICOLON
-		{T_pulsestyle_declaration_oneevent($2)}
+		{$$=SHR2(pulsestyle_declaration,T_pulsestyle_declaration_oneevent,($2));}
 	| KEY_PULSESTYLE_ONDETECT list_of_path_outputs SEMICOLON
-		{T_pulsestyle_declaration_onedetect($2)}
+		{$$=SHR2(pulsestyle_declaration,T_pulsestyle_declaration_onedetect,($2));}
 ;
-
-
 
 showcancelled_declaration :
 	KEY_SHOWCANCELLED list_of_path_outputs SEMICOLON
-		{T_showcancelled_declaration_show($2)}
+		{$$=SHR2(showcancelled_declaration,T_showcancelled_declaration_show,($2));}
 	| KEY_NOSHOWCANCELLED list_of_path_outputs SEMICOLON
-		{T_showcancelled_declaration_noshow($2)}
+		{$$=SHR2(showcancelled_declaration,T_showcancelled_declaration_noshow,($2));}
 ;
 
 
-*/
+
 /*A.7.2 Specify path declarations*/
-/*path_declaration :
+path_declaration :
 	simple_path_declaration SEMICOLON
-		{T_path_declaration_simple($1)}
+		{$$=SHR2(path_declaration,T_path_declaration_simple,($1));}
 	| edge_sensitive_path_declaration SEMICOLON
-		{T_path_declaration_edge($1)}
+		{$$=SHR2(path_declaration,T_path_declaration_edge,($1));}
 	| state_dependent_path_declaration SEMICOLON
-		{T_path_declaration_state($1)}
+		{$$=SHR2(path_declaration,T_path_declaration_state,($1));}
 ;
 
 
 simple_path_declaration :
 	parallel_path_description EQU1 path_delay_value
-		{T_simple_path_declaration_parallel($1,$3)}
+		{$$=SHR2(simple_path_declaration,T_simple_path_declaration_parallel,($1,$3));}
 	| full_path_description EQU1 path_delay_value
-		{T_simple_path_declaration_full($1,$3)}
+		{$$=SHR2(full_path_description,T_simple_path_declaration_full,($1,$3));}
 ;
 
 
 
 parallel_path_description :
 	LPARENT specify_input_terminal_descriptor polarity_operator_opt IMPLY2 specify_output_terminal_descriptor RPARENT
-		{T_parallel_path_description($2,$3,$5)}
+		{$$=SHR2(parallel_path_description,T_parallel_path_description,($2,$3,$5));}
 ;
 
 polarity_operator_opt :
-	{T_polarity_operator_NOSPEC}
-	| polarity_operator {$1}
+	{$$=SHR2(polarity_operator,T_polarity_operator_NOSPEC,());}
+	| polarity_operator {$$=$1;}
 ;
 
 full_path_description :
 	LPARENT list_of_path_inputs  polarity_operator_opt IMPLYSTART list_of_path_outputs RPARENT
-		{T_full_path_description($2,$3,$5)}
+		{$$=SHR2(full_path_description,T_full_path_description,($2,$3,$5));}
 ;
 
 
 list_of_path_inputs :
 	specify_input_terminal_descriptor comma_specify_input_terminal_descriptor_list
-		{$1::$2}
+		{
+			auto p=$2;
+			p->push_front($1);
+			$$=p;
+		}
 ;
 
 comma_specify_input_terminal_descriptor_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(specify_input_terminal_descriptor)();
+	}
 	| comma_specify_input_terminal_descriptor_list COMMA specify_input_terminal_descriptor 
-		{$1@$3}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
-
 
 list_of_path_outputs :
 	specify_output_terminal_descriptor comma_specify_output_terminal_descriptor_list
-		{$1::$2}
+		{
+			auto p=$2;
+			p->push_front($1);
+			$$=p;
+		}
 ;
 
 comma_specify_output_terminal_descriptor_list :
-	{[]}
+	{
+		$$=SHR_LIST_SHR(specify_output_terminal_descriptor)();
+	}
 	| comma_specify_output_terminal_descriptor_list COMMA specify_output_terminal_descriptor 
-		{$1@[$3]}
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
 ;
 
-*/
+
 /*A.7.3 Specify block terminals*/
-/*specify_input_terminal_descriptor :
+specify_input_terminal_descriptor :
 	input_identifier lsquare_range_expression_rsquare_opt
-		{T_specify_input_terminal_descriptor($1,$2)}
+		{$$=SHR2(specify_input_terminal_descriptor,T_specify_input_terminal_descriptor,($1,$2));}
 ;
 
 specify_output_terminal_descriptor :
 	output_identifier lsquare_range_expression_rsquare_opt
-		{T_specify_output_terminal_descriptor($1,$2)}
+		{$$=SHR2(specify_output_terminal_descriptor,T_specify_output_terminal_descriptor,($1,$2));}
 ;
 
 input_identifier :
-	identifier {$1}
+	identifier {$$=$1;}
 ;
-
-
 
 output_identifier :
-	identifier {$1}
+	identifier {$$=$1;}
 ;
 
-*/
+
 /*A.7.4 Specify path delays*/
-/*path_delay_value :
+path_delay_value :
 	list_of_path_delay_expressions
-		{$1}
+		{$$=$1;}
 	| LPARENT list_of_path_delay_expressions RPARENT
-		{$2}
+		{$$=$2;}
 ;
-
-
 
 list_of_path_delay_expressions :
 	mintypmax_expression
-		{T_list_of_mintypmax_expressions_1($1)}
+		{$$=SHR2(list_of_path_delay_expressions,T_list_of_mintypmax_expressions_1,($1));}
 	| mintypmax_expression COMMA mintypmax_expression
-		{T_list_of_mintypmax_expressions_2($1,$3)}
+		{$$=SHR2(list_of_path_delay_expressions,T_list_of_mintypmax_expressions_2,($1,$3));}
 	| mintypmax_expression COMMA mintypmax_expression COMMA mintypmax_expression
-		{T_list_of_mintypmax_expressions_3($1,$3,$5)}
+		{$$=SHR2(list_of_path_delay_expressions,T_list_of_mintypmax_expressions_3,($1,$3,$5));}
 	| mintypmax_expression COMMA mintypmax_expression COMMA mintypmax_expression COMMA	mintypmax_expression COMMA mintypmax_expression COMMA mintypmax_expression
-		{T_list_of_mintypmax_expressions_6($1,$3,$5,$7,$9,$11)}
+		{$$=SHR2(list_of_path_delay_expressions,T_list_of_mintypmax_expressions_6,($1,$3,$5,$7,$9,$11));}
 	| mintypmax_expression COMMA mintypmax_expression COMMA mintypmax_expression COMMA mintypmax_expression COMMA mintypmax_expression COMMA mintypmax_expression COMMA	mintypmax_expression COMMA mintypmax_expression COMMA mintypmax_expression COMMA 	mintypmax_expression COMMA mintypmax_expression COMMA mintypmax_expression
-		{T_list_of_mintypmax_expressions_12($1,$3,$5,$7,$9,$11,$13,$15,$17,$19,$21,$23)}
+		{$$=SHR2(list_of_path_delay_expressions,T_list_of_mintypmax_expressions_12,($1,$3,$5,$7,$9,$11,$13,$15,$17,$19,$21,$23));}
 ;
 
 edge_sensitive_path_declaration :
 	parallel_edge_sensitive_path_description EQU1 path_delay_value
-		{T_edge_sensitive_path_declaration_parallel($1,$3)}
+		{$$=SHR2(edge_sensitive_path_declaration,T_edge_sensitive_path_declaration_parallel,($1,$3));}
 	| full_edge_sensitive_path_description EQU1 path_delay_value
-		{T_edge_sensitive_path_declaration_full($1,$3)}
+		{$$=SHR2(edge_sensitive_path_declaration,T_edge_sensitive_path_declaration_full,($1,$3));}
 ;
 
 
 parallel_edge_sensitive_path_description :
 LPARENT edge_identifier_opt  specify_input_terminal_descriptor IMPLY2
 LPARENT specify_output_terminal_descriptor polarity_operator_opt COLON data_source_expression RPARENT RPARENT
-		{T_parallel_edge_sensitive_path_description($2,$3,$6,$7,$9)}
+		{$$=SHR2(parallel_edge_sensitive_path_description,T_parallel_edge_sensitive_path_description,($2,$3,$6,$7,$9));}
 ;
 
 edge_identifier_opt :
-	{T_edge_identifier_NOSPEC}
-	| edge_identifier {$1}
+	{$$=SHR2(edge_identifier,T_edge_identifier_NOSPEC,());}
+	| edge_identifier {$$=$1;}
 ;
 
 full_edge_sensitive_path_description :
 	LPARENT edge_identifier_opt list_of_path_inputs IMPLYSTART
 LPARENT list_of_path_outputs polarity_operator_opt COLON data_source_expression RPARENT RPARENT
-		{T_full_edge_sensitive_path_description($2,$3,$6,$7,$9)}
+		{$$=SHR2(full_edge_sensitive_path_description,T_full_edge_sensitive_path_description,($2,$3,$6,$7,$9));}
 ;
 
 data_source_expression :
 	expression
-	{$1}
+	{$$=$1;}
 ;
 
 
 edge_identifier :
-	KEY_POSEDGE  {T_edge_identifier_POS}
-	| KEY_NEGEDGE {T_edge_identifier_NEG}
+	KEY_POSEDGE  {$$=SHR2(edge_identifier,T_edge_identifier_POS,());}
+	| KEY_NEGEDGE {$$=SHR2(edge_identifier,T_edge_identifier_NEG,());}
 ;
 
 
 state_dependent_path_declaration :
-	KEY_IF LPARENT module_path_expression RPARENT simple_path_declaration
-		{T_state_dependent_path_declaration_simple($3,$5)}
-	| KEY_IF LPARENT module_path_expression RPARENT edge_sensitive_path_declaration
-		{T_state_dependent_path_declaration_edge($3,$5)}
+	KEY_IF LPARENT expression RPARENT simple_path_declaration
+		{$$=SHR2(state_dependent_path_declaration,T_state_dependent_path_declaration_simple,($3,$5));}
+	| KEY_IF LPARENT expression RPARENT edge_sensitive_path_declaration
+		{$$=SHR2(state_dependent_path_declaration,T_state_dependent_path_declaration_edge,($3,$5));}
 	| KEY_IFNONE simple_path_declaration
-		{T_state_dependent_path_declaration_ifnone($2)}
+		{$$=SHR2(state_dependent_path_declaration,T_state_dependent_path_declaration_ifnone,($2));}
 ;
 
 
 polarity_operator :
-	OP2_ADD  {T_polarity_operator_ADD}
-	| OP2_SUB {T_polarity_operator_SUB}
+	OP2_ADD  {$$=SHR2(polarity_operator,T_polarity_operator_ADD,());}
+	| OP2_SUB {$$=SHR2(polarity_operator,T_polarity_operator_SUB,());}
 ;
 
-*/
+
 /*A.7.5 System timing checks
 A.7.5.1 System timing check commands*/
-/* no time to do*/
-/*system_timing_check :
-$setup_timing_check
-| $hold_timing_check
-| $setuphold_timing_check
-| $recovery_timing_check
-| $removal_timing_check
-| $recrem_timing_check
-| $skew_timing_check
-| $timeskew_timing_check
-| $fullskew_timing_check
-| $period_timing_check
-| $width_timing_check
-| $nochange_timing_check
-$setup_timing_check ::=
-$setup ( data_event , reference_event , timing_check_limit [ , [ notifier ] ] ) ;
-$hold_timing_check ::=
-$hold ( reference_event , data_event , timing_check_limit [ , [ notifier ] ] ) ;
-$setuphold_timing_check ::=
-$setuphold ( reference_event , data_event , timing_check_limit , timing_check_limit
-[ , [ notifier ] [ , [ stamptime_condition ] [ , [ checktime_condition ]
-[ , [ delayed_reference ] [ , [ delayed_data ] ] ] ] ] ] ) ;
-$recovery_timing_check ::=
-$recovery ( reference_event , data_event , timing_check_limit [ , [ notifier ] ] ) ;
-$removal_timing_check ::=
-$removal ( reference_event , data_event , timing_check_limit [ , [ notifier ] ] ) ;
-$recrem_timing_check ::=
-$recrem ( reference_event , data_event , timing_check_limit , timing_check_limit
-[ , [ notifier ] [ , [ stamptime_condition ] [ , [ checktime_condition ]
-[ , [ delayed_reference ] [ , [ delayed_data ] ] ] ] ] ] ) ;
-$skew_timing_check ::=
-$skew ( reference_event , data_event , timing_check_limit [ , [ notifier ] ] ) ;
-$timeskew_timing_check ::=
-$timeskew ( reference_event , data_event , timing_check_limit
-[ , [ notifier ] [ , [ event_based_flag ] [ , [ remain_active_flag ] ] ] ] ) ;
-$fullskew_timing_check ::=
-$fullskew ( reference_event , data_event , timing_check_limit , timing_check_limit
-[ , [ notifier ] [ , [ event_based_flag ] [ , [ remain_active_flag ] ] ] ] ) ;
-$period_timing_check ::=
-$period ( controlled_reference_event , timing_check_limit [ , [ notifier ] ] ) ;
-$width_timing_check ::=
-$width ( controlled_reference_event , timing_check_limit
-[ , threshold [ , notifier ] ] ) ;
-$nochange_timing_check ::=
-$nochange ( reference_event , data_event , start_edge_offset ,
-end_edge_offset [ , [ notifier ] ] ) ;
-*/
+system_timing_check :
+	  dollor_setup_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_setup_timing_check,());}        
+	| dollor_hold_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_hold_timing_check,());}
+	| dollor_setuphold_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_setuphold_timing_check,());}
+	| dollor_recovery_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_recovery_timing_check,());}
+	| dollor_removal_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_removal_timing_check,());}
+	| dollor_recrem_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_recrem_timing_check,());}
+	| dollor_skew_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_skew_timing_check,());}
+	| dollor_timeskew_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_timeskew_timing_check,());}
+	| dollor_fullskew_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_fullskew_timing_check,());}
+	| dollor_period_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_period_timing_check,());}
+	| dollor_width_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_width_timing_check,());}
+	| dollor_nochange_timing_check {$$=SHR2(system_timing_check,T_system_timing_check_dollor_nochange_timing_check,());}
+;
+
+dollor_setup_timing_check :
+	DOLLOR_setup LPARENT data_event COMMA reference_event COMMA timing_check_limit comma_notifier_opt_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_setup_timing_check,T_dollor_setup_timing_check,($3,$5,$7,$8));}
+;
+
+comma_notifier_opt_opt :
+	{$$=SHR2(notifier,T_notifier_NOSPEC,());}
+	| COMMA {$$=SHR2(notifier,T_notifier_NOSPEC,());}
+	| COMMA notifier {$$=$2;}
+;
+
+dollor_hold_timing_check :
+	DOLLOR_hold LPARENT reference_event COMMA data_event COMMA timing_check_limit comma_notifier_opt_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_hold_timing_check,T_dollor_hold_timing_check,($3,$5,$7,$8));}
+;
+
+dollor_setuphold_timing_check :
+	DOLLOR_setuphold LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit
+comma_notifier_opt comma_stamptime_condition_opt comma_checktime_condition_opt
+comma_delayed_reference_opt comma_delayed_data_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_setuphold_timing_check,T_dollor_setuphold_timing_check,($3,$5,$7,$9,$10,$11,$12,$13,$14));}
+;
+
+comma_stamptime_condition_opt:
+	{$$=SHR2(stamptime_condition,T_stamptime_condition_NOSPEC,());}
+	| COMMA stamptime_condition {$$=$2;}
+
+comma_notifier_opt :
+	{$$=SHR2(notifier,T_notifier_NOSPEC,());}
+	| COMMA notifier {$$=$2;}
+;
+
+comma_delayed_reference_opt :
+	{$$=SHR2(delayed_reference,T_delayed_reference_NOSPEC,());}
+	| COMMA delayed_reference {$$=$2;}
+
+comma_checktime_condition_opt :
+	{$$=SHR2(checktime_condition,T_checktime_condition_NOSPEC,());}
+	| COMMA checktime_condition {$$=$2}
+;
+
+comma_delayed_data_opt :
+	{$$=SHR2(delayed_data,T_delayed_data_NOSPEC,());}
+	| COMMA delayed_data { $$=$2; }
+;
+
+dollor_recovery_timing_check :
+	DOLLOR_recovery LPARENT reference_event COMMA data_event COMMA timing_check_limit comma_notifier_opt_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_recovery_timing_check,T_dollor_recovery_timing_check,($3,$5,$7,$8));}
+;
+
+dollor_removal_timing_check :
+	DOLLOR_removal LPARENT reference_event COMMA data_event COMMA timing_check_limit comma_notifier_opt_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_removal_timing_check,T_dollor_removal_timing_check,($3,$5,$7,$8));}
+;
+
+dollor_recrem_timing_check :
+	DOLLOR_recrem LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit
+comma_notifier_opt_opt comma_stamptime_condition_opt comma_checktime_condition_opt
+comma_delayed_reference_opt comma_delayed_data_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_recrem_timing_check,T_dollor_recrem_timing_check,($3,$5,$7,$9,$10,$11,$12,$13,$14));}
+;
+
+dollor_skew_timing_check :
+	DOLLOR_skew LPARENT reference_event COMMA data_event COMMA timing_check_limit comma_notifier_opt_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_skew_timing_check,T_dollor_skew_timing_check,($3,$5,$7,$8));}
+;
+dollor_timeskew_timing_check :
+	DOLLOR_timeskew LPARENT reference_event COMMA data_event COMMA timing_check_limit
+comma_notifier_opt_opt comma_event_based_flag_opt comma_remain_active_flag_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_timeskew_timing_check,T_dollor_timeskew_timing_check,($3,$5,$7,$8,$9,$10));}
+;
+
+comma_event_based_flag_opt :
+	{$$=SHR2(event_based_flag,T_event_based_flag_NOSPEC,());}
+	| event_based_flag {$$=$1;}
+;
+
+comma_remain_active_flag_opt:
+	{$$=SHR2(remain_active_flag,T_remain_active_flag_NOSPEC,());}
+	| COMMA remain_active_flag {$$=$2;}
+;
+
+
+dollor_fullskew_timing_check :
+	DOLLOR_fullskew LPARENT reference_event COMMA data_event COMMA timing_check_limit COMMA timing_check_limit
+comma_notifier_opt_opt comma_event_based_flag_opt comma_remain_active_flag_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_fullskew_timing_check,T_dollor_fullskew_timing_check,($3,$5,$7,$9,$10,$11,$12));}
+;
+
+dollor_period_timing_check :
+	DOLLOR_period LPARENT controlled_reference_event COMMA timing_check_limit comma_notifier_opt_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_period_timing_check,T_dollor_period_timing_check,($3,$5,$6));}
+;
+
+dollor_width_timing_check :
+	DOLLOR_width LPARENT controlled_reference_event COMMA timing_check_limit comma_threshold_opt comma_notifier_opt_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_width_timing_check,T_dollor_width_timing_check,($3,$5,$6,$7));}
+;
+
+comma_threshold_opt :
+	{$$=SHR2(threshold,T_threshold_NOSPEC,());}
+	| COMMA threshold {$$=$2;}
+;
+
+dollor_nochange_timing_check :
+	DOLLOR_nochange LPARENT reference_event COMMA data_event COMMA start_edge_offset COMMA end_edge_offset comma_notifier_opt_opt RPARENT SEMICOLON
+	{$$=SHR2(dollor_nochange_timing_check,T_dollor_nochange_timing_check,($3,$5,$7,$9,$10));}
+;
 
 /*A.7.5.2 System timing check command arguments*/
-/*
-checktime_condition ::= mintypmax_expression
-controlled_reference_event ::= controlled_timing_check_event
-data_event ::= timing_check_event
-delayed_data ::=
-terminal_identifier
-| terminal_identifier [ mintypmax_expression ]
-delayed_reference ::=
-terminal_identifier
-| terminal_identifier [ mintypmax_expression ]
-end_edge_offset ::= mintypmax_expression
-event_based_flag ::= expression
-notifier ::= variable_identifier
-reference_event ::= timing_check_event
-remain_active_flag ::= expression
-stamptime_condition ::= mintypmax_expression
-start_edge_offset ::= mintypmax_expression
-threshold ::= expression
-timing_check_limit ::= expression
-A.7.5.3 System timing check event definitions
-timing_check_event ::=
-[timing_check_event_control] specify_terminal_descriptor [ &&& timing_check_condition ]
-controlled_timing_check_event ::=
-timing_check_event_control specify_terminal_descriptor [ &&& timing_check_condition ]
-timing_check_event_control ::=
-posedge
-| negedge
-| edge_control_specifier
-specify_terminal_descriptor ::=
-specify_input_terminal_descriptor
-| specify_output_terminal_descriptor
-edge_control_specifier ::= edge [ edge_descriptor { , edge_descriptor } ]
-edge_descriptor 2 ::=
-01
-| 10
-| z_or_x zero_or_one
-| zero_or_one z_or_x
-zero_or_one ::= 0 | 1
-z_or_x ::= x | X | z | Z
-timing_check_condition ::=
-scalar_timing_check_condition
-| ( scalar_timing_check_condition )
-scalar_timing_check_condition ::=
-expression
-| ~ expression
-| expression == scalar_constant
-| expression === scalar_constant
-| expression != scalar_constant
-| expression !== scalar_constant
-scalar_constant ::=
-1'b0 | 1'b1 | 1'B0 | 1'B1 | 'b0 | 'b1 | 'B0 | 'B1 | 1 | 0
+checktime_condition :
+	mintypmax_expression 
+	{$$=SHR2(checktime_condition,T_checktime_condition,($1));}
+;
 
+controlled_reference_event : 
+	controlled_timing_check_event 
+	{$$=SHR2(controlled_reference_event,T_controlled_reference_event,($1));}
+;
 
-*/
+data_event : 
+	timing_check_event
+	{$$=SHR2(data_event,T_data_event,($1));}
+;
 
+delayed_data :
+	terminal_identifier
+		{$$=SHR2(delayed_data,T_delayed_data_id,($1));}
+	| terminal_identifier mintypmax_expression_opt 
+		{ $$=SHR2(delayed_data,T_delayed_data_idmtmexp,($1,$2)); }
+;
 
+delayed_reference :
+	terminal_identifier
+		{$$=SHR2(delayed_reference,T_delayed_reference_id,($1));}
+	|	terminal_identifier mintypmax_expression_opt 
+		{$$=SHR2(delayed_reference,T_delayed_reference_idmtmexp,($1,$2));}
+;
+
+end_edge_offset :
+	mintypmax_expression
+	{$$=SHR2(end_edge_offset,T_end_edge_offset,($1));}
+;
+
+event_based_flag : 
+	expression
+		{$$=SHR2(event_based_flag,T_event_based_flag,($1));}
+;
+
+notifier : 
+	variable_identifier
+		{$$=SHR2(notifier,T_notifier,($1));}
+;
+
+reference_event :
+	timing_check_event
+		{$$=SHR2(reference_event,T_reference_event,($1));}
+;
+
+remain_active_flag : 
+	expression
+	{$$=SHR2(remain_active_flag,T_remain_active_flag,($1));}
+;
+
+stamptime_condition :
+	mintypmax_expression
+	{$$=SHR2(stamptime_condition,T_stamptime_condition,($1));}
+;
+
+start_edge_offset :
+	mintypmax_expression
+	{$$=SHR2(start_edge_offset,T_start_edge_offset,($1));}
+;
+
+threshold :
+	expression
+	{$$=SHR2(threshold,T_threshold,($1));}
+;
+
+timing_check_limit :
+	expression
+	{$$=SHR2(timing_check_limit,T_timing_check_limit,($1));}
+;
+
+/*A.7.5.3 System timing check event definitions*/
+
+timing_check_event :
+	timing_check_event_control_opt specify_terminal_descriptor and3_timing_check_condition_opt
+	{$$=SHR2(timing_check_event,T_timing_check_event,($1,$2,$3));}
+;
+
+timing_check_event_control_opt :
+	{$$=SHR2(timing_check_event_control,T_timing_check_event_control_NOSPEC,());}
+	| timing_check_event_control {$$=$1;}
+;
+
+and3_timing_check_condition_opt :
+	{$$=SHR2(timing_check_condition,T_timing_check_condition_NOSPEC,());}
+	| AND3 timing_check_condition {$$=$2;}
+;
+
+controlled_timing_check_event :
+	timing_check_event_control specify_terminal_descriptor and3_timing_check_condition_opt
+	{$$=SHR2(controlled_timing_check_event,T_controlled_timing_check_event,($1,$2,$3));}
+;
+
+timing_check_event_control :
+	KEY_POSEDGE {$$=SHR2(timing_check_event_control,T_timing_check_event_control_POSEDGE,());}
+	| KEY_NEGEDGE {$$=SHR2(timing_check_event_control,T_timing_check_event_control_NEGEDGE,());}
+	| edge_control_specifier 
+		{$$=SHR2(timing_check_event_control,T_timing_check_event_control_edge_control_specifier,($1));}
+;
+
+specify_terminal_descriptor :
+	specify_input_terminal_descriptor
+		{$$=SHR2(specify_terminal_descriptor,T_specify_terminal_descriptor_in,($1));}
+	| specify_output_terminal_descriptor
+		{$$=SHR2(specify_terminal_descriptor,T_specify_terminal_descriptor_out,($1));}
+;
+
+edge_control_specifier :
+	KEY_EDGE LSQUARE edge_descriptor comma_edge_descriptor_list RSQUARE
+		{
+			auto p=$4;
+			p->push_front($3);
+			$$=SHR2(edge_control_specifier,T_edge_control_specifier,(p));
+		}
+;
+
+comma_edge_descriptor_list :
+	{$$=SHR_LIST_SHR(edge_descriptor)();}
+	| comma_edge_descriptor_list COMMA edge_descriptor
+		{
+			auto p=$1;
+			p->push_back($3);
+			$$=p;
+		}
+;
+
+edge_descriptor :
+	EDGE_01 {$$=SHR2(edge_descriptor,T_edge_descriptor_01,());}
+	| EDGE_10 {$$=SHR2(edge_descriptor,T_edge_descriptor_10,());}
+	| z_or_x zero_or_one {$$=SHR2(edge_descriptor,T_edge_descriptor_zx01,($1,$2));}
+	| zero_or_one z_or_x {$$=SHR2(edge_descriptor,T_edge_descriptor_01zx,($1,$2));}
+;
+
+zero_or_one : 
+	EDGE_0 {$$=SHR2(zero_or_one,T_zero_or_one_0,());}
+	| EDGE_1 {$$=SHR2(zero_or_one,T_zero_or_one_1,());}
+;
+
+z_or_x :
+	EDGE_x   {$$=SHR2(z_or_x,T_z_or_x__x,());}
+	| EDGE_X {$$=SHR2(z_or_x,T_z_or_x__X,());}
+	| EDGE_z {$$=SHR2(z_or_x,T_z_or_x__z,());}
+	| EDGE_Z {$$=SHR2(z_or_x,T_z_or_x__Z,());}
+;
+
+timing_check_condition :
+	scalar_timing_check_condition {$$=SHR2(timing_check_condition,T_timing_check_condition,($1));}
+	| LPARENT scalar_timing_check_condition RPARENT 
+		{$$=SHR2(timing_check_condition,T_timing_check_condition,($2));}
+;
+
+scalar_timing_check_condition :
+	expression 
+		{$$=SHR2(scalar_timing_check_condition,T_scalar_timing_check_condition_exp,($1));}
+	| OP1_BITWISE_NEG expression 
+		{$$=SHR2(scalar_timing_check_condition,T_scalar_timing_check_condition_Negexp,($2));}
+	| expression OP2_EQU2 scalar_constant 
+		{$$=SHR2(scalar_timing_check_condition,T_scalar_timing_check_condition_eq2,($1,$3));}
+	| expression OP2_EQU3 scalar_constant
+		{$$=SHR2(scalar_timing_check_condition,T_scalar_timing_check_condition_eq3,($1,$3));}
+	| expression OP2_NEQ2 scalar_constant
+		{$$=SHR2(scalar_timing_check_condition,T_scalar_timing_check_condition_neq2,($1,$3));}
+	| expression OP2_NEQ3 scalar_constant
+		{$$=SHR2(scalar_timing_check_condition,T_scalar_timing_check_condition_neq3,($1,$3));}
+;
+
+scalar_constant :
+ /*1'b0 | 1'b1 | 1'B0 | 1'B1 | 'b0 | 'b1 | 'B0 | 'B1 | 1 | 0*/
+ UNSIGNED_NUMBER {$$=SHR2(scalar_constant,T_scalar_constant_unsigned,($1));}
+ | BINARY_NUMBER {$$=SHR2(scalar_constant,T_scalar_constant_binary,(get<0>($1),get<1>($1),get<2>($1)));}
+;
 
 /*A.8 Expressions
 A.8.1 Concatenations*/
@@ -4056,7 +4393,7 @@ output_port_identifier : identifier {$$=$1;};
 parameter_identifier : identifier {$$=$1;};
 port_identifier : identifier {$$=$1;};
 real_identifier : identifier {$$=$1;};
-/*specparam_identifier : identifier {$$=$1;};*/
+specparam_identifier : identifier {$$=$1;};
 
 
 system_function_identifier :
@@ -4067,8 +4404,8 @@ system_function_identifier :
 
 
 task_identifier : identifier {$$=$1;};
- /*terminal_identifier : identifier {$$=$1;};
-text_macro_identifier : identifier {$$=$1;};
+terminal_identifier : identifier {$$=$1;};
+/*text_macro_identifier : identifier {$$=$1;};
 topmodule_identifier : identifier {$$=$1;};*/
 /*udp_instance_identifier : identifier {$$=$1;};
 udp_identifier : identifier {$$=$1;};*/

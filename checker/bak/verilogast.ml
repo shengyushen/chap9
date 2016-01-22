@@ -501,6 +501,7 @@ and	specify_item =
 	| T_specify_item_pulsestyle of pulsestyle_declaration
 	| T_specify_item_showcancelled of showcancelled_declaration
 	| T_specify_item_path of path_declaration
+	| T_specify_item_system of system_timing_check
 and pulsestyle_declaration =
 	T_pulsestyle_declaration_oneevent of (specify_output_terminal_descriptor list)
 	| T_pulsestyle_declaration_onedetect of (specify_output_terminal_descriptor list)
@@ -616,6 +617,118 @@ and polarity_operator =
 	T_polarity_operator_NOSPEC
 	| T_polarity_operator_ADD
 	| T_polarity_operator_SUB
+and system_timing_check =
+	  T_system_timing_check_dollor_setup_timing_check      of dollor_setup_timing_check   
+	| T_system_timing_check_dollor_hold_timing_check       of dollor_hold_timing_check
+	| T_system_timing_check_dollor_setuphold_timing_check  of dollor_setuphold_timing_check
+	| T_system_timing_check_dollor_recovery_timing_check   of dollor_recovery_timing_check
+	| T_system_timing_check_dollor_removal_timing_check    of dollor_removal_timing_check
+	| T_system_timing_check_dollor_recrem_timing_check     of dollor_recrem_timing_check
+	| T_system_timing_check_dollor_skew_timing_check       of dollor_skew_timing_check
+	| T_system_timing_check_dollor_timeskew_timing_check   of dollor_timeskew_timing_check
+	| T_system_timing_check_dollor_fullskew_timing_check   of dollor_fullskew_timing_check
+	| T_system_timing_check_dollor_period_timing_check     of dollor_period_timing_check
+	| T_system_timing_check_dollor_width_timing_check      of dollor_width_timing_check
+	| T_system_timing_check_dollor_nochange_timing_check   of dollor_nochange_timing_check
+and dollor_setup_timing_check =
+	T_dollor_setup_timing_check of data_event*reference_event*timing_check_limit*notifier
+and dollor_hold_timing_check =
+	T_dollor_hold_timing_check of reference_event*data_event*timing_check_limit*notifier
+and dollor_setuphold_timing_check =
+	T_dollor_setuphold_timing_check of reference_event*data_event*timing_check_limit*timing_check_limit*notifier*stamptime_condition*checktime_condition*delayed_reference*delayed_data
+and dollor_recovery_timing_check =
+	T_dollor_recovery_timing_check of reference_event*data_event*timing_check_limit*notifier
+and dollor_removal_timing_check =
+	T_dollor_removal_timing_check of reference_event*data_event*timing_check_limit*notifier
+and dollor_recrem_timing_check =
+	T_dollor_recrem_timing_check of reference_event*data_event*timing_check_limit*timing_check_limit*notifier*stamptime_condition*checktime_condition*delayed_reference*delayed_data
+and dollor_skew_timing_check =
+	T_dollor_skew_timing_check of reference_event*data_event*timing_check_limit*notifier
+and dollor_timeskew_timing_check =
+	T_dollor_timeskew_timing_check of reference_event*data_event*timing_check_limit*notifier*event_based_flag*remain_active_flag
+and dollor_fullskew_timing_check =
+	T_dollor_fullskew_timing_check of reference_event*data_event*timing_check_limit*timing_check_limit*notifier*event_based_flag*remain_active_flag
+and dollor_period_timing_check =
+	T_dollor_period_timing_check of reference_event*data_event*timing_check_limit*timing_check_limit*notifier*event_based_flag*remain_active_flag
+and dollor_width_timing_check =
+	T_dollor_width_timing_check of controlled_reference_event*timing_check_limit*threshold*notifier
+and dollor_nochange_timing_check =
+	T_dollor_nochange_timing_check of reference_event*data_event*start_edge_offset*end_edge_offset*notifier
+and checktime_condition =
+	T_checktime_condition_NOSPEC
+	| T_checktime_condition of mintypmax_expression
+and	controlled_reference_event =
+	T_controlled_reference_event of controlled_timing_check_event
+and data_event =
+	T_data_event of timing_check_event
+and delayed_reference =
+	T_delayed_reference_NOSPEC
+	| T_delayed_reference_id of identifier
+	| T_delayed_reference_idmtmexp of identifier*mintypmax_expression
+and end_edge_offset =
+	T_end_edge_offset of mintypmax_expression
+and event_based_flag =
+	T_event_based_flag of expression
+	| T_event_based_flag_NOSPEC
+and notifier =
+	T_notifier_NOSPEC 
+	| T_notifier of identifier
+and reference_event = 
+	T_reference_event of timing_check_event
+and remain_active_flag =
+	T_remain_active_flag of expression
+and stamptime_condition =
+	T_stamptime_condition of mintypmax_expression
+and start_edge_offset =
+	T_start_edge_offset of mintypmax_expression
+and threshold =
+	T_threshold of expression
+and timing_check_limit =
+	T_timing_check_limit of expression
+and timing_check_event =
+	T_timing_check_event of timing_check_event_control*specify_terminal_descriptor*timing_check_condition
+and controlled_timing_check_event =
+	T_controlled_timing_check_event of timing_check_event_control*specify_terminal_descriptor*timing_check_condition
+and timing_check_event_control =
+	T_timing_check_event_control_NOSPEC
+	| T_timing_check_event_control_POSEDGE
+	| T_timing_check_event_control_NEGEDGE
+	| T_timing_check_event_control_edge_control_specifier of edge_control_specifier
+and specify_terminal_descriptor =
+	T_specify_terminal_descriptor_in of specify_input_terminal_descriptor
+	| T_specify_terminal_descriptor_out of specify_output_terminal_descriptor
+and edge_control_specifier =
+	T_edge_control_specifier of (edge_descriptor list)
+and edge_descriptor =
+	T_edge_descriptor_01
+	| T_edge_descriptor_10
+	| T_edge_descriptor_zx01 of z_or_x*zero_or_one
+	| T_edge_descriptor_01zx of zero_or_one*z_or_x
+and zero_or_one =
+	T_zero_or_one_0
+	| T_zero_or_one_1
+and z_or_x =
+	T_z_or_x__x
+	| T_z_or_x__X
+	| T_z_or_x__z
+	| T_z_or_x__Z
+and timing_check_condition =
+	T_timing_check_condition_NOSPEC
+	| T_timing_check_condition of scalar_timing_check_condition
+and scalar_timing_check_condition =
+	T_scalar_timing_check_condition_exp of expression
+	| T_scalar_timing_check_condition_Negexp of expression
+	| T_scalar_timing_check_condition_eq2 of expression*expression
+	| T_scalar_timing_check_condition_eq3 of expression*expression
+	| T_scalar_timing_check_condition_neq2 of expression*expression
+	| T_scalar_timing_check_condition_neq3 of expression*expression
+and scalar_constant =
+	T_scalar_constant_unsigned of int
+	| T_scalar_constant_binary of int*string*string
+and delayed_data =
+	T_delayed_data_NOSPEC 
+	| T_delayed_data_id of identifier
+	| T_delayed_data_idmtmexp of identifier*mintypmax_expression
 and edge_identifier =
 	T_edge_identifier_NOSPEC
 	| T_edge_identifier_POS

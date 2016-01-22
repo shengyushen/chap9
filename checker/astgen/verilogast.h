@@ -366,6 +366,7 @@ class T_specify_item_specparam;
 class T_specify_item_pulsestyle;
 class T_specify_item_showcancelled;
 class T_specify_item_path;
+class T_specify_item_system;
 class T_pulsestyle_declaration_oneevent;
 class T_pulsestyle_declaration_onedetect;
 class T_showcancelled_declaration_show;
@@ -446,6 +447,80 @@ class T_identifier_lsq_expression_rsq;
 class T_polarity_operator_NOSPEC;
 class T_polarity_operator_ADD;
 class T_polarity_operator_SUB;
+class T_system_timing_check_dollor_setup_timing_check;
+class T_system_timing_check_dollor_hold_timing_check;
+class T_system_timing_check_dollor_setuphold_timing_check;
+class T_system_timing_check_dollor_recovery_timing_check;
+class T_system_timing_check_dollor_removal_timing_check;
+class T_system_timing_check_dollor_recrem_timing_check;
+class T_system_timing_check_dollor_skew_timing_check;
+class T_system_timing_check_dollor_timeskew_timing_check;
+class T_system_timing_check_dollor_fullskew_timing_check;
+class T_system_timing_check_dollor_period_timing_check;
+class T_system_timing_check_dollor_width_timing_check;
+class T_system_timing_check_dollor_nochange_timing_check;
+class T_dollor_setup_timing_check;
+class T_dollor_hold_timing_check;
+class T_dollor_setuphold_timing_check;
+class T_dollor_recovery_timing_check;
+class T_dollor_removal_timing_check;
+class T_dollor_recrem_timing_check;
+class T_dollor_skew_timing_check;
+class T_dollor_timeskew_timing_check;
+class T_dollor_fullskew_timing_check;
+class T_dollor_period_timing_check;
+class T_dollor_width_timing_check;
+class T_dollor_nochange_timing_check;
+class T_checktime_condition_NOSPEC;
+class T_checktime_condition;
+class T_controlled_reference_event;
+class T_data_event;
+class T_delayed_reference_NOSPEC;
+class T_delayed_reference_id;
+class T_delayed_reference_idmtmexp;
+class T_end_edge_offset;
+class T_event_based_flag;
+class T_event_based_flag_NOSPEC;
+class T_notifier_NOSPEC;
+class T_notifier;
+class T_reference_event;
+class T_remain_active_flag;
+class T_stamptime_condition;
+class T_start_edge_offset;
+class T_threshold;
+class T_timing_check_limit;
+class T_timing_check_event;
+class T_controlled_timing_check_event;
+class T_timing_check_event_control_NOSPEC;
+class T_timing_check_event_control_POSEDGE;
+class T_timing_check_event_control_NEGEDGE;
+class T_timing_check_event_control_edge_control_specifier;
+class T_specify_terminal_descriptor_in;
+class T_specify_terminal_descriptor_out;
+class T_edge_control_specifier;
+class T_edge_descriptor_01;
+class T_edge_descriptor_10;
+class T_edge_descriptor_zx01;
+class T_edge_descriptor_01zx;
+class T_zero_or_one_0;
+class T_zero_or_one_1;
+class T_z_or_x__x;
+class T_z_or_x__X;
+class T_z_or_x__z;
+class T_z_or_x__Z;
+class T_timing_check_condition_NOSPEC;
+class T_timing_check_condition;
+class T_scalar_timing_check_condition_exp;
+class T_scalar_timing_check_condition_Negexp;
+class T_scalar_timing_check_condition_eq2;
+class T_scalar_timing_check_condition_eq3;
+class T_scalar_timing_check_condition_neq2;
+class T_scalar_timing_check_condition_neq3;
+class T_scalar_constant_unsigned;
+class T_scalar_constant_binary;
+class T_delayed_data_NOSPEC;
+class T_delayed_data_id;
+class T_delayed_data_idmtmexp;
 class T_edge_identifier_NOSPEC;
 class T_edge_identifier_POS;
 class T_edge_identifier_NEG;
@@ -1213,6 +1288,7 @@ typedef boost::variant<
  ,  std::shared_ptr<T_specify_item_pulsestyle>
  ,  std::shared_ptr<T_specify_item_showcancelled>
  ,  std::shared_ptr<T_specify_item_path>
+ ,  std::shared_ptr<T_specify_item_system>
  > specify_item ; 
 typedef boost::variant<
  std::shared_ptr<T_pulsestyle_declaration_oneevent>
@@ -1364,6 +1440,156 @@ typedef boost::variant<
  ,  std::shared_ptr<T_polarity_operator_ADD>
  ,  std::shared_ptr<T_polarity_operator_SUB>
  > polarity_operator ; 
+typedef boost::variant<
+ std::shared_ptr<T_system_timing_check_dollor_setup_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_hold_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_setuphold_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_recovery_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_removal_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_recrem_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_skew_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_timeskew_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_fullskew_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_period_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_width_timing_check>
+ ,  std::shared_ptr<T_system_timing_check_dollor_nochange_timing_check>
+ > system_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_setup_timing_check>
+ > dollor_setup_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_hold_timing_check>
+ > dollor_hold_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_setuphold_timing_check>
+ > dollor_setuphold_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_recovery_timing_check>
+ > dollor_recovery_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_removal_timing_check>
+ > dollor_removal_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_recrem_timing_check>
+ > dollor_recrem_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_skew_timing_check>
+ > dollor_skew_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_timeskew_timing_check>
+ > dollor_timeskew_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_fullskew_timing_check>
+ > dollor_fullskew_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_period_timing_check>
+ > dollor_period_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_width_timing_check>
+ > dollor_width_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_dollor_nochange_timing_check>
+ > dollor_nochange_timing_check ; 
+typedef boost::variant<
+ std::shared_ptr<T_checktime_condition_NOSPEC>
+ ,  std::shared_ptr<T_checktime_condition>
+ > checktime_condition ; 
+typedef boost::variant<
+ std::shared_ptr<T_controlled_reference_event>
+ > controlled_reference_event ; 
+typedef boost::variant<
+ std::shared_ptr<T_data_event>
+ > data_event ; 
+typedef boost::variant<
+ std::shared_ptr<T_delayed_reference_NOSPEC>
+ ,  std::shared_ptr<T_delayed_reference_id>
+ ,  std::shared_ptr<T_delayed_reference_idmtmexp>
+ > delayed_reference ; 
+typedef boost::variant<
+ std::shared_ptr<T_end_edge_offset>
+ > end_edge_offset ; 
+typedef boost::variant<
+ std::shared_ptr<T_event_based_flag>
+ ,  std::shared_ptr<T_event_based_flag_NOSPEC>
+ > event_based_flag ; 
+typedef boost::variant<
+ std::shared_ptr<T_notifier_NOSPEC>
+ ,  std::shared_ptr<T_notifier>
+ > notifier ; 
+typedef boost::variant<
+ std::shared_ptr<T_reference_event>
+ > reference_event ; 
+typedef boost::variant<
+ std::shared_ptr<T_remain_active_flag>
+ > remain_active_flag ; 
+typedef boost::variant<
+ std::shared_ptr<T_stamptime_condition>
+ > stamptime_condition ; 
+typedef boost::variant<
+ std::shared_ptr<T_start_edge_offset>
+ > start_edge_offset ; 
+typedef boost::variant<
+ std::shared_ptr<T_threshold>
+ > threshold ; 
+typedef boost::variant<
+ std::shared_ptr<T_timing_check_limit>
+ > timing_check_limit ; 
+typedef boost::variant<
+ std::shared_ptr<T_timing_check_event>
+ > timing_check_event ; 
+typedef boost::variant<
+ std::shared_ptr<T_controlled_timing_check_event>
+ > controlled_timing_check_event ; 
+typedef boost::variant<
+ std::shared_ptr<T_timing_check_event_control_NOSPEC>
+ ,  std::shared_ptr<T_timing_check_event_control_POSEDGE>
+ ,  std::shared_ptr<T_timing_check_event_control_NEGEDGE>
+ ,  std::shared_ptr<T_timing_check_event_control_edge_control_specifier>
+ > timing_check_event_control ; 
+typedef boost::variant<
+ std::shared_ptr<T_specify_terminal_descriptor_in>
+ ,  std::shared_ptr<T_specify_terminal_descriptor_out>
+ > specify_terminal_descriptor ; 
+typedef boost::variant<
+ std::shared_ptr<T_edge_control_specifier>
+ > edge_control_specifier ; 
+typedef boost::variant<
+ std::shared_ptr<T_edge_descriptor_01>
+ ,  std::shared_ptr<T_edge_descriptor_10>
+ ,  std::shared_ptr<T_edge_descriptor_zx01>
+ ,  std::shared_ptr<T_edge_descriptor_01zx>
+ > edge_descriptor ; 
+typedef boost::variant<
+ std::shared_ptr<T_zero_or_one_0>
+ ,  std::shared_ptr<T_zero_or_one_1>
+ > zero_or_one ; 
+typedef boost::variant<
+ std::shared_ptr<T_z_or_x__x>
+ ,  std::shared_ptr<T_z_or_x__X>
+ ,  std::shared_ptr<T_z_or_x__z>
+ ,  std::shared_ptr<T_z_or_x__Z>
+ > z_or_x ; 
+typedef boost::variant<
+ std::shared_ptr<T_timing_check_condition_NOSPEC>
+ ,  std::shared_ptr<T_timing_check_condition>
+ > timing_check_condition ; 
+typedef boost::variant<
+ std::shared_ptr<T_scalar_timing_check_condition_exp>
+ ,  std::shared_ptr<T_scalar_timing_check_condition_Negexp>
+ ,  std::shared_ptr<T_scalar_timing_check_condition_eq2>
+ ,  std::shared_ptr<T_scalar_timing_check_condition_eq3>
+ ,  std::shared_ptr<T_scalar_timing_check_condition_neq2>
+ ,  std::shared_ptr<T_scalar_timing_check_condition_neq3>
+ > scalar_timing_check_condition ; 
+typedef boost::variant<
+ std::shared_ptr<T_scalar_constant_unsigned>
+ ,  std::shared_ptr<T_scalar_constant_binary>
+ > scalar_constant ; 
+typedef boost::variant<
+ std::shared_ptr<T_delayed_data_NOSPEC>
+ ,  std::shared_ptr<T_delayed_data_id>
+ ,  std::shared_ptr<T_delayed_data_idmtmexp>
+ > delayed_data ; 
 typedef boost::variant<
  std::shared_ptr<T_edge_identifier_NOSPEC>
  ,  std::shared_ptr<T_edge_identifier_POS>
@@ -5726,6 +5952,16 @@ class T_specify_item_path : public ComponentBase {
        mem1(i1)
   {}
 };
+class T_specify_item_system : public ComponentBase {
+  public :
+    std::shared_ptr<system_timing_check> mem1;
+
+  T_specify_item_system( 
+       std::shared_ptr<system_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
 class T_pulsestyle_declaration_oneevent : public ComponentBase {
   public :
     std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem1;
@@ -6719,6 +6955,902 @@ class T_polarity_operator_SUB : public ComponentBase {
 
   T_polarity_operator_SUB( 
   )
+  {}
+};
+class T_system_timing_check_dollor_setup_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_setup_timing_check> mem1;
+
+  T_system_timing_check_dollor_setup_timing_check( 
+       std::shared_ptr<dollor_setup_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_hold_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_hold_timing_check> mem1;
+
+  T_system_timing_check_dollor_hold_timing_check( 
+       std::shared_ptr<dollor_hold_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_setuphold_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_setuphold_timing_check> mem1;
+
+  T_system_timing_check_dollor_setuphold_timing_check( 
+       std::shared_ptr<dollor_setuphold_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_recovery_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_recovery_timing_check> mem1;
+
+  T_system_timing_check_dollor_recovery_timing_check( 
+       std::shared_ptr<dollor_recovery_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_removal_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_removal_timing_check> mem1;
+
+  T_system_timing_check_dollor_removal_timing_check( 
+       std::shared_ptr<dollor_removal_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_recrem_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_recrem_timing_check> mem1;
+
+  T_system_timing_check_dollor_recrem_timing_check( 
+       std::shared_ptr<dollor_recrem_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_skew_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_skew_timing_check> mem1;
+
+  T_system_timing_check_dollor_skew_timing_check( 
+       std::shared_ptr<dollor_skew_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_timeskew_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_timeskew_timing_check> mem1;
+
+  T_system_timing_check_dollor_timeskew_timing_check( 
+       std::shared_ptr<dollor_timeskew_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_fullskew_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_fullskew_timing_check> mem1;
+
+  T_system_timing_check_dollor_fullskew_timing_check( 
+       std::shared_ptr<dollor_fullskew_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_period_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_period_timing_check> mem1;
+
+  T_system_timing_check_dollor_period_timing_check( 
+       std::shared_ptr<dollor_period_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_width_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_width_timing_check> mem1;
+
+  T_system_timing_check_dollor_width_timing_check( 
+       std::shared_ptr<dollor_width_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_system_timing_check_dollor_nochange_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<dollor_nochange_timing_check> mem1;
+
+  T_system_timing_check_dollor_nochange_timing_check( 
+       std::shared_ptr<dollor_nochange_timing_check> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_dollor_setup_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<data_event> mem1;
+    std::shared_ptr<reference_event> mem2;
+    std::shared_ptr<timing_check_limit> mem3;
+    std::shared_ptr<notifier> mem4;
+
+  T_dollor_setup_timing_check( 
+       std::shared_ptr<data_event> i1
+ ,     std::shared_ptr<reference_event> i2
+ ,     std::shared_ptr<timing_check_limit> i3
+ ,     std::shared_ptr<notifier> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_dollor_hold_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<reference_event> mem1;
+    std::shared_ptr<data_event> mem2;
+    std::shared_ptr<timing_check_limit> mem3;
+    std::shared_ptr<notifier> mem4;
+
+  T_dollor_hold_timing_check( 
+       std::shared_ptr<reference_event> i1
+ ,     std::shared_ptr<data_event> i2
+ ,     std::shared_ptr<timing_check_limit> i3
+ ,     std::shared_ptr<notifier> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_dollor_setuphold_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<reference_event> mem1;
+    std::shared_ptr<data_event> mem2;
+    std::shared_ptr<timing_check_limit> mem3;
+    std::shared_ptr<timing_check_limit> mem4;
+    std::shared_ptr<notifier> mem5;
+    std::shared_ptr<stamptime_condition> mem6;
+    std::shared_ptr<checktime_condition> mem7;
+    std::shared_ptr<delayed_reference> mem8;
+    std::shared_ptr<delayed_data> mem9;
+
+  T_dollor_setuphold_timing_check( 
+       std::shared_ptr<reference_event> i1
+ ,     std::shared_ptr<data_event> i2
+ ,     std::shared_ptr<timing_check_limit> i3
+ ,     std::shared_ptr<timing_check_limit> i4
+ ,     std::shared_ptr<notifier> i5
+ ,     std::shared_ptr<stamptime_condition> i6
+ ,     std::shared_ptr<checktime_condition> i7
+ ,     std::shared_ptr<delayed_reference> i8
+ ,     std::shared_ptr<delayed_data> i9
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+ ,     mem7(i7)
+ ,     mem8(i8)
+ ,     mem9(i9)
+  {}
+};
+class T_dollor_recovery_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<reference_event> mem1;
+    std::shared_ptr<data_event> mem2;
+    std::shared_ptr<timing_check_limit> mem3;
+    std::shared_ptr<notifier> mem4;
+
+  T_dollor_recovery_timing_check( 
+       std::shared_ptr<reference_event> i1
+ ,     std::shared_ptr<data_event> i2
+ ,     std::shared_ptr<timing_check_limit> i3
+ ,     std::shared_ptr<notifier> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_dollor_removal_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<reference_event> mem1;
+    std::shared_ptr<data_event> mem2;
+    std::shared_ptr<timing_check_limit> mem3;
+    std::shared_ptr<notifier> mem4;
+
+  T_dollor_removal_timing_check( 
+       std::shared_ptr<reference_event> i1
+ ,     std::shared_ptr<data_event> i2
+ ,     std::shared_ptr<timing_check_limit> i3
+ ,     std::shared_ptr<notifier> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_dollor_recrem_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<reference_event> mem1;
+    std::shared_ptr<data_event> mem2;
+    std::shared_ptr<timing_check_limit> mem3;
+    std::shared_ptr<timing_check_limit> mem4;
+    std::shared_ptr<notifier> mem5;
+    std::shared_ptr<stamptime_condition> mem6;
+    std::shared_ptr<checktime_condition> mem7;
+    std::shared_ptr<delayed_reference> mem8;
+    std::shared_ptr<delayed_data> mem9;
+
+  T_dollor_recrem_timing_check( 
+       std::shared_ptr<reference_event> i1
+ ,     std::shared_ptr<data_event> i2
+ ,     std::shared_ptr<timing_check_limit> i3
+ ,     std::shared_ptr<timing_check_limit> i4
+ ,     std::shared_ptr<notifier> i5
+ ,     std::shared_ptr<stamptime_condition> i6
+ ,     std::shared_ptr<checktime_condition> i7
+ ,     std::shared_ptr<delayed_reference> i8
+ ,     std::shared_ptr<delayed_data> i9
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+ ,     mem7(i7)
+ ,     mem8(i8)
+ ,     mem9(i9)
+  {}
+};
+class T_dollor_skew_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<reference_event> mem1;
+    std::shared_ptr<data_event> mem2;
+    std::shared_ptr<timing_check_limit> mem3;
+    std::shared_ptr<notifier> mem4;
+
+  T_dollor_skew_timing_check( 
+       std::shared_ptr<reference_event> i1
+ ,     std::shared_ptr<data_event> i2
+ ,     std::shared_ptr<timing_check_limit> i3
+ ,     std::shared_ptr<notifier> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_dollor_timeskew_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<reference_event> mem1;
+    std::shared_ptr<data_event> mem2;
+    std::shared_ptr<timing_check_limit> mem3;
+    std::shared_ptr<notifier> mem4;
+    std::shared_ptr<event_based_flag> mem5;
+    std::shared_ptr<remain_active_flag> mem6;
+
+  T_dollor_timeskew_timing_check( 
+       std::shared_ptr<reference_event> i1
+ ,     std::shared_ptr<data_event> i2
+ ,     std::shared_ptr<timing_check_limit> i3
+ ,     std::shared_ptr<notifier> i4
+ ,     std::shared_ptr<event_based_flag> i5
+ ,     std::shared_ptr<remain_active_flag> i6
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+  {}
+};
+class T_dollor_fullskew_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<reference_event> mem1;
+    std::shared_ptr<data_event> mem2;
+    std::shared_ptr<timing_check_limit> mem3;
+    std::shared_ptr<timing_check_limit> mem4;
+    std::shared_ptr<notifier> mem5;
+    std::shared_ptr<event_based_flag> mem6;
+    std::shared_ptr<remain_active_flag> mem7;
+
+  T_dollor_fullskew_timing_check( 
+       std::shared_ptr<reference_event> i1
+ ,     std::shared_ptr<data_event> i2
+ ,     std::shared_ptr<timing_check_limit> i3
+ ,     std::shared_ptr<timing_check_limit> i4
+ ,     std::shared_ptr<notifier> i5
+ ,     std::shared_ptr<event_based_flag> i6
+ ,     std::shared_ptr<remain_active_flag> i7
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+ ,     mem7(i7)
+  {}
+};
+class T_dollor_period_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<reference_event> mem1;
+    std::shared_ptr<data_event> mem2;
+    std::shared_ptr<timing_check_limit> mem3;
+    std::shared_ptr<timing_check_limit> mem4;
+    std::shared_ptr<notifier> mem5;
+    std::shared_ptr<event_based_flag> mem6;
+    std::shared_ptr<remain_active_flag> mem7;
+
+  T_dollor_period_timing_check( 
+       std::shared_ptr<reference_event> i1
+ ,     std::shared_ptr<data_event> i2
+ ,     std::shared_ptr<timing_check_limit> i3
+ ,     std::shared_ptr<timing_check_limit> i4
+ ,     std::shared_ptr<notifier> i5
+ ,     std::shared_ptr<event_based_flag> i6
+ ,     std::shared_ptr<remain_active_flag> i7
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
+ ,     mem7(i7)
+  {}
+};
+class T_dollor_width_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<controlled_reference_event> mem1;
+    std::shared_ptr<timing_check_limit> mem2;
+    std::shared_ptr<threshold> mem3;
+    std::shared_ptr<notifier> mem4;
+
+  T_dollor_width_timing_check( 
+       std::shared_ptr<controlled_reference_event> i1
+ ,     std::shared_ptr<timing_check_limit> i2
+ ,     std::shared_ptr<threshold> i3
+ ,     std::shared_ptr<notifier> i4
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+  {}
+};
+class T_dollor_nochange_timing_check : public ComponentBase {
+  public :
+    std::shared_ptr<reference_event> mem1;
+    std::shared_ptr<data_event> mem2;
+    std::shared_ptr<start_edge_offset> mem3;
+    std::shared_ptr<end_edge_offset> mem4;
+    std::shared_ptr<notifier> mem5;
+
+  T_dollor_nochange_timing_check( 
+       std::shared_ptr<reference_event> i1
+ ,     std::shared_ptr<data_event> i2
+ ,     std::shared_ptr<start_edge_offset> i3
+ ,     std::shared_ptr<end_edge_offset> i4
+ ,     std::shared_ptr<notifier> i5
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+  {}
+};
+class T_checktime_condition_NOSPEC : public ComponentBase {
+  public :
+
+  T_checktime_condition_NOSPEC( 
+  )
+  {}
+};
+class T_checktime_condition : public ComponentBase {
+  public :
+    std::shared_ptr<mintypmax_expression> mem1;
+
+  T_checktime_condition( 
+       std::shared_ptr<mintypmax_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_controlled_reference_event : public ComponentBase {
+  public :
+    std::shared_ptr<controlled_timing_check_event> mem1;
+
+  T_controlled_reference_event( 
+       std::shared_ptr<controlled_timing_check_event> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_data_event : public ComponentBase {
+  public :
+    std::shared_ptr<timing_check_event> mem1;
+
+  T_data_event( 
+       std::shared_ptr<timing_check_event> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delayed_reference_NOSPEC : public ComponentBase {
+  public :
+
+  T_delayed_reference_NOSPEC( 
+  )
+  {}
+};
+class T_delayed_reference_id : public ComponentBase {
+  public :
+    std::shared_ptr<identifier> mem1;
+
+  T_delayed_reference_id( 
+       std::shared_ptr<identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delayed_reference_idmtmexp : public ComponentBase {
+  public :
+    std::shared_ptr<identifier> mem1;
+    std::shared_ptr<mintypmax_expression> mem2;
+
+  T_delayed_reference_idmtmexp( 
+       std::shared_ptr<identifier> i1
+ ,     std::shared_ptr<mintypmax_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_end_edge_offset : public ComponentBase {
+  public :
+    std::shared_ptr<mintypmax_expression> mem1;
+
+  T_end_edge_offset( 
+       std::shared_ptr<mintypmax_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_event_based_flag : public ComponentBase {
+  public :
+    std::shared_ptr<expression> mem1;
+
+  T_event_based_flag( 
+       std::shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_event_based_flag_NOSPEC : public ComponentBase {
+  public :
+
+  T_event_based_flag_NOSPEC( 
+  )
+  {}
+};
+class T_notifier_NOSPEC : public ComponentBase {
+  public :
+
+  T_notifier_NOSPEC( 
+  )
+  {}
+};
+class T_notifier : public ComponentBase {
+  public :
+    std::shared_ptr<identifier> mem1;
+
+  T_notifier( 
+       std::shared_ptr<identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_reference_event : public ComponentBase {
+  public :
+    std::shared_ptr<timing_check_event> mem1;
+
+  T_reference_event( 
+       std::shared_ptr<timing_check_event> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_remain_active_flag : public ComponentBase {
+  public :
+    std::shared_ptr<expression> mem1;
+
+  T_remain_active_flag( 
+       std::shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_stamptime_condition : public ComponentBase {
+  public :
+    std::shared_ptr<mintypmax_expression> mem1;
+
+  T_stamptime_condition( 
+       std::shared_ptr<mintypmax_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_start_edge_offset : public ComponentBase {
+  public :
+    std::shared_ptr<mintypmax_expression> mem1;
+
+  T_start_edge_offset( 
+       std::shared_ptr<mintypmax_expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_threshold : public ComponentBase {
+  public :
+    std::shared_ptr<expression> mem1;
+
+  T_threshold( 
+       std::shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_timing_check_limit : public ComponentBase {
+  public :
+    std::shared_ptr<expression> mem1;
+
+  T_timing_check_limit( 
+       std::shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_timing_check_event : public ComponentBase {
+  public :
+    std::shared_ptr<timing_check_event_control> mem1;
+    std::shared_ptr<specify_terminal_descriptor> mem2;
+    std::shared_ptr<timing_check_condition> mem3;
+
+  T_timing_check_event( 
+       std::shared_ptr<timing_check_event_control> i1
+ ,     std::shared_ptr<specify_terminal_descriptor> i2
+ ,     std::shared_ptr<timing_check_condition> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_controlled_timing_check_event : public ComponentBase {
+  public :
+    std::shared_ptr<timing_check_event_control> mem1;
+    std::shared_ptr<specify_terminal_descriptor> mem2;
+    std::shared_ptr<timing_check_condition> mem3;
+
+  T_controlled_timing_check_event( 
+       std::shared_ptr<timing_check_event_control> i1
+ ,     std::shared_ptr<specify_terminal_descriptor> i2
+ ,     std::shared_ptr<timing_check_condition> i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_timing_check_event_control_NOSPEC : public ComponentBase {
+  public :
+
+  T_timing_check_event_control_NOSPEC( 
+  )
+  {}
+};
+class T_timing_check_event_control_POSEDGE : public ComponentBase {
+  public :
+
+  T_timing_check_event_control_POSEDGE( 
+  )
+  {}
+};
+class T_timing_check_event_control_NEGEDGE : public ComponentBase {
+  public :
+
+  T_timing_check_event_control_NEGEDGE( 
+  )
+  {}
+};
+class T_timing_check_event_control_edge_control_specifier : public ComponentBase {
+  public :
+    std::shared_ptr<edge_control_specifier> mem1;
+
+  T_timing_check_event_control_edge_control_specifier( 
+       std::shared_ptr<edge_control_specifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_specify_terminal_descriptor_in : public ComponentBase {
+  public :
+    std::shared_ptr<specify_input_terminal_descriptor> mem1;
+
+  T_specify_terminal_descriptor_in( 
+       std::shared_ptr<specify_input_terminal_descriptor> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_specify_terminal_descriptor_out : public ComponentBase {
+  public :
+    std::shared_ptr<specify_output_terminal_descriptor> mem1;
+
+  T_specify_terminal_descriptor_out( 
+       std::shared_ptr<specify_output_terminal_descriptor> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_edge_control_specifier : public ComponentBase {
+  public :
+    std::shared_ptr<std::list<std::shared_ptr< edge_descriptor>>> mem1;
+
+  T_edge_control_specifier( 
+       std::shared_ptr<std::list<std::shared_ptr< edge_descriptor>>> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_edge_descriptor_01 : public ComponentBase {
+  public :
+
+  T_edge_descriptor_01( 
+  )
+  {}
+};
+class T_edge_descriptor_10 : public ComponentBase {
+  public :
+
+  T_edge_descriptor_10( 
+  )
+  {}
+};
+class T_edge_descriptor_zx01 : public ComponentBase {
+  public :
+    std::shared_ptr<z_or_x> mem1;
+    std::shared_ptr<zero_or_one> mem2;
+
+  T_edge_descriptor_zx01( 
+       std::shared_ptr<z_or_x> i1
+ ,     std::shared_ptr<zero_or_one> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_edge_descriptor_01zx : public ComponentBase {
+  public :
+    std::shared_ptr<zero_or_one> mem1;
+    std::shared_ptr<z_or_x> mem2;
+
+  T_edge_descriptor_01zx( 
+       std::shared_ptr<zero_or_one> i1
+ ,     std::shared_ptr<z_or_x> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_zero_or_one_0 : public ComponentBase {
+  public :
+
+  T_zero_or_one_0( 
+  )
+  {}
+};
+class T_zero_or_one_1 : public ComponentBase {
+  public :
+
+  T_zero_or_one_1( 
+  )
+  {}
+};
+class T_z_or_x__x : public ComponentBase {
+  public :
+
+  T_z_or_x__x( 
+  )
+  {}
+};
+class T_z_or_x__X : public ComponentBase {
+  public :
+
+  T_z_or_x__X( 
+  )
+  {}
+};
+class T_z_or_x__z : public ComponentBase {
+  public :
+
+  T_z_or_x__z( 
+  )
+  {}
+};
+class T_z_or_x__Z : public ComponentBase {
+  public :
+
+  T_z_or_x__Z( 
+  )
+  {}
+};
+class T_timing_check_condition_NOSPEC : public ComponentBase {
+  public :
+
+  T_timing_check_condition_NOSPEC( 
+  )
+  {}
+};
+class T_timing_check_condition : public ComponentBase {
+  public :
+    std::shared_ptr<scalar_timing_check_condition> mem1;
+
+  T_timing_check_condition( 
+       std::shared_ptr<scalar_timing_check_condition> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_scalar_timing_check_condition_exp : public ComponentBase {
+  public :
+    std::shared_ptr<expression> mem1;
+
+  T_scalar_timing_check_condition_exp( 
+       std::shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_scalar_timing_check_condition_Negexp : public ComponentBase {
+  public :
+    std::shared_ptr<expression> mem1;
+
+  T_scalar_timing_check_condition_Negexp( 
+       std::shared_ptr<expression> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_scalar_timing_check_condition_eq2 : public ComponentBase {
+  public :
+    std::shared_ptr<expression> mem1;
+    std::shared_ptr<expression> mem2;
+
+  T_scalar_timing_check_condition_eq2( 
+       std::shared_ptr<expression> i1
+ ,     std::shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_scalar_timing_check_condition_eq3 : public ComponentBase {
+  public :
+    std::shared_ptr<expression> mem1;
+    std::shared_ptr<expression> mem2;
+
+  T_scalar_timing_check_condition_eq3( 
+       std::shared_ptr<expression> i1
+ ,     std::shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_scalar_timing_check_condition_neq2 : public ComponentBase {
+  public :
+    std::shared_ptr<expression> mem1;
+    std::shared_ptr<expression> mem2;
+
+  T_scalar_timing_check_condition_neq2( 
+       std::shared_ptr<expression> i1
+ ,     std::shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_scalar_timing_check_condition_neq3 : public ComponentBase {
+  public :
+    std::shared_ptr<expression> mem1;
+    std::shared_ptr<expression> mem2;
+
+  T_scalar_timing_check_condition_neq3( 
+       std::shared_ptr<expression> i1
+ ,     std::shared_ptr<expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+  {}
+};
+class T_scalar_constant_unsigned : public ComponentBase {
+  public :
+    int mem1;
+
+  T_scalar_constant_unsigned( 
+       int i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_scalar_constant_binary : public ComponentBase {
+  public :
+    int mem1;
+    std::string mem2;
+    std::string mem3;
+
+  T_scalar_constant_binary( 
+       int i1
+ ,     std::string i2
+ ,     std::string i3
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+  {}
+};
+class T_delayed_data_NOSPEC : public ComponentBase {
+  public :
+
+  T_delayed_data_NOSPEC( 
+  )
+  {}
+};
+class T_delayed_data_id : public ComponentBase {
+  public :
+    std::shared_ptr<identifier> mem1;
+
+  T_delayed_data_id( 
+       std::shared_ptr<identifier> i1
+  ):
+       mem1(i1)
+  {}
+};
+class T_delayed_data_idmtmexp : public ComponentBase {
+  public :
+    std::shared_ptr<identifier> mem1;
+    std::shared_ptr<mintypmax_expression> mem2;
+
+  T_delayed_data_idmtmexp( 
+       std::shared_ptr<identifier> i1
+ ,     std::shared_ptr<mintypmax_expression> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
   {}
 };
 class T_edge_identifier_NOSPEC : public ComponentBase {
