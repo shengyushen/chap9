@@ -3781,7 +3781,7 @@ comma_notifier_opt_opt comma_event_based_flag_opt comma_remain_active_flag_opt R
 
 comma_event_based_flag_opt :
 	{$$=SHR2(event_based_flag,T_event_based_flag_NOSPEC,());}
-	| event_based_flag {$$=$1;}
+	| COMMA event_based_flag {$$=$2;}
 ;
 
 comma_remain_active_flag_opt:
