@@ -1,8 +1,12 @@
 #!/bin/bash 
-for file in $(ls src/) 
-do
-	if [[ ${file} != analog* ]]; then
-		echo ${file}
-	fi
-done
+#for file in $(ls src/) 
+#do
+#	if [[ ${file} != analog* ]]; then
+#		echo ${file}
+#	fi
+#done
 
+for i in `cat scr/regress-vlg.list.ssy`
+do
+echo $i
+done

@@ -9,40 +9,14 @@
 stderr_log="error"
 exec 2>"$stderr_log"
 
-for file in $(ls src/)
+#for file in $(ls src/)
+for file1 in `cat scr/regress-vlg.list.ssy`
 do
-	if [[ ${file} == analog* ]] ||          # analog verilog
-	   [[ ${file} == *vhd* ]] ||            # vhdl syntax
-	   [[ ${file} == *.sdf ]] ||            # sdf syntax
-	   [[ ${file} == array_*packed* ]] ||   # sv packed array
-		 [[ ${file} == array_size* ]] ||      # sv 
-		 [[ ${file} == binary_nand* ]] ||     # using reduce nand as binary operator, not in any verilog stanard
-		 [[ ${file} == binary_nor* ]] ||      # using reduce nor  as binary operator, not in any verilog stanard
-		 [[ ${file} == bitp* ]] ||            # sv bit type
-		 [[ ${file} == bits* ]] ||            # sv byte type
-		 [[ ${file} == bool* ]] ||            # sv bool type
-		 [[ ${file} == br884* ]] ||           # sv logic type
-		 [[ ${file} == br917* ]] ||           # sv logic , int , shortint and longint type
-		 [[ ${file} == br921.v ]] ||          # sv function calling without parameter
-		 [[ ${file} == br932a.v ]] ||         # sv string type
-		 [[ ${file} == br932b.v ]] ||         # sv string type
-		 [[ ${file} == br936.v ]] ||         # sv int type
-		 [[ ${file} == br942.v ]] ||         # sv logic type
-		 [[ ${file} == br943.v ]] ||         # sv logic type
-		 [[ ${file} == br943_944.v ]] ||         # sv logic type
-		 [[ ${file} == br956.v ]] ||         # sv logic type
-		 [[ ${file} == br959.v ]] ||         # sv class type
-		 [[ ${file} == br962.v ]] ||         # sv type with $ in array
-		 [[ ${file} == br963.v ]] ||         # sv type with $ in array
-		 [[ ${file} == br973.v ]] ||         # sv typedef 
-		 [[ ${file} == br975.v ]] ||         # sv typedef 
-		 [[ ${file} == *string* ]]; then      # sv string type
-		echo "ignoring $file"
-	else 
+	file="${file1}.v"
 		echo ${file}
 		# step1
-		#step1_noinc_comment src/${file} > ${file}.noinc.v || exit 1
-		step1_noinc_comment src/${file} > ${file}.noinc.v 
+		#step1_noinc_comment ./src/${file} > ${file}.noinc.v || exit 1
+		step1_noinc_comment ./src/${file} > ${file}.noinc.v 
 	
 		# step2
 		#step2_nodef ${file}.noinc.v > ${file}.nodef.v || exit 1
@@ -60,8 +34,8 @@ do
 		../scr/vtran.scr ${file}.sdf.v 
 	
 		# ivlpp 
-		#ivlpp -L src/${file} > ${file}.ivlpp.v || exit 1
-		ivlpp -L src/${file} > ${file}.ivlpp.v 
+		#ivlpp -L ./src/${file} > ${file}.ivlpp.v || exit 1
+		ivlpp -L ./src/${file} > ${file}.ivlpp.v 
 	
 		# removing ivlpp result's comment
 		#step1_noinc_comment ${file}.ivlpp.v > ${file}.ivlpp.v.noinc || exit 1
@@ -73,5 +47,4 @@ do
 	
 		# diff sdf.v.tok nodef.v.tok > diff_parse_${file}
 		diff ${file}.sdf.v.tok ${file}.ivlpp.v.noinc.tok > diff_2ivl_${file}
-	fi
 done
