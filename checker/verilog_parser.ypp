@@ -300,7 +300,6 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::mintypmax_expression>> reject_limit_value
 %type <std::shared_ptr<Verilogast::mintypmax_expression>> limit_value
 %type <std::shared_ptr<Verilogast::mintypmax_expression>> comma_error_limit_value_opt
-%type <std::shared_ptr<Verilogast::specify_output_terminal_descriptor>> specify_output_terminal_descriptor
 %type <std::shared_ptr<Verilogast::mintypmax_expression>> error_limit_value
 %type <std::shared_ptr<Verilogast::system_timing_check>> system_timing_check
 %type <std::shared_ptr<Verilogast::expression>> data_source_expression
@@ -744,13 +743,9 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::polarity_operator>> polarity_operator_opt
 %type <std::shared_ptr<Verilogast::polarity_operator>> polarity_operator
 %type <std::shared_ptr<Verilogast::full_path_description>> full_path_description
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_input_terminal_descriptor>>>> list_of_path_inputs
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_input_terminal_descriptor>>>> comma_specify_input_terminal_descriptor_list
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_output_terminal_descriptor>>>> list_of_path_outputs
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_output_terminal_descriptor>>>> comma_specify_output_terminal_descriptor_list
-%type <std::shared_ptr<Verilogast::specify_input_terminal_descriptor>> specify_input_terminal_descriptor
-%type <std::shared_ptr<Verilogast::identifier>> input_identifier
-%type <std::shared_ptr<Verilogast::identifier>> output_identifier
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_inout_terminal_descriptor>>>> list_of_path_inouts
+%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_inout_terminal_descriptor>>>> comma_specify_inout_terminal_descriptor_list
+%type <std::shared_ptr<Verilogast::specify_inout_terminal_descriptor>> specify_inout_terminal_descriptor
 %type <std::shared_ptr<Verilogast::list_of_path_delay_expressions>> path_delay_value
 %type <std::shared_ptr<Verilogast::list_of_path_delay_expressions>> list_of_path_delay_expressions
 %type <std::shared_ptr<Verilogast::edge_sensitive_path_declaration>> edge_sensitive_path_declaration
@@ -1790,7 +1785,7 @@ specparam_assignment :
 pulse_control_specparam :
 	KEY_PATHPULSE EQU1 LPARENT reject_limit_value comma_error_limit_value_opt RPARENT
 		{$$=SHR2(specparam_assignment,T_specparam_assignment_pulse1,($4,$5));}
-	| KEY_PATHPULSE specify_input_terminal_descriptor DOLLOR specify_output_terminal_descriptor EQU1 LPARENT reject_limit_value comma_error_limit_value_opt RPARENT
+	| KEY_PATHPULSE specify_inout_terminal_descriptor DOLLOR specify_inout_terminal_descriptor EQU1 LPARENT reject_limit_value comma_error_limit_value_opt RPARENT
 		{$$=SHR2(specparam_assignment,T_specparam_assignment_pulse2,($2,$4,$7,$8));}
 ;
 comma_error_limit_value_opt :
@@ -3501,16 +3496,16 @@ specify_item :
 
 
 pulsestyle_declaration :
-	KEY_PULSESTYLE_ONEVENT list_of_path_outputs SEMICOLON
+	KEY_PULSESTYLE_ONEVENT list_of_path_inouts SEMICOLON
 		{$$=SHR2(pulsestyle_declaration,T_pulsestyle_declaration_oneevent,($2));}
-	| KEY_PULSESTYLE_ONDETECT list_of_path_outputs SEMICOLON
+	| KEY_PULSESTYLE_ONDETECT list_of_path_inouts SEMICOLON
 		{$$=SHR2(pulsestyle_declaration,T_pulsestyle_declaration_onedetect,($2));}
 ;
 
 showcancelled_declaration :
-	KEY_SHOWCANCELLED list_of_path_outputs SEMICOLON
+	KEY_SHOWCANCELLED list_of_path_inouts SEMICOLON
 		{$$=SHR2(showcancelled_declaration,T_showcancelled_declaration_show,($2));}
-	| KEY_NOSHOWCANCELLED list_of_path_outputs SEMICOLON
+	| KEY_NOSHOWCANCELLED list_of_path_inouts SEMICOLON
 		{$$=SHR2(showcancelled_declaration,T_showcancelled_declaration_noshow,($2));}
 ;
 
@@ -3537,7 +3532,7 @@ simple_path_declaration :
 
 
 parallel_path_description :
-	LPARENT edge_identifier_opt list_of_path_inputs polarity_operator_opt IMPLY2 specify_output_terminal_descriptor RPARENT
+	LPARENT edge_identifier_opt list_of_path_inouts polarity_operator_opt IMPLY2 specify_inout_terminal_descriptor RPARENT
 		{$$=SHR2(parallel_path_description,T_parallel_path_description,($2,$3,$4,$6));}
 ;
 
@@ -3547,13 +3542,13 @@ polarity_operator_opt :
 ;
 
 full_path_description :
-	LPARENT edge_identifier_opt list_of_path_inputs  polarity_operator_opt IMPLYSTART list_of_path_outputs RPARENT
+	LPARENT edge_identifier_opt list_of_path_inouts  polarity_operator_opt IMPLYSTART list_of_path_inouts RPARENT
 		{$$=SHR2(full_path_description,T_full_path_description,($2,$3,$4,$6));}
 ;
 
 
-list_of_path_inputs :
-	specify_input_terminal_descriptor comma_specify_input_terminal_descriptor_list
+list_of_path_inouts :
+	specify_inout_terminal_descriptor comma_specify_inout_terminal_descriptor_list
 		{
 			auto p=$2;
 			p->push_front($1);
@@ -3561,32 +3556,11 @@ list_of_path_inputs :
 		}
 ;
 
-comma_specify_input_terminal_descriptor_list :
+comma_specify_inout_terminal_descriptor_list :
 	{
-		$$=SHR_LIST_SHR(specify_input_terminal_descriptor)();
+		$$=SHR_LIST_SHR(specify_inout_terminal_descriptor)();
 	}
-	| comma_specify_input_terminal_descriptor_list COMMA specify_input_terminal_descriptor 
-		{
-			auto p=$1;
-			p->push_back($3);
-			$$=p;
-		}
-;
-
-list_of_path_outputs :
-	specify_output_terminal_descriptor comma_specify_output_terminal_descriptor_list
-		{
-			auto p=$2;
-			p->push_front($1);
-			$$=p;
-		}
-;
-
-comma_specify_output_terminal_descriptor_list :
-	{
-		$$=SHR_LIST_SHR(specify_output_terminal_descriptor)();
-	}
-	| comma_specify_output_terminal_descriptor_list COMMA specify_output_terminal_descriptor 
+	| comma_specify_inout_terminal_descriptor_list COMMA specify_inout_terminal_descriptor 
 		{
 			auto p=$1;
 			p->push_back($3);
@@ -3596,22 +3570,9 @@ comma_specify_output_terminal_descriptor_list :
 
 
 /*A.7.3 Specify block terminals*/
-specify_input_terminal_descriptor :
-	input_identifier lsquare_range_expression_rsquare_opt
-		{$$=SHR2(specify_input_terminal_descriptor,T_specify_input_terminal_descriptor,($1,$2));}
-;
-
-specify_output_terminal_descriptor :
-	output_identifier lsquare_range_expression_rsquare_opt
-		{$$=SHR2(specify_output_terminal_descriptor,T_specify_output_terminal_descriptor,($1,$2));}
-;
-
-input_identifier :
-	identifier {$$=$1;}
-;
-
-output_identifier :
-	identifier {$$=$1;}
+specify_inout_terminal_descriptor :
+	identifier lsquare_range_expression_rsquare_opt
+		{$$=SHR2(specify_inout_terminal_descriptor,T_specify_inout_terminal_descriptor,($1,$2));}
 ;
 
 
@@ -3645,8 +3606,8 @@ edge_sensitive_path_declaration :
 
 
 parallel_edge_sensitive_path_description :
-LPARENT edge_identifier_opt  list_of_path_inputs polarity_operator_opt IMPLY2
-LPARENT specify_output_terminal_descriptor polarity_operator_opt COLON data_source_expression RPARENT RPARENT
+LPARENT edge_identifier_opt  list_of_path_inouts polarity_operator_opt IMPLY2
+LPARENT specify_inout_terminal_descriptor polarity_operator_opt COLON data_source_expression RPARENT RPARENT
 		{$$=SHR2(parallel_edge_sensitive_path_description,T_parallel_edge_sensitive_path_description,($2,$3,$4,$7,$8,$10));}
 ;
 
@@ -3656,8 +3617,8 @@ edge_identifier_opt :
 ;
 
 full_edge_sensitive_path_description :
-	LPARENT edge_identifier_opt list_of_path_inputs polarity_operator_opt IMPLYSTART
-LPARENT list_of_path_outputs polarity_operator_opt COLON data_source_expression RPARENT RPARENT
+	LPARENT edge_identifier_opt list_of_path_inouts polarity_operator_opt IMPLYSTART
+LPARENT list_of_path_inouts polarity_operator_opt COLON data_source_expression RPARENT RPARENT
 		{$$=SHR2(full_edge_sensitive_path_description,T_full_edge_sensitive_path_description,($2,$3,$4,$7,$8,$10));}
 ;
 
@@ -3921,10 +3882,8 @@ timing_check_event_control :
 ;
 
 specify_terminal_descriptor :
-	specify_input_terminal_descriptor
+	specify_inout_terminal_descriptor
 		{$$=SHR2(specify_terminal_descriptor,T_specify_terminal_descriptor_in,($1));}
-	| specify_output_terminal_descriptor
-		{$$=SHR2(specify_terminal_descriptor,T_specify_terminal_descriptor_out,($1));}
 ;
 
 edge_control_specifier :

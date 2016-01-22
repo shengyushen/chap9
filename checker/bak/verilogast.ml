@@ -174,7 +174,7 @@ and param_assignment =
 and specparam_assignment =
 	T_specparam_assignment of identifier*mintypmax_expression
 	| T_specparam_assignment_pulse1 of mintypmax_expression*mintypmax_expression
-	| T_specparam_assignment_pulse2 of specify_input_terminal_descriptor*specify_output_terminal_descriptor*mintypmax_expression*mintypmax_expression
+	| T_specparam_assignment_pulse2 of specify_inout_terminal_descriptor*specify_inout_terminal_descriptor*mintypmax_expression*mintypmax_expression
 and  dimension =
 	T_dimension of expression*expression
 and range =
@@ -503,11 +503,11 @@ and	specify_item =
 	| T_specify_item_path of path_declaration
 	| T_specify_item_system of system_timing_check
 and pulsestyle_declaration =
-	T_pulsestyle_declaration_oneevent of (specify_output_terminal_descriptor list)
-	| T_pulsestyle_declaration_onedetect of (specify_output_terminal_descriptor list)
+	T_pulsestyle_declaration_oneevent of (specify_inout_terminal_descriptor list)
+	| T_pulsestyle_declaration_onedetect of (specify_inout_terminal_descriptor list)
 and	showcancelled_declaration =
-	T_showcancelled_declaration_show of (specify_output_terminal_descriptor list)
-	| T_showcancelled_declaration_noshow of (specify_output_terminal_descriptor list)
+	T_showcancelled_declaration_show of (specify_inout_terminal_descriptor list)
+	| T_showcancelled_declaration_noshow of (specify_inout_terminal_descriptor list)
 and	path_declaration =
 	T_path_declaration_simple of simple_path_declaration
 	| T_path_declaration_edge of edge_sensitive_path_declaration 
@@ -516,13 +516,11 @@ and	simple_path_declaration =
 	T_simple_path_declaration_parallel of parallel_path_description*list_of_path_delay_expressions
 	| T_simple_path_declaration_full of full_path_description*list_of_path_delay_expressions
 and	parallel_path_description =
-	T_parallel_path_description of edge_identifier*(specify_input_terminal_descriptor list)*polarity_operator*specify_output_terminal_descriptor
+	T_parallel_path_description of edge_identifier*(specify_inout_terminal_descriptor list)*polarity_operator*specify_inout_terminal_descriptor
 and	full_path_description =
-	T_full_path_description of edge_identifier*(specify_input_terminal_descriptor list)*polarity_operator*(specify_output_terminal_descriptor list)
-and	specify_input_terminal_descriptor =
-	T_specify_input_terminal_descriptor of identifier*range_expression
-and	specify_output_terminal_descriptor =
-	T_specify_output_terminal_descriptor of identifier*range_expression
+	T_full_path_description of edge_identifier*(specify_inout_terminal_descriptor list)*polarity_operator*(specify_inout_terminal_descriptor list)
+and	specify_inout_terminal_descriptor =
+	T_specify_inout_terminal_descriptor of identifier*range_expression
 and	list_of_path_delay_expressions =
 	T_list_of_mintypmax_expressions_1 of mintypmax_expression
 	| T_list_of_mintypmax_expressions_2 of mintypmax_expression*mintypmax_expression
@@ -533,9 +531,9 @@ and	edge_sensitive_path_declaration =
 	T_edge_sensitive_path_declaration_parallel of parallel_edge_sensitive_path_description*list_of_path_delay_expressions
 	| T_edge_sensitive_path_declaration_full of full_edge_sensitive_path_description*list_of_path_delay_expressions
 and	parallel_edge_sensitive_path_description =
-	T_parallel_edge_sensitive_path_description of edge_identifier*(specify_input_terminal_descriptor list)*polarity_operator*specify_output_terminal_descriptor*polarity_operator*expression
+	T_parallel_edge_sensitive_path_description of edge_identifier*(specify_inout_terminal_descriptor list)*polarity_operator*specify_inout_terminal_descriptor*polarity_operator*expression
 and	full_edge_sensitive_path_description =
-	T_full_edge_sensitive_path_description of edge_identifier*(specify_input_terminal_descriptor list)*polarity_operator*(specify_output_terminal_descriptor list)*polarity_operator*expression
+	T_full_edge_sensitive_path_description of edge_identifier*(specify_inout_terminal_descriptor list)*polarity_operator*(specify_inout_terminal_descriptor list)*polarity_operator*expression
 and	state_dependent_path_declaration =
 	T_state_dependent_path_declaration_simple of module_path_expression*simple_path_declaration
 	| T_state_dependent_path_declaration_edge of module_path_expression*edge_sensitive_path_declaration
@@ -695,8 +693,7 @@ and timing_check_event_control =
 	| T_timing_check_event_control_NEGEDGE
 	| T_timing_check_event_control_edge_control_specifier of edge_control_specifier
 and specify_terminal_descriptor =
-	T_specify_terminal_descriptor_in of specify_input_terminal_descriptor
-	| T_specify_terminal_descriptor_out of specify_output_terminal_descriptor
+	T_specify_terminal_descriptor_in of specify_inout_terminal_descriptor
 and edge_control_specifier =
 	T_edge_control_specifier of (edge_descriptor list)
 and edge_descriptor =

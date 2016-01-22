@@ -378,8 +378,7 @@ class T_simple_path_declaration_parallel;
 class T_simple_path_declaration_full;
 class T_parallel_path_description;
 class T_full_path_description;
-class T_specify_input_terminal_descriptor;
-class T_specify_output_terminal_descriptor;
+class T_specify_inout_terminal_descriptor;
 class T_list_of_mintypmax_expressions_1;
 class T_list_of_mintypmax_expressions_2;
 class T_list_of_mintypmax_expressions_3;
@@ -496,7 +495,6 @@ class T_timing_check_event_control_POSEDGE;
 class T_timing_check_event_control_NEGEDGE;
 class T_timing_check_event_control_edge_control_specifier;
 class T_specify_terminal_descriptor_in;
-class T_specify_terminal_descriptor_out;
 class T_edge_control_specifier;
 class T_edge_descriptor_01;
 class T_edge_descriptor_10;
@@ -1314,11 +1312,8 @@ typedef boost::variant<
  std::shared_ptr<T_full_path_description>
  > full_path_description ; 
 typedef boost::variant<
- std::shared_ptr<T_specify_input_terminal_descriptor>
- > specify_input_terminal_descriptor ; 
-typedef boost::variant<
- std::shared_ptr<T_specify_output_terminal_descriptor>
- > specify_output_terminal_descriptor ; 
+ std::shared_ptr<T_specify_inout_terminal_descriptor>
+ > specify_inout_terminal_descriptor ; 
 typedef boost::variant<
  std::shared_ptr<T_list_of_mintypmax_expressions_1>
  ,  std::shared_ptr<T_list_of_mintypmax_expressions_2>
@@ -1548,7 +1543,6 @@ typedef boost::variant<
  > timing_check_event_control ; 
 typedef boost::variant<
  std::shared_ptr<T_specify_terminal_descriptor_in>
- ,  std::shared_ptr<T_specify_terminal_descriptor_out>
  > specify_terminal_descriptor ; 
 typedef boost::variant<
  std::shared_ptr<T_edge_control_specifier>
@@ -3292,14 +3286,14 @@ class T_specparam_assignment_pulse1 : public ComponentBase {
 };
 class T_specparam_assignment_pulse2 : public ComponentBase {
   public :
-    std::shared_ptr<specify_input_terminal_descriptor> mem1;
-    std::shared_ptr<specify_output_terminal_descriptor> mem2;
+    std::shared_ptr<specify_inout_terminal_descriptor> mem1;
+    std::shared_ptr<specify_inout_terminal_descriptor> mem2;
     std::shared_ptr<mintypmax_expression> mem3;
     std::shared_ptr<mintypmax_expression> mem4;
 
   T_specparam_assignment_pulse2( 
-       std::shared_ptr<specify_input_terminal_descriptor> i1
- ,     std::shared_ptr<specify_output_terminal_descriptor> i2
+       std::shared_ptr<specify_inout_terminal_descriptor> i1
+ ,     std::shared_ptr<specify_inout_terminal_descriptor> i2
  ,     std::shared_ptr<mintypmax_expression> i3
  ,     std::shared_ptr<mintypmax_expression> i4
   ):
@@ -5964,40 +5958,40 @@ class T_specify_item_system : public ComponentBase {
 };
 class T_pulsestyle_declaration_oneevent : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem1;
 
   T_pulsestyle_declaration_oneevent( 
-       std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> i1
+       std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_pulsestyle_declaration_onedetect : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem1;
 
   T_pulsestyle_declaration_onedetect( 
-       std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> i1
+       std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_showcancelled_declaration_show : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem1;
 
   T_showcancelled_declaration_show( 
-       std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> i1
+       std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_showcancelled_declaration_noshow : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem1;
 
   T_showcancelled_declaration_noshow( 
-       std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> i1
+       std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i1
   ):
        mem1(i1)
   {}
@@ -6061,15 +6055,15 @@ class T_simple_path_declaration_full : public ComponentBase {
 class T_parallel_path_description : public ComponentBase {
   public :
     std::shared_ptr<edge_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem2;
     std::shared_ptr<polarity_operator> mem3;
-    std::shared_ptr<specify_output_terminal_descriptor> mem4;
+    std::shared_ptr<specify_inout_terminal_descriptor> mem4;
 
   T_parallel_path_description( 
        std::shared_ptr<edge_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i2
  ,     std::shared_ptr<polarity_operator> i3
- ,     std::shared_ptr<specify_output_terminal_descriptor> i4
+ ,     std::shared_ptr<specify_inout_terminal_descriptor> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -6080,15 +6074,15 @@ class T_parallel_path_description : public ComponentBase {
 class T_full_path_description : public ComponentBase {
   public :
     std::shared_ptr<edge_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem2;
     std::shared_ptr<polarity_operator> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem4;
 
   T_full_path_description( 
        std::shared_ptr<edge_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i2
  ,     std::shared_ptr<polarity_operator> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -6096,25 +6090,12 @@ class T_full_path_description : public ComponentBase {
  ,     mem4(i4)
   {}
 };
-class T_specify_input_terminal_descriptor : public ComponentBase {
+class T_specify_inout_terminal_descriptor : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
     std::shared_ptr<range_expression> mem2;
 
-  T_specify_input_terminal_descriptor( 
-       std::shared_ptr<identifier> i1
- ,     std::shared_ptr<range_expression> i2
-  ):
-       mem1(i1)
- ,     mem2(i2)
-  {}
-};
-class T_specify_output_terminal_descriptor : public ComponentBase {
-  public :
-    std::shared_ptr<identifier> mem1;
-    std::shared_ptr<range_expression> mem2;
-
-  T_specify_output_terminal_descriptor( 
+  T_specify_inout_terminal_descriptor( 
        std::shared_ptr<identifier> i1
  ,     std::shared_ptr<range_expression> i2
   ):
@@ -6258,17 +6239,17 @@ class T_edge_sensitive_path_declaration_full : public ComponentBase {
 class T_parallel_edge_sensitive_path_description : public ComponentBase {
   public :
     std::shared_ptr<edge_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem2;
     std::shared_ptr<polarity_operator> mem3;
-    std::shared_ptr<specify_output_terminal_descriptor> mem4;
+    std::shared_ptr<specify_inout_terminal_descriptor> mem4;
     std::shared_ptr<polarity_operator> mem5;
     std::shared_ptr<expression> mem6;
 
   T_parallel_edge_sensitive_path_description( 
        std::shared_ptr<edge_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i2
  ,     std::shared_ptr<polarity_operator> i3
- ,     std::shared_ptr<specify_output_terminal_descriptor> i4
+ ,     std::shared_ptr<specify_inout_terminal_descriptor> i4
  ,     std::shared_ptr<polarity_operator> i5
  ,     std::shared_ptr<expression> i6
   ):
@@ -6283,17 +6264,17 @@ class T_parallel_edge_sensitive_path_description : public ComponentBase {
 class T_full_edge_sensitive_path_description : public ComponentBase {
   public :
     std::shared_ptr<edge_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem2;
     std::shared_ptr<polarity_operator> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem4;
     std::shared_ptr<polarity_operator> mem5;
     std::shared_ptr<expression> mem6;
 
   T_full_edge_sensitive_path_description( 
        std::shared_ptr<edge_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i2
  ,     std::shared_ptr<polarity_operator> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i4
  ,     std::shared_ptr<polarity_operator> i5
  ,     std::shared_ptr<expression> i6
   ):
@@ -7610,20 +7591,10 @@ class T_timing_check_event_control_edge_control_specifier : public ComponentBase
 };
 class T_specify_terminal_descriptor_in : public ComponentBase {
   public :
-    std::shared_ptr<specify_input_terminal_descriptor> mem1;
+    std::shared_ptr<specify_inout_terminal_descriptor> mem1;
 
   T_specify_terminal_descriptor_in( 
-       std::shared_ptr<specify_input_terminal_descriptor> i1
-  ):
-       mem1(i1)
-  {}
-};
-class T_specify_terminal_descriptor_out : public ComponentBase {
-  public :
-    std::shared_ptr<specify_output_terminal_descriptor> mem1;
-
-  T_specify_terminal_descriptor_out( 
-       std::shared_ptr<specify_output_terminal_descriptor> i1
+       std::shared_ptr<specify_inout_terminal_descriptor> i1
   ):
        mem1(i1)
   {}
