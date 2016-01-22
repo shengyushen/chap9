@@ -6060,34 +6060,40 @@ class T_simple_path_declaration_full : public ComponentBase {
 };
 class T_parallel_path_description : public ComponentBase {
   public :
-    std::shared_ptr<specify_input_terminal_descriptor> mem1;
-    std::shared_ptr<polarity_operator> mem2;
-    std::shared_ptr<specify_output_terminal_descriptor> mem3;
+    std::shared_ptr<edge_identifier> mem1;
+    std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> mem2;
+    std::shared_ptr<polarity_operator> mem3;
+    std::shared_ptr<specify_output_terminal_descriptor> mem4;
 
   T_parallel_path_description( 
-       std::shared_ptr<specify_input_terminal_descriptor> i1
- ,     std::shared_ptr<polarity_operator> i2
- ,     std::shared_ptr<specify_output_terminal_descriptor> i3
+       std::shared_ptr<edge_identifier> i1
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> i2
+ ,     std::shared_ptr<polarity_operator> i3
+ ,     std::shared_ptr<specify_output_terminal_descriptor> i4
   ):
        mem1(i1)
  ,     mem2(i2)
  ,     mem3(i3)
+ ,     mem4(i4)
   {}
 };
 class T_full_path_description : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> mem1;
-    std::shared_ptr<polarity_operator> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem3;
+    std::shared_ptr<edge_identifier> mem1;
+    std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> mem2;
+    std::shared_ptr<polarity_operator> mem3;
+    std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem4;
 
   T_full_path_description( 
-       std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> i1
- ,     std::shared_ptr<polarity_operator> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> i3
+       std::shared_ptr<edge_identifier> i1
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> i2
+ ,     std::shared_ptr<polarity_operator> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
  ,     mem3(i3)
+ ,     mem4(i4)
   {}
 };
 class T_specify_input_terminal_descriptor : public ComponentBase {
@@ -6252,45 +6258,51 @@ class T_edge_sensitive_path_declaration_full : public ComponentBase {
 class T_parallel_edge_sensitive_path_description : public ComponentBase {
   public :
     std::shared_ptr<edge_identifier> mem1;
-    std::shared_ptr<specify_input_terminal_descriptor> mem2;
-    std::shared_ptr<specify_output_terminal_descriptor> mem3;
-    std::shared_ptr<polarity_operator> mem4;
-    std::shared_ptr<expression> mem5;
+    std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> mem2;
+    std::shared_ptr<polarity_operator> mem3;
+    std::shared_ptr<specify_output_terminal_descriptor> mem4;
+    std::shared_ptr<polarity_operator> mem5;
+    std::shared_ptr<expression> mem6;
 
   T_parallel_edge_sensitive_path_description( 
        std::shared_ptr<edge_identifier> i1
- ,     std::shared_ptr<specify_input_terminal_descriptor> i2
- ,     std::shared_ptr<specify_output_terminal_descriptor> i3
- ,     std::shared_ptr<polarity_operator> i4
- ,     std::shared_ptr<expression> i5
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> i2
+ ,     std::shared_ptr<polarity_operator> i3
+ ,     std::shared_ptr<specify_output_terminal_descriptor> i4
+ ,     std::shared_ptr<polarity_operator> i5
+ ,     std::shared_ptr<expression> i6
   ):
        mem1(i1)
  ,     mem2(i2)
  ,     mem3(i3)
  ,     mem4(i4)
  ,     mem5(i5)
+ ,     mem6(i6)
   {}
 };
 class T_full_edge_sensitive_path_description : public ComponentBase {
   public :
     std::shared_ptr<edge_identifier> mem1;
     std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem3;
-    std::shared_ptr<polarity_operator> mem4;
-    std::shared_ptr<expression> mem5;
+    std::shared_ptr<polarity_operator> mem3;
+    std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> mem4;
+    std::shared_ptr<polarity_operator> mem5;
+    std::shared_ptr<expression> mem6;
 
   T_full_edge_sensitive_path_description( 
        std::shared_ptr<edge_identifier> i1
  ,     std::shared_ptr<std::list<std::shared_ptr< specify_input_terminal_descriptor>>> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> i3
- ,     std::shared_ptr<polarity_operator> i4
- ,     std::shared_ptr<expression> i5
+ ,     std::shared_ptr<polarity_operator> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr< specify_output_terminal_descriptor>>> i4
+ ,     std::shared_ptr<polarity_operator> i5
+ ,     std::shared_ptr<expression> i6
   ):
        mem1(i1)
  ,     mem2(i2)
  ,     mem3(i3)
  ,     mem4(i4)
  ,     mem5(i5)
+ ,     mem6(i6)
   {}
 };
 class T_state_dependent_path_declaration_simple : public ComponentBase {
