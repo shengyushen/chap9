@@ -24,7 +24,7 @@
 			step2_nodefFlexLexer(pis)
 		{ }
 		int yylex();
-		void print_pos_cerr () { cerr<< "print_pos_cerr " << filename << " : " << linenumber << " : " << charnumber << endl << flush; }
+		void print_pos_cerr () { cerr<< "  print_pos_cerr " << filename << " : " << linenumber << " : " << charnumber << endl << flush; }
 		void print_pos_cout () { cout<< "`line "<< (linenumber+1) << " " << filename << " 1" << endl << flush; }
 		void incLineNumber (unsigned i=1) { linenumber=linenumber+i; charnumber=0 ; }
 		void incCharNumber (int n) { charnumber+=n ; }
@@ -986,7 +986,7 @@ int main ( int argc, char * argv[] ) {
 	std::chrono::duration<double> elapsed_seconds = end-start;
 	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
 	std::cerr << "  step2 finished computation at " << std::ctime(&end_time)
-	<< "elapsed time: " << elapsed_seconds.count() << "s\n";
+	<< "  elapsed time: " << elapsed_seconds.count() << "s\n";
 
 	return 0;
 }

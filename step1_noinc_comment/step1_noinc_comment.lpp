@@ -215,16 +215,17 @@ int main ( int argc, char * argv[] ) {
 		return 1;
 	}
 
-	cerr<<"step1 working on "<<argv[argc-1]<<endl;
+	string fname(argv[argc-1]);
+	cerr<<"step1 working on "<<fname<<endl;
 	//testing existence of file
-	if( false == testFileExistenceInDir(argv[argc-1])) {
-	   prt_fatal ( "PREPROC_0002" ,"input file doesn't exist " ) ;
+	if( false == testFileExistenceInDir(fname)) {
+	   prt_fatal ( "PREPROC_0002" ,"input file "+fname+" doesn't exist " ) ;
 		 return 1;
 	}
-	cout<<"`line 1 "<<argv[argc-1]<<" 1"<<endl;
-	ifstream foo( argv[argc-1] );
+	cout<<"`line 1 "<<fname<<" 1"<<endl;
+	ifstream foo( fname );
 	//creating files handler and scanner
-	step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(argv[argc-1],&foo);
+	step1_noinc_commentScanner * lexer= new step1_noinc_commentScanner(fname,&foo);
 	while(lexer->yylex()!=0) {
 		prt_fatal ("PREPROC_0003" , "improper return from yylex");
 		//cout<<"// return here\n"<<flush;
@@ -236,7 +237,7 @@ int main ( int argc, char * argv[] ) {
 	std::chrono::duration<double> elapsed_seconds = end-start;
 	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
 	std::cerr << "  step1 finished computation at " << std::ctime(&end_time)
-	<< "elapsed time: " << elapsed_seconds.count() << "s\n";
+	<< "  elapsed time: " << elapsed_seconds.count() << "s\n";
 
 	return fatal;
 }

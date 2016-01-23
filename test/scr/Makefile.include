@@ -5,6 +5,7 @@
 
 .PHONY: clean
 .PHONY: test
+.PHONY: test_ivlpp
 
 
 #step1 to 3 of my prpgram

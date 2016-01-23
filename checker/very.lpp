@@ -343,6 +343,7 @@ digit [0-9]
 		yy_pop_state();
 		return yy::verilog_parser::make_UNSIGNED_NUMBER(lxm_no_,loc);
 	}
+	. {assert(false);}
 }
 
 {decimal_base}{blankrn}*{unsigned_number} |

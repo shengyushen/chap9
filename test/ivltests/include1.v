@@ -19,4 +19,4 @@
 //  SDW - include a single file
 //
 
-`include "ivltests/else3.v"
+`include "else3.v"

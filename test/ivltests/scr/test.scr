@@ -18,42 +18,26 @@ do
 	   [[ ${file1} == *br_gh25a* ]] || # sv function declaration outside of module
 	   [[ ${file1} == *br_gh25* ]]  || # sv task declaration outside of module
 	   [[ ${file1} == *br_gh60a* ]] ||  # sv x'by with 0 ==0 , which lead to first get 0 then get 'by
+	   [[ ${file1} == elsif_test ]] ||  # improper ifdef
+	   [[ ${file1} == function4 ]] ||  # function with zero parameter
 	   [[ ${file1} == *br_gh79* ]] ; then # sv with _ following 'b
 		echo "ignoring " ${file1}
 	else
 		echo ${file}
-		# step1
-		#step1_noinc_comment ./src/${file} > ${file}.noinc.v || exit 1
-		step1_noinc_comment ./src/${file} > ${file}.noinc.v 
-	
-		# step2
-		#step2_nodef ${file}.noinc.v > ${file}.nodef.v || exit 1
-		step2_nodef ${file}.noinc.v > ${file}.nodef.v 
-	
-		# step3
-		#checker ${file}.nodef.v > ${file}.sdf.v || exit 1
-		checker ${file}.nodef.v > ${file}.sdf.v 
-	
-		# tokenize the step2 result
-		#../scr/vtran.scr nodef.v || exit 1
+		chap9.sh ${file}
 	
 		# tokenize the step3 result
-		#../scr/vtran.scr ${file}.sdf.v || exit 1
-		../scr/vtran.scr ${file}.sdf.v 
+		tok.sh ${file}.step3.v
 	
 		# ivlpp 
-		#ivlpp -L ./src/${file} > ${file}.ivlpp.v || exit 1
-		ivlpp -L ./src/${file} > ${file}.ivlpp.v 
+		ivlpp -L  ${file} > ${file}.ivlpp.v 
 	
 		# removing ivlpp result's comment
-		#step1_noinc_comment ${file}.ivlpp.v > ${file}.ivlpp.v.noinc || exit 1
 		step1_noinc_comment ${file}.ivlpp.v > ${file}.ivlpp.v.noinc
 	
 		# tokenize the ivlpp result
-		#../scr/vtran.scr ${file}.ivlpp.v.noinc  || exit 1
-		../scr/vtran.scr ${file}.ivlpp.v.noinc 
+		tok.sh ${file}.ivlpp.v.noinc 
 	
-		# diff sdf.v.tok nodef.v.tok > diff_parse_${file}
-		diff ${file}.sdf.v.tok ${file}.ivlpp.v.noinc.tok > diff_2ivl_${file}
-		fi
+		diff ${file}.step3.v.tok ${file}.ivlpp.v.noinc.tok > diff_ivlpp_${file}
+	fi
 done
