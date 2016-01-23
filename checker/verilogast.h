@@ -4960,13 +4960,16 @@ class T_init_val_bin : public ComponentBase {
   public :
     int mem1;
     std::string mem2;
+    std::string mem3;
 
   T_init_val_bin( 
        int i1
  ,     std::string i2
+ ,     std::string i3
   ):
        mem1(i1)
  ,     mem2(i2)
+ ,     mem3(i3)
   {}
 };
 class T_init_val_unsigned : public ComponentBase {

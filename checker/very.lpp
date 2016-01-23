@@ -123,7 +123,7 @@ strength   {strength0}|{strength1}|{highz}
 
 
   /*A.9.3 Identifiers*/
-escaped_identifier     \\[^ \t\n]+[ ]
+escaped_identifier     \\[^ \t\n]+{blankrn}
 system_task_function_identifier [\$][a-zA-Z0-9_\$]+
 simple_identifier  [a-zA-Z_][a-zA-Z0-9_\$]*
   /*A.9.4 White space*/
@@ -137,7 +137,7 @@ blank [ \t]
 blankrn [ \t\r\n]
 digit [0-9]
 
-%x line_skip_blank line_number line_skip_blank2 line_filename endofline stringssy tableSC edgeSC
+%x line_skip_blank line_number line_skip_blank2 line_filename endofline stringssy tableSC edgeSC jingSzBsSC
 
 %%
 
@@ -335,8 +335,18 @@ digit [0-9]
 
 <<EOF>>    return yy::verilog_parser::make_END(loc);
 
+<jingSzBsSC>{
+	{size}/{blankrn}*({decimal_base}|{binary_base}|{octal_base}|{hex_base}) {
+		string s{yytext};
+		deleteUnderScore(s);
+		unsigned int lxm_no_=stoul(s);
+		yy_pop_state();
+		return yy::verilog_parser::make_UNSIGNED_NUMBER(lxm_no_,loc);
+	}
+}
 
-{size}?{decimal_base}{blankrn}*{unsigned_number} {
+{decimal_base}{blankrn}*{unsigned_number} |
+{size}{blankrn}*{decimal_base}{blankrn}*{unsigned_number} {
 	string s{yytext};
 	const int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
@@ -374,7 +384,8 @@ digit [0-9]
 	assert(false);
 }
 
-{size}?{octal_base}{blankrn}*{octal_value} {
+{octal_base}{blankrn}*{octal_value} |
+{size}{blankrn}*{octal_base}{blankrn}*{octal_value} {
 	string s{yytext};
 	const int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
@@ -401,7 +412,8 @@ digit [0-9]
 	return yy::verilog_parser::make_OCTAL_NUMBER(std::make_tuple(sz,db,numstr),loc);
 }
 
-{size}?{binary_base}{blankrn}*{binary_value} {
+{binary_base}{blankrn}*{binary_value} |
+{size}{blankrn}*{binary_base}{blankrn}*{binary_value} {
 	string s{yytext};
 	const int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
@@ -429,7 +441,8 @@ digit [0-9]
 }
 
 
-{size}?{hex_base}{blankrn}*{hex_value} {
+{hex_base}{blankrn}*{hex_value} |
+{size}{blankrn}*{hex_base}{blankrn}*{hex_value} {
 	string s{yytext};
 	const int dbpos=s.find_first_of('\'');
 	string szstr=s.substr(0,dbpos);
@@ -538,6 +551,10 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 "}"		{return yy::verilog_parser::make_RBRACE(loc);}
 "."		{return yy::verilog_parser::make_PERIOD(loc);}
 "@"		{return yy::verilog_parser::make_AT(loc);}
+"#"/{blankrn}*{size}{blankrn}*({decimal_base}|{binary_base}|{octal_base}|{hex_base})		{
+	yy_push_state(jingSzBsSC);
+	return yy::verilog_parser::make_JING(loc);
+}
 "#"		{return yy::verilog_parser::make_JING(loc);}
 "+:"	{return yy::verilog_parser::make_ADDRANGE(loc);}
 "-:"	{return yy::verilog_parser::make_SUBRANGE(loc);}

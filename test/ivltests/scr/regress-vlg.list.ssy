@@ -318,7 +318,6 @@ disp_dec2
 disp_leading_z
 disp_parm
 disp_part
-div16
 dotinid
 drive_strength
 drive_strength1
@@ -354,7 +353,6 @@ fdisplay2
 fdisplay3
 fdisplay_fail_fd
 fdisplay_fail_mcd
-fifo
 fileio
 fopen1
 fopen2
@@ -408,7 +406,6 @@ gate_connect2
 gen_case_opt1
 gen_case_opt2
 gen_case_opt3
-gencrc
 generate_case
 generate_case2
 generate_case3
@@ -507,7 +504,6 @@ no_timescale_in_module
 non-polymorphic-abs
 npmos
 npmos2
-onehot
 p_monta
 par_mismatch
 param-extend
@@ -536,7 +532,6 @@ param_times
 parameter_type
 patch1268
 pca1
-pic
 port-test2
 port-test3
 port-test4a

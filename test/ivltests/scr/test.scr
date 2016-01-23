@@ -6,6 +6,7 @@
 #set -o errtrace  # trace ERR through 'time command' and other functions
 #set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 #set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+rm -f error
 stderr_log="error"
 exec 2>"$stderr_log"
 
@@ -13,6 +14,13 @@ exec 2>"$stderr_log"
 for file1 in `cat scr/regress-vlg.list.ssy`
 do
 	file="${file1}.v"
+	if [[ ${file1} == *br988* ]]    ||
+	   [[ ${file1} == *br_gh25a* ]] || # sv function declaration outside of module
+	   [[ ${file1} == *br_gh25* ]]  || # sv task declaration outside of module
+	   [[ ${file1} == *br_gh60a* ]] ||  # sv x'by with 0 ==0 , which lead to first get 0 then get 'by
+	   [[ ${file1} == *br_gh79* ]] ; then # sv with _ following 'b
+		echo "ignoring " ${file1}
+	else
 		echo ${file}
 		# step1
 		#step1_noinc_comment ./src/${file} > ${file}.noinc.v || exit 1
@@ -47,4 +55,5 @@ do
 	
 		# diff sdf.v.tok nodef.v.tok > diff_parse_${file}
 		diff ${file}.sdf.v.tok ${file}.ivlpp.v.noinc.tok > diff_2ivl_${file}
+		fi
 done

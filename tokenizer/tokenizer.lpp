@@ -433,10 +433,7 @@ digit [0-9]
 }
 
 . {
-	string s{yytext};
-	prt_fatal("  tokenizer improper syntax "+s);
-	print_pos();
-	exit(1);
+	ECHO;
 }
 
 

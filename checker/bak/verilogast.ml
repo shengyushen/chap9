@@ -380,7 +380,7 @@ and	udp_initial_statement =
 	T_udp_initial_statement_NOSPEC
 	| T_udp_initial_statement of identifier*init_val
 and init_val =
-	T_init_val_bin of int*string
+	T_init_val_bin of int*string*string
 	| T_init_val_unsigned of int
 and	sequential_entry =
 	T_sequential_entry of seq_input_list*level_symbol*level_symbol

@@ -2896,7 +2896,7 @@ udp_initial_statement :
 /*actually lex only return number*/
 init_val :
 	BINARY_NUMBER  
-		{$$=SHR2(init_val,T_init_val_bin,(get<0>($1), get<1>($1)));}
+		{$$=SHR2(init_val,T_init_val_bin,(get<0>($1), get<1>($1), get<2>($1)));}
 	| UNSIGNED_NUMBER
 		{$$=SHR2(init_val,T_init_val_unsigned,($1));}
 ;

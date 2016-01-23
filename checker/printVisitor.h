@@ -74,9 +74,40 @@ public :
 
 class printVisitor : public boost::static_visitor<void> {
 public :
-	OPERATOR(T_description__udp_declaration   ,p) { assert(false);}
+	OPERATOR(T_description__udp_declaration   ,p) { APP_PRINTV(mem1); }
 	OPERATOR(T_description__config_declaration,p) { assert(false);}
 	OPERATOR(T_description__module_declaration,p) { APP_PRINTV(mem1) }
+
+	
+	OPERATOR(T_udp_declaration_1,p) {
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		prt_keyword_space("primitive");
+		APP_PRINTV(mem2);
+		APP_PRINTV(mem3);//udp_port_list
+		prt_keyword_space(";");
+		APPLST_PRINTV( mem4 , prt_nothing , prt_nothing , prt_nothing);//udp_port_declaration_list
+		APP_PRINTV(mem5);
+		prt_keyword_space("endprimitive");
+	}
+	OPERATOR(T_udp_declaration_2,p) {
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		prt_keyword_space("primitive");
+		APP_PRINTV(mem2);
+		APP_PRINTV(mem3);
+		prt_keyword_space(";");
+		APP_PRINTV(mem4);
+		prt_keyword_space("endprimitive");
+	}
+
+	OPERATOR(T_udp_port_list,p) {
+		APP_PRINTV(mem1);
+		prt_keyword_space(",");
+		APPLST_PRINTV( mem2 , prt_nothing, prt_comma , prt_nothing);//comma_input_port_identifier_list
+	}
+
+	OPERATOR(T_udp_port_declaration_out,p) { APP_PRINTV(mem1); }
+	OPERATOR(T_udp_port_declaration_input,p) { APP_PRINTV(mem1); }
+	OPERATOR(T_udp_port_declaration_reg,p) { APP_PRINTV(mem1) }
 
 	OPERATOR(T_identifier_NOSPEC,p) {  }
 	OPERATOR(T_identifier,       p) { prt_keyword_space(p->mem1); }
@@ -84,6 +115,128 @@ public :
 	OPERATOR(T_attribute_instance,p) { 
 		APPLST_PRINTV(mem1 , prt_lp_star , prt_comma , prt_star_rp) 
 	}
+	
+	OPERATOR(T_udp_body_comb,p) { assert(false); }
+
+	OPERATOR(T_udp_body_seq,p) { APP_PRINTV(mem1); }
+	OPERATOR(T_sequential_body,p) {
+		APP_PRINTV(mem1);
+		prt_keyword_space("table");
+		APPLST_PRINTV(mem2 , prt_nothing , prt_nothing , prt_nothing) 
+		prt_keyword_space("endtable");
+	}
+
+	OPERATOR(T_udp_initial_statement_NOSPEC,p) { }
+	OPERATOR(T_udp_initial_statement,p) {
+		prt_keyword_space("initial");
+		APP_PRINTV(mem1);
+		prt_keyword_space("=");
+		APP_PRINTV(mem2);
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_init_val_bin,p) {
+		if(0==(p->mem1)) {
+			cout<<"'"<<p->mem2<<p->mem3;
+		} else {
+			cout<<p->mem1<<"'"<<p->mem2<<p->mem3;
+		}
+	}
+	OPERATOR(T_init_val_unsigned,p) {
+		cout<<p->mem1<<endl;
+	}
+	OPERATOR(T_udp_output_declaration_output,p) {
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		prt_keyword_space("output");
+		APP_PRINTV(mem2);
+	}
+	OPERATOR(T_udp_output_declaration_reg,p) {
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		prt_keyword_space("output");
+		prt_keyword_space("reg");
+		APP_PRINTV(mem2);
+		if(false==(boost::apply_visitor(is_T_expression_NOSPEC(),*(p->mem3)))) {
+			//it is not NOSPEC, we can print =
+			prt_keyword_space("=");
+			APP_PRINTV(mem3);
+		}
+	}
+	OPERATOR(T_udp_reg_declaration,p) {
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		prt_keyword_space("reg");
+		APP_PRINTV(mem2);
+	}
+
+	OPERATOR(T_udp_input_declaration,p) {
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		prt_keyword_space("input");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);//list_of_port_identifiers
+	}
+
+	OPERATOR(T_udp_declaration_port_list,p) {
+		APP_PRINTV(mem1);
+		prt_keyword_space(",");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);// comma_udp_input_declaration_list
+	}
+
+	OPERATOR(T_udp_input_declaration_singular,p) {
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		if((p->mem2 )== 1) {
+			prt_keyword_space("input");
+		}
+		APP_PRINTV(mem3);
+	}
+
+	
+	OPERATOR(T_sequential_entry,p) {
+		APP_PRINTV(mem1);
+		prt_keyword_space(":");
+		APP_PRINTV(mem2);
+		prt_keyword_space(":");
+		APP_PRINTV(mem3);
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_sequential_entry_comb,p) {
+		APP_PRINTV(mem1);
+		prt_keyword_space(":");
+		APP_PRINTV(mem2);
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_seq_input_list_level,p) { 
+		APPLST_PRINTV( mem1 , prt_nothing , prt_nothing, prt_nothing);//level_symbol 
+	}
+	OPERATOR(T_seq_input_list_edge,p) { APP_PRINTV(mem1); }
+	OPERATOR(T_edge_input_list,p) {
+		APPLST_PRINTV( mem1 , prt_nothing , prt_nothing, prt_nothing);//level_symbol 
+		APP_PRINTV(mem2);
+		APPLST_PRINTV( mem3 , prt_nothing , prt_nothing, prt_nothing);//level_symbol 
+	}
+	OPERATOR(T_level_symbol_0,p)        {cout<<"0";}
+	OPERATOR(T_level_symbol_1,p)        {cout<<"1";}
+	OPERATOR(T_level_symbol_x,p)        {cout<<"x";}
+	OPERATOR(T_level_symbol_X,p)        {cout<<"X";}
+	OPERATOR(T_level_symbol_QUESTION,p) {cout<<"?";}
+	OPERATOR(T_level_symbol_b,p)        {cout<<"b";}
+	OPERATOR(T_level_symbol_B,p)        {cout<<"B";}
+	OPERATOR(T_level_symbol_SUB,p)      {cout<<"-";}
+
+	OPERATOR(T_edge_indicator_level,p) {
+		prt_keyword_space("(");
+			APP_PRINTV(mem1);
+			APP_PRINTV(mem2);
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_edge_indicator_edge,p) {
+		APP_PRINTV(mem1);
+	}
+	OPERATOR(T_edge_symbol_r,p) {cout<<"r";}
+	OPERATOR(T_edge_symbol_R,p) {cout<<"R";}
+	OPERATOR(T_edge_symbol_f,p) {cout<<"f";}
+	OPERATOR(T_edge_symbol_F,p) {cout<<"F";}
+	OPERATOR(T_edge_symbol_p,p) {cout<<"p";}
+	OPERATOR(T_edge_symbol_P,p) {cout<<"P";}
+	OPERATOR(T_edge_symbol_n,p) {cout<<"n";}
+	OPERATOR(T_edge_symbol_N,p) {cout<<"N";}
 
 	OPERATOR(T_attr_spec,p) { 
 		APP_PRINTV(mem1);
