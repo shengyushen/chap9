@@ -23,10 +23,10 @@ noinclude.v : ${SRCFILE}
 
 # tokenrize parser result and step2 result
 sdf.v.tok : sdf.v
-	../scr/vtran.scr $<
+	tok.sh $<
 
 nodef.v.tok : nodef.v
-	../scr/vtran.scr $<
+	tok.sh $<
 
 # trying ivlpp to generate its tokenrize file
 ivlpp.v : $(SRCFILE)
@@ -37,17 +37,17 @@ ivlpp.v.noinc : ivlpp.v
 	step1_noinc_comment $< > ivlpp.v.noinc
 
 ivlpp.v.noinc.tok : ivlpp.v.noinc
-	../scr/vtran.scr $<
+	tok.sh $<
 
 test : sdf.v.tok nodef.v.tok 
 	# comparing before and after checher
 	- diff sdf.v.tok nodef.v.tok  > diff_parse
 	# comparing after checker with previous run
 	cp std/sdf.v old.v
-	- ../scr/vtran.scr old.v
+	- tok.sh old.v
 	- diff sdf.v.tok old.v.tok > diff_2old
 
-test_ivlpp : ivlpp.v.noinc.tok
+test_ivlpp :sdf.v.tok ivlpp.v.noinc.tok
 	# comparing after checher and ivlpp
 	- diff sdf.v.tok ivlpp.v.noinc.tok > diff_2ivl
 

@@ -13,6 +13,9 @@ TESTDIRS_IVLPP = $(DIRS_IVLPP:%=test_ivlpp-%)
 .PHONY: subdirs $(CLEANDIRS)
 .PHONY: subdirs $(TESTDIRS)
 .PHONY: subdirs $(TESTDIRS_IVLPP)
+.PHONY: all
+
+all : test test_ivlpp
 
 test: $(TESTDIRS)
 $(TESTDIRS): 

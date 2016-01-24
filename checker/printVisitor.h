@@ -21,6 +21,12 @@ template <typename T>
 void prt_keyword_space(T & str) { cout<<" "<<str<<" ";}
 //void prt_keyword_space(const char* const pstr  ) { cout<<" "<<pstr<<" ";}
 
+class is_T_mintypmax_expression_NOSPEC: public boost::static_visitor<bool> {
+public :
+	bool operator()(std::shared_ptr<T_mintypmax_expression_NOSPEC>   ) const { return true; }
+	template <typename T>
+	bool operator()(std::shared_ptr<T>   ) const { return false; }
+};
 class is_T_expression_NOSPEC : public boost::static_visitor<bool> {
 public :
 	bool operator()(std::shared_ptr<T_expression_NOSPEC>   ) const { return true; }
@@ -664,8 +670,8 @@ public :
 	}
 	OPERATOR(T_net_declaration_trireg_1,p) { assert(false); }
 	OPERATOR(T_net_declaration_trireg_2,p) { assert(false); }
-	OPERATOR(T_net_declaration_trireg_3,p) { assert(false); }
-	OPERATOR(T_net_declaration_trireg_4,p) { assert(false); }
+	OPERATOR(T_net_declaration_trireg_3,p) {  }
+	OPERATOR(T_net_declaration_trireg_4,p) {  }
 
 	OPERATOR(T_net_identifier_dimension_list,p) {
 		APP_PRINTV(mem1)
@@ -1686,13 +1692,569 @@ public :
 		prt_keyword_space(";");
 	}
 
-	OPERATOR(T_module_item__specify_block,p) { assert(false); }
+	OPERATOR(T_module_item__specify_block,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_specify_block,p) {
+		prt_keyword_space("specify");
+			APPLST_PRINTV( mem1 , prt_nothing , prt_nothing , prt_nothing);//specify_item_list
+		prt_keyword_space("endspecify");
+	}
+	
+	OPERATOR(T_specify_item_specparam,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_specify_item_pulsestyle,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_specify_item_showcancelled,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_specify_item_path,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_specify_item_system,p) {APP_PRINTV(mem1)}
+
+	OPERATOR(T_system_timing_check_dollor_setup_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_hold_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_setuphold_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_recovery_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_removal_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_recrem_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_skew_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_timeskew_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_fullskew_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_period_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_width_timing_check,p) {APP_PRINTV(mem1)}
+	OPERATOR(T_system_timing_check_dollor_nochange_timing_check,p) {APP_PRINTV(mem1)}
+
+	OPERATOR(T_zero_or_one_0,p) {
+		prt_keyword_space("0");
+	}
+	OPERATOR(T_zero_or_one_1,p) {
+		prt_keyword_space("1");
+	}
+	OPERATOR(T_z_or_x__x,p) {
+		prt_keyword_space("x");
+	}
+	OPERATOR(T_z_or_x__X,p) {
+		prt_keyword_space("X");
+	}
+	OPERATOR(T_z_or_x__z,p) {
+		prt_keyword_space("z");
+	}
+	OPERATOR(T_z_or_x__Z,p) {
+		prt_keyword_space("Z");
+	}
+	OPERATOR(T_edge_descriptor_01,p) {
+		prt_keyword_space("01");
+	}
+	OPERATOR(T_edge_descriptor_10,p) {
+		prt_keyword_space("10");
+	}
+	OPERATOR(T_edge_descriptor_zx01,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_edge_descriptor_01zx,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_edge_control_specifier , p ) {
+		prt_keyword_space("edge");
+		prt_keyword_space("[");
+		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//edge_descriptor
+		prt_keyword_space("]");
+	}
+	OPERATOR(T_timing_check_event_control_NOSPEC,p) { }
+	OPERATOR(T_timing_check_event_control_POSEDGE,p) {
+		prt_keyword_space("posedge");
+	}
+	OPERATOR(T_timing_check_event_control_NEGEDGE,p) {
+		prt_keyword_space("negedge");
+	}
+	OPERATOR(T_timing_check_event_control_edge_control_specifier,p) {
+		APP_PRINTV(mem1) 
+	}
+
+	OPERATOR(T_specify_terminal_descriptor_in , p ) { APP_PRINTV(mem1) }
+	OPERATOR(T_timing_check_event,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+		prt_keyword_space("");
+		if(false==(boost::apply_visitor(is_T_expression_NOSPEC(),*(p->mem3)))) {
+			prt_keyword_space("&&&");
+			APP_PRINTV(mem3) 
+		}
+	}
+	OPERATOR(T_reference_event , p ) { APP_PRINTV(mem1) }
+	OPERATOR(T_data_event , p ) { APP_PRINTV(mem1) }
+	OPERATOR(T_start_edge_offset,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_notifier_NOSPEC,p) { }
+	OPERATOR(T_notifier,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_end_edge_offset , p) { APP_PRINTV(mem1) }
+	OPERATOR(T_dollor_nochange_timing_check , p ) {
+		prt_keyword_space("\\$nochange");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem5) 
+		prt_keyword_space(")");
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_controlled_timing_check_event , p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APP_PRINTV(mem2) 
+		if(false==(boost::apply_visitor(is_T_expression_NOSPEC(),*(p->mem3)))) {
+			prt_keyword_space("&&&");
+			APP_PRINTV(mem3) 
+		}
+	}
+	OPERATOR(T_controlled_reference_event , p ) { APP_PRINTV(mem1) }
+	OPERATOR(T_timing_check_limit , p ) { APP_PRINTV(mem1) }
+	OPERATOR(T_threshold,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_threshold_NOSPEC,p) { }
+	OPERATOR(T_dollor_width_timing_check , p ) {
+		prt_keyword_space("\\$width");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(")");
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_dollor_period_timing_check , p ) {
+		prt_keyword_space("\\$period");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(")");
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_event_based_flag,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_event_based_flag_NOSPEC,p) { }
+	OPERATOR(T_remain_active_flag,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_remain_active_flag_NOSPEC,p) { }
+	OPERATOR(T_dollor_fullskew_timing_check , p ) {
+		prt_keyword_space("\\$fullskew");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem5) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem6) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem7) 
+		prt_keyword_space(")");
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_dollor_timeskew_timing_check , p ) {
+		prt_keyword_space("\\$timeskew");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem5) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem6) 
+		prt_keyword_space(")");
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_dollor_skew_timing_check , p ) {
+		prt_keyword_space("\\$skew");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(")");
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_stamptime_condition,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_stamptime_condition_NOSPEC,p) { }
+	OPERATOR(T_checktime_condition_NOSPEC,p) { }
+	OPERATOR(T_checktime_condition,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_delayed_reference_NOSPEC,p) { }
+	OPERATOR(T_delayed_reference_id,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_delayed_reference_idmtmexp,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("[");
+		APP_PRINTV(mem2) 
+		prt_keyword_space("]");
+	}
+	OPERATOR(T_delayed_data_NOSPEC,p) { }
+	OPERATOR(T_delayed_data_id,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_delayed_data_idmtmexp,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("[");
+		APP_PRINTV(mem2) 
+		prt_keyword_space("]");
+	}
+
+	OPERATOR(T_dollor_recrem_timing_check , p ) {
+		prt_keyword_space("\\$recrem");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem5) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem6) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem7) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem8) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem9) 
+		prt_keyword_space(")");
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_dollor_removal_timing_check , p) {
+		prt_keyword_space("\\$removal");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1)
+		prt_keyword_space(",");
+		APP_PRINTV(mem2)
+		prt_keyword_space(",");
+		APP_PRINTV(mem3)
+		prt_keyword_space(",");
+		APP_PRINTV(mem4)
+		prt_keyword_space(")");
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_dollor_recovery_timing_check ,p ) {
+		prt_keyword_space("\\$recovery");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(")");
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_dollor_setuphold_timing_check,p) {
+		prt_keyword_space("\\$setuphold");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1);
+		prt_keyword_space(",");
+		APP_PRINTV(mem2);
+		prt_keyword_space(",");
+		APP_PRINTV(mem3);
+		prt_keyword_space(",");
+		APP_PRINTV(mem4);
+		prt_keyword_space(",");
+		APP_PRINTV(mem5);
+		prt_keyword_space(",");
+		APP_PRINTV(mem6);
+		prt_keyword_space(",");
+		APP_PRINTV(mem7);
+		prt_keyword_space(",");
+		APP_PRINTV(mem8);
+		prt_keyword_space(",");
+		APP_PRINTV(mem9);
+		prt_keyword_space(")");
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_dollor_hold_timing_check,p) {
+		prt_keyword_space("\\$hold");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1);
+		prt_keyword_space(",");
+		APP_PRINTV(mem2);
+		prt_keyword_space(",");
+		APP_PRINTV(mem3);
+		prt_keyword_space(",");
+		APP_PRINTV(mem4);
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_dollor_setup_timing_check,p) {
+		prt_keyword_space("\\$setup");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_path_declaration_simple,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_edge_sensitive_path_declaration_parallel,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("=");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_parallel_edge_sensitive_path_description , p ) {
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);// specify_inout_terminal_descriptor
+		APP_PRINTV(mem3) 
+		prt_keyword_space("=>");
+		prt_keyword_space("(");
+		APP_PRINTV(mem4) 
+		prt_keyword_space("");
+		APP_PRINTV(mem5) 
+		prt_keyword_space(":");
+		APP_PRINTV(mem6) 
+		prt_keyword_space("))");
+	}
+	OPERATOR(T_edge_identifier_NOSPEC,p) { }
+	OPERATOR(T_edge_identifier_POS,p) {
+		prt_keyword_space("posedge");
+	}
+	OPERATOR(T_edge_identifier_NEG,p) {
+		prt_keyword_space("negedge");
+	}
+	OPERATOR(T_polarity_operator_NOSPEC,p) { }
+	OPERATOR(T_polarity_operator_ADD,p) {
+		prt_keyword_space("+");
+	}
+	OPERATOR(T_polarity_operator_SUB,p) {
+		prt_keyword_space("-");
+	}
+	OPERATOR(T_edge_sensitive_path_declaration_full,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("=");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_full_edge_sensitive_path_description , p) {
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);// specify_inout_terminal_descriptor
+		prt_keyword_space("");
+		APP_PRINTV(mem3) 
+		prt_keyword_space("*>");
+		prt_keyword_space("(");
+		APPLST_PRINTV( mem4 , prt_nothing , prt_comma , prt_nothing);// specify_inout_terminal_descriptor
+		prt_keyword_space("");
+		APP_PRINTV(mem5) 
+		prt_keyword_space(":");
+		APP_PRINTV(mem6) 
+		prt_keyword_space("))");
+	}
+	OPERATOR(T_state_dependent_path_declaration_simple,p) {
+		prt_keyword_space("if (");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(")");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_state_dependent_path_declaration_edge,p) {
+		prt_keyword_space("if (");
+		APP_PRINTV(mem1) 
+		prt_keyword_space(")");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_state_dependent_path_declaration_ifnone,p) {
+		prt_keyword_space("ifnone");
+		APP_PRINTV(mem1) 
+	}
+	OPERATOR(T_parallel_path_description,p) {
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);// specify_inout_terminal_descriptor
+		prt_keyword_space("");
+		APP_PRINTV(mem3) 
+		prt_keyword_space("=>");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_list_of_mintypmax_expressions_1,p) { APP_PRINTV(mem1) }
+	OPERATOR(T_list_of_mintypmax_expressions_2,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_list_of_mintypmax_expressions_3,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+	}
+	OPERATOR(T_list_of_mintypmax_expressions_6,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem5) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem6) 
+	}
+	OPERATOR(T_list_of_mintypmax_expressions_12,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem2) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem3) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem4) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem5) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem6) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem7) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem8) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem9) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem10) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem11) 
+		prt_keyword_space(",");
+		APP_PRINTV(mem12) 
+	}
+	OPERATOR(T_full_path_description,p) {
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);// specify_inout_terminal_descriptor
+		prt_keyword_space("");
+		APP_PRINTV(mem3) 
+		prt_keyword_space("*>");
+		APPLST_PRINTV( mem4 , prt_nothing , prt_comma , prt_nothing);// specify_inout_terminal_descriptor
+		prt_keyword_space(")");
+	}
+
+	OPERATOR(T_path_declaration_edge,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_path_declaration_state,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_simple_path_declaration_parallel,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("=");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_simple_path_declaration_full,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("=");
+		APP_PRINTV(mem2) 
+	}
+
+	OPERATOR(T_pulsestyle_declaration_oneevent,p) {
+		prt_keyword_space("pulsestyle_onevent");
+		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//list_of_path_inouts
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_pulsestyle_declaration_onedetect,p) {
+		prt_keyword_space("pulsestyle_ondetect");
+		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//list_of_path_inouts
+		prt_keyword_space(";");
+	}
+	
+	OPERATOR(T_showcancelled_declaration_show,p) {
+		prt_keyword_space("showcancelled");
+		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//list_of_path_inouts
+		prt_keyword_space(";");
+	}
+	OPERATOR(T_showcancelled_declaration_noshow,p) {
+		prt_keyword_space("noshowcancelled");
+		APPLST_PRINTV( mem1 , prt_nothing , prt_comma , prt_nothing);//list_of_path_inouts
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_specify_inout_terminal_descriptor,p) {
+		APP_PRINTV(mem1) 
+		APP_PRINTV(mem2) 
+	}
+
+	OPERATOR(T_specparam_declaration,p) {
+		prt_keyword_space("specparam");
+		APP_PRINTV(mem1) 
+		prt_keyword_space("");
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);//list_of_specparam_assignments
+		prt_keyword_space(";");
+	}
+
+	OPERATOR(T_specparam_assignment,p) {
+		APP_PRINTV(mem1) 
+		prt_keyword_space("=");
+		APP_PRINTV(mem2) 
+	}
+	OPERATOR(T_specparam_assignment_pulse1,p) {
+		prt_keyword_space("PATHPULSE\\$");
+		prt_keyword_space("=");
+		prt_keyword_space("(");
+		APP_PRINTV(mem1) 
+		if(false==(boost::apply_visitor(is_T_mintypmax_expression_NOSPEC(),*(p->mem2)))) {
+			prt_keyword_space(",");
+			APP_PRINTV(mem2) 
+		}
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_specparam_assignment_pulse2,p) {
+		cout<<"PATHPULSE\\$";
+		APP_PRINTV(mem1) 
+		cout<<"\\$";
+		APP_PRINTV(mem2) 
+		prt_keyword_space("=");
+		prt_keyword_space("(");
+		APP_PRINTV(mem3) 
+		if(false==(boost::apply_visitor(is_T_mintypmax_expression_NOSPEC(),*(p->mem4)))) {
+			prt_keyword_space(",");
+			APP_PRINTV(mem4) 
+		}
+		prt_keyword_space(")");
+	}
+
 	OPERATOR(T_module_item__parameter_declaration,p) { 
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem2);
 		prt_keyword_space(";\n");
 	}
-	OPERATOR(T_module_item__specparam_declaration,p) { assert(false); }
+	OPERATOR(T_module_item__specparam_declaration,p) {
+		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		prt_keyword_space("");
+		APP_PRINTV(mem2);
+	}
 	OPERATOR(T_module_item__net_declaration,p) {  
 		APPLST_PRINTV( mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
 		APP_PRINTV(mem2);
