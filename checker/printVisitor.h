@@ -517,7 +517,7 @@ public :
 		APP_PRINTV(mem2) //module name
 		prt_keyword_space("\n");
 		APPLST_PRINTV(mem3 , prt_jinglparent , prt_comma , prt_rparent); // parameter list
-		APPLST_PRINTV(mem4 , prt_lp_star , prt_comma , prt_rparent);//port_declaration
+		APPLST_PRINTV(mem4 , prt_lparent , prt_comma , prt_rparent);//port_declaration
 		cout<<";";
 		APPLST_PRINTV(mem5 , prt_return , prt_return , prt_return);//module_item
 		prt_keyword_space("\n endmodule\n");
