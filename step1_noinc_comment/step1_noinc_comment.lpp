@@ -72,7 +72,7 @@ string \"[^\n"]+\"
 alpha [A-Za-z]
 digit [0-9]a
 
-%x comment include
+%x comment include stringSCin
 
 %%
 \r 
@@ -81,6 +81,30 @@ digit [0-9]a
 	/*counting lines*/
 	this->incLineNumber();
 	ECHO;
+}
+
+
+\"		{ 
+	ECHO;
+	yy_push_state(stringSCin);
+}
+
+<stringSCin>{
+	\n {
+		prt_fatal("","incomplet string");
+		print_pos();
+		exit(1);
+	}
+	"\\\"" {
+		ECHO;
+	}
+	\" {
+		ECHO;
+		yy_pop_state();
+	} 
+	. {
+		ECHO;
+	}
 }
 
 "//"[^\n]* /*discard one line comment*/
