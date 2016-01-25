@@ -185,7 +185,14 @@ digit [0-9]
 "casez"              { return yy::verilog_parser::make_KEY_CASEZ(loc);}
 "cell"               { return yy::verilog_parser::make_KEY_CELL(loc);}
 "cmos"               { return yy::verilog_parser::make_KEY_CMOS(loc);}
-"config"             { return yy::verilog_parser::make_KEY_CONFIG(loc);}
+"config"             {
+	isInConfig = true;
+	return yy::verilog_parser::make_KEY_CONFIG(loc);
+}
+"endconfig"          {
+	isInConfig=false;
+	return yy::verilog_parser::make_KEY_ENDCONFIG(loc);
+}
 "deassign"           { return yy::verilog_parser::make_KEY_DEASSIGN(loc);}
 "default"            { return yy::verilog_parser::make_KEY_DEFAULT(loc);}
 "defparam"           { return yy::verilog_parser::make_KEY_DEFPARAM(loc);}
@@ -198,7 +205,6 @@ digit [0-9]
 "else"               { return yy::verilog_parser::make_KEY_ELSE(loc);}
 "end"                { return yy::verilog_parser::make_KEY_END(loc);}
 "endcase"            { return yy::verilog_parser::make_KEY_ENDCASE(loc);}
-"endconfig"          { return yy::verilog_parser::make_KEY_ENDCONFIG(loc);}
 "endfunction"        { return yy::verilog_parser::make_KEY_ENDFUNCTION(loc);}
 "endgenerate"        { return yy::verilog_parser::make_KEY_ENDGENERATE(loc);}
 "endmodule"          { return yy::verilog_parser::make_KEY_ENDMODULE(loc);}
@@ -227,7 +233,14 @@ digit [0-9]
 "initial"            { return yy::verilog_parser::make_KEY_INITIAL(loc);}
 "inout"              { return yy::verilog_parser::make_KEY_INOUT(loc);}
 "input"              { return yy::verilog_parser::make_KEY_INPUT(loc);}
-"instance"           { return yy::verilog_parser::make_KEY_INSTANCE(loc);}
+"instance"           { 
+	if(isInConfig) {
+		return yy::verilog_parser::make_KEY_INSTANCE(loc);
+	} else {
+		string s{yytext};
+		return yy::verilog_parser::make_SIMPLE_IDENTIFIER(s,loc);
+	}
+}
 "integer"            { return yy::verilog_parser::make_KEY_INTEGER(loc);}
 "join"               { return yy::verilog_parser::make_KEY_JOIN(loc);}
 "large"              { return yy::verilog_parser::make_KEY_LARGE(loc);}

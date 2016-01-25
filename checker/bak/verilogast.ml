@@ -260,7 +260,7 @@ and pass_switch_instance =
 and pass_enable_switch_instance =
 	T_pass_enable_switch_instance of name_of_gate_instance*expression*expression*expression
 and pull_gate_instance =
-	T_pull_gate_instance of name_of_gate_instance*expression
+	T_pull_gate_instance of name_of_gate_instance*(expression list)
 and name_of_gate_instance =
 	T_name_of_gate_instance_NOSPEC
 	| T_name_of_gate_instance of identifier*range
@@ -326,7 +326,8 @@ and ordered_port_connection =
 and named_port_connection =
 	T_named_port_connection of (attribute_instance list)*identifier*expression
 and generate_region =
-	T_generate_region of (module_item list)
+	T_generate_region_1 of (module_item list)
+	| T_generate_region_2 of identifier*(module_item list)
 and genvar_declaration =
 	T_genvar_declaration of (identifier list)
 and loop_generate_construct =

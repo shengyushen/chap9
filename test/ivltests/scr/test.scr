@@ -19,6 +19,14 @@ do
 	   [[ ${file1} == *br_gh25* ]]  || # sv task declaration outside of module
 	   [[ ${file1} == *br_gh60a* ]] ||  # sv x'by with 0 ==0 , which lead to first get 0 then get 'by
 	   [[ ${file1} == elsif_test ]] ||  # improper ifdef
+	   [[ ${file1} == pr1716276 ]] ||  # parameter empty
+	   [[ ${file1} == pr1763333 ]] ||  # port empty 
+	   [[ ${file1} == pr1861212a ]] ||  # reg real not supported in verilog
+	   [[ ${file1} == pr2051975 ]] ||  # mixed ordered and named port list
+	   [[ ${file1} == pr2123190 ]] ||  # wire real not supported in verilog 2005
+	   [[ ${file1} == pr2395378a ]] ||  # buf must have at least two ports
+	   [[ ${file1} == pr2395378b ]] ||  # buf must have at least two ports
+	   [[ ${file1} == pr2395378c  ]] ||  # not must have at least two ports
 	   [[ ${file1} == function4 ]] ||  # function with zero parameter
 	   [[ ${file1} == *br_gh79* ]] ; then # sv with _ following 'b
 		echo "ignoring " ${file1}

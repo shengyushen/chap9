@@ -8,7 +8,8 @@
 		veryScanner( string * fn , ifstream * pis) :
 			loc{fn},
 			veryFlexLexer(pis),
-			isInModuleDeclaration(false)
+			isInModuleDeclaration(false),
+			isInConfig(false)
 		{ }
 
 		void open( string * fn , ifstream * pis) {
@@ -24,6 +25,7 @@
 		//set when in module or macromodule
 		//clean when met ;
 		bool isInModuleDeclaration;
+		bool isInConfig;
 	};
 #endif
 

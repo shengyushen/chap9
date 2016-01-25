@@ -250,7 +250,8 @@ class T_list_of_port_connections_ordered;
 class T_list_of_port_connections_named;
 class T_ordered_port_connection;
 class T_named_port_connection;
-class T_generate_region;
+class T_generate_region_1;
+class T_generate_region_2;
 class T_genvar_declaration;
 class T_loop_generate_construct;
 class T_genvar_initialization;
@@ -1055,7 +1056,8 @@ typedef boost::variant<
  std::shared_ptr<T_named_port_connection>
  > named_port_connection ; 
 typedef boost::variant<
- std::shared_ptr<T_generate_region>
+ std::shared_ptr<T_generate_region_1>
+ ,  std::shared_ptr<T_generate_region_2>
  > generate_region ; 
 typedef boost::variant<
  std::shared_ptr<T_genvar_declaration>
@@ -4130,11 +4132,11 @@ class T_pass_enable_switch_instance : public ComponentBase {
 class T_pull_gate_instance : public ComponentBase {
   public :
     std::shared_ptr<name_of_gate_instance> mem1;
-    std::shared_ptr<expression> mem2;
+    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem2;
 
   T_pull_gate_instance( 
        std::shared_ptr<name_of_gate_instance> i1
- ,     std::shared_ptr<expression> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr< expression>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4555,14 +4557,27 @@ class T_named_port_connection : public ComponentBase {
  ,     mem3(i3)
   {}
 };
-class T_generate_region : public ComponentBase {
+class T_generate_region_1 : public ComponentBase {
   public :
     std::shared_ptr<std::list<std::shared_ptr< module_item>>> mem1;
 
-  T_generate_region( 
+  T_generate_region_1( 
        std::shared_ptr<std::list<std::shared_ptr< module_item>>> i1
   ):
        mem1(i1)
+  {}
+};
+class T_generate_region_2 : public ComponentBase {
+  public :
+    std::shared_ptr<identifier> mem1;
+    std::shared_ptr<std::list<std::shared_ptr< module_item>>> mem2;
+
+  T_generate_region_2( 
+       std::shared_ptr<identifier> i1
+ ,     std::shared_ptr<std::list<std::shared_ptr< module_item>>> i2
+  ):
+       mem1(i1)
+ ,     mem2(i2)
   {}
 };
 class T_genvar_declaration : public ComponentBase {

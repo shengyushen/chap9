@@ -504,8 +504,7 @@ public :
 		prt_keyword_space("\n");
 		APPLST_PRINTV(mem3 , prt_jinglparent , prt_comma , prt_rparent); // parameter list
 		if(((p->mem4)->size())>0) {
-			prt_keyword_space("\n (\n");
-			APPLST_PRINTV(mem4 , prt_nothing , prt_comma , prt_rparent);//ports
+			APPLST_PRINTV(mem4 , prt_lparent , prt_comma , prt_rparent);//ports
 		}
 		cout<<";";
 		APPLST_PRINTV(mem5 , prt_return , prt_return , prt_return);//module_item
@@ -518,8 +517,7 @@ public :
 		APP_PRINTV(mem2) //module name
 		prt_keyword_space("\n");
 		APPLST_PRINTV(mem3 , prt_jinglparent , prt_comma , prt_rparent); // parameter list
-		prt_keyword_space("\n (\n");
-		APPLST_PRINTV(mem4 , prt_nothing , prt_comma , prt_rparent);//port_declaration
+		APPLST_PRINTV(mem4 , prt_lp_star , prt_comma , prt_rparent);//port_declaration
 		cout<<";";
 		APPLST_PRINTV(mem5 , prt_return , prt_return , prt_return);//module_item
 		prt_keyword_space("\n endmodule\n");
@@ -612,9 +610,20 @@ public :
 	OPERATOR(T_output_variable_type_TIME,p) {prt_keyword_space("time");}
 
 	OPERATOR(T_module_item__generate_region,p) { APP_PRINTV(mem1); }
-	OPERATOR(T_generate_region,p) { 
+	OPERATOR(T_generate_region_1,p) { 
 		prt_keyword_space("\n generate\n");
 			APPLST_PRINTV( mem1 , prt_return , prt_return , prt_return);//module_item_list
+		prt_keyword_space("\n endgenerate\n");
+	}
+	OPERATOR(T_generate_region_2,p) {
+		prt_keyword_space("\n generate\n");
+		prt_keyword_space("begin\n");
+		if(false==(boost::apply_visitor(is_T_identifier_NOSPEC(),*(p->mem1)))) {
+			cout<<":  ";
+			APP_PRINTV(mem1) 
+		}
+		APPLST_PRINTV( mem2 , prt_return , prt_return , prt_return);//module_item_list
+		prt_keyword_space("\nend\n");
 		prt_keyword_space("\n endgenerate\n");
 	}
 
@@ -1670,7 +1679,7 @@ public :
 	OPERATOR(T_pull_gate_instance ,p) {
 		APP_PRINTV(mem1) 
 		prt_keyword_space("(");
-		APP_PRINTV(mem2) 
+		APPLST_PRINTV( mem2 , prt_nothing , prt_comma , prt_nothing);//output_terminal 
 		prt_keyword_space(")");
 	}
 	OPERATOR(T_gate_instantiation_pulldown,p) {
