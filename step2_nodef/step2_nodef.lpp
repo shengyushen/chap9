@@ -41,6 +41,7 @@
 		string body;
 	};
 	string currentMacroName;
+	string currentMacrobody;
 	map<string,macrobody> macros;
 	bool isInMacro(string mname) {
 		if((macros.find(mname)) == (macros.end())) return false;
@@ -275,6 +276,71 @@
 		}
 		return;
 	}
+	void matchingMultilineComment(string & body , int pos) {
+		cerr<<"matchingMultilineComment "<<pos<<endl;
+		int pos_comment_start=body.find("/*",pos+1);
+		int pos_comment_end=body.find("*/",pos+1);
+		if(pos_comment_end == string::npos) {
+			prt_fatal("PREPROC_1039","not matched comment in "+body );
+			cerr<<"at "<<pos<<endl;
+			exit(1);
+		}
+		if(pos_comment_start == string::npos) {
+			//only end found
+			body.erase(pos,pos_comment_end+1-pos+1);
+			return;
+		}
+		if(pos_comment_start < pos_comment_end) {
+			matchingMultilineComment(body,pos_comment_start);
+			matchingMultilineComment(body,pos); //delete again from pos
+			return;
+		} else {
+			body.erase(pos,pos_comment_end+1-pos+1);
+			return;
+		}
+	}
+	void deleteComment(string & body , int pos) {
+		cerr<<"deleteComment "<<body<<endl;
+		cerr<<"at "<<pos<<endl;
+		auto p1=body.find('/');
+		if(p1==string::npos) {
+			//no more comments
+			return;
+		} else if(p1==(body.length()-1)) {
+			//the last one
+			return;
+		} else if(body[p1+1]=='/') {
+			//one line comment
+			int p2=body.find("\\\n");
+			if(p2==string::npos) {
+				//not found back slash new line
+				int p3=body.find("\n");
+				if(p3==string::npos) {
+					//not found newline
+					body.erase(p1,body.size()-1-p1+1);
+				} else {
+					//found newline
+					//body.erase(p1,p3-p1+1);
+					//should not found signle new line
+					prt_fatal("PREPROC_1040","single new line found "+body);
+				}
+			} else {
+				//found back slash new line
+				body.erase(p1,p2+1-p1+1);
+			}
+		} else if(body[p1+1]=='*') {
+			//a double comment
+			matchingMultilineComment(body,p1);
+		}
+		assert(pos<=(body.size()));//shortest body may delete the pos
+		if(pos==(body.size()) ) { 
+			//pos deleted
+			return;
+		} else {
+			//pos still there
+			deleteComment(body,pos);
+		}
+	}
 	
 	vector<string> includePath;
 	void usage() {
@@ -323,7 +389,7 @@ identifier_comb {escaped_identifier}|{simple_identifier}
 useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_distributed"|"`delay_mode_path"|"`delay_mode_unit"|"`delay_mode_zero"|"`accelerate"|"`autoexpand_vectornets"|"`begin_keywords"|"`celldefine"|"`default_nettype"|"`endcelldefine"|"`end_keywords"|"`endprotect"|"`endprotected"|"`expand_vectornets"|"`noaccelerate"|"`noexpand_vectornets"|"`noremove_gatenames"|"`noremove_netnames"|"`nounconnected_drive"|"`pragma"|"`protect"|"`protected"|"`remove_gatenames"|"`remove_netnames"|"`resetall"|"`timescale"|"`unconnected_drive"
 
 
-%x macro proc_ifdef do_then proc_ifndef line_skip_blank line_number line_skip_blank2 line_filename endofline proc_undef do_else do_else_in skip_else proc_ifdef_inskip stringSCin stringSCnotin comment include
+%x macro proc_ifdef do_then proc_ifndef line_skip_blank line_number line_skip_blank2 line_filename endofline proc_undef do_else do_else_in skip_else proc_ifdef_inskip stringSCin stringSCnotin comment include commentNotAddMacro commentOnelineNotAdd
 
 %%
  /*INITIAL do_then do_else_in common*/
@@ -400,8 +466,9 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	
 		s.erase(0,7);
 		deleteblank(s);
-		cerr<<s<<endl;
+		cerr<<"defiing "<<s<<endl;
 		currentMacroName=s;
+		currentMacrobody="";
 	
 		yy_push_state(macro);
 	}
@@ -631,75 +698,80 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	}
 }
 
+
 <macro>{
+	/*
 	[(]({blank}*{simple_identifier}{blank}*[,])*{blank}*{simple_identifier}{blank}*[)]([^\n]|"\\\n")* {
-		// (arg1,arg2,...) <macro body> 
-		// where <macro body> contains < backslash +\n>
-		string s(yytext);
-		deleteblank(s);//removing all blanks
-		auto num_del_backslash=deleteBackslach(s); //deleting backslash before \n
-		assert(s[0]=='(');
-		size_t rppos = searchRParentMatched(s,0);//find )
-		string paramlist = s.substr(1,rppos-1); // arg1,arg2,...
-		vector<string> vs=splitStringChar(paramlist , ',');//list of args
-		for(auto & s : vs) {deleteblank(s);} //deleting blank for each args
-		for(auto & s : vs) {cerr << "param "<<s<<"X\n";}
-		macrobody mb;
-		mb.params = vs;//setting args
-		string body = s.substr(rppos+1,(s.length()-1-(rppos+1)+1));//<macro body>
-		deleteblank(body);//deleting blank for <macro body>
-		//should not replace now, verilog 2005 
-		// require us to replace only when using this macro
-		//replaceMacro(body , filename , linenumber );
-		mb.body = body;
-		insertMacro(currentMacroName,mb);
-		cerr<<"macro name : "<<currentMacroName<<endl;
-		cerr<<"macro body : "<<body<<endl;
-		incLineNumber(num_del_backslash+1);
-		print_pos_cout();
-		yy_pop_state();
 	}
 
 	([^\n]|"\\\n")* {
-		// <macro body> only
-		string s {yytext};
-		deleteblank(s);//removing blank
-		auto num_del_backslash=deleteBackslach(s); //deleting backslash before \n
-		//should not replace now, verilog 2005 
-		// require us to replace only when using this macro
-		//replaceMacro(s , filename , linenumber );
-		macrobody mb;
-		mb.params.clear();
-		mb.body=s;
-		insertMacro(currentMacroName,mb);
-		cerr<<"macro name : "<<currentMacroName<<endl;
-		cerr<<"multi-line macro body without param : "<<s<<endl;
-		incLineNumber(num_del_backslash+1);
-		print_pos_cout();
-		yy_pop_state();
+	}
+	*/
+
+	"/*" {
+		yy_push_state(commentNotAddMacro);
+	}
+	"//" { /*discard one line comment*/
+		yy_push_state(commentOnelineNotAdd);
 	}
 	
-	\n {
-		//. match non-newline char, so if I dont specify \n 
-		// then it will automatically echoed and ignored
-		// so I must specify it here
-		// this means nothing for body
-		macrobody mb;
-		mb.params.clear();
-		mb.body="";
-		insertMacro(currentMacroName,mb);
-		cerr<<"macro name : "<<currentMacroName<<endl;
-		cerr<<"empty body "<<endl;
-		incLineNumber(1);
-		print_pos_cout();
-		yy_pop_state();
+	"\\\n" {
+		string s {yytext};
+		currentMacrobody=currentMacrobody+s;
+	}
 
+	<<EOF>> |
+	\n {
+		if((currentMacrobody.size()>0) && currentMacrobody[0]=='(') {
+			// (arg1,arg2,...) <macro body> 
+			// where <macro body> contains < backslash +\n>
+			string s(currentMacrobody);
+			deleteComment(s,0);
+			auto num_del_backslash=deleteBackslach(s); //deleting backslash before \n
+			deleteblank(s);//removing all blanks
+			assert(s[0]=='(');
+			size_t rppos = searchRParentMatched(s,0);//find )
+			string paramlist = s.substr(1,rppos-1); // arg1,arg2,...
+			vector<string> vs=splitStringChar(paramlist , ',');//list of args
+			for(auto & s : vs) {deleteblank(s);} //deleting blank for each args
+			for(auto & s : vs) {cerr << "param "<<s<<"X\n";}
+			macrobody mb;
+			mb.params = vs;//setting args
+			string body = s.substr(rppos+1,(s.length()-1-(rppos+1)+1));//<macro body>
+			deleteblank(body);//deleting blank for <macro body>
+			//should not replace now, verilog 2005 
+			// require us to replace only when using this macro
+			//replaceMacro(body , filename , linenumber );
+			mb.body = body;
+			insertMacro(currentMacroName,mb);
+			cerr<<"macro name : "<<currentMacroName<<endl;
+			cerr<<"macro body : "<<body<<endl;
+			incLineNumber(num_del_backslash+1);
+			print_pos_cout();
+			yy_pop_state();
+		} else {
+			// <macro body> only
+			string s {currentMacrobody};
+			deleteComment(s,0);
+			auto num_del_backslash=deleteBackslach(s); //deleting backslash before \n
+			deleteblank(s);//removing blank
+			//should not replace now, verilog 2005 
+			// require us to replace only when using this macro
+			//replaceMacro(s , filename , linenumber );
+			macrobody mb;
+			mb.params.clear();
+			mb.body=s;
+			insertMacro(currentMacroName,mb);
+			cerr<<"macro name : "<<currentMacroName<<endl;
+			cerr<<"multi-line macro body without param : "<<s<<endl;
+			incLineNumber(num_del_backslash+1);
+			print_pos_cout();
+			yy_pop_state();
+		}
 	}
 	. {
 		string s {yytext};
-		prt_fatal("PREPROC_1032","improper define : "+ s);
-		print_pos_cerr();
-		exit(1);
+		currentMacrobody=currentMacrobody+s;
 	}
 
 }
@@ -798,6 +870,46 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		this->incCharNumber(yyleng);
 	}
 
+}
+<commentNotAddMacro>{
+	"*/" {
+		yy_pop_state();
+	}
+	
+	"/*" {
+		yy_push_state(commentNotAddMacro);
+	}
+
+	\r 
+
+	\n	{
+	/*counting lines*/
+		this->incLineNumber();
+	}
+	
+	. {
+		this->incCharNumber(yyleng);
+	}
+
+}
+
+<commentOnelineNotAdd>{
+	"\\\n" {
+		string s {yytext};
+		incLineNumber();
+		currentMacrobody=currentMacrobody+s;
+		yy_pop_state();
+	}
+
+	./\n {
+		//about to see the end of macro, 
+		// leave it for macro start condition
+		yy_pop_state();
+	}
+
+	. {
+		incCharNumber(1);
+	}
 }
 %%
 

@@ -53,5 +53,5 @@ test_ivlpp :sdf.v.tok ivlpp.v.noinc.tok
 
 clean :
 	rm -f *.v error* *.v.add *.v.new diff_* ivlpp* *.tok *cfg*
-
+	rm -rf INCA_libs/ irun.log
 

@@ -362,7 +362,7 @@ digit [0-9]
 {decimal_base}{blankrn}*{unsigned_number} |
 {size}{blankrn}*{decimal_base}{blankrn}*{unsigned_number} {
 	string s{yytext};
-	const int dbpos=s.find_first_of('\'');
+	const int dbpos=s.find('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	deleteUnderScore(szstr);
@@ -401,7 +401,7 @@ digit [0-9]
 {octal_base}{blankrn}*{octal_value} |
 {size}{blankrn}*{octal_base}{blankrn}*{octal_value} {
 	string s{yytext};
-	const int dbpos=s.find_first_of('\'');
+	const int dbpos=s.find('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	deleteUnderScore(szstr);
@@ -429,7 +429,7 @@ digit [0-9]
 {binary_base}{blankrn}*{binary_value} |
 {size}{blankrn}*{binary_base}{blankrn}*{binary_value} {
 	string s{yytext};
-	const int dbpos=s.find_first_of('\'');
+	const int dbpos=s.find('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	deleteUnderScore(szstr);
@@ -458,7 +458,7 @@ digit [0-9]
 {hex_base}{blankrn}*{hex_value} |
 {size}{blankrn}*{hex_base}{blankrn}*{hex_value} {
 	string s{yytext};
-	const int dbpos=s.find_first_of('\'');
+	const int dbpos=s.find('\'');
 	string szstr=s.substr(0,dbpos);
 	deleteblank(szstr);
 	deleteUnderScore(szstr);
