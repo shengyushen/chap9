@@ -68,12 +68,6 @@ and parameter_declaration =
 	| T_parameter_declaration_2 of parameter_type*(param_assignment list)
 and specparam_declaration =
 	T_specparam_declaration of range*(specparam_assignment list)
-and parameter_type =
-	T_parameter_type__NOSPEC
-	| T_parameter_type__INTEGER
-	| T_parameter_type__REAL
-	| T_parameter_type__REALTIME
-	| T_parameter_type__TIME
 and inout_declaration =
 	T_inout_declaration of net_type*signedType*range*(identifier list)
 and input_declaration =
@@ -82,9 +76,6 @@ and output_declaration =
 	T_output_declaration_net of net_type*signedType*range*(identifier list)
 	| T_output_declaration_reg of signedType*range*(port_identifier_equ1_expression_opt list)
 	| T_output_declaration_var of output_variable_type*(port_identifier_equ1_expression_opt list)
-and	output_variable_type =
-	T_output_variable_type_INTEGER
-	| T_output_variable_type_TIME
 and event_declaration =
 	T_event_declaration of (event_identifier_dimension_list list)
 and integer_declaration =
@@ -96,12 +87,8 @@ and net_declaration =
 	| T_net_declaration_net_type4 of net_type*drive_strength*vectored_scalared*signedType*range*delay3*(net_decl_assignment list)
 	| T_net_declaration_trireg_1 of charge_strength*signedType*delay3*(net_identifier_dimension_list list)
 	| T_net_declaration_trireg_2 of drive_strength*signedType*delay3*(net_decl_assignment list)
-	| T_net_declaration_trireg_3 of charge_strength*vectored_scalared*signedType*range*delay3
+	| T_net_declaration_trireg_3 of charge_strength*vectored_scalared*signedType*range*delay3*(net_identifier_dimension_list list)
 	| T_net_declaration_trireg_4 of drive_strength*vectored_scalared*signedType*range*delay3*(net_decl_assignment list)
-and vectored_scalared =
-	T_vectored_scalared_NOSPEC
-	| T_vectored_scalared_vectored
-	| T_vectored_scalared_scalared
 and real_declaration =
 	T_real_declaration of (real_type list)
 and realtime_declaration =
@@ -110,44 +97,15 @@ and reg_declaration =
 	T_reg_declaration of signedType*range*(variable_type list)
 and time_declaration =
 	T_time_declaration of (variable_type list)
-and net_type =
-	T_net_type_NOSPEC
-	| T_net_type__KEY_SUPPLY0
-	| T_net_type__KEY_SUPPLY1
-	| T_net_type__KEY_TRI
-	| T_net_type__KEY_TRIAND
-	| T_net_type__KEY_TRIOR
-	| T_net_type__KEY_TRI0
-	| T_net_type__KEY_TRI1
-	| T_net_type__KEY_UWIRE
-	| T_net_type__KEY_WIRE
-	| T_net_type__KEY_WAND
-	| T_net_type__KEY_WOR
 and real_type =
 	T_real_type_noass of identifier*(dimension list)
 	| T_real_type_ass of identifier*expression
 and	variable_type =
 	T_variable_type_noass of identifier*(dimension list)
 	| T_variable_type_ass of identifier*expression
-and strength =
-	KEY_HIGHZ0
-	| KEY_HIGHZ1
-	| KEY_SUPPLY0	
-	| KEY_STRONG0	
-	| KEY_PULL0		
-	| KEY_WEAK0 
-	|	KEY_SUPPLY1	
-	| KEY_STRONG1	
-	| KEY_PULL1		
-	| KEY_WEAK1 
 and drive_strength =
 	T_drive_strength_NOSPEC
 	| T_drive_strength of strength*strength
-and charge_strength =
-	T_charge_strength_NOSPEC
-	| T_charge_strength__small
-	| T_charge_strength__medium
-	| T_charge_strength__large
 and delay3 =
 	T_delay3_NOSPEC
 	| T_delay3_1 of delay_value
@@ -180,9 +138,6 @@ and  dimension =
 and range =
 	T_range_NOSPEC
 	| T_range of expression*expression
-and automatic =
-	T_automatic_false
-	| T_automatic_true
 and function_declaration =
 	T_function_declaration_1 of automatic*function_range_or_type*identifier*(function_item_declaration list)*statement
 	| T_function_declaration_2 of automatic*function_range_or_type*identifier*(attribute_instance_list_tf_input_declaration list)*(function_item_declaration list)*statement
@@ -217,11 +172,6 @@ and tf_output_declaration =
 and tf_inout_declaration =
 	T_tf_inout_declaration_reg of reg*signedType*range*(identifier list)
 	| T_tf_inout_declaration_type of task_port_type*(identifier list)
-and task_port_type =
-	T_task_port_type_integer
-	| T_task_port_type_real
-	| T_task_port_type_realtime
-	| T_task_port_type_time
 and block_item_declaration =
 	T_block_item_declaration_reg of (attribute_instance list)*signedType*range*(block_variable_type list)
 	| T_block_item_declaration_integer of (attribute_instance list)*(block_variable_type list)
@@ -274,37 +224,6 @@ and pullup_strength =
 	| T_pullup_strength01 of strength*strength
 	| T_pullup_strength10 of strength*strength
 	| T_pullup_strength1 of strength
-and cmos_switchtype =
-	T_cmos_switchtype_CMOS
-	| T_cmos_switchtype_RCMOS
-and enable_gatetype =
-		T_enable_gatetype__BUFIF0
-	| T_enable_gatetype__BUFIF1
-	| T_enable_gatetype__NOTIF0
-	| T_enable_gatetype__NOTIF1
-and mos_switchtype =
-		T_mos_switchtype_NMOS 	
-	| T_mos_switchtype_PMOS 
-	| T_mos_switchtype_RNMOS 
-	| T_mos_switchtype_RPMOS
-and n_input_gatetype =
-   	T_n_input_gatetype_AND   
-	| T_n_input_gatetype_NAND
-	| T_n_input_gatetype_OR  
-	| T_n_input_gatetype_NOR 
-	| T_n_input_gatetype_XOR 
-	| T_n_input_gatetype_XNOR 
-and n_output_gatetype =
-	T_n_output_gatetype_BUF
-	| T_n_output_gatetype_NOT
-and pass_en_switchtype =
-	  T_pass_en_switchtype_TRANIF0  
-	| T_pass_en_switchtype_TRANIF1    
-	| T_pass_en_switchtype_RTRANIF1  
-	| T_pass_en_switchtype_RTRANIF0 
-and pass_switchtype =
-	  T_pass_switchtype_TRAN  
-	| T_pass_switchtype_RTRAN 
 and module_instantiation =
 	T_module_instantiation of identifier*drive_strength*parameter_value_assignment*(module_instance list)
 and	module_instance =
@@ -612,10 +531,6 @@ and	hierarchical_identifier =
 	T_hierarchical_identifier of (identifier_lsq_expression_rsq list)
 and	identifier_lsq_expression_rsq =
 	T_identifier_lsq_expression_rsq of identifier*(range_expression list)
-and polarity_operator =
-	T_polarity_operator_NOSPEC
-	| T_polarity_operator_ADD
-	| T_polarity_operator_SUB
 and system_timing_check =
 	  T_system_timing_check_dollor_setup_timing_check      of dollor_setup_timing_check   
 	| T_system_timing_check_dollor_hold_timing_check       of dollor_hold_timing_check
@@ -705,14 +620,6 @@ and edge_descriptor =
 	| T_edge_descriptor_10
 	| T_edge_descriptor_zx01 of z_or_x*zero_or_one
 	| T_edge_descriptor_01zx of zero_or_one*z_or_x
-and zero_or_one =
-	T_zero_or_one_0
-	| T_zero_or_one_1
-and z_or_x =
-	T_z_or_x__x
-	| T_z_or_x__X
-	| T_z_or_x__z
-	| T_z_or_x__Z
 and timing_check_condition =
 	T_timing_check_condition_NOSPEC
 	| T_timing_check_condition of scalar_timing_check_condition
@@ -730,77 +637,6 @@ and delayed_data =
 	T_delayed_data_NOSPEC 
 	| T_delayed_data_id of identifier
 	| T_delayed_data_idmtmexp of identifier*mintypmax_expression
-and edge_identifier =
-	T_edge_identifier_NOSPEC
-	| T_edge_identifier_POS
-	| T_edge_identifier_NEG
-and unary_operator =
-	 T_unary_operator_LOGIC_NEG
-	| T_unary_operator_BITWISE_NEG
-	| T_unary_operator_REDUCE_NOR
-	| T_unary_operator_REDUCE_NAND
-	| T_unary_operator_ADD
-	| T_unary_operator_SUB
-	| T_unary_operator_REDUCE_AND
-	| T_unary_operator_REDUCE_OR
-	| T_unary_operator_REDUCE_XOR
-	| T_unary_operator_REDUCE_XNOR
-and binary_operator1 =
-|	T_binary_operator_MUL
-|	T_binary_operator_DIV
-|	T_binary_operator_MOD
-|	T_binary_operator_EQU2
-|	T_binary_operator_NEQ2
-|	T_binary_operator_EQU3
-|	T_binary_operator_NEQ3
-|	T_binary_operator_POWER
-|	T_binary_operator_LT
-|	T_binary_operator_LE
-|	T_binary_operator_GT
-|	T_binary_operator_GE
-and binary_operator2 =
-	T_binary_operator_LOGICAL_RIGHTSHIFT
-|	T_binary_operator_LOGICAL_LEFTSHIFT
-|	T_binary_operator_ARITHMETIC_RIGHTSHIFT
-|	T_binary_operator_ARITHMETIC_LEFTSHIFT
-|	T_binary_operator_ADD
-|	T_binary_operator_SUB
-|	T_binary_operator_AND
-|	T_binary_operator_OR
-|	T_binary_operator_AND2
-|	T_binary_operator_OR2
-|	T_binary_operator_XOR
-|	T_binary_operator_XNOR
-and binary_operator =
-	T_binary_operator_1 of binary_operator1
-	| T_binary_operator_2 of binary_operator2
-and unary_module_path_operator =
-	T_unary_module_path_operator_GANTANHAO
-	| T_unary_module_path_operator_BOLANGHAO
-	| T_unary_module_path_operator_AND
-	| T_unary_module_path_operator_NAND
-	| T_unary_module_path_operator_OR
-	| T_unary_module_path_operator_NOR
-	| T_unary_module_path_operator_XOR
-	| T_unary_module_path_operator_XNOR
-and binary_module_path_operator =
-	T_binary_module_path_operator_EQU2
-	| T_binary_module_path_operator_NEQ2
-  | T_binary_module_path_operator_AND2
-  | T_binary_module_path_operator_OR2
-  | T_binary_module_path_operator_AND1
-  | T_binary_module_path_operator_OR1
-  | T_binary_module_path_operator_XOR
-  | T_binary_module_path_operator_XNOR
-and level_symbol =
-	 T_level_symbol_0
-	 | T_level_symbol_1
-	 | T_level_symbol_x
-	 | T_level_symbol_X
-	 | T_level_symbol_QUESTION
-	 | T_level_symbol_b
-	 | T_level_symbol_B
-	 | T_level_symbol_SUB
 and output_symbol =
 	T_output_symbol_UNSIGNED_NUMBER of int
 	| T_output_symbol_SIMID of string
@@ -815,59 +651,20 @@ and next_state =
 	T_next_state_UNSIGNED_NUMBER of int
 	| T_next_state_SIMID of  string
 	| T_next_state_SUB
-and edge_symbol =
-	T_edge_symbol_r
-	| T_edge_symbol_R
-	| T_edge_symbol_f
-	| T_edge_symbol_F
-	| T_edge_symbol_p
-	| T_edge_symbol_P
-	| T_edge_symbol_n
-	| T_edge_symbol_N
 and	string_typedef =
 	T_string of string
 and	system_function_identifier =
 	T_system_function_identifier of  string
 and	io_declaration =
 	T_io_declaration_net of io_type*netreg_type*signedType*range*port_identifier_equ1_expression_opt
-and netreg_type =
-	T_netreg_type__NOSPEC
-	| T_netreg_type__KEY_SUPPLY0
-	| T_netreg_type__KEY_SUPPLY1
-	| T_netreg_type__KEY_TRI
-	| T_netreg_type__KEY_TRIAND
-	| T_netreg_type__KEY_TRIOR
-	| T_netreg_type__KEY_TRI0
-	| T_netreg_type__KEY_TRI1
-	| T_netreg_type__KEY_UWIRE
-	| T_netreg_type__KEY_WIRE
-	| T_netreg_type__KEY_WAND
-	| T_netreg_type__KEY_WOR
-	| T_netreg_type__KEY_REG
-	| T_netreg_type__KEY_INTEGER
-	| T_netreg_type__KEY_TIME
 and	statement_or_block_item =
 	T_statement_or_block_item_statement of statement
 	| T_statement_or_block_item_block of block_item_declaration
 and	tf_io_declaration_gen =
 	T_tf_io_declaration_gen1 of io_type*reg*signedType*range*identifier
 	| T_tf_io_declaration_gen2 of io_type*task_port_type*identifier
-and	io_type =
-	T_io_type_NOSPEC
-	| T_io_type_output
-	| T_io_type_input
-	| T_io_type_inout
-and reg =
-	T_reg_false
-	| T_reg_true
 and identifier =
 	T_identifier_NOSPEC
 	| T_identifier of string
-and colon_config_opt =
-	T_colon_config_opt_FALSE
-	| T_colon_config_opt_TRUE
-and signedType =
-	T_signed_FALSE 
-	| T_signed_TRUE
 ;;
 

@@ -14,12 +14,12 @@
 #   define YY_NULLPTR 0
 #  endif
 # endif
-  #include"verilogast.h"
+	using namespace std;
+  #include"vast.h"
   #include"verilog_parser.h"
 	#include"veryscanner.h"
 
 
-	using namespace std;
 	void prt_fatal(const string typ,const string str)  { cerr<<"  FATAL ["<<typ<<"]: "<<str<<endl<<flush; return; }
 	void prt_info (const string typ,const string str)  { cerr<<"  INFO  ["<<typ<<"]: "<<str<<endl<<flush; return; }
 	

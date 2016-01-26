@@ -4,6 +4,42 @@ function disp_error() {
 	exit 1;
 }
 
+function ispod(str) {
+	if(str=="int") {return 1;}
+	else if(str=="string") {return 1;}
+	else if(str=="colon_config_opt") {return 1;}
+	else if(str=="signedType") {return 1;}
+	else if(str=="parameter_type") {return 1;}
+	else if(str=="output_variable_type") {return 1;}
+	else if(str=="vectored_scalared") {return 1;}
+	else if(str=="net_type") {return 1;}
+	else if(str=="strength") {return 1;}
+	else if(str=="charge_strength") {return 1;}
+	else if(str=="automatic") {return 1;}
+	else if(str=="task_port_type") {return 1;}
+	else if(str=="cmos_switchtype") {return 1;}
+	else if(str=="enable_gatetype") {return 1;}
+	else if(str=="mos_switchtype") {return 1;}
+	else if(str=="n_input_gatetype") {return 1;}
+	else if(str=="n_output_gatetype") {return 1;}
+	else if(str=="pass_en_switchtype") {return 1;}
+	else if(str=="pass_switchtype") {return 1;}
+	else if(str=="polarity_operator") {return 1;}
+	else if(str=="zero_or_one") {return 1;}
+	else if(str=="z_or_x") {return 1;}
+	else if(str=="edge_identifier") {return 1;}
+	else if(str=="unary_operator") {return 1;}
+	else if(str=="binary_operator") {return 1;}
+	else if(str=="unary_module_path_operator") {return 1;}
+	else if(str=="binary_module_path_operator") {return 1;}
+	else if(str=="level_symbol") {return 1;}
+	else if(str=="edge_symbol") {return 1;}
+	else if(str=="netreg_type") {return 1;}
+	else if(str=="io_type") {return 1;}
+	else if(str=="reg") {return 1;}
+	else {return 0;}
+}
+
 function tranformlist (str) {
 	sz1=split(str,crr);
 	if(sz1==1) {
@@ -11,13 +47,14 @@ function tranformlist (str) {
 	} else if(sz1>1) {
 		if(crr[sz1]=="list") {
 			st = "";
-			for(ii=1;ii<sz1;ii=ii+1) {
+			st=sprintf("%s",crr[1]);
+			for(ii=2;ii<sz1;ii=ii+1) {
 				st=sprintf("%s %s",st,crr[ii]);
 			}
-			if(st!="int" && st!="string") {
-				return sprintf("std::list<std::shared_ptr<%s>>",st);
-			} else {
+			if(ispod(st)==1) {
 				return sprintf("std::list<%s>",st);
+			} else {
+				return sprintf("std::list<std::shared_ptr<%s>>",st);
 			}
 		} else {
 			return str;
@@ -40,11 +77,9 @@ function printclass (classname , vname , parameterstr) {
 	# transform to shared_ptr 
 	for(i=1;i<=sz;i=i+1) {
 		arr[i]=tranformlist(arr[i]);
-		if(arr[i]!="int" && arr[i]!="string") {
+		if(ispod(arr[i])==0) {
 			arr[i]=sprintf("std::shared_ptr<%s>", arr[i]);
-		} else if(arr[i]=="string") {
-			arr[i]="std::string";
-		}
+		} 
 	}
 	print "class " classname " : public ComponentBase {";
 	print "  public :";

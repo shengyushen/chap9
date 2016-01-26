@@ -5,10 +5,10 @@
 #include<list>
 #include<memory>
 #include<boost/variant.hpp>
-#include"verilogast.h"
+using namespace std;
+#include"vast.h"
 #include"verilog_parser.h"
 
-using namespace std;
 using namespace Verilogast;
 
 bool testFileExistenceInDir(string dirname_filename) {

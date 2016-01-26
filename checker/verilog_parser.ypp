@@ -341,8 +341,6 @@ IMPLYSTART                   "*>"
 /*%type <std::shared_ptr<Verilogast::timing_check_condition>> timing_check_condition*/
 %type <std::shared_ptr<Verilogast::edge_control_specifier>> edge_control_specifier
 %type <std::shared_ptr<Verilogast::edge_descriptor>> edge_descriptor
-%type <std::shared_ptr<Verilogast::zero_or_one>> zero_or_one
-%type <std::shared_ptr<Verilogast::z_or_x>> z_or_x
 /*%type <std::shared_ptr<Verilogast::scalar_timing_check_condition>> scalar_timing_check_condition*/
 /*%type <std::shared_ptr<Verilogast::scalar_constant>> scalar_constant*/
 
@@ -372,17 +370,13 @@ IMPLYSTART                   "*>"
 /*%type <std::shared_ptr<Verilogast::current_state>>  current_state
 %type <std::shared_ptr<Verilogast::next_state>>  next_state*/
 %type <std::shared_ptr<Verilogast::edge_input_list>>  edge_input_list
-%type <std::shared_ptr<Verilogast::level_symbol>>  level_symbol
 %type <std::shared_ptr<Verilogast::edge_indicator>>  edge_indicator
-%type <std::shared_ptr<Verilogast::edge_symbol>>  edge_symbol
 
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::sequential_entry>>>>  sequential_entry_list
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::udp_input_declaration_sigular>>>>  comma_udp_input_declaration_list
 /*%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::combinational_entry>>>>  combinational_entry_list*/
 /*%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::level_symbol>>>>  level_input_list*/
-%type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::level_symbol>>>>  level_symbol_list
 
-%type <std::shared_ptr<Verilogast::charge_strength>>  charge_strength
 %type <std::shared_ptr<Verilogast::delay2>>  delay2
 %type <std::shared_ptr<Verilogast::delay2>>  delay2_opt
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>  comma_input_terminal_list
@@ -391,19 +385,12 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::attribute_instance>>  attribute_instance
 
 %type <std::shared_ptr<Verilogast::enable_gate_instance>>  enable_gate_instance
-%type <std::shared_ptr<Verilogast::enable_gatetype>>  enable_gatetype
 %type <std::shared_ptr<Verilogast::gate_instantiation>>  gate_instantiation
 %type <std::shared_ptr<Verilogast::cmos_switch_instance>>  cmos_switch_instance
-%type <std::shared_ptr<Verilogast::cmos_switchtype>>  cmos_switchtype
-%type <std::shared_ptr<Verilogast::mos_switchtype>>  mos_switchtype
 %type <std::shared_ptr<Verilogast::mos_switch_instance>>  mos_switch_instance
-%type <std::shared_ptr<Verilogast::n_input_gatetype>>  n_input_gatetype
 %type <std::shared_ptr<Verilogast::n_input_gate_instance>>  n_input_gate_instance
-%type <std::shared_ptr<Verilogast::n_output_gatetype>>  n_output_gatetype
 %type <std::shared_ptr<Verilogast::n_output_gate_instance>>  n_output_gate_instance
-%type <std::shared_ptr<Verilogast::pass_en_switchtype>>  pass_en_switchtype
 %type <std::shared_ptr<Verilogast::pass_enable_switch_instance>>  pass_enable_switch_instance
-%type <std::shared_ptr<Verilogast::pass_switchtype>>  pass_switchtype
 %type <std::shared_ptr<Verilogast::pass_switch_instance>>  pass_switch_instance
 %type <std::shared_ptr<Verilogast::pulldown_strength>>  pulldown_strength_opt
 %type <std::shared_ptr<Verilogast::pulldown_strength>>  pulldown_strength
@@ -484,9 +471,7 @@ IMPLYSTART                   "*>"
 %type <int>  module_keyword
 %type <int>  key_input_opt
 
-%type <std::shared_ptr<Verilogast::io_type>>   io_type
 /*%type <std::shared_ptr<Verilogast::netreg_type>>    netreg_type*/
-%type <std::shared_ptr<Verilogast::signedType>>    signed_opt
 %type <std::shared_ptr<Verilogast::range>>    range_opt
 %type <std::shared_ptr<Verilogast::range>>    range
 %type <std::shared_ptr<Verilogast::expression>>    equ1_expression_opt
@@ -534,21 +519,17 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::param_assignment>>>>  comma_param_assignment_list
 %type <std::shared_ptr<Verilogast::param_assignment>>  param_assignment
 
-%type <std::shared_ptr<Verilogast::parameter_type>>    parameter_type
 
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::real_type>>>>  list_of_real_identifiers
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::real_type>>>>  comma_real_type_list
 %type <std::shared_ptr<Verilogast::real_type>>  real_type
 
-%type <std::shared_ptr<Verilogast::net_type>>   net_type_opt
-%type <std::shared_ptr<Verilogast::net_type>>   net_type
 
 
 %type <std::shared_ptr<Verilogast::port_identifier_equ1_expression_opt>>   port_identifier_equ1_expression_opt
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::port_identifier_equ1_expression_opt>>>>   list_of_variable_port_identifiers
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::port_identifier_equ1_expression_opt>>>>   comma_port_identifier_equ1_expression_opt_list
 
-%type <std::shared_ptr<Verilogast::output_variable_type>>    output_variable_type
 
 %type <std::shared_ptr<Verilogast::event_identifier_dimension_list>>    event_identifier_dimension_list
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::event_identifier_dimension_list>>>>    list_of_event_identifiers
@@ -564,7 +545,6 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::delay3>>    delay3_opt
 %type <std::shared_ptr<Verilogast::delay3>>    delay3
 
-%type <std::shared_ptr<Verilogast::vectored_scalared>>    vectored_scalared_opt
 
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::net_identifier_dimension_list>>>>    list_of_net_identifiers
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::net_identifier_dimension_list>>>>    comma_net_identifier_dimension_list_list
@@ -588,15 +568,12 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>    lp_expression_opt_comma_expression_list_rp
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::expression>>>>    comma_expression_opt_list
 
-%type <std::shared_ptr<Verilogast::strength>>    strength0
-%type <std::shared_ptr<Verilogast::strength>>    strength1
 %type <std::shared_ptr<Verilogast::delay_value>>    delay_value
 
 %type <std::shared_ptr<Verilogast::mintypmax_expression>>    mintypmax_expression
 %type <std::shared_ptr<Verilogast::mintypmax_expression>>    mintypmax_expression_opt
 
 %type <std::shared_ptr<Verilogast::hierarchical_identifier>>    hierarchical_identifier
-%type <std::shared_ptr<Verilogast::automatic>>    automatic_opt
 %type <std::shared_ptr<Verilogast::function_range_or_type>>    function_range_or_type
 %type <std::shared_ptr<Verilogast::function_item_declaration>>    function_item_declaration
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::function_item_declaration>>>>    function_item_declaration_list
@@ -623,9 +600,7 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::task_item_declaration>>>>    task_item_declaration_list
 %type <std::shared_ptr<Verilogast::task_item_declaration>>    task_item_declaration
 
-%type <std::shared_ptr<Verilogast::reg>>    reg_opt
 
-%type <std::shared_ptr<Verilogast::task_port_type>>    task_port_type
 
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::block_variable_type>>>>    list_of_block_variable_identifiers
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::block_variable_type>>>>    comma_block_variable_type_list
@@ -732,8 +707,6 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::path_declaration>> path_declaration
 %type <std::shared_ptr<Verilogast::simple_path_declaration>> simple_path_declaration
 %type <std::shared_ptr<Verilogast::parallel_path_description>> parallel_path_description
-%type <std::shared_ptr<Verilogast::polarity_operator>> polarity_operator_opt
-%type <std::shared_ptr<Verilogast::polarity_operator>> polarity_operator
 %type <std::shared_ptr<Verilogast::full_path_description>> full_path_description
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_inout_terminal_descriptor>>>> list_of_path_inouts
 %type <std::shared_ptr<std::list<std::shared_ptr<Verilogast::specify_inout_terminal_descriptor>>>> comma_specify_inout_terminal_descriptor_list
@@ -742,8 +715,6 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::list_of_path_delay_expressions>> list_of_path_delay_expressions
 %type <std::shared_ptr<Verilogast::edge_sensitive_path_declaration>> edge_sensitive_path_declaration
 %type <std::shared_ptr<Verilogast::parallel_edge_sensitive_path_description>> parallel_edge_sensitive_path_description
-%type <std::shared_ptr<Verilogast::edge_identifier>> edge_identifier_opt
-%type <std::shared_ptr<Verilogast::edge_identifier>> edge_identifier
 %type <std::shared_ptr<Verilogast::full_edge_sensitive_path_description>> full_edge_sensitive_path_description
 %type <std::shared_ptr<Verilogast::state_dependent_path_declaration>> state_dependent_path_declaration
 %type <std::shared_ptr<Verilogast::stamptime_condition>> stamptime_condition_opt
@@ -755,6 +726,37 @@ IMPLYSTART                   "*>"
 %type <std::shared_ptr<Verilogast::threshold>> threshold_opt
 
 
+%type <Verilogast::parameter_type>    parameter_type
+%type <Verilogast::signedType>    signed_opt
+%type <Verilogast::net_type>   net_type_opt
+%type <Verilogast::net_type>   net_type
+%type <Verilogast::io_type>   io_type
+%type <Verilogast::vectored_scalared>    vectored_scalared_opt
+%type <Verilogast::output_variable_type>    output_variable_type
+%type <Verilogast::strength>    strength0
+%type <Verilogast::strength>    strength1
+%type <Verilogast::charge_strength>  charge_strength
+%type <Verilogast::automatic>    automatic_opt
+%type <Verilogast::reg>    reg_opt
+%type <Verilogast::task_port_type>    task_port_type
+%type <Verilogast::cmos_switchtype>  cmos_switchtype
+%type <Verilogast::enable_gatetype>  enable_gatetype
+%type <Verilogast::mos_switchtype>  mos_switchtype
+%type <Verilogast::n_input_gatetype>  n_input_gatetype
+%type <Verilogast::n_output_gatetype>  n_output_gatetype
+%type <Verilogast::pass_en_switchtype>  pass_en_switchtype
+%type <Verilogast::pass_switchtype>  pass_switchtype
+%type <Verilogast::edge_symbol>  edge_symbol
+%type <Verilogast::level_symbol>  level_symbol
+%type <Verilogast::polarity_operator> polarity_operator_opt
+%type <Verilogast::polarity_operator> polarity_operator
+%type <Verilogast::edge_identifier> edge_identifier_opt
+%type <Verilogast::edge_identifier> edge_identifier
+%type <Verilogast::zero_or_one> zero_or_one
+%type <Verilogast::z_or_x> z_or_x
+
+%type <std::shared_ptr<std::list<Verilogast::level_symbol>>>  level_symbol_list
+
 %code top{
 /* this "connects" the bison parser in the driver to the flex scanner class
  * object. it defines the yylex() function call to pull the next token from the
@@ -765,7 +767,7 @@ IMPLYSTART                   "*>"
 #include<boost/variant.hpp>
 /*defiing the types of rules*/
 using namespace std;
-#include"verilogast.h"
+#include"vast.h"
 }
 
 %code {
@@ -1227,11 +1229,8 @@ use_clause :
 ;
 
 colon_config_opt :
-	{T_colon_config_opt_FALSE}
-	| COLON KEY_CONFIG  {
-			record_pos $2;
-			T_colon_config_opt_TRUE
-		}
+	{$$=T_colon_config_opt_FALSE;}
+	| COLON KEY_CONFIG  { $$=T_colon_config_opt_TRUE; }
 ;
 */
 /*A.2 Declarations
@@ -1250,10 +1249,8 @@ local_parameter_declaration :
 ;
 
 signed_opt :
-	{$$=SHR2(signedType,T_signed_FALSE,());}
-	| KEY_SIGNED {
-			$$=SHR2(signedType,T_signed_TRUE,());
-		}
+	{$$=T_signed_FALSE;}
+	| KEY_SIGNED { $$=T_signed_TRUE; }
 ;
 
 range_opt :
@@ -1281,10 +1278,10 @@ specparam_declaration :
 ;
 
 parameter_type :
-	KEY_INTEGER    {$$=SHR2(parameter_type,T_parameter_type__INTEGER,());}
-	| KEY_REAL 	   {$$=SHR2(parameter_type,T_parameter_type__REAL,());}
-	| KEY_REALTIME {$$=SHR2(parameter_type,T_parameter_type__REALTIME,());}
-	| KEY_TIME	   {$$=SHR2(parameter_type,T_parameter_type__TIME,());}
+	KEY_INTEGER    {$$=T_parameter_type__INTEGER;}
+	| KEY_REAL 	   {$$=T_parameter_type__REAL;}
+	| KEY_REALTIME {$$=T_parameter_type__REALTIME;}
+	| KEY_TIME	   {$$=T_parameter_type__TIME;}
 ;
 
 /*A.2.1.2 Port declarations*/
@@ -1294,7 +1291,7 @@ inout_declaration :
 ;
 
 net_type_opt :
-	{$$=SHR2(net_type,T_net_type_NOSPEC,());}
+	{$$=T_net_type_NOSPEC;}
 	| net_type {$$=$1;}
 ;
 
@@ -1319,28 +1316,28 @@ output_declaration :
 ;
 
 netreg_type :
-	{$$=SHR2(netreg_type,T_netreg_type__NOSPEC,());}
-	| KEY_SUPPLY0 	  {$$=SHR2(netreg_type,T_netreg_type__KEY_SUPPLY0,());}
-	| KEY_SUPPLY1	    {$$=SHR2(netreg_type,T_netreg_type__KEY_SUPPLY1,());}
-	| KEY_TRI			    {$$=SHR2(netreg_type,T_netreg_type__KEY_TRI,());}
-	| KEY_TRIAND 	    {$$=SHR2(netreg_type,T_netreg_type__KEY_TRIAND,());}
-	| KEY_TRIOR 			{$$=SHR2(netreg_type,T_netreg_type__KEY_TRIOR,());}
-	| KEY_TRI0 				{$$=SHR2(netreg_type,T_netreg_type__KEY_TRI0,());}
-	| KEY_TRI1				{$$=SHR2(netreg_type,T_netreg_type__KEY_TRI1,());}
-	| KEY_UWIRE 			{$$=SHR2(netreg_type,T_netreg_type__KEY_UWIRE,());}
-	| KEY_WIRE 				{$$=SHR2(netreg_type,T_netreg_type__KEY_WIRE,());}
-	| KEY_WAND 				{$$=SHR2(netreg_type,T_netreg_type__KEY_WAND,());}
-	| KEY_WOR					{$$=SHR2(netreg_type,T_netreg_type__KEY_WOR,());}
-	| KEY_REG					{$$=SHR2(netreg_type,T_netreg_type__KEY_REG,());}
-	| KEY_INTEGER			{$$=SHR2(netreg_type,T_netreg_type__KEY_INTEGER,());}
-	| KEY_TIME				{$$=SHR2(netreg_type,T_netreg_type__KEY_TIME,());}
+	                  {$$=T_netreg_type__NOSPEC;}
+	| KEY_SUPPLY0 	  {$$=T_netreg_type__KEY_SUPPLY0;}
+	| KEY_SUPPLY1	    {$$=T_netreg_type__KEY_SUPPLY1;}
+	| KEY_TRI			    {$$=T_netreg_type__KEY_TRI;}
+	| KEY_TRIAND 	    {$$=T_netreg_type__KEY_TRIAND;}
+	| KEY_TRIOR 			{$$=T_netreg_type__KEY_TRIOR;}
+	| KEY_TRI0 				{$$=T_netreg_type__KEY_TRI0;}
+	| KEY_TRI1				{$$=T_netreg_type__KEY_TRI1;}
+	| KEY_UWIRE 			{$$=T_netreg_type__KEY_UWIRE;}
+	| KEY_WIRE 				{$$=T_netreg_type__KEY_WIRE;}
+	| KEY_WAND 				{$$=T_netreg_type__KEY_WAND;}
+	| KEY_WOR					{$$=T_netreg_type__KEY_WOR;}
+	| KEY_REG					{$$=T_netreg_type__KEY_REG;}
+	| KEY_INTEGER			{$$=T_netreg_type__KEY_INTEGER;}
+	| KEY_TIME				{$$=T_netreg_type__KEY_TIME;}
 ;*/
 
 io_type :
-	{$$=SHR2(io_type,T_io_type_NOSPEC,());}
-	| KEY_OUTPUT	{$$=SHR2(io_type,T_io_type_output,());}
-	| KEY_INPUT		{$$=SHR2(io_type,T_io_type_input,());}
-	| KEY_INOUT		{$$=SHR2(io_type,T_io_type_inout,());}
+	              {$$=T_io_type_NOSPEC;}
+	| KEY_OUTPUT	{$$=T_io_type_output;}
+	| KEY_INPUT		{$$=T_io_type_input;}
+	| KEY_INOUT		{$$=T_io_type_inout;}
 
 /*A.2.1.3 Type declarations*/
 event_declaration :
@@ -1364,10 +1361,10 @@ net_declaration :
 	| KEY_TRIREG drive_strength_opt signed_opt delay3_opt list_of_net_decl_assignments SEMICOLON
 		{T_net_declaration_trireg_2($2,$3,$4,$5)}*/
 	| KEY_TRIREG vectored_scalared_opt signed_opt range delay3_opt list_of_net_identifiers SEMICOLON {
-		auto x=SHR2(charge_strength,T_charge_strength_NOSPEC,());
-		$$=SHR2(net_declaration,T_net_declaration_trireg_3,(x,$2,$3,$4,$5));}
+		auto x=T_charge_strength_NOSPEC;
+		$$=SHR2(net_declaration,T_net_declaration_trireg_3,(x,$2,$3,$4,$5,$6));}
 	| KEY_TRIREG charge_strength vectored_scalared_opt signed_opt range delay3_opt list_of_net_identifiers SEMICOLON
-		{$$=SHR2(net_declaration,T_net_declaration_trireg_3,($2,$3,$4,$5,$6));}
+		{$$=SHR2(net_declaration,T_net_declaration_trireg_3,($2,$3,$4,$5,$6,$7));}
 	| KEY_TRIREG vectored_scalared_opt signed_opt range delay3_opt list_of_net_decl_assignments SEMICOLON {
 		auto x=SHR2(drive_strength,T_drive_strength_NOSPEC,());
 		$$=SHR2(net_declaration,T_net_declaration_trireg_4,(x,$2,$3,$4,$5,$6));}
@@ -1382,9 +1379,9 @@ delay3_opt :
 ;
 
 vectored_scalared_opt :
-	{$$=SHR2(vectored_scalared,T_vectored_scalared_NOSPEC,());}
-	| KEY_VECTORED {$$=SHR2(vectored_scalared,T_vectored_scalared_vectored,());}
-	| KEY_SCALARED {$$=SHR2(vectored_scalared,T_vectored_scalared_scalared,());}
+	               {$$=T_vectored_scalared_NOSPEC;}
+	| KEY_VECTORED {$$=T_vectored_scalared_vectored;}
+	| KEY_SCALARED {$$=T_vectored_scalared_scalared;}
 ;
 
 drive_strength_opt :
@@ -1415,22 +1412,22 @@ time_declaration :
 /*A.2.2 Declaration data types
 A.2.2.1 Net and variable types*/
 net_type :
-	KEY_SUPPLY0 	    {$$=SHR2(net_type,T_net_type__KEY_SUPPLY0,());}
-	| KEY_SUPPLY1	    {$$=SHR2(net_type,T_net_type__KEY_SUPPLY1,());}
-	| KEY_TRI			    {$$=SHR2(net_type,T_net_type__KEY_TRI,());}
-	| KEY_TRIAND 	    {$$=SHR2(net_type,T_net_type__KEY_TRIAND,());}
-	| KEY_TRIOR 			{$$=SHR2(net_type,T_net_type__KEY_TRIOR,());}
-	| KEY_TRI0 				{$$=SHR2(net_type,T_net_type__KEY_TRI0,());}
-	| KEY_TRI1				{$$=SHR2(net_type,T_net_type__KEY_TRI1,());}
-	| KEY_UWIRE 			{$$=SHR2(net_type,T_net_type__KEY_UWIRE,());}
-	| KEY_WIRE 				{$$=SHR2(net_type,T_net_type__KEY_WIRE,());}
-	| KEY_WAND 				{$$=SHR2(net_type,T_net_type__KEY_WAND,());}
-	| KEY_WOR					{$$=SHR2(net_type,T_net_type__KEY_WOR,());}
+	KEY_SUPPLY0 	    {$$=T_net_type__KEY_SUPPLY0;}
+	| KEY_SUPPLY1	    {$$=T_net_type__KEY_SUPPLY1;}
+	| KEY_TRI			    {$$=T_net_type__KEY_TRI;}
+	| KEY_TRIAND 	    {$$=T_net_type__KEY_TRIAND;}
+	| KEY_TRIOR 			{$$=T_net_type__KEY_TRIOR;}
+	| KEY_TRI0 				{$$=T_net_type__KEY_TRI0;}
+	| KEY_TRI1				{$$=T_net_type__KEY_TRI1;}
+	| KEY_UWIRE 			{$$=T_net_type__KEY_UWIRE;}
+	| KEY_WIRE 				{$$=T_net_type__KEY_WIRE;}
+	| KEY_WAND 				{$$=T_net_type__KEY_WAND;}
+	| KEY_WOR					{$$=T_net_type__KEY_WOR;}
 ;
 
 output_variable_type :
-	KEY_INTEGER {$$=SHR2(output_variable_type,T_output_variable_type_INTEGER,());}
-	| KEY_TIME  {$$=SHR2(output_variable_type,T_output_variable_type_TIME,());}
+	KEY_INTEGER {$$=T_output_variable_type_INTEGER;}
+	| KEY_TIME  {$$=T_output_variable_type_TIME;}
 ;
 
 real_type :
@@ -1467,34 +1464,34 @@ drive_strength :
 	| LPARENT_STRENGTH strength1 COMMA strength0 RPARENT
 		{$$=SHR2(drive_strength,T_drive_strength,($2,$4));}
 	| LPARENT_STRENGTH strength0 COMMA KEY_HIGHZ1 RPARENT
-		{$$=SHR2(drive_strength,T_drive_strength,($2,SHR2(strength,KEY_HIGHZ1,())));}
+		{$$=SHR2(drive_strength,T_drive_strength,($2,KEY_HIGHZ1));}
 	| LPARENT_STRENGTH strength1 COMMA KEY_HIGHZ0 RPARENT
-		{$$=SHR2(drive_strength,T_drive_strength,($2,SHR2(strength,KEY_HIGHZ0,())));}
+		{$$=SHR2(drive_strength,T_drive_strength,($2,KEY_HIGHZ0));}
 	| LPARENT_STRENGTH KEY_HIGHZ0 COMMA strength1 RPARENT
-		{$$=SHR2(drive_strength,T_drive_strength,(SHR2(strength,KEY_HIGHZ0,()),$4));}
+		{$$=SHR2(drive_strength,T_drive_strength,(KEY_HIGHZ0,$4));}
 	| LPARENT_STRENGTH KEY_HIGHZ1 COMMA strength0 RPARENT
-		{$$=SHR2(drive_strength,T_drive_strength,(SHR2(strength,KEY_HIGHZ1,()),$4));}
+		{$$=SHR2(drive_strength,T_drive_strength,(KEY_HIGHZ1,$4));}
 ;
 
 
 
 strength0 :
-	KEY_SUPPLY0		  {$$=SHR2(strength,KEY_SUPPLY0,());}
-	| KEY_STRONG0		{$$=SHR2(strength,KEY_STRONG0,());}
-	| KEY_PULL0			{$$=SHR2(strength,KEY_PULL0,());}
-	| KEY_WEAK0     {$$=SHR2(strength,KEY_WEAK0,());}
+	KEY_SUPPLY0		  {$$=KEY_SUPPLY0;}
+	| KEY_STRONG0		{$$=KEY_STRONG0;}
+	| KEY_PULL0			{$$=KEY_PULL0;}
+	| KEY_WEAK0     {$$=KEY_WEAK0;}
 ;
 strength1 :
-	KEY_SUPPLY1		  {$$=SHR2(strength,KEY_SUPPLY1,());}
-	| KEY_STRONG1		{$$=SHR2(strength,KEY_STRONG1,());}
-	| KEY_PULL1			{$$=SHR2(strength,KEY_PULL1,());}
-	| KEY_WEAK1     {$$=SHR2(strength,KEY_WEAK1,());}
+	KEY_SUPPLY1		  {$$=KEY_SUPPLY1;}
+	| KEY_STRONG1		{$$=KEY_STRONG1;}
+	| KEY_PULL1			{$$=KEY_PULL1;}
+	| KEY_WEAK1     {$$=KEY_WEAK1;}
 ;
 
 charge_strength : 
-	LPARENT KEY_SMALL RPARENT    {$$=SHR2(charge_strength,T_charge_strength__small,());}
-	| LPARENT KEY_MEDIUM RPARENT {$$=SHR2(charge_strength,T_charge_strength__medium,());}
-	| LPARENT KEY_LARGE RPARENT  {$$=SHR2(charge_strength,T_charge_strength__large,());}
+	LPARENT KEY_SMALL RPARENT    {$$=T_charge_strength__small;}
+	| LPARENT KEY_MEDIUM RPARENT {$$=T_charge_strength__medium;}
+	| LPARENT KEY_LARGE RPARENT  {$$=T_charge_strength__large;}
 ;
 
 /*A.2.2.3 Delays*/
@@ -1852,8 +1849,8 @@ function_item_declaration_list :
 ;
 
 automatic_opt :
-	{$$=SHR2(automatic,T_automatic_false,());}
-	| KEY_AUTOMATIC {$$=SHR2(automatic,T_automatic_true,());}
+	                {$$=T_automatic_false;}
+	| KEY_AUTOMATIC {$$=T_automatic_true;}
 ;
 
 function_item_declaration :
@@ -1892,9 +1889,9 @@ comma_attribute_instance_list_tf_input_declaration_list :
 
 function_range_or_type :
 	                   {$$=SHR2(function_range_or_type,T_function_range_or_type_NOSPEC,());}
-	|	KEY_SIGNED       {$$=SHR2(function_range_or_type,T_function_range_or_type,(SHR2(signedType,T_signed_TRUE ,()),SHR2(range,T_range_NOSPEC,())));}
-	| range				     {$$=SHR2(function_range_or_type,T_function_range_or_type,(SHR2(signedType,T_signed_FALSE,()),$1));}
-	|	KEY_SIGNED range {$$=SHR2(function_range_or_type,T_function_range_or_type,(SHR2(signedType,T_signed_TRUE ,()),$2));}
+	|	KEY_SIGNED       {$$=SHR2(function_range_or_type,T_function_range_or_type,(T_signed_TRUE ,SHR2(range,T_range_NOSPEC,())));}
+	| range				     {$$=SHR2(function_range_or_type,T_function_range_or_type,(T_signed_FALSE,$1));}
+	|	KEY_SIGNED range {$$=SHR2(function_range_or_type,T_function_range_or_type,(T_signed_TRUE ,$2));}
 	| KEY_INTEGER      {$$=SHR2(function_range_or_type,T_function_range_or_type_INTEGER,());}
 	| KEY_REAL				 {$$=SHR2(function_range_or_type,T_function_range_or_type_REAL,());}
 	| KEY_REALTIME		 {$$=SHR2(function_range_or_type,T_function_range_or_type_REALTIME,());}
@@ -1981,8 +1978,8 @@ tf_input_declaration :
 ;
 
 reg_opt :
-	{$$=SHR2(reg,T_reg_false,());}
-	| KEY_REG {$$=SHR2(reg,T_reg_true,());}
+	          {$$=T_reg_false;}
+	| KEY_REG {$$=T_reg_true;}
 ;
 
 tf_output_declaration :
@@ -2000,10 +1997,10 @@ tf_inout_declaration :
 ;
 
 task_port_type :
-	KEY_INTEGER			{$$=SHR2(task_port_type,T_task_port_type_integer,());}
-	| KEY_REAL  		{$$=SHR2(task_port_type,T_task_port_type_real,());}
-	| KEY_REALTIME	{$$=SHR2(task_port_type,T_task_port_type_realtime,());}
-	| KEY_TIME			{$$=SHR2(task_port_type,T_task_port_type_time,());}
+	KEY_INTEGER			{$$=T_task_port_type_integer;}
+	| KEY_REAL  		{$$=T_task_port_type_real;}
+	| KEY_REALTIME	{$$=T_task_port_type_realtime;}
+	| KEY_TIME			{$$=T_task_port_type_time;}
 ;
 
 tf_io_declaration_gen :
@@ -2352,47 +2349,47 @@ pcontrol_terminal : expression {$$=$1;};
 /*A.3.4 Primitive gate and switch types*/
 
 cmos_switchtype :
-	KEY_CMOS    {$$=SHR2(cmos_switchtype,T_cmos_switchtype_CMOS,());}
-	| KEY_RCMOS {$$=SHR2(cmos_switchtype,T_cmos_switchtype_RCMOS,());}
+	KEY_CMOS    {$$=T_cmos_switchtype_CMOS;}
+	| KEY_RCMOS {$$=T_cmos_switchtype_RCMOS;}
 ;
 
 enable_gatetype :
-		KEY_BUFIF0 	{$$=SHR2(enable_gatetype,T_enable_gatetype__BUFIF0,());}
-	| KEY_BUFIF1 	{$$=SHR2(enable_gatetype,T_enable_gatetype__BUFIF1,());}
-	| KEY_NOTIF0 	{$$=SHR2(enable_gatetype,T_enable_gatetype__NOTIF0,());}
-	| KEY_NOTIF1	{$$=SHR2(enable_gatetype,T_enable_gatetype__NOTIF1,());}
+		KEY_BUFIF0 	{$$=T_enable_gatetype__BUFIF0;}
+	| KEY_BUFIF1 	{$$=T_enable_gatetype__BUFIF1;}
+	| KEY_NOTIF0 	{$$=T_enable_gatetype__NOTIF0;}
+	| KEY_NOTIF1	{$$=T_enable_gatetype__NOTIF1;}
 ;
 
 mos_switchtype : 
-		KEY_NMOS 	{$$=SHR2(mos_switchtype,T_mos_switchtype_NMOS ,());}	
-	| KEY_PMOS 	{$$=SHR2(mos_switchtype,T_mos_switchtype_PMOS ,());}
-	| KEY_RNMOS	{$$=SHR2(mos_switchtype,T_mos_switchtype_RNMOS,());} 
-	| KEY_RPMOS	{$$=SHR2(mos_switchtype,T_mos_switchtype_RPMOS,());}
+		KEY_NMOS 	{$$=T_mos_switchtype_NMOS ;}	
+	| KEY_PMOS 	{$$=T_mos_switchtype_PMOS ;}
+	| KEY_RNMOS	{$$=T_mos_switchtype_RNMOS;} 
+	| KEY_RPMOS	{$$=T_mos_switchtype_RPMOS;}
 ;
 
 n_input_gatetype :
-   	KEY_AND  {$$=SHR2(n_input_gatetype,T_n_input_gatetype_AND ,());}  
-	| KEY_NAND {$$=SHR2(n_input_gatetype,T_n_input_gatetype_NAND,());}
-	| KEY_OR 	 {$$=SHR2(n_input_gatetype,T_n_input_gatetype_OR  ,());}
-	| KEY_NOR  {$$=SHR2(n_input_gatetype,T_n_input_gatetype_NOR ,());}
-	| KEY_XOR  {$$=SHR2(n_input_gatetype,T_n_input_gatetype_XOR ,());}
-	| KEY_XNOR {$$=SHR2(n_input_gatetype,T_n_input_gatetype_XNOR,());} 
+   	KEY_AND  {$$=T_n_input_gatetype_AND ;}  
+	| KEY_NAND {$$=T_n_input_gatetype_NAND;}
+	| KEY_OR 	 {$$=T_n_input_gatetype_OR  ;}
+	| KEY_NOR  {$$=T_n_input_gatetype_NOR ;}
+	| KEY_XOR  {$$=T_n_input_gatetype_XOR ;}
+	| KEY_XNOR {$$=T_n_input_gatetype_XNOR;} 
 ;
 
 n_output_gatetype :
-	KEY_BUF   {$$=SHR2(n_output_gatetype,T_n_output_gatetype_BUF,());}
-	| KEY_NOT {$$=SHR2(n_output_gatetype,T_n_output_gatetype_NOT,());}
+	KEY_BUF   {$$=T_n_output_gatetype_BUF;}
+	| KEY_NOT {$$=T_n_output_gatetype_NOT;}
 ;
 
 pass_en_switchtype :
-	  KEY_TRANIF0 {$$=SHR2(pass_en_switchtype,T_pass_en_switchtype_TRANIF0 ,());} 
-	| KEY_TRANIF1 {$$=SHR2(pass_en_switchtype,T_pass_en_switchtype_TRANIF1 ,());}   
-	| KEY_RTRANIF1{$$=SHR2(pass_en_switchtype,T_pass_en_switchtype_RTRANIF1,());}  
-	| KEY_RTRANIF0{$$=SHR2(pass_en_switchtype,T_pass_en_switchtype_RTRANIF0,());} 
+	  KEY_TRANIF0 {$$=T_pass_en_switchtype_TRANIF0 ;} 
+	| KEY_TRANIF1 {$$=T_pass_en_switchtype_TRANIF1 ;}   
+	| KEY_RTRANIF1{$$=T_pass_en_switchtype_RTRANIF1;}  
+	| KEY_RTRANIF0{$$=T_pass_en_switchtype_RTRANIF0;} 
 ;
 pass_switchtype :
-	  KEY_TRAN  {$$=SHR2(pass_switchtype,T_pass_switchtype_TRAN ,());} 
-	| KEY_RTRAN {$$=SHR2(pass_switchtype,T_pass_switchtype_RTRAN,());} 
+	  KEY_TRAN  {$$=T_pass_switchtype_TRAN ;} 
+	| KEY_RTRAN {$$=T_pass_switchtype_RTRAN;} 
 ;
 
 
@@ -2932,7 +2929,7 @@ seq_input_list :
 
 level_symbol_list :
 	{
-		$$=SHR_LIST_SHR(level_symbol)();
+		$$=SHR_LIST_POD(level_symbol)();
 	}
 	| level_symbol_list level_symbol 
 		{
@@ -2963,25 +2960,25 @@ edge_symbol ::= r | R | f | F | p | P | n | N | *
 /*lexer only return UNSIGNED_NUMBER, SIMPLE_IDENTIFIER and * and -*/
 
 edge_symbol :
- TABLESC_EDGE_SYMBOL_r   {$$=SHR2(edge_symbol,T_edge_symbol_r,());}
- | TABLESC_EDGE_SYMBOL_R {$$=SHR2(edge_symbol,T_edge_symbol_R,());}
- | TABLESC_EDGE_SYMBOL_f {$$=SHR2(edge_symbol,T_edge_symbol_f,());}
- | TABLESC_EDGE_SYMBOL_F {$$=SHR2(edge_symbol,T_edge_symbol_F,());}
- | TABLESC_EDGE_SYMBOL_p {$$=SHR2(edge_symbol,T_edge_symbol_p,());}
- | TABLESC_EDGE_SYMBOL_P {$$=SHR2(edge_symbol,T_edge_symbol_P,());}
- | TABLESC_EDGE_SYMBOL_n {$$=SHR2(edge_symbol,T_edge_symbol_n,());}
- | TABLESC_EDGE_SYMBOL_N {$$=SHR2(edge_symbol,T_edge_symbol_N,());}
+ TABLESC_EDGE_SYMBOL_r   {$$=T_edge_symbol_r;}
+ | TABLESC_EDGE_SYMBOL_R {$$=T_edge_symbol_R;}
+ | TABLESC_EDGE_SYMBOL_f {$$=T_edge_symbol_f;}
+ | TABLESC_EDGE_SYMBOL_F {$$=T_edge_symbol_F;}
+ | TABLESC_EDGE_SYMBOL_p {$$=T_edge_symbol_p;}
+ | TABLESC_EDGE_SYMBOL_P {$$=T_edge_symbol_P;}
+ | TABLESC_EDGE_SYMBOL_n {$$=T_edge_symbol_n;}
+ | TABLESC_EDGE_SYMBOL_N {$$=T_edge_symbol_N;}
 ;
 
 level_symbol :
- TABLESC_LEVEL_SYMBOL_0 {$$=SHR2(level_symbol,T_level_symbol_0,());}
- | TABLESC_LEVEL_SYMBOL_1 {$$=SHR2(level_symbol,T_level_symbol_1,());}
- | TABLESC_LEVEL_SYMBOL_x {$$=SHR2(level_symbol,T_level_symbol_x,());}
- | TABLESC_LEVEL_SYMBOL_X {$$=SHR2(level_symbol,T_level_symbol_X,());}
- | TABLESC_LEVEL_SYMBOL_QUESTION {$$=SHR2(level_symbol,T_level_symbol_QUESTION,());}
- | TABLESC_LEVEL_SYMBOL_b {$$=SHR2(level_symbol,T_level_symbol_b,());}
- | TABLESC_LEVEL_SYMBOL_B {$$=SHR2(level_symbol,T_level_symbol_B,());}
- | TABLESC_LEVEL_SYMBOL_SUB {$$=SHR2(level_symbol,T_level_symbol_SUB,());}
+ TABLESC_LEVEL_SYMBOL_0 {$$=T_level_symbol_0;}
+ | TABLESC_LEVEL_SYMBOL_1 {$$=T_level_symbol_1;}
+ | TABLESC_LEVEL_SYMBOL_x {$$=T_level_symbol_x;}
+ | TABLESC_LEVEL_SYMBOL_X {$$=T_level_symbol_X;}
+ | TABLESC_LEVEL_SYMBOL_QUESTION {$$=T_level_symbol_QUESTION;}
+ | TABLESC_LEVEL_SYMBOL_b {$$=T_level_symbol_b;}
+ | TABLESC_LEVEL_SYMBOL_B {$$=T_level_symbol_B;}
+ | TABLESC_LEVEL_SYMBOL_SUB {$$=T_level_symbol_SUB;}
 ;
 
 /*output_symbol :
@@ -3542,7 +3539,7 @@ parallel_path_description :
 ;
 
 polarity_operator_opt :
-	{$$=SHR2(polarity_operator,T_polarity_operator_NOSPEC,());}
+	{$$=T_polarity_operator_NOSPEC;}
 	| polarity_operator {$$=$1;}
 ;
 
@@ -3623,7 +3620,7 @@ LPARENT specify_inout_terminal_descriptor polarity_operator_opt COLON data_sourc
 ;
 
 edge_identifier_opt :
-	{$$=SHR2(edge_identifier,T_edge_identifier_NOSPEC,());}
+	{$$=T_edge_identifier_NOSPEC;}
 	| edge_identifier {$$=$1;}
 ;
 
@@ -3640,8 +3637,8 @@ data_source_expression :
 
 
 edge_identifier :
-	KEY_POSEDGE  {$$=SHR2(edge_identifier,T_edge_identifier_POS,());}
-	| KEY_NEGEDGE {$$=SHR2(edge_identifier,T_edge_identifier_NEG,());}
+	KEY_POSEDGE   {$$=T_edge_identifier_POS;}
+	| KEY_NEGEDGE {$$=T_edge_identifier_NEG;}
 ;
 
 
@@ -3656,8 +3653,8 @@ state_dependent_path_declaration :
 
 
 polarity_operator :
-	OP2_ADD  {$$=SHR2(polarity_operator,T_polarity_operator_ADD,());}
-	| OP2_SUB {$$=SHR2(polarity_operator,T_polarity_operator_SUB,());}
+	OP2_ADD   {$$=T_polarity_operator_ADD;}
+	| OP2_SUB {$$=T_polarity_operator_SUB;}
 ;
 
 
@@ -4064,15 +4061,15 @@ edge_descriptor :
 ;
 
 zero_or_one : 
-	EDGE_0 {$$=SHR2(zero_or_one,T_zero_or_one_0,());}
-	| EDGE_1 {$$=SHR2(zero_or_one,T_zero_or_one_1,());}
+	EDGE_0   {$$=T_zero_or_one_0;}
+	| EDGE_1 {$$=T_zero_or_one_1;}
 ;
 
 z_or_x :
-	EDGE_x   {$$=SHR2(z_or_x,T_z_or_x__x,());}
-	| EDGE_X {$$=SHR2(z_or_x,T_z_or_x__X,());}
-	| EDGE_z {$$=SHR2(z_or_x,T_z_or_x__z,());}
-	| EDGE_Z {$$=SHR2(z_or_x,T_z_or_x__Z,());}
+	EDGE_x   {$$=T_z_or_x__x;}
+	| EDGE_X {$$=T_z_or_x__X;}
+	| EDGE_z {$$=T_z_or_x__z;}
+	| EDGE_Z {$$=T_z_or_x__Z;}
 ;
 
 /*timing_check_condition :
@@ -4190,40 +4187,40 @@ dimension_expression :
 expression :
 	primary
 		{$$=SHR2(expression,T_expression_prim,($1));}
-	| OP2_ADD  attribute_instance_list primary %prec OP1_ADD  {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_ADD,()),$2,$3));}
-	| OP2_SUB  attribute_instance_list primary %prec OP1_SUB  {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_SUB,()),$2,$3));}
-	| OP2_AND  attribute_instance_list primary %prec OP1_AND  {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_AND,()) ,$2,$3));}
-	| OP2_OR   attribute_instance_list primary %prec OP1_OR   {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_OR,())  ,$2,$3));}
-	| OP2_XOR  attribute_instance_list primary %prec OP1_XOR  {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_XOR,()) ,$2,$3));}
-	| OP2_XNOR attribute_instance_list primary %prec OP1_XNOR {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_XNOR,()),$2,$3));}
-	| OP1_LOGIC_NEG   attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_LOGIC_NEG,())  ,$2,$3));}
-	| OP1_BITWISE_NEG attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_BITWISE_NEG,()),$2,$3));}
-	| OP1_REDUCE_NAND attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_NAND,()),$2,$3));}
-	| OP1_REDUCE_NOR  attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(SHR2(unary_operator,T_unary_operator_REDUCE_NOR,()) ,$2,$3));}
-	| expression OP2_MULTIPLE              attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_MUL,())                  ,$3,$4));}
-	| expression OP2_DIV                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_DIV,())                  ,$3,$4));}
-	| expression OP2_MOD                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_MOD,())                  ,$3,$4));}
-	| expression OP2_EQU2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_EQU2,())                 ,$3,$4));}
-	| expression OP2_NEQ2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_NEQ2,())                 ,$3,$4));}
-	| expression OP2_EQU3                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_EQU3,())                 ,$3,$4));}
-	| expression OP2_NEQ3                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_NEQ3,())                 ,$3,$4));}
-	| expression OP2_POWER                 attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_POWER,())                ,$3,$4));}
-	| expression OP2_LT                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_LT,())                   ,$3,$4));}
-	| expression OP2_LE                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_LE,())                   ,$3,$4));}
-	| expression OP2_GT                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_GT,())                   ,$3,$4));}
-	| expression OP2_GE                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_1,binary_operator1,T_binary_operator_GE,())                   ,$3,$4));}
-	| expression OP2_LOGICAL_RIGHTSHIFT    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_LOGICAL_RIGHTSHIFT,())   ,$3,$4));}
-	| expression OP2_LOGICAL_LEFTSHIFT     attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_LOGICAL_LEFTSHIFT,())    ,$3,$4));}
-	| expression OP2_ARITHMETIC_RIGHTSHIFT attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_ARITHMETIC_RIGHTSHIFT,()),$3,$4));}
-	| expression OP2_ARITHMETIC_LEFTSHIFT  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_ARITHMETIC_LEFTSHIFT,()) ,$3,$4));}
-	| expression OP2_ADD                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_ADD,())                  ,$3,$4));}
-	| expression OP2_SUB                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_SUB,())                  ,$3,$4));}
-	| expression OP2_AND                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_AND,())                  ,$3,$4));}
-	| expression OP2_OR                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_OR,())                   ,$3,$4));}
-	| expression OP2_AND2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_AND2,())                 ,$3,$4));}
-	| expression OP2_OR2                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_OR2,())                  ,$3,$4));}
-	| expression OP2_XOR                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_XOR,())                  ,$3,$4));}
-	| expression OP2_XNOR                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,SHR4(binary_operator,T_binary_operator_2,binary_operator2,T_binary_operator_XNOR,())                 ,$3,$4));}
+	| OP2_ADD  attribute_instance_list primary %prec OP1_ADD  {$$=SHR2(expression,T_expression_op1,(T_unary_operator_ADD,$2,$3));}
+	| OP2_SUB  attribute_instance_list primary %prec OP1_SUB  {$$=SHR2(expression,T_expression_op1,(T_unary_operator_SUB,$2,$3));}
+	| OP2_AND  attribute_instance_list primary %prec OP1_AND  {$$=SHR2(expression,T_expression_op1,(T_unary_operator_REDUCE_AND ,$2,$3));}
+	| OP2_OR   attribute_instance_list primary %prec OP1_OR   {$$=SHR2(expression,T_expression_op1,(T_unary_operator_REDUCE_OR  ,$2,$3));}
+	| OP2_XOR  attribute_instance_list primary %prec OP1_XOR  {$$=SHR2(expression,T_expression_op1,(T_unary_operator_REDUCE_XOR ,$2,$3));}
+	| OP2_XNOR attribute_instance_list primary %prec OP1_XNOR {$$=SHR2(expression,T_expression_op1,(T_unary_operator_REDUCE_XNOR,$2,$3));}
+	| OP1_LOGIC_NEG   attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(T_unary_operator_LOGIC_NEG  ,$2,$3));}
+	| OP1_BITWISE_NEG attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(T_unary_operator_BITWISE_NEG,$2,$3));}
+	| OP1_REDUCE_NAND attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(T_unary_operator_REDUCE_NAND,$2,$3));}
+	| OP1_REDUCE_NOR  attribute_instance_list primary {$$=SHR2(expression,T_expression_op1,(T_unary_operator_REDUCE_NOR ,$2,$3));}
+	| expression OP2_MULTIPLE              attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_MUL                  ,$3,$4));}
+	| expression OP2_DIV                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_DIV                  ,$3,$4));}
+	| expression OP2_MOD                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_MOD                  ,$3,$4));}
+	| expression OP2_EQU2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_EQU2                 ,$3,$4));}
+	| expression OP2_NEQ2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_NEQ2                 ,$3,$4));}
+	| expression OP2_EQU3                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_EQU3                 ,$3,$4));}
+	| expression OP2_NEQ3                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_NEQ3                 ,$3,$4));}
+	| expression OP2_POWER                 attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_POWER                ,$3,$4));}
+	| expression OP2_LT                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_LT                   ,$3,$4));}
+	| expression OP2_LE                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_LE                   ,$3,$4));}
+	| expression OP2_GT                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_GT                   ,$3,$4));}
+	| expression OP2_GE                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_GE                   ,$3,$4));}
+	| expression OP2_LOGICAL_RIGHTSHIFT    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_LOGICAL_RIGHTSHIFT   ,$3,$4));}
+	| expression OP2_LOGICAL_LEFTSHIFT     attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_LOGICAL_LEFTSHIFT    ,$3,$4));}
+	| expression OP2_ARITHMETIC_RIGHTSHIFT attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_ARITHMETIC_RIGHTSHIFT,$3,$4));}
+	| expression OP2_ARITHMETIC_LEFTSHIFT  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_ARITHMETIC_LEFTSHIFT ,$3,$4));}
+	| expression OP2_ADD                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_ADD                  ,$3,$4));}
+	| expression OP2_SUB                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_SUB                  ,$3,$4));}
+	| expression OP2_AND                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_AND                  ,$3,$4));}
+	| expression OP2_OR                    attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_OR                   ,$3,$4));}
+	| expression OP2_AND2                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_AND2                 ,$3,$4));}
+	| expression OP2_OR2                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_OR2                  ,$3,$4));}
+	| expression OP2_XOR                   attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_XOR                  ,$3,$4));}
+	| expression OP2_XNOR                  attribute_instance_list expression {$$=SHR2(expression,T_expression_op2,($1,T_binary_operator_XNOR                 ,$3,$4));}
 	| conditional_expression
 		{$$=SHR2(expression,T_expression_condition,($1));}
 ;

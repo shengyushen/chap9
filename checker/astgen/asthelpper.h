@@ -1,3 +1,7 @@
+// this  is for POD type
+#define SHR_LIST_POD(typename2share) \
+	make_shared<list<typename2share>>
+
 #define SHR_LIST_SHR(typename2share) \
 	make_shared<list<std::shared_ptr<typename2share>>>
 

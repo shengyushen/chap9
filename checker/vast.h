@@ -1,3 +1,7 @@
+// this  is for POD type
+#define SHR_LIST_POD(typename2share) \
+	make_shared<list<typename2share>>
+
 #define SHR_LIST_SHR(typename2share) \
 	make_shared<list<std::shared_ptr<typename2share>>>
 
@@ -12,6 +16,235 @@ class ComponentBase {
 
 
 namespace Verilogast {
+enum colon_config_opt { 
+   T_colon_config_opt_FALSE
+ , T_colon_config_opt_TRUE
+};
+enum signedType { 
+   T_signed_FALSE
+ , T_signed_TRUE
+};
+enum parameter_type { 
+   T_parameter_type__NOSPEC
+ , T_parameter_type__INTEGER
+ , T_parameter_type__REAL
+ , T_parameter_type__REALTIME
+ , T_parameter_type__TIME
+};
+enum output_variable_type { 
+   T_output_variable_type_INTEGER
+ , T_output_variable_type_TIME
+};
+enum vectored_scalared { 
+   T_vectored_scalared_NOSPEC
+ , T_vectored_scalared_vectored
+ , T_vectored_scalared_scalared
+};
+enum net_type { 
+   T_net_type_NOSPEC
+ , T_net_type__KEY_SUPPLY0
+ , T_net_type__KEY_SUPPLY1
+ , T_net_type__KEY_TRI
+ , T_net_type__KEY_TRIAND
+ , T_net_type__KEY_TRIOR
+ , T_net_type__KEY_TRI0
+ , T_net_type__KEY_TRI1
+ , T_net_type__KEY_UWIRE
+ , T_net_type__KEY_WIRE
+ , T_net_type__KEY_WAND
+ , T_net_type__KEY_WOR
+};
+enum strength { 
+   KEY_HIGHZ0
+ , KEY_HIGHZ1
+ , KEY_SUPPLY0
+ , KEY_STRONG0
+ , KEY_PULL0
+ , KEY_WEAK0
+ , KEY_SUPPLY1
+ , KEY_STRONG1
+ , KEY_PULL1
+ , KEY_WEAK1
+};
+enum charge_strength { 
+   T_charge_strength_NOSPEC
+ , T_charge_strength__small
+ , T_charge_strength__medium
+ , T_charge_strength__large
+};
+enum automatic { 
+   T_automatic_false
+ , T_automatic_true
+};
+enum task_port_type { 
+   T_task_port_type_integer
+ , T_task_port_type_real
+ , T_task_port_type_realtime
+ , T_task_port_type_time
+};
+enum cmos_switchtype { 
+   T_cmos_switchtype_CMOS
+ , T_cmos_switchtype_RCMOS
+};
+enum enable_gatetype { 
+   T_enable_gatetype__BUFIF0
+ , T_enable_gatetype__BUFIF1
+ , T_enable_gatetype__NOTIF0
+ , T_enable_gatetype__NOTIF1
+};
+enum mos_switchtype { 
+   T_mos_switchtype_NMOS
+ , T_mos_switchtype_PMOS
+ , T_mos_switchtype_RNMOS
+ , T_mos_switchtype_RPMOS
+};
+enum n_input_gatetype { 
+   T_n_input_gatetype_AND
+ , T_n_input_gatetype_NAND
+ , T_n_input_gatetype_OR
+ , T_n_input_gatetype_NOR
+ , T_n_input_gatetype_XOR
+ , T_n_input_gatetype_XNOR
+};
+enum n_output_gatetype { 
+   T_n_output_gatetype_BUF
+ , T_n_output_gatetype_NOT
+};
+enum pass_en_switchtype { 
+   T_pass_en_switchtype_TRANIF0
+ , T_pass_en_switchtype_TRANIF1
+ , T_pass_en_switchtype_RTRANIF1
+ , T_pass_en_switchtype_RTRANIF0
+};
+enum pass_switchtype { 
+   T_pass_switchtype_TRAN
+ , T_pass_switchtype_RTRAN
+};
+enum polarity_operator { 
+   T_polarity_operator_NOSPEC
+ , T_polarity_operator_ADD
+ , T_polarity_operator_SUB
+};
+enum zero_or_one { 
+   T_zero_or_one_0
+ , T_zero_or_one_1
+};
+enum z_or_x { 
+   T_z_or_x__x
+ , T_z_or_x__X
+ , T_z_or_x__z
+ , T_z_or_x__Z
+};
+enum edge_identifier { 
+   T_edge_identifier_NOSPEC
+ , T_edge_identifier_POS
+ , T_edge_identifier_NEG
+};
+enum unary_operator { 
+   T_unary_operator_LOGIC_NEG
+ , T_unary_operator_BITWISE_NEG
+ , T_unary_operator_REDUCE_NOR
+ , T_unary_operator_REDUCE_NAND
+ , T_unary_operator_ADD
+ , T_unary_operator_SUB
+ , T_unary_operator_REDUCE_AND
+ , T_unary_operator_REDUCE_OR
+ , T_unary_operator_REDUCE_XOR
+ , T_unary_operator_REDUCE_XNOR
+};
+enum unary_module_path_operator { 
+   T_unary_module_path_operator_GANTANHAO
+ , T_unary_module_path_operator_BOLANGHAO
+ , T_unary_module_path_operator_AND
+ , T_unary_module_path_operator_NAND
+ , T_unary_module_path_operator_OR
+ , T_unary_module_path_operator_NOR
+ , T_unary_module_path_operator_XOR
+ , T_unary_module_path_operator_XNOR
+};
+enum binary_module_path_operator { 
+   T_binary_module_path_operator_EQU2
+ , T_binary_module_path_operator_NEQ2
+ , T_binary_module_path_operator_AND2
+ , T_binary_module_path_operator_OR2
+ , T_binary_module_path_operator_AND1
+ , T_binary_module_path_operator_OR1
+ , T_binary_module_path_operator_XOR
+ , T_binary_module_path_operator_XNOR
+};
+enum level_symbol { 
+   T_level_symbol_0
+ , T_level_symbol_1
+ , T_level_symbol_x
+ , T_level_symbol_X
+ , T_level_symbol_QUESTION
+ , T_level_symbol_b
+ , T_level_symbol_B
+ , T_level_symbol_SUB
+};
+enum edge_symbol { 
+   T_edge_symbol_r
+ , T_edge_symbol_R
+ , T_edge_symbol_f
+ , T_edge_symbol_F
+ , T_edge_symbol_p
+ , T_edge_symbol_P
+ , T_edge_symbol_n
+ , T_edge_symbol_N
+};
+enum netreg_type { 
+   T_netreg_type__NOSPEC
+ , T_netreg_type__KEY_SUPPLY0
+ , T_netreg_type__KEY_SUPPLY1
+ , T_netreg_type__KEY_TRI
+ , T_netreg_type__KEY_TRIAND
+ , T_netreg_type__KEY_TRIOR
+ , T_netreg_type__KEY_TRI0
+ , T_netreg_type__KEY_TRI1
+ , T_netreg_type__KEY_UWIRE
+ , T_netreg_type__KEY_WIRE
+ , T_netreg_type__KEY_WAND
+ , T_netreg_type__KEY_WOR
+ , T_netreg_type__KEY_REG
+ , T_netreg_type__KEY_INTEGER
+ , T_netreg_type__KEY_TIME
+};
+enum io_type { 
+   T_io_type_NOSPEC
+ , T_io_type_output
+ , T_io_type_input
+ , T_io_type_inout
+};
+enum reg { 
+   T_reg_false
+ , T_reg_true
+};
+enum binary_operator { 
+   T_binary_operator_MUL
+ , T_binary_operator_DIV
+ , T_binary_operator_MOD
+ , T_binary_operator_EQU2
+ , T_binary_operator_NEQ2
+ , T_binary_operator_EQU3
+ , T_binary_operator_NEQ3
+ , T_binary_operator_POWER
+ , T_binary_operator_LT
+ , T_binary_operator_LE
+ , T_binary_operator_GT
+ , T_binary_operator_GE
+ , T_binary_operator_LOGICAL_RIGHTSHIFT
+ , T_binary_operator_LOGICAL_LEFTSHIFT
+ , T_binary_operator_ARITHMETIC_RIGHTSHIFT
+ , T_binary_operator_ARITHMETIC_LEFTSHIFT
+ , T_binary_operator_ADD
+ , T_binary_operator_SUB
+ , T_binary_operator_AND
+ , T_binary_operator_OR
+ , T_binary_operator_AND2
+ , T_binary_operator_OR2
+ , T_binary_operator_XOR
+ , T_binary_operator_XNOR
+};
 class T_description__module_declaration;
 class T_description__udp_declaration;
 class T_description__config_declaration;
@@ -65,18 +298,11 @@ class T_local_parameter_declaration_2;
 class T_parameter_declaration_1;
 class T_parameter_declaration_2;
 class T_specparam_declaration;
-class T_parameter_type__NOSPEC;
-class T_parameter_type__INTEGER;
-class T_parameter_type__REAL;
-class T_parameter_type__REALTIME;
-class T_parameter_type__TIME;
 class T_inout_declaration;
 class T_input_declaration;
 class T_output_declaration_net;
 class T_output_declaration_reg;
 class T_output_declaration_var;
-class T_output_variable_type_INTEGER;
-class T_output_variable_type_TIME;
 class T_event_declaration;
 class T_integer_declaration;
 class T_net_declaration_net_type1;
@@ -87,45 +313,16 @@ class T_net_declaration_trireg_1;
 class T_net_declaration_trireg_2;
 class T_net_declaration_trireg_3;
 class T_net_declaration_trireg_4;
-class T_vectored_scalared_NOSPEC;
-class T_vectored_scalared_vectored;
-class T_vectored_scalared_scalared;
 class T_real_declaration;
 class T_realtime_declaration;
 class T_reg_declaration;
 class T_time_declaration;
-class T_net_type_NOSPEC;
-class T_net_type__KEY_SUPPLY0;
-class T_net_type__KEY_SUPPLY1;
-class T_net_type__KEY_TRI;
-class T_net_type__KEY_TRIAND;
-class T_net_type__KEY_TRIOR;
-class T_net_type__KEY_TRI0;
-class T_net_type__KEY_TRI1;
-class T_net_type__KEY_UWIRE;
-class T_net_type__KEY_WIRE;
-class T_net_type__KEY_WAND;
-class T_net_type__KEY_WOR;
 class T_real_type_noass;
 class T_real_type_ass;
 class T_variable_type_noass;
 class T_variable_type_ass;
-class KEY_HIGHZ0;
-class KEY_HIGHZ1;
-class KEY_SUPPLY0;
-class KEY_STRONG0;
-class KEY_PULL0;
-class KEY_WEAK0;
-class KEY_SUPPLY1;
-class KEY_STRONG1;
-class KEY_PULL1;
-class KEY_WEAK1;
 class T_drive_strength_NOSPEC;
 class T_drive_strength;
-class T_charge_strength_NOSPEC;
-class T_charge_strength__small;
-class T_charge_strength__medium;
-class T_charge_strength__large;
 class T_delay3_NOSPEC;
 class T_delay3_1;
 class T_delay3_minmax1;
@@ -147,8 +344,6 @@ class T_specparam_assignment_pulse2;
 class T_dimension;
 class T_range_NOSPEC;
 class T_range;
-class T_automatic_false;
-class T_automatic_true;
 class T_function_declaration_1;
 class T_function_declaration_2;
 class T_function_item_declaration_block;
@@ -173,10 +368,6 @@ class T_tf_output_declaration_reg;
 class T_tf_output_declaration_type;
 class T_tf_inout_declaration_reg;
 class T_tf_inout_declaration_type;
-class T_task_port_type_integer;
-class T_task_port_type_real;
-class T_task_port_type_realtime;
-class T_task_port_type_time;
 class T_block_item_declaration_reg;
 class T_block_item_declaration_integer;
 class T_block_item_declaration_time;
@@ -214,30 +405,6 @@ class T_pullup_strength_NOSPEC;
 class T_pullup_strength01;
 class T_pullup_strength10;
 class T_pullup_strength1;
-class T_cmos_switchtype_CMOS;
-class T_cmos_switchtype_RCMOS;
-class T_enable_gatetype__BUFIF0;
-class T_enable_gatetype__BUFIF1;
-class T_enable_gatetype__NOTIF0;
-class T_enable_gatetype__NOTIF1;
-class T_mos_switchtype_NMOS;
-class T_mos_switchtype_PMOS;
-class T_mos_switchtype_RNMOS;
-class T_mos_switchtype_RPMOS;
-class T_n_input_gatetype_AND;
-class T_n_input_gatetype_NAND;
-class T_n_input_gatetype_OR;
-class T_n_input_gatetype_NOR;
-class T_n_input_gatetype_XOR;
-class T_n_input_gatetype_XNOR;
-class T_n_output_gatetype_BUF;
-class T_n_output_gatetype_NOT;
-class T_pass_en_switchtype_TRANIF0;
-class T_pass_en_switchtype_TRANIF1;
-class T_pass_en_switchtype_RTRANIF1;
-class T_pass_en_switchtype_RTRANIF0;
-class T_pass_switchtype_TRAN;
-class T_pass_switchtype_RTRAN;
 class T_module_instantiation;
 class T_module_instance;
 class T_name_of_module_instance_NOSPEC;
@@ -444,9 +611,6 @@ class T_attribute_instance;
 class T_attr_spec;
 class T_hierarchical_identifier;
 class T_identifier_lsq_expression_rsq;
-class T_polarity_operator_NOSPEC;
-class T_polarity_operator_ADD;
-class T_polarity_operator_SUB;
 class T_system_timing_check_dollor_setup_timing_check;
 class T_system_timing_check_dollor_hold_timing_check;
 class T_system_timing_check_dollor_setuphold_timing_check;
@@ -504,12 +668,6 @@ class T_edge_descriptor_01;
 class T_edge_descriptor_10;
 class T_edge_descriptor_zx01;
 class T_edge_descriptor_01zx;
-class T_zero_or_one_0;
-class T_zero_or_one_1;
-class T_z_or_x__x;
-class T_z_or_x__X;
-class T_z_or_x__z;
-class T_z_or_x__Z;
 class T_timing_check_condition_NOSPEC;
 class T_timing_check_condition;
 class T_scalar_timing_check_condition_exp;
@@ -523,69 +681,6 @@ class T_scalar_constant_binary;
 class T_delayed_data_NOSPEC;
 class T_delayed_data_id;
 class T_delayed_data_idmtmexp;
-class T_edge_identifier_NOSPEC;
-class T_edge_identifier_POS;
-class T_edge_identifier_NEG;
-class T_unary_operator_LOGIC_NEG;
-class T_unary_operator_BITWISE_NEG;
-class T_unary_operator_REDUCE_NOR;
-class T_unary_operator_REDUCE_NAND;
-class T_unary_operator_ADD;
-class T_unary_operator_SUB;
-class T_unary_operator_REDUCE_AND;
-class T_unary_operator_REDUCE_OR;
-class T_unary_operator_REDUCE_XOR;
-class T_unary_operator_REDUCE_XNOR;
-class T_binary_operator_MUL;
-class T_binary_operator_DIV;
-class T_binary_operator_MOD;
-class T_binary_operator_EQU2;
-class T_binary_operator_NEQ2;
-class T_binary_operator_EQU3;
-class T_binary_operator_NEQ3;
-class T_binary_operator_POWER;
-class T_binary_operator_LT;
-class T_binary_operator_LE;
-class T_binary_operator_GT;
-class T_binary_operator_GE;
-class T_binary_operator_LOGICAL_RIGHTSHIFT;
-class T_binary_operator_LOGICAL_LEFTSHIFT;
-class T_binary_operator_ARITHMETIC_RIGHTSHIFT;
-class T_binary_operator_ARITHMETIC_LEFTSHIFT;
-class T_binary_operator_ADD;
-class T_binary_operator_SUB;
-class T_binary_operator_AND;
-class T_binary_operator_OR;
-class T_binary_operator_AND2;
-class T_binary_operator_OR2;
-class T_binary_operator_XOR;
-class T_binary_operator_XNOR;
-class T_binary_operator_1;
-class T_binary_operator_2;
-class T_unary_module_path_operator_GANTANHAO;
-class T_unary_module_path_operator_BOLANGHAO;
-class T_unary_module_path_operator_AND;
-class T_unary_module_path_operator_NAND;
-class T_unary_module_path_operator_OR;
-class T_unary_module_path_operator_NOR;
-class T_unary_module_path_operator_XOR;
-class T_unary_module_path_operator_XNOR;
-class T_binary_module_path_operator_EQU2;
-class T_binary_module_path_operator_NEQ2;
-class T_binary_module_path_operator_AND2;
-class T_binary_module_path_operator_OR2;
-class T_binary_module_path_operator_AND1;
-class T_binary_module_path_operator_OR1;
-class T_binary_module_path_operator_XOR;
-class T_binary_module_path_operator_XNOR;
-class T_level_symbol_0;
-class T_level_symbol_1;
-class T_level_symbol_x;
-class T_level_symbol_X;
-class T_level_symbol_QUESTION;
-class T_level_symbol_b;
-class T_level_symbol_B;
-class T_level_symbol_SUB;
 class T_output_symbol_UNSIGNED_NUMBER;
 class T_output_symbol_SIMID;
 class T_number_UNSIGNED_NUMBER;
@@ -597,48 +692,15 @@ class T_number_REAL_NUMBER;
 class T_next_state_UNSIGNED_NUMBER;
 class T_next_state_SIMID;
 class T_next_state_SUB;
-class T_edge_symbol_r;
-class T_edge_symbol_R;
-class T_edge_symbol_f;
-class T_edge_symbol_F;
-class T_edge_symbol_p;
-class T_edge_symbol_P;
-class T_edge_symbol_n;
-class T_edge_symbol_N;
 class T_string;
 class T_system_function_identifier;
 class T_io_declaration_net;
-class T_netreg_type__NOSPEC;
-class T_netreg_type__KEY_SUPPLY0;
-class T_netreg_type__KEY_SUPPLY1;
-class T_netreg_type__KEY_TRI;
-class T_netreg_type__KEY_TRIAND;
-class T_netreg_type__KEY_TRIOR;
-class T_netreg_type__KEY_TRI0;
-class T_netreg_type__KEY_TRI1;
-class T_netreg_type__KEY_UWIRE;
-class T_netreg_type__KEY_WIRE;
-class T_netreg_type__KEY_WAND;
-class T_netreg_type__KEY_WOR;
-class T_netreg_type__KEY_REG;
-class T_netreg_type__KEY_INTEGER;
-class T_netreg_type__KEY_TIME;
 class T_statement_or_block_item_statement;
 class T_statement_or_block_item_block;
 class T_tf_io_declaration_gen1;
 class T_tf_io_declaration_gen2;
-class T_io_type_NOSPEC;
-class T_io_type_output;
-class T_io_type_input;
-class T_io_type_inout;
-class T_reg_false;
-class T_reg_true;
 class T_identifier_NOSPEC;
 class T_identifier;
-class T_colon_config_opt_FALSE;
-class T_colon_config_opt_TRUE;
-class T_signed_FALSE;
-class T_signed_TRUE;
 typedef boost::variant<
  std::shared_ptr<T_description__module_declaration>
  ,  std::shared_ptr<T_description__udp_declaration>
@@ -727,13 +789,6 @@ typedef boost::variant<
  std::shared_ptr<T_specparam_declaration>
  > specparam_declaration ; 
 typedef boost::variant<
- std::shared_ptr<T_parameter_type__NOSPEC>
- ,  std::shared_ptr<T_parameter_type__INTEGER>
- ,  std::shared_ptr<T_parameter_type__REAL>
- ,  std::shared_ptr<T_parameter_type__REALTIME>
- ,  std::shared_ptr<T_parameter_type__TIME>
- > parameter_type ; 
-typedef boost::variant<
  std::shared_ptr<T_inout_declaration>
  > inout_declaration ; 
 typedef boost::variant<
@@ -744,10 +799,6 @@ typedef boost::variant<
  ,  std::shared_ptr<T_output_declaration_reg>
  ,  std::shared_ptr<T_output_declaration_var>
  > output_declaration ; 
-typedef boost::variant<
- std::shared_ptr<T_output_variable_type_INTEGER>
- ,  std::shared_ptr<T_output_variable_type_TIME>
- > output_variable_type ; 
 typedef boost::variant<
  std::shared_ptr<T_event_declaration>
  > event_declaration ; 
@@ -765,11 +816,6 @@ typedef boost::variant<
  ,  std::shared_ptr<T_net_declaration_trireg_4>
  > net_declaration ; 
 typedef boost::variant<
- std::shared_ptr<T_vectored_scalared_NOSPEC>
- ,  std::shared_ptr<T_vectored_scalared_vectored>
- ,  std::shared_ptr<T_vectored_scalared_scalared>
- > vectored_scalared ; 
-typedef boost::variant<
  std::shared_ptr<T_real_declaration>
  > real_declaration ; 
 typedef boost::variant<
@@ -782,20 +828,6 @@ typedef boost::variant<
  std::shared_ptr<T_time_declaration>
  > time_declaration ; 
 typedef boost::variant<
- std::shared_ptr<T_net_type_NOSPEC>
- ,  std::shared_ptr<T_net_type__KEY_SUPPLY0>
- ,  std::shared_ptr<T_net_type__KEY_SUPPLY1>
- ,  std::shared_ptr<T_net_type__KEY_TRI>
- ,  std::shared_ptr<T_net_type__KEY_TRIAND>
- ,  std::shared_ptr<T_net_type__KEY_TRIOR>
- ,  std::shared_ptr<T_net_type__KEY_TRI0>
- ,  std::shared_ptr<T_net_type__KEY_TRI1>
- ,  std::shared_ptr<T_net_type__KEY_UWIRE>
- ,  std::shared_ptr<T_net_type__KEY_WIRE>
- ,  std::shared_ptr<T_net_type__KEY_WAND>
- ,  std::shared_ptr<T_net_type__KEY_WOR>
- > net_type ; 
-typedef boost::variant<
  std::shared_ptr<T_real_type_noass>
  ,  std::shared_ptr<T_real_type_ass>
  > real_type ; 
@@ -804,27 +836,9 @@ typedef boost::variant<
  ,  std::shared_ptr<T_variable_type_ass>
  > variable_type ; 
 typedef boost::variant<
- std::shared_ptr<KEY_HIGHZ0>
- ,  std::shared_ptr<KEY_HIGHZ1>
- ,  std::shared_ptr<KEY_SUPPLY0>
- ,  std::shared_ptr<KEY_STRONG0>
- ,  std::shared_ptr<KEY_PULL0>
- ,  std::shared_ptr<KEY_WEAK0>
- ,  std::shared_ptr<KEY_SUPPLY1>
- ,  std::shared_ptr<KEY_STRONG1>
- ,  std::shared_ptr<KEY_PULL1>
- ,  std::shared_ptr<KEY_WEAK1>
- > strength ; 
-typedef boost::variant<
  std::shared_ptr<T_drive_strength_NOSPEC>
  ,  std::shared_ptr<T_drive_strength>
  > drive_strength ; 
-typedef boost::variant<
- std::shared_ptr<T_charge_strength_NOSPEC>
- ,  std::shared_ptr<T_charge_strength__small>
- ,  std::shared_ptr<T_charge_strength__medium>
- ,  std::shared_ptr<T_charge_strength__large>
- > charge_strength ; 
 typedef boost::variant<
  std::shared_ptr<T_delay3_NOSPEC>
  ,  std::shared_ptr<T_delay3_1>
@@ -869,10 +883,6 @@ typedef boost::variant<
  ,  std::shared_ptr<T_range>
  > range ; 
 typedef boost::variant<
- std::shared_ptr<T_automatic_false>
- ,  std::shared_ptr<T_automatic_true>
- > automatic ; 
-typedef boost::variant<
  std::shared_ptr<T_function_declaration_1>
  ,  std::shared_ptr<T_function_declaration_2>
  > function_declaration ; 
@@ -916,12 +926,6 @@ typedef boost::variant<
  std::shared_ptr<T_tf_inout_declaration_reg>
  ,  std::shared_ptr<T_tf_inout_declaration_type>
  > tf_inout_declaration ; 
-typedef boost::variant<
- std::shared_ptr<T_task_port_type_integer>
- ,  std::shared_ptr<T_task_port_type_real>
- ,  std::shared_ptr<T_task_port_type_realtime>
- ,  std::shared_ptr<T_task_port_type_time>
- > task_port_type ; 
 typedef boost::variant<
  std::shared_ptr<T_block_item_declaration_reg>
  ,  std::shared_ptr<T_block_item_declaration_integer>
@@ -989,44 +993,6 @@ typedef boost::variant<
  ,  std::shared_ptr<T_pullup_strength10>
  ,  std::shared_ptr<T_pullup_strength1>
  > pullup_strength ; 
-typedef boost::variant<
- std::shared_ptr<T_cmos_switchtype_CMOS>
- ,  std::shared_ptr<T_cmos_switchtype_RCMOS>
- > cmos_switchtype ; 
-typedef boost::variant<
- std::shared_ptr<T_enable_gatetype__BUFIF0>
- ,  std::shared_ptr<T_enable_gatetype__BUFIF1>
- ,  std::shared_ptr<T_enable_gatetype__NOTIF0>
- ,  std::shared_ptr<T_enable_gatetype__NOTIF1>
- > enable_gatetype ; 
-typedef boost::variant<
- std::shared_ptr<T_mos_switchtype_NMOS>
- ,  std::shared_ptr<T_mos_switchtype_PMOS>
- ,  std::shared_ptr<T_mos_switchtype_RNMOS>
- ,  std::shared_ptr<T_mos_switchtype_RPMOS>
- > mos_switchtype ; 
-typedef boost::variant<
- std::shared_ptr<T_n_input_gatetype_AND>
- ,  std::shared_ptr<T_n_input_gatetype_NAND>
- ,  std::shared_ptr<T_n_input_gatetype_OR>
- ,  std::shared_ptr<T_n_input_gatetype_NOR>
- ,  std::shared_ptr<T_n_input_gatetype_XOR>
- ,  std::shared_ptr<T_n_input_gatetype_XNOR>
- > n_input_gatetype ; 
-typedef boost::variant<
- std::shared_ptr<T_n_output_gatetype_BUF>
- ,  std::shared_ptr<T_n_output_gatetype_NOT>
- > n_output_gatetype ; 
-typedef boost::variant<
- std::shared_ptr<T_pass_en_switchtype_TRANIF0>
- ,  std::shared_ptr<T_pass_en_switchtype_TRANIF1>
- ,  std::shared_ptr<T_pass_en_switchtype_RTRANIF1>
- ,  std::shared_ptr<T_pass_en_switchtype_RTRANIF0>
- > pass_en_switchtype ; 
-typedef boost::variant<
- std::shared_ptr<T_pass_switchtype_TRAN>
- ,  std::shared_ptr<T_pass_switchtype_RTRAN>
- > pass_switchtype ; 
 typedef boost::variant<
  std::shared_ptr<T_module_instantiation>
  > module_instantiation ; 
@@ -1436,11 +1402,6 @@ typedef boost::variant<
  std::shared_ptr<T_identifier_lsq_expression_rsq>
  > identifier_lsq_expression_rsq ; 
 typedef boost::variant<
- std::shared_ptr<T_polarity_operator_NOSPEC>
- ,  std::shared_ptr<T_polarity_operator_ADD>
- ,  std::shared_ptr<T_polarity_operator_SUB>
- > polarity_operator ; 
-typedef boost::variant<
  std::shared_ptr<T_system_timing_check_dollor_setup_timing_check>
  ,  std::shared_ptr<T_system_timing_check_dollor_hold_timing_check>
  ,  std::shared_ptr<T_system_timing_check_dollor_setuphold_timing_check>
@@ -1562,16 +1523,6 @@ typedef boost::variant<
  ,  std::shared_ptr<T_edge_descriptor_01zx>
  > edge_descriptor ; 
 typedef boost::variant<
- std::shared_ptr<T_zero_or_one_0>
- ,  std::shared_ptr<T_zero_or_one_1>
- > zero_or_one ; 
-typedef boost::variant<
- std::shared_ptr<T_z_or_x__x>
- ,  std::shared_ptr<T_z_or_x__X>
- ,  std::shared_ptr<T_z_or_x__z>
- ,  std::shared_ptr<T_z_or_x__Z>
- > z_or_x ; 
-typedef boost::variant<
  std::shared_ptr<T_timing_check_condition_NOSPEC>
  ,  std::shared_ptr<T_timing_check_condition>
  > timing_check_condition ; 
@@ -1593,85 +1544,6 @@ typedef boost::variant<
  ,  std::shared_ptr<T_delayed_data_idmtmexp>
  > delayed_data ; 
 typedef boost::variant<
- std::shared_ptr<T_edge_identifier_NOSPEC>
- ,  std::shared_ptr<T_edge_identifier_POS>
- ,  std::shared_ptr<T_edge_identifier_NEG>
- > edge_identifier ; 
-typedef boost::variant<
- std::shared_ptr<T_unary_operator_LOGIC_NEG>
- ,  std::shared_ptr<T_unary_operator_BITWISE_NEG>
- ,  std::shared_ptr<T_unary_operator_REDUCE_NOR>
- ,  std::shared_ptr<T_unary_operator_REDUCE_NAND>
- ,  std::shared_ptr<T_unary_operator_ADD>
- ,  std::shared_ptr<T_unary_operator_SUB>
- ,  std::shared_ptr<T_unary_operator_REDUCE_AND>
- ,  std::shared_ptr<T_unary_operator_REDUCE_OR>
- ,  std::shared_ptr<T_unary_operator_REDUCE_XOR>
- ,  std::shared_ptr<T_unary_operator_REDUCE_XNOR>
- > unary_operator ; 
-typedef boost::variant<
- std::shared_ptr<T_binary_operator_MUL>
- ,  std::shared_ptr<T_binary_operator_DIV>
- ,  std::shared_ptr<T_binary_operator_MOD>
- ,  std::shared_ptr<T_binary_operator_EQU2>
- ,  std::shared_ptr<T_binary_operator_NEQ2>
- ,  std::shared_ptr<T_binary_operator_EQU3>
- ,  std::shared_ptr<T_binary_operator_NEQ3>
- ,  std::shared_ptr<T_binary_operator_POWER>
- ,  std::shared_ptr<T_binary_operator_LT>
- ,  std::shared_ptr<T_binary_operator_LE>
- ,  std::shared_ptr<T_binary_operator_GT>
- ,  std::shared_ptr<T_binary_operator_GE>
- > binary_operator1 ; 
-typedef boost::variant<
- std::shared_ptr<T_binary_operator_LOGICAL_RIGHTSHIFT>
- ,  std::shared_ptr<T_binary_operator_LOGICAL_LEFTSHIFT>
- ,  std::shared_ptr<T_binary_operator_ARITHMETIC_RIGHTSHIFT>
- ,  std::shared_ptr<T_binary_operator_ARITHMETIC_LEFTSHIFT>
- ,  std::shared_ptr<T_binary_operator_ADD>
- ,  std::shared_ptr<T_binary_operator_SUB>
- ,  std::shared_ptr<T_binary_operator_AND>
- ,  std::shared_ptr<T_binary_operator_OR>
- ,  std::shared_ptr<T_binary_operator_AND2>
- ,  std::shared_ptr<T_binary_operator_OR2>
- ,  std::shared_ptr<T_binary_operator_XOR>
- ,  std::shared_ptr<T_binary_operator_XNOR>
- > binary_operator2 ; 
-typedef boost::variant<
- std::shared_ptr<T_binary_operator_1>
- ,  std::shared_ptr<T_binary_operator_2>
- > binary_operator ; 
-typedef boost::variant<
- std::shared_ptr<T_unary_module_path_operator_GANTANHAO>
- ,  std::shared_ptr<T_unary_module_path_operator_BOLANGHAO>
- ,  std::shared_ptr<T_unary_module_path_operator_AND>
- ,  std::shared_ptr<T_unary_module_path_operator_NAND>
- ,  std::shared_ptr<T_unary_module_path_operator_OR>
- ,  std::shared_ptr<T_unary_module_path_operator_NOR>
- ,  std::shared_ptr<T_unary_module_path_operator_XOR>
- ,  std::shared_ptr<T_unary_module_path_operator_XNOR>
- > unary_module_path_operator ; 
-typedef boost::variant<
- std::shared_ptr<T_binary_module_path_operator_EQU2>
- ,  std::shared_ptr<T_binary_module_path_operator_NEQ2>
- ,  std::shared_ptr<T_binary_module_path_operator_AND2>
- ,  std::shared_ptr<T_binary_module_path_operator_OR2>
- ,  std::shared_ptr<T_binary_module_path_operator_AND1>
- ,  std::shared_ptr<T_binary_module_path_operator_OR1>
- ,  std::shared_ptr<T_binary_module_path_operator_XOR>
- ,  std::shared_ptr<T_binary_module_path_operator_XNOR>
- > binary_module_path_operator ; 
-typedef boost::variant<
- std::shared_ptr<T_level_symbol_0>
- ,  std::shared_ptr<T_level_symbol_1>
- ,  std::shared_ptr<T_level_symbol_x>
- ,  std::shared_ptr<T_level_symbol_X>
- ,  std::shared_ptr<T_level_symbol_QUESTION>
- ,  std::shared_ptr<T_level_symbol_b>
- ,  std::shared_ptr<T_level_symbol_B>
- ,  std::shared_ptr<T_level_symbol_SUB>
- > level_symbol ; 
-typedef boost::variant<
  std::shared_ptr<T_output_symbol_UNSIGNED_NUMBER>
  ,  std::shared_ptr<T_output_symbol_SIMID>
  > output_symbol ; 
@@ -1689,16 +1561,6 @@ typedef boost::variant<
  ,  std::shared_ptr<T_next_state_SUB>
  > next_state ; 
 typedef boost::variant<
- std::shared_ptr<T_edge_symbol_r>
- ,  std::shared_ptr<T_edge_symbol_R>
- ,  std::shared_ptr<T_edge_symbol_f>
- ,  std::shared_ptr<T_edge_symbol_F>
- ,  std::shared_ptr<T_edge_symbol_p>
- ,  std::shared_ptr<T_edge_symbol_P>
- ,  std::shared_ptr<T_edge_symbol_n>
- ,  std::shared_ptr<T_edge_symbol_N>
- > edge_symbol ; 
-typedef boost::variant<
  std::shared_ptr<T_string>
  > string_typedef ; 
 typedef boost::variant<
@@ -1708,23 +1570,6 @@ typedef boost::variant<
  std::shared_ptr<T_io_declaration_net>
  > io_declaration ; 
 typedef boost::variant<
- std::shared_ptr<T_netreg_type__NOSPEC>
- ,  std::shared_ptr<T_netreg_type__KEY_SUPPLY0>
- ,  std::shared_ptr<T_netreg_type__KEY_SUPPLY1>
- ,  std::shared_ptr<T_netreg_type__KEY_TRI>
- ,  std::shared_ptr<T_netreg_type__KEY_TRIAND>
- ,  std::shared_ptr<T_netreg_type__KEY_TRIOR>
- ,  std::shared_ptr<T_netreg_type__KEY_TRI0>
- ,  std::shared_ptr<T_netreg_type__KEY_TRI1>
- ,  std::shared_ptr<T_netreg_type__KEY_UWIRE>
- ,  std::shared_ptr<T_netreg_type__KEY_WIRE>
- ,  std::shared_ptr<T_netreg_type__KEY_WAND>
- ,  std::shared_ptr<T_netreg_type__KEY_WOR>
- ,  std::shared_ptr<T_netreg_type__KEY_REG>
- ,  std::shared_ptr<T_netreg_type__KEY_INTEGER>
- ,  std::shared_ptr<T_netreg_type__KEY_TIME>
- > netreg_type ; 
-typedef boost::variant<
  std::shared_ptr<T_statement_or_block_item_statement>
  ,  std::shared_ptr<T_statement_or_block_item_block>
  > statement_or_block_item ; 
@@ -1733,27 +1578,9 @@ typedef boost::variant<
  ,  std::shared_ptr<T_tf_io_declaration_gen2>
  > tf_io_declaration_gen ; 
 typedef boost::variant<
- std::shared_ptr<T_io_type_NOSPEC>
- ,  std::shared_ptr<T_io_type_output>
- ,  std::shared_ptr<T_io_type_input>
- ,  std::shared_ptr<T_io_type_inout>
- > io_type ; 
-typedef boost::variant<
- std::shared_ptr<T_reg_false>
- ,  std::shared_ptr<T_reg_true>
- > reg ; 
-typedef boost::variant<
  std::shared_ptr<T_identifier_NOSPEC>
  ,  std::shared_ptr<T_identifier>
  > identifier ; 
-typedef boost::variant<
- std::shared_ptr<T_colon_config_opt_FALSE>
- ,  std::shared_ptr<T_colon_config_opt_TRUE>
- > colon_config_opt ; 
-typedef boost::variant<
- std::shared_ptr<T_signed_FALSE>
- ,  std::shared_ptr<T_signed_TRUE>
- > signedType ; 
 class T_description__module_declaration : public ComponentBase {
   public :
     std::shared_ptr<module_declaration> mem1;
@@ -1786,18 +1613,18 @@ class T_description__config_declaration : public ComponentBase {
 };
 class T_module_declaration__1 : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<identifier> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< parameter_declaration>>> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< port>>> mem4;
-    std::shared_ptr<std::list<std::shared_ptr< module_item>>> mem5;
+    std::shared_ptr<std::list<std::shared_ptr<parameter_declaration>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<port>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<module_item>>> mem5;
 
   T_module_declaration__1( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<identifier> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< parameter_declaration>>> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< port>>> i4
- ,     std::shared_ptr<std::list<std::shared_ptr< module_item>>> i5
+ ,     std::shared_ptr<std::list<std::shared_ptr<parameter_declaration>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<port>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<module_item>>> i5
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -1808,18 +1635,18 @@ class T_module_declaration__1 : public ComponentBase {
 };
 class T_module_declaration__2 : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<identifier> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< parameter_declaration>>> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< port_declaration>>> mem4;
-    std::shared_ptr<std::list<std::shared_ptr< module_item>>> mem5;
+    std::shared_ptr<std::list<std::shared_ptr<parameter_declaration>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<port_declaration>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<module_item>>> mem5;
 
   T_module_declaration__2( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<identifier> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< parameter_declaration>>> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< port_declaration>>> i4
- ,     std::shared_ptr<std::list<std::shared_ptr< module_item>>> i5
+ ,     std::shared_ptr<std::list<std::shared_ptr<parameter_declaration>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<port_declaration>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<module_item>>> i5
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -1853,10 +1680,10 @@ class T_port_unnamed : public ComponentBase {
 };
 class T_port_expression : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< port_reference>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<port_reference>>> mem1;
 
   T_port_expression( 
-       std::shared_ptr<std::list<std::shared_ptr< port_reference>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<port_reference>>> i1
   ):
        mem1(i1)
   {}
@@ -1876,11 +1703,11 @@ class T_port_reference : public ComponentBase {
 };
 class T_port_declaration__inout_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<inout_declaration> mem2;
 
   T_port_declaration__inout_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<inout_declaration> i2
   ):
        mem1(i1)
@@ -1889,11 +1716,11 @@ class T_port_declaration__inout_declaration : public ComponentBase {
 };
 class T_port_declaration__input_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<input_declaration> mem2;
 
   T_port_declaration__input_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<input_declaration> i2
   ):
        mem1(i1)
@@ -1902,11 +1729,11 @@ class T_port_declaration__input_declaration : public ComponentBase {
 };
 class T_port_declaration__output_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<output_declaration> mem2;
 
   T_port_declaration__output_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<output_declaration> i2
   ):
        mem1(i1)
@@ -1965,11 +1792,11 @@ class T_module_item__specify_block : public ComponentBase {
 };
 class T_module_item__parameter_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<parameter_declaration> mem2;
 
   T_module_item__parameter_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<parameter_declaration> i2
   ):
        mem1(i1)
@@ -1978,11 +1805,11 @@ class T_module_item__parameter_declaration : public ComponentBase {
 };
 class T_module_item__specparam_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<specparam_declaration> mem2;
 
   T_module_item__specparam_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<specparam_declaration> i2
   ):
        mem1(i1)
@@ -1991,11 +1818,11 @@ class T_module_item__specparam_declaration : public ComponentBase {
 };
 class T_module_item__net_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<net_declaration> mem2;
 
   T_module_item__net_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<net_declaration> i2
   ):
        mem1(i1)
@@ -2004,11 +1831,11 @@ class T_module_item__net_declaration : public ComponentBase {
 };
 class T_module_item__reg_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<reg_declaration> mem2;
 
   T_module_item__reg_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<reg_declaration> i2
   ):
        mem1(i1)
@@ -2017,11 +1844,11 @@ class T_module_item__reg_declaration : public ComponentBase {
 };
 class T_module_item__integer_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<integer_declaration> mem2;
 
   T_module_item__integer_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<integer_declaration> i2
   ):
        mem1(i1)
@@ -2030,11 +1857,11 @@ class T_module_item__integer_declaration : public ComponentBase {
 };
 class T_module_item__real_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<real_declaration> mem2;
 
   T_module_item__real_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<real_declaration> i2
   ):
        mem1(i1)
@@ -2043,11 +1870,11 @@ class T_module_item__real_declaration : public ComponentBase {
 };
 class T_module_item__time_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<time_declaration> mem2;
 
   T_module_item__time_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<time_declaration> i2
   ):
        mem1(i1)
@@ -2056,11 +1883,11 @@ class T_module_item__time_declaration : public ComponentBase {
 };
 class T_module_item__realtime_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<realtime_declaration> mem2;
 
   T_module_item__realtime_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<realtime_declaration> i2
   ):
        mem1(i1)
@@ -2069,11 +1896,11 @@ class T_module_item__realtime_declaration : public ComponentBase {
 };
 class T_module_item__event_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<event_declaration> mem2;
 
   T_module_item__event_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<event_declaration> i2
   ):
        mem1(i1)
@@ -2082,11 +1909,11 @@ class T_module_item__event_declaration : public ComponentBase {
 };
 class T_module_item__genvar_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<genvar_declaration> mem2;
 
   T_module_item__genvar_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<genvar_declaration> i2
   ):
        mem1(i1)
@@ -2095,11 +1922,11 @@ class T_module_item__genvar_declaration : public ComponentBase {
 };
 class T_module_item__task_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<task_declaration> mem2;
 
   T_module_item__task_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<task_declaration> i2
   ):
        mem1(i1)
@@ -2108,11 +1935,11 @@ class T_module_item__task_declaration : public ComponentBase {
 };
 class T_module_item__function_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<function_declaration> mem2;
 
   T_module_item__function_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<function_declaration> i2
   ):
        mem1(i1)
@@ -2121,11 +1948,11 @@ class T_module_item__function_declaration : public ComponentBase {
 };
 class T_module_item__local_parameter_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<local_parameter_declaration> mem2;
 
   T_module_item__local_parameter_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<local_parameter_declaration> i2
   ):
        mem1(i1)
@@ -2134,12 +1961,12 @@ class T_module_item__local_parameter_declaration : public ComponentBase {
 };
 class T_module_item__parameter_override : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< defparam_assignment>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<defparam_assignment>>> mem2;
 
   T_module_item__parameter_override( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< defparam_assignment>>> i2
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<defparam_assignment>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2147,11 +1974,11 @@ class T_module_item__parameter_override : public ComponentBase {
 };
 class T_module_item__continuous_assign : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<continuous_assign> mem2;
 
   T_module_item__continuous_assign( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<continuous_assign> i2
   ):
        mem1(i1)
@@ -2160,11 +1987,11 @@ class T_module_item__continuous_assign : public ComponentBase {
 };
 class T_module_item__gate_instantiation : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<gate_instantiation> mem2;
 
   T_module_item__gate_instantiation( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<gate_instantiation> i2
   ):
        mem1(i1)
@@ -2173,11 +2000,11 @@ class T_module_item__gate_instantiation : public ComponentBase {
 };
 class T_module_item__udp_instantiation : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<udp_instantiation> mem2;
 
   T_module_item__udp_instantiation( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<udp_instantiation> i2
   ):
        mem1(i1)
@@ -2186,11 +2013,11 @@ class T_module_item__udp_instantiation : public ComponentBase {
 };
 class T_module_item__module_instantiation : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<module_instantiation> mem2;
 
   T_module_item__module_instantiation( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<module_instantiation> i2
   ):
        mem1(i1)
@@ -2199,11 +2026,11 @@ class T_module_item__module_instantiation : public ComponentBase {
 };
 class T_module_item__initial_construct : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<initial_construct> mem2;
 
   T_module_item__initial_construct( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<initial_construct> i2
   ):
        mem1(i1)
@@ -2212,11 +2039,11 @@ class T_module_item__initial_construct : public ComponentBase {
 };
 class T_module_item__always_construct : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<always_construct> mem2;
 
   T_module_item__always_construct( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<always_construct> i2
   ):
        mem1(i1)
@@ -2225,11 +2052,11 @@ class T_module_item__always_construct : public ComponentBase {
 };
 class T_module_item__loop_generate_construct : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<loop_generate_construct> mem2;
 
   T_module_item__loop_generate_construct( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<loop_generate_construct> i2
   ):
        mem1(i1)
@@ -2238,11 +2065,11 @@ class T_module_item__loop_generate_construct : public ComponentBase {
 };
 class T_module_item__conditional_generate_construct : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<conditional_generate_construct> mem2;
 
   T_module_item__conditional_generate_construct( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<conditional_generate_construct> i2
   ):
        mem1(i1)
@@ -2253,12 +2080,12 @@ class T_config_declaration : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
     std::shared_ptr<design_statement> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< config_rule_statement>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<config_rule_statement>>> mem3;
 
   T_config_declaration( 
        std::shared_ptr<identifier> i1
  ,     std::shared_ptr<design_statement> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< config_rule_statement>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<config_rule_statement>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2267,10 +2094,10 @@ class T_config_declaration : public ComponentBase {
 };
 class T_design_statement : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< library_identifier_period_opt_cell_identifier>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<library_identifier_period_opt_cell_identifier>>> mem1;
 
   T_design_statement( 
-       std::shared_ptr<std::list<std::shared_ptr< library_identifier_period_opt_cell_identifier>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<library_identifier_period_opt_cell_identifier>>> i1
   ):
        mem1(i1)
   {}
@@ -2290,22 +2117,22 @@ class T_lib_cell_identifier : public ComponentBase {
 };
 class T_config_rule_statement__default : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem1;
 
   T_config_rule_statement__default( 
-       std::shared_ptr<std::list<std::shared_ptr< identifier>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<identifier>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_config_rule_statement__inst_lib : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem2;
 
   T_config_rule_statement__inst_lib( 
-       std::shared_ptr<std::list<std::shared_ptr< identifier>>> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i2
+       std::shared_ptr<std::list<std::shared_ptr<identifier>>> i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2313,11 +2140,11 @@ class T_config_rule_statement__inst_lib : public ComponentBase {
 };
 class T_config_rule_statement__inst_use : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem1;
     std::shared_ptr<use_clause> mem2;
 
   T_config_rule_statement__inst_use( 
-       std::shared_ptr<std::list<std::shared_ptr< identifier>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<identifier>>> i1
  ,     std::shared_ptr<use_clause> i2
   ):
        mem1(i1)
@@ -2327,11 +2154,11 @@ class T_config_rule_statement__inst_use : public ComponentBase {
 class T_config_rule_statement__cell_lib : public ComponentBase {
   public :
     std::shared_ptr<library_identifier_period_opt_cell_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem2;
 
   T_config_rule_statement__cell_lib( 
        std::shared_ptr<library_identifier_period_opt_cell_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2353,11 +2180,11 @@ class T_config_rule_statement__cell_use : public ComponentBase {
 class T_use_clause : public ComponentBase {
   public :
     std::shared_ptr<library_identifier_period_opt_cell_identifier> mem1;
-    std::shared_ptr<colon_config_opt> mem2;
+    colon_config_opt mem2;
 
   T_use_clause( 
        std::shared_ptr<library_identifier_period_opt_cell_identifier> i1
- ,     std::shared_ptr<colon_config_opt> i2
+ ,     colon_config_opt i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2365,14 +2192,14 @@ class T_use_clause : public ComponentBase {
 };
 class T_local_parameter_declaration_1 : public ComponentBase {
   public :
-    std::shared_ptr<signedType> mem1;
+    signedType mem1;
     std::shared_ptr<range> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< param_assignment>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<param_assignment>>> mem3;
 
   T_local_parameter_declaration_1( 
-       std::shared_ptr<signedType> i1
+       signedType i1
  ,     std::shared_ptr<range> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< param_assignment>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<param_assignment>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2381,12 +2208,12 @@ class T_local_parameter_declaration_1 : public ComponentBase {
 };
 class T_local_parameter_declaration_2 : public ComponentBase {
   public :
-    std::shared_ptr<parameter_type> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< param_assignment>>> mem2;
+    parameter_type mem1;
+    std::shared_ptr<std::list<std::shared_ptr<param_assignment>>> mem2;
 
   T_local_parameter_declaration_2( 
-       std::shared_ptr<parameter_type> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< param_assignment>>> i2
+       parameter_type i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<param_assignment>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2394,14 +2221,14 @@ class T_local_parameter_declaration_2 : public ComponentBase {
 };
 class T_parameter_declaration_1 : public ComponentBase {
   public :
-    std::shared_ptr<signedType> mem1;
+    signedType mem1;
     std::shared_ptr<range> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< param_assignment>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<param_assignment>>> mem3;
 
   T_parameter_declaration_1( 
-       std::shared_ptr<signedType> i1
+       signedType i1
  ,     std::shared_ptr<range> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< param_assignment>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<param_assignment>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2410,12 +2237,12 @@ class T_parameter_declaration_1 : public ComponentBase {
 };
 class T_parameter_declaration_2 : public ComponentBase {
   public :
-    std::shared_ptr<parameter_type> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< param_assignment>>> mem2;
+    parameter_type mem1;
+    std::shared_ptr<std::list<std::shared_ptr<param_assignment>>> mem2;
 
   T_parameter_declaration_2( 
-       std::shared_ptr<parameter_type> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< param_assignment>>> i2
+       parameter_type i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<param_assignment>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2424,63 +2251,28 @@ class T_parameter_declaration_2 : public ComponentBase {
 class T_specparam_declaration : public ComponentBase {
   public :
     std::shared_ptr<range> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< specparam_assignment>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<specparam_assignment>>> mem2;
 
   T_specparam_declaration( 
        std::shared_ptr<range> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< specparam_assignment>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<specparam_assignment>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
   {}
 };
-class T_parameter_type__NOSPEC : public ComponentBase {
-  public :
-
-  T_parameter_type__NOSPEC( 
-  )
-  {}
-};
-class T_parameter_type__INTEGER : public ComponentBase {
-  public :
-
-  T_parameter_type__INTEGER( 
-  )
-  {}
-};
-class T_parameter_type__REAL : public ComponentBase {
-  public :
-
-  T_parameter_type__REAL( 
-  )
-  {}
-};
-class T_parameter_type__REALTIME : public ComponentBase {
-  public :
-
-  T_parameter_type__REALTIME( 
-  )
-  {}
-};
-class T_parameter_type__TIME : public ComponentBase {
-  public :
-
-  T_parameter_type__TIME( 
-  )
-  {}
-};
 class T_inout_declaration : public ComponentBase {
   public :
-    std::shared_ptr<net_type> mem1;
-    std::shared_ptr<signedType> mem2;
+    net_type mem1;
+    signedType mem2;
     std::shared_ptr<range> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem4;
 
   T_inout_declaration( 
-       std::shared_ptr<net_type> i1
- ,     std::shared_ptr<signedType> i2
+       net_type i1
+ ,     signedType i2
  ,     std::shared_ptr<range> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2490,16 +2282,16 @@ class T_inout_declaration : public ComponentBase {
 };
 class T_input_declaration : public ComponentBase {
   public :
-    std::shared_ptr<net_type> mem1;
-    std::shared_ptr<signedType> mem2;
+    net_type mem1;
+    signedType mem2;
     std::shared_ptr<range> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem4;
 
   T_input_declaration( 
-       std::shared_ptr<net_type> i1
- ,     std::shared_ptr<signedType> i2
+       net_type i1
+ ,     signedType i2
  ,     std::shared_ptr<range> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2509,16 +2301,16 @@ class T_input_declaration : public ComponentBase {
 };
 class T_output_declaration_net : public ComponentBase {
   public :
-    std::shared_ptr<net_type> mem1;
-    std::shared_ptr<signedType> mem2;
+    net_type mem1;
+    signedType mem2;
     std::shared_ptr<range> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem4;
 
   T_output_declaration_net( 
-       std::shared_ptr<net_type> i1
- ,     std::shared_ptr<signedType> i2
+       net_type i1
+ ,     signedType i2
  ,     std::shared_ptr<range> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2528,14 +2320,14 @@ class T_output_declaration_net : public ComponentBase {
 };
 class T_output_declaration_reg : public ComponentBase {
   public :
-    std::shared_ptr<signedType> mem1;
+    signedType mem1;
     std::shared_ptr<range> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< port_identifier_equ1_expression_opt>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<port_identifier_equ1_expression_opt>>> mem3;
 
   T_output_declaration_reg( 
-       std::shared_ptr<signedType> i1
+       signedType i1
  ,     std::shared_ptr<range> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< port_identifier_equ1_expression_opt>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<port_identifier_equ1_expression_opt>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2544,63 +2336,49 @@ class T_output_declaration_reg : public ComponentBase {
 };
 class T_output_declaration_var : public ComponentBase {
   public :
-    std::shared_ptr<output_variable_type> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< port_identifier_equ1_expression_opt>>> mem2;
+    output_variable_type mem1;
+    std::shared_ptr<std::list<std::shared_ptr<port_identifier_equ1_expression_opt>>> mem2;
 
   T_output_declaration_var( 
-       std::shared_ptr<output_variable_type> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< port_identifier_equ1_expression_opt>>> i2
+       output_variable_type i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<port_identifier_equ1_expression_opt>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
   {}
 };
-class T_output_variable_type_INTEGER : public ComponentBase {
-  public :
-
-  T_output_variable_type_INTEGER( 
-  )
-  {}
-};
-class T_output_variable_type_TIME : public ComponentBase {
-  public :
-
-  T_output_variable_type_TIME( 
-  )
-  {}
-};
 class T_event_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< event_identifier_dimension_list>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<event_identifier_dimension_list>>> mem1;
 
   T_event_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< event_identifier_dimension_list>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<event_identifier_dimension_list>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_integer_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< variable_type>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<variable_type>>> mem1;
 
   T_integer_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< variable_type>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<variable_type>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_net_declaration_net_type1 : public ComponentBase {
   public :
-    std::shared_ptr<net_type> mem1;
-    std::shared_ptr<signedType> mem2;
+    net_type mem1;
+    signedType mem2;
     std::shared_ptr<delay3> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< net_identifier_dimension_list>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<net_identifier_dimension_list>>> mem4;
 
   T_net_declaration_net_type1( 
-       std::shared_ptr<net_type> i1
- ,     std::shared_ptr<signedType> i2
+       net_type i1
+ ,     signedType i2
  ,     std::shared_ptr<delay3> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< net_identifier_dimension_list>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<net_identifier_dimension_list>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2610,18 +2388,18 @@ class T_net_declaration_net_type1 : public ComponentBase {
 };
 class T_net_declaration_net_type2 : public ComponentBase {
   public :
-    std::shared_ptr<net_type> mem1;
+    net_type mem1;
     std::shared_ptr<drive_strength> mem2;
-    std::shared_ptr<signedType> mem3;
+    signedType mem3;
     std::shared_ptr<delay3> mem4;
-    std::shared_ptr<std::list<std::shared_ptr< net_decl_assignment>>> mem5;
+    std::shared_ptr<std::list<std::shared_ptr<net_decl_assignment>>> mem5;
 
   T_net_declaration_net_type2( 
-       std::shared_ptr<net_type> i1
+       net_type i1
  ,     std::shared_ptr<drive_strength> i2
- ,     std::shared_ptr<signedType> i3
+ ,     signedType i3
  ,     std::shared_ptr<delay3> i4
- ,     std::shared_ptr<std::list<std::shared_ptr< net_decl_assignment>>> i5
+ ,     std::shared_ptr<std::list<std::shared_ptr<net_decl_assignment>>> i5
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2632,22 +2410,22 @@ class T_net_declaration_net_type2 : public ComponentBase {
 };
 class T_net_declaration_net_type3 : public ComponentBase {
   public :
-    std::shared_ptr<net_type> mem1;
+    net_type mem1;
     std::shared_ptr<drive_strength> mem2;
-    std::shared_ptr<vectored_scalared> mem3;
-    std::shared_ptr<signedType> mem4;
+    vectored_scalared mem3;
+    signedType mem4;
     std::shared_ptr<range> mem5;
     std::shared_ptr<delay3> mem6;
-    std::shared_ptr<std::list<std::shared_ptr< net_identifier_dimension_list>>> mem7;
+    std::shared_ptr<std::list<std::shared_ptr<net_identifier_dimension_list>>> mem7;
 
   T_net_declaration_net_type3( 
-       std::shared_ptr<net_type> i1
+       net_type i1
  ,     std::shared_ptr<drive_strength> i2
- ,     std::shared_ptr<vectored_scalared> i3
- ,     std::shared_ptr<signedType> i4
+ ,     vectored_scalared i3
+ ,     signedType i4
  ,     std::shared_ptr<range> i5
  ,     std::shared_ptr<delay3> i6
- ,     std::shared_ptr<std::list<std::shared_ptr< net_identifier_dimension_list>>> i7
+ ,     std::shared_ptr<std::list<std::shared_ptr<net_identifier_dimension_list>>> i7
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2660,22 +2438,22 @@ class T_net_declaration_net_type3 : public ComponentBase {
 };
 class T_net_declaration_net_type4 : public ComponentBase {
   public :
-    std::shared_ptr<net_type> mem1;
+    net_type mem1;
     std::shared_ptr<drive_strength> mem2;
-    std::shared_ptr<vectored_scalared> mem3;
-    std::shared_ptr<signedType> mem4;
+    vectored_scalared mem3;
+    signedType mem4;
     std::shared_ptr<range> mem5;
     std::shared_ptr<delay3> mem6;
-    std::shared_ptr<std::list<std::shared_ptr< net_decl_assignment>>> mem7;
+    std::shared_ptr<std::list<std::shared_ptr<net_decl_assignment>>> mem7;
 
   T_net_declaration_net_type4( 
-       std::shared_ptr<net_type> i1
+       net_type i1
  ,     std::shared_ptr<drive_strength> i2
- ,     std::shared_ptr<vectored_scalared> i3
- ,     std::shared_ptr<signedType> i4
+ ,     vectored_scalared i3
+ ,     signedType i4
  ,     std::shared_ptr<range> i5
  ,     std::shared_ptr<delay3> i6
- ,     std::shared_ptr<std::list<std::shared_ptr< net_decl_assignment>>> i7
+ ,     std::shared_ptr<std::list<std::shared_ptr<net_decl_assignment>>> i7
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2688,16 +2466,16 @@ class T_net_declaration_net_type4 : public ComponentBase {
 };
 class T_net_declaration_trireg_1 : public ComponentBase {
   public :
-    std::shared_ptr<charge_strength> mem1;
-    std::shared_ptr<signedType> mem2;
+    charge_strength mem1;
+    signedType mem2;
     std::shared_ptr<delay3> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< net_identifier_dimension_list>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<net_identifier_dimension_list>>> mem4;
 
   T_net_declaration_trireg_1( 
-       std::shared_ptr<charge_strength> i1
- ,     std::shared_ptr<signedType> i2
+       charge_strength i1
+ ,     signedType i2
  ,     std::shared_ptr<delay3> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< net_identifier_dimension_list>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<net_identifier_dimension_list>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2708,15 +2486,15 @@ class T_net_declaration_trireg_1 : public ComponentBase {
 class T_net_declaration_trireg_2 : public ComponentBase {
   public :
     std::shared_ptr<drive_strength> mem1;
-    std::shared_ptr<signedType> mem2;
+    signedType mem2;
     std::shared_ptr<delay3> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< net_decl_assignment>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<net_decl_assignment>>> mem4;
 
   T_net_declaration_trireg_2( 
        std::shared_ptr<drive_strength> i1
- ,     std::shared_ptr<signedType> i2
+ ,     signedType i2
  ,     std::shared_ptr<delay3> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< net_decl_assignment>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<net_decl_assignment>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2726,42 +2504,20 @@ class T_net_declaration_trireg_2 : public ComponentBase {
 };
 class T_net_declaration_trireg_3 : public ComponentBase {
   public :
-    std::shared_ptr<charge_strength> mem1;
-    std::shared_ptr<vectored_scalared> mem2;
-    std::shared_ptr<signedType> mem3;
+    charge_strength mem1;
+    vectored_scalared mem2;
+    signedType mem3;
     std::shared_ptr<range> mem4;
     std::shared_ptr<delay3> mem5;
+    std::shared_ptr<std::list<std::shared_ptr<net_identifier_dimension_list>>> mem6;
 
   T_net_declaration_trireg_3( 
-       std::shared_ptr<charge_strength> i1
- ,     std::shared_ptr<vectored_scalared> i2
- ,     std::shared_ptr<signedType> i3
+       charge_strength i1
+ ,     vectored_scalared i2
+ ,     signedType i3
  ,     std::shared_ptr<range> i4
  ,     std::shared_ptr<delay3> i5
-  ):
-       mem1(i1)
- ,     mem2(i2)
- ,     mem3(i3)
- ,     mem4(i4)
- ,     mem5(i5)
-  {}
-};
-class T_net_declaration_trireg_4 : public ComponentBase {
-  public :
-    std::shared_ptr<drive_strength> mem1;
-    std::shared_ptr<vectored_scalared> mem2;
-    std::shared_ptr<signedType> mem3;
-    std::shared_ptr<range> mem4;
-    std::shared_ptr<delay3> mem5;
-    std::shared_ptr<std::list<std::shared_ptr< net_decl_assignment>>> mem6;
-
-  T_net_declaration_trireg_4( 
-       std::shared_ptr<drive_strength> i1
- ,     std::shared_ptr<vectored_scalared> i2
- ,     std::shared_ptr<signedType> i3
- ,     std::shared_ptr<range> i4
- ,     std::shared_ptr<delay3> i5
- ,     std::shared_ptr<std::list<std::shared_ptr< net_decl_assignment>>> i6
+ ,     std::shared_ptr<std::list<std::shared_ptr<net_identifier_dimension_list>>> i6
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2771,57 +2527,61 @@ class T_net_declaration_trireg_4 : public ComponentBase {
  ,     mem6(i6)
   {}
 };
-class T_vectored_scalared_NOSPEC : public ComponentBase {
+class T_net_declaration_trireg_4 : public ComponentBase {
   public :
+    std::shared_ptr<drive_strength> mem1;
+    vectored_scalared mem2;
+    signedType mem3;
+    std::shared_ptr<range> mem4;
+    std::shared_ptr<delay3> mem5;
+    std::shared_ptr<std::list<std::shared_ptr<net_decl_assignment>>> mem6;
 
-  T_vectored_scalared_NOSPEC( 
-  )
-  {}
-};
-class T_vectored_scalared_vectored : public ComponentBase {
-  public :
-
-  T_vectored_scalared_vectored( 
-  )
-  {}
-};
-class T_vectored_scalared_scalared : public ComponentBase {
-  public :
-
-  T_vectored_scalared_scalared( 
-  )
+  T_net_declaration_trireg_4( 
+       std::shared_ptr<drive_strength> i1
+ ,     vectored_scalared i2
+ ,     signedType i3
+ ,     std::shared_ptr<range> i4
+ ,     std::shared_ptr<delay3> i5
+ ,     std::shared_ptr<std::list<std::shared_ptr<net_decl_assignment>>> i6
+  ):
+       mem1(i1)
+ ,     mem2(i2)
+ ,     mem3(i3)
+ ,     mem4(i4)
+ ,     mem5(i5)
+ ,     mem6(i6)
   {}
 };
 class T_real_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< real_type>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<real_type>>> mem1;
 
   T_real_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< real_type>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<real_type>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_realtime_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< real_type>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<real_type>>> mem1;
 
   T_realtime_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< real_type>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<real_type>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_reg_declaration : public ComponentBase {
   public :
-    std::shared_ptr<signedType> mem1;
+    signedType mem1;
     std::shared_ptr<range> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< variable_type>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<variable_type>>> mem3;
 
   T_reg_declaration( 
-       std::shared_ptr<signedType> i1
+       signedType i1
  ,     std::shared_ptr<range> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< variable_type>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<variable_type>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2830,106 +2590,22 @@ class T_reg_declaration : public ComponentBase {
 };
 class T_time_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< variable_type>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<variable_type>>> mem1;
 
   T_time_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< variable_type>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<variable_type>>> i1
   ):
        mem1(i1)
-  {}
-};
-class T_net_type_NOSPEC : public ComponentBase {
-  public :
-
-  T_net_type_NOSPEC( 
-  )
-  {}
-};
-class T_net_type__KEY_SUPPLY0 : public ComponentBase {
-  public :
-
-  T_net_type__KEY_SUPPLY0( 
-  )
-  {}
-};
-class T_net_type__KEY_SUPPLY1 : public ComponentBase {
-  public :
-
-  T_net_type__KEY_SUPPLY1( 
-  )
-  {}
-};
-class T_net_type__KEY_TRI : public ComponentBase {
-  public :
-
-  T_net_type__KEY_TRI( 
-  )
-  {}
-};
-class T_net_type__KEY_TRIAND : public ComponentBase {
-  public :
-
-  T_net_type__KEY_TRIAND( 
-  )
-  {}
-};
-class T_net_type__KEY_TRIOR : public ComponentBase {
-  public :
-
-  T_net_type__KEY_TRIOR( 
-  )
-  {}
-};
-class T_net_type__KEY_TRI0 : public ComponentBase {
-  public :
-
-  T_net_type__KEY_TRI0( 
-  )
-  {}
-};
-class T_net_type__KEY_TRI1 : public ComponentBase {
-  public :
-
-  T_net_type__KEY_TRI1( 
-  )
-  {}
-};
-class T_net_type__KEY_UWIRE : public ComponentBase {
-  public :
-
-  T_net_type__KEY_UWIRE( 
-  )
-  {}
-};
-class T_net_type__KEY_WIRE : public ComponentBase {
-  public :
-
-  T_net_type__KEY_WIRE( 
-  )
-  {}
-};
-class T_net_type__KEY_WAND : public ComponentBase {
-  public :
-
-  T_net_type__KEY_WAND( 
-  )
-  {}
-};
-class T_net_type__KEY_WOR : public ComponentBase {
-  public :
-
-  T_net_type__KEY_WOR( 
-  )
   {}
 };
 class T_real_type_noass : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< dimension>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<dimension>>> mem2;
 
   T_real_type_noass( 
        std::shared_ptr<identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< dimension>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<dimension>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2951,11 +2627,11 @@ class T_real_type_ass : public ComponentBase {
 class T_variable_type_noass : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< dimension>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<dimension>>> mem2;
 
   T_variable_type_noass( 
        std::shared_ptr<identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< dimension>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<dimension>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -2974,76 +2650,6 @@ class T_variable_type_ass : public ComponentBase {
  ,     mem2(i2)
   {}
 };
-class KEY_HIGHZ0 : public ComponentBase {
-  public :
-
-  KEY_HIGHZ0( 
-  )
-  {}
-};
-class KEY_HIGHZ1 : public ComponentBase {
-  public :
-
-  KEY_HIGHZ1( 
-  )
-  {}
-};
-class KEY_SUPPLY0 : public ComponentBase {
-  public :
-
-  KEY_SUPPLY0( 
-  )
-  {}
-};
-class KEY_STRONG0 : public ComponentBase {
-  public :
-
-  KEY_STRONG0( 
-  )
-  {}
-};
-class KEY_PULL0 : public ComponentBase {
-  public :
-
-  KEY_PULL0( 
-  )
-  {}
-};
-class KEY_WEAK0 : public ComponentBase {
-  public :
-
-  KEY_WEAK0( 
-  )
-  {}
-};
-class KEY_SUPPLY1 : public ComponentBase {
-  public :
-
-  KEY_SUPPLY1( 
-  )
-  {}
-};
-class KEY_STRONG1 : public ComponentBase {
-  public :
-
-  KEY_STRONG1( 
-  )
-  {}
-};
-class KEY_PULL1 : public ComponentBase {
-  public :
-
-  KEY_PULL1( 
-  )
-  {}
-};
-class KEY_WEAK1 : public ComponentBase {
-  public :
-
-  KEY_WEAK1( 
-  )
-  {}
-};
 class T_drive_strength_NOSPEC : public ComponentBase {
   public :
 
@@ -3053,43 +2659,15 @@ class T_drive_strength_NOSPEC : public ComponentBase {
 };
 class T_drive_strength : public ComponentBase {
   public :
-    std::shared_ptr<strength> mem1;
-    std::shared_ptr<strength> mem2;
+    strength mem1;
+    strength mem2;
 
   T_drive_strength( 
-       std::shared_ptr<strength> i1
- ,     std::shared_ptr<strength> i2
+       strength i1
+ ,     strength i2
   ):
        mem1(i1)
  ,     mem2(i2)
-  {}
-};
-class T_charge_strength_NOSPEC : public ComponentBase {
-  public :
-
-  T_charge_strength_NOSPEC( 
-  )
-  {}
-};
-class T_charge_strength__small : public ComponentBase {
-  public :
-
-  T_charge_strength__small( 
-  )
-  {}
-};
-class T_charge_strength__medium : public ComponentBase {
-  public :
-
-  T_charge_strength__medium( 
-  )
-  {}
-};
-class T_charge_strength__large : public ComponentBase {
-  public :
-
-  T_charge_strength__large( 
-  )
   {}
 };
 class T_delay3_NOSPEC : public ComponentBase {
@@ -3191,11 +2769,11 @@ class T_delay2_minmax2 : public ComponentBase {
 class T_event_identifier_dimension_list : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< dimension>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<dimension>>> mem2;
 
   T_event_identifier_dimension_list( 
        std::shared_ptr<identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< dimension>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<dimension>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3204,11 +2782,11 @@ class T_event_identifier_dimension_list : public ComponentBase {
 class T_net_identifier_dimension_list : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< dimension>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<dimension>>> mem2;
 
   T_net_identifier_dimension_list( 
        std::shared_ptr<identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< dimension>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<dimension>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3344,33 +2922,19 @@ class T_range : public ComponentBase {
  ,     mem2(i2)
   {}
 };
-class T_automatic_false : public ComponentBase {
-  public :
-
-  T_automatic_false( 
-  )
-  {}
-};
-class T_automatic_true : public ComponentBase {
-  public :
-
-  T_automatic_true( 
-  )
-  {}
-};
 class T_function_declaration_1 : public ComponentBase {
   public :
-    std::shared_ptr<automatic> mem1;
+    automatic mem1;
     std::shared_ptr<function_range_or_type> mem2;
     std::shared_ptr<identifier> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< function_item_declaration>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<function_item_declaration>>> mem4;
     std::shared_ptr<statement> mem5;
 
   T_function_declaration_1( 
-       std::shared_ptr<automatic> i1
+       automatic i1
  ,     std::shared_ptr<function_range_or_type> i2
  ,     std::shared_ptr<identifier> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< function_item_declaration>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<function_item_declaration>>> i4
  ,     std::shared_ptr<statement> i5
   ):
        mem1(i1)
@@ -3382,19 +2946,19 @@ class T_function_declaration_1 : public ComponentBase {
 };
 class T_function_declaration_2 : public ComponentBase {
   public :
-    std::shared_ptr<automatic> mem1;
+    automatic mem1;
     std::shared_ptr<function_range_or_type> mem2;
     std::shared_ptr<identifier> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance_list_tf_input_declaration>>> mem4;
-    std::shared_ptr<std::list<std::shared_ptr< function_item_declaration>>> mem5;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance_list_tf_input_declaration>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<function_item_declaration>>> mem5;
     std::shared_ptr<statement> mem6;
 
   T_function_declaration_2( 
-       std::shared_ptr<automatic> i1
+       automatic i1
  ,     std::shared_ptr<function_range_or_type> i2
  ,     std::shared_ptr<identifier> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< attribute_instance_list_tf_input_declaration>>> i4
- ,     std::shared_ptr<std::list<std::shared_ptr< function_item_declaration>>> i5
+ ,     std::shared_ptr<std::list<std::shared_ptr<attribute_instance_list_tf_input_declaration>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<function_item_declaration>>> i5
  ,     std::shared_ptr<statement> i6
   ):
        mem1(i1)
@@ -3417,11 +2981,11 @@ class T_function_item_declaration_block : public ComponentBase {
 };
 class T_function_item_declaration_input : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<tf_input_declaration> mem2;
 
   T_function_item_declaration_input( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<tf_input_declaration> i2
   ):
        mem1(i1)
@@ -3430,11 +2994,11 @@ class T_function_item_declaration_input : public ComponentBase {
 };
 class T_attribute_instance_list_tf_input_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<tf_io_declaration_gen> mem2;
 
   T_attribute_instance_list_tf_input_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<tf_io_declaration_gen> i2
   ):
        mem1(i1)
@@ -3450,11 +3014,11 @@ class T_function_range_or_type_NOSPEC : public ComponentBase {
 };
 class T_function_range_or_type : public ComponentBase {
   public :
-    std::shared_ptr<signedType> mem1;
+    signedType mem1;
     std::shared_ptr<range> mem2;
 
   T_function_range_or_type( 
-       std::shared_ptr<signedType> i1
+       signedType i1
  ,     std::shared_ptr<range> i2
   ):
        mem1(i1)
@@ -3491,15 +3055,15 @@ class T_function_range_or_type_TIME : public ComponentBase {
 };
 class T_task_declaration1 : public ComponentBase {
   public :
-    std::shared_ptr<automatic> mem1;
+    automatic mem1;
     std::shared_ptr<identifier> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< task_item_declaration>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<task_item_declaration>>> mem3;
     std::shared_ptr<statement> mem4;
 
   T_task_declaration1( 
-       std::shared_ptr<automatic> i1
+       automatic i1
  ,     std::shared_ptr<identifier> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< task_item_declaration>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<task_item_declaration>>> i3
  ,     std::shared_ptr<statement> i4
   ):
        mem1(i1)
@@ -3510,17 +3074,17 @@ class T_task_declaration1 : public ComponentBase {
 };
 class T_task_declaration2 : public ComponentBase {
   public :
-    std::shared_ptr<automatic> mem1;
+    automatic mem1;
     std::shared_ptr<identifier> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< task_port_item>>> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< task_item_declaration>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<task_port_item>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<task_item_declaration>>> mem4;
     std::shared_ptr<statement> mem5;
 
   T_task_declaration2( 
-       std::shared_ptr<automatic> i1
+       automatic i1
  ,     std::shared_ptr<identifier> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< task_port_item>>> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< task_item_declaration>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<task_port_item>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<task_item_declaration>>> i4
  ,     std::shared_ptr<statement> i5
   ):
        mem1(i1)
@@ -3542,11 +3106,11 @@ class T_task_item_declaration_block : public ComponentBase {
 };
 class T_task_item_declaration_input : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<tf_input_declaration> mem2;
 
   T_task_item_declaration_input( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<tf_input_declaration> i2
   ):
        mem1(i1)
@@ -3555,11 +3119,11 @@ class T_task_item_declaration_input : public ComponentBase {
 };
 class T_task_item_declaration_output : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<tf_output_declaration> mem2;
 
   T_task_item_declaration_output( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<tf_output_declaration> i2
   ):
        mem1(i1)
@@ -3568,11 +3132,11 @@ class T_task_item_declaration_output : public ComponentBase {
 };
 class T_task_item_declaration_inout : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<tf_inout_declaration> mem2;
 
   T_task_item_declaration_inout( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<tf_inout_declaration> i2
   ):
        mem1(i1)
@@ -3581,11 +3145,11 @@ class T_task_item_declaration_inout : public ComponentBase {
 };
 class T_task_port_item_input : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<tf_io_declaration_gen> mem2;
 
   T_task_port_item_input( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<tf_io_declaration_gen> i2
   ):
        mem1(i1)
@@ -3594,16 +3158,16 @@ class T_task_port_item_input : public ComponentBase {
 };
 class T_tf_input_declaration_reg : public ComponentBase {
   public :
-    std::shared_ptr<reg> mem1;
-    std::shared_ptr<signedType> mem2;
+    reg mem1;
+    signedType mem2;
     std::shared_ptr<range> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem4;
 
   T_tf_input_declaration_reg( 
-       std::shared_ptr<reg> i1
- ,     std::shared_ptr<signedType> i2
+       reg i1
+ ,     signedType i2
  ,     std::shared_ptr<range> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3613,12 +3177,12 @@ class T_tf_input_declaration_reg : public ComponentBase {
 };
 class T_tf_input_declaration_type : public ComponentBase {
   public :
-    std::shared_ptr<task_port_type> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem2;
+    task_port_type mem1;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem2;
 
   T_tf_input_declaration_type( 
-       std::shared_ptr<task_port_type> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i2
+       task_port_type i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3626,16 +3190,16 @@ class T_tf_input_declaration_type : public ComponentBase {
 };
 class T_tf_output_declaration_reg : public ComponentBase {
   public :
-    std::shared_ptr<reg> mem1;
-    std::shared_ptr<signedType> mem2;
+    reg mem1;
+    signedType mem2;
     std::shared_ptr<range> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem4;
 
   T_tf_output_declaration_reg( 
-       std::shared_ptr<reg> i1
- ,     std::shared_ptr<signedType> i2
+       reg i1
+ ,     signedType i2
  ,     std::shared_ptr<range> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3645,12 +3209,12 @@ class T_tf_output_declaration_reg : public ComponentBase {
 };
 class T_tf_output_declaration_type : public ComponentBase {
   public :
-    std::shared_ptr<task_port_type> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem2;
+    task_port_type mem1;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem2;
 
   T_tf_output_declaration_type( 
-       std::shared_ptr<task_port_type> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i2
+       task_port_type i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3658,16 +3222,16 @@ class T_tf_output_declaration_type : public ComponentBase {
 };
 class T_tf_inout_declaration_reg : public ComponentBase {
   public :
-    std::shared_ptr<reg> mem1;
-    std::shared_ptr<signedType> mem2;
+    reg mem1;
+    signedType mem2;
     std::shared_ptr<range> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem4;
 
   T_tf_inout_declaration_reg( 
-       std::shared_ptr<reg> i1
- ,     std::shared_ptr<signedType> i2
+       reg i1
+ ,     signedType i2
  ,     std::shared_ptr<range> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3677,57 +3241,29 @@ class T_tf_inout_declaration_reg : public ComponentBase {
 };
 class T_tf_inout_declaration_type : public ComponentBase {
   public :
-    std::shared_ptr<task_port_type> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem2;
+    task_port_type mem1;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem2;
 
   T_tf_inout_declaration_type( 
-       std::shared_ptr<task_port_type> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i2
+       task_port_type i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
   {}
 };
-class T_task_port_type_integer : public ComponentBase {
-  public :
-
-  T_task_port_type_integer( 
-  )
-  {}
-};
-class T_task_port_type_real : public ComponentBase {
-  public :
-
-  T_task_port_type_real( 
-  )
-  {}
-};
-class T_task_port_type_realtime : public ComponentBase {
-  public :
-
-  T_task_port_type_realtime( 
-  )
-  {}
-};
-class T_task_port_type_time : public ComponentBase {
-  public :
-
-  T_task_port_type_time( 
-  )
-  {}
-};
 class T_block_item_declaration_reg : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
-    std::shared_ptr<signedType> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
+    signedType mem2;
     std::shared_ptr<range> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< block_variable_type>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<block_variable_type>>> mem4;
 
   T_block_item_declaration_reg( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
- ,     std::shared_ptr<signedType> i2
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
+ ,     signedType i2
  ,     std::shared_ptr<range> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< block_variable_type>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<block_variable_type>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3737,12 +3273,12 @@ class T_block_item_declaration_reg : public ComponentBase {
 };
 class T_block_item_declaration_integer : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< block_variable_type>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<block_variable_type>>> mem2;
 
   T_block_item_declaration_integer( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< block_variable_type>>> i2
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<block_variable_type>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3750,12 +3286,12 @@ class T_block_item_declaration_integer : public ComponentBase {
 };
 class T_block_item_declaration_time : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< block_variable_type>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<block_variable_type>>> mem2;
 
   T_block_item_declaration_time( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< block_variable_type>>> i2
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<block_variable_type>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3763,12 +3299,12 @@ class T_block_item_declaration_time : public ComponentBase {
 };
 class T_block_item_declaration_real : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< block_real_type>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<block_real_type>>> mem2;
 
   T_block_item_declaration_real( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< block_real_type>>> i2
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<block_real_type>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3776,12 +3312,12 @@ class T_block_item_declaration_real : public ComponentBase {
 };
 class T_block_item_declaration_realtime : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< block_real_type>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<block_real_type>>> mem2;
 
   T_block_item_declaration_realtime( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< block_real_type>>> i2
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<block_real_type>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3789,11 +3325,11 @@ class T_block_item_declaration_realtime : public ComponentBase {
 };
 class T_block_item_declaration_event : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<event_declaration> mem2;
 
   T_block_item_declaration_event( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<event_declaration> i2
   ):
        mem1(i1)
@@ -3802,11 +3338,11 @@ class T_block_item_declaration_event : public ComponentBase {
 };
 class T_block_item_declaration_local_param : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<local_parameter_declaration> mem2;
 
   T_block_item_declaration_local_param( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<local_parameter_declaration> i2
   ):
        mem1(i1)
@@ -3815,11 +3351,11 @@ class T_block_item_declaration_local_param : public ComponentBase {
 };
 class T_block_item_declaration_param : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<parameter_declaration> mem2;
 
   T_block_item_declaration_param( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<parameter_declaration> i2
   ):
        mem1(i1)
@@ -3829,11 +3365,11 @@ class T_block_item_declaration_param : public ComponentBase {
 class T_block_variable_type : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< dimension>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<dimension>>> mem2;
 
   T_block_variable_type( 
        std::shared_ptr<identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< dimension>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<dimension>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3842,11 +3378,11 @@ class T_block_variable_type : public ComponentBase {
 class T_block_real_type : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< dimension>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<dimension>>> mem2;
 
   T_block_real_type( 
        std::shared_ptr<identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< dimension>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<dimension>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3854,14 +3390,14 @@ class T_block_real_type : public ComponentBase {
 };
 class T_gate_instantiation_cmos : public ComponentBase {
   public :
-    std::shared_ptr<cmos_switchtype> mem1;
+    cmos_switchtype mem1;
     std::shared_ptr<delay3> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< cmos_switch_instance>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<cmos_switch_instance>>> mem3;
 
   T_gate_instantiation_cmos( 
-       std::shared_ptr<cmos_switchtype> i1
+       cmos_switchtype i1
  ,     std::shared_ptr<delay3> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< cmos_switch_instance>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<cmos_switch_instance>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3870,16 +3406,16 @@ class T_gate_instantiation_cmos : public ComponentBase {
 };
 class T_gate_instantiation_enable : public ComponentBase {
   public :
-    std::shared_ptr<enable_gatetype> mem1;
+    enable_gatetype mem1;
     std::shared_ptr<drive_strength> mem2;
     std::shared_ptr<delay3> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< enable_gate_instance>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<enable_gate_instance>>> mem4;
 
   T_gate_instantiation_enable( 
-       std::shared_ptr<enable_gatetype> i1
+       enable_gatetype i1
  ,     std::shared_ptr<drive_strength> i2
  ,     std::shared_ptr<delay3> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< enable_gate_instance>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<enable_gate_instance>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3889,14 +3425,14 @@ class T_gate_instantiation_enable : public ComponentBase {
 };
 class T_gate_instantiation_mos : public ComponentBase {
   public :
-    std::shared_ptr<mos_switchtype> mem1;
+    mos_switchtype mem1;
     std::shared_ptr<delay3> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< mos_switch_instance>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<mos_switch_instance>>> mem3;
 
   T_gate_instantiation_mos( 
-       std::shared_ptr<mos_switchtype> i1
+       mos_switchtype i1
  ,     std::shared_ptr<delay3> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< mos_switch_instance>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<mos_switch_instance>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3905,16 +3441,16 @@ class T_gate_instantiation_mos : public ComponentBase {
 };
 class T_gate_instantiation_input : public ComponentBase {
   public :
-    std::shared_ptr<n_input_gatetype> mem1;
+    n_input_gatetype mem1;
     std::shared_ptr<drive_strength> mem2;
     std::shared_ptr<delay2> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< n_input_gate_instance>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<n_input_gate_instance>>> mem4;
 
   T_gate_instantiation_input( 
-       std::shared_ptr<n_input_gatetype> i1
+       n_input_gatetype i1
  ,     std::shared_ptr<drive_strength> i2
  ,     std::shared_ptr<delay2> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< n_input_gate_instance>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<n_input_gate_instance>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3924,16 +3460,16 @@ class T_gate_instantiation_input : public ComponentBase {
 };
 class T_gate_instantiation_output : public ComponentBase {
   public :
-    std::shared_ptr<n_output_gatetype> mem1;
+    n_output_gatetype mem1;
     std::shared_ptr<drive_strength> mem2;
     std::shared_ptr<delay2> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< n_output_gate_instance>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<n_output_gate_instance>>> mem4;
 
   T_gate_instantiation_output( 
-       std::shared_ptr<n_output_gatetype> i1
+       n_output_gatetype i1
  ,     std::shared_ptr<drive_strength> i2
  ,     std::shared_ptr<delay2> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< n_output_gate_instance>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<n_output_gate_instance>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3943,14 +3479,14 @@ class T_gate_instantiation_output : public ComponentBase {
 };
 class T_gate_instantiation_pass_en : public ComponentBase {
   public :
-    std::shared_ptr<pass_en_switchtype> mem1;
+    pass_en_switchtype mem1;
     std::shared_ptr<delay2> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< pass_enable_switch_instance>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<pass_enable_switch_instance>>> mem3;
 
   T_gate_instantiation_pass_en( 
-       std::shared_ptr<pass_en_switchtype> i1
+       pass_en_switchtype i1
  ,     std::shared_ptr<delay2> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< pass_enable_switch_instance>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<pass_enable_switch_instance>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3959,12 +3495,12 @@ class T_gate_instantiation_pass_en : public ComponentBase {
 };
 class T_gate_instantiation_pass : public ComponentBase {
   public :
-    std::shared_ptr<pass_switchtype> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< pass_switch_instance>>> mem2;
+    pass_switchtype mem1;
+    std::shared_ptr<std::list<std::shared_ptr<pass_switch_instance>>> mem2;
 
   T_gate_instantiation_pass( 
-       std::shared_ptr<pass_switchtype> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< pass_switch_instance>>> i2
+       pass_switchtype i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<pass_switch_instance>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3973,11 +3509,11 @@ class T_gate_instantiation_pass : public ComponentBase {
 class T_gate_instantiation_pulldown : public ComponentBase {
   public :
     std::shared_ptr<pulldown_strength> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< pull_gate_instance>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<pull_gate_instance>>> mem2;
 
   T_gate_instantiation_pulldown( 
        std::shared_ptr<pulldown_strength> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< pull_gate_instance>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<pull_gate_instance>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -3986,11 +3522,11 @@ class T_gate_instantiation_pulldown : public ComponentBase {
 class T_gate_instantiation_pullup : public ComponentBase {
   public :
     std::shared_ptr<pullup_strength> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< pull_gate_instance>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<pull_gate_instance>>> mem2;
 
   T_gate_instantiation_pullup( 
        std::shared_ptr<pullup_strength> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< pull_gate_instance>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<pull_gate_instance>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4061,13 +3597,13 @@ class T_n_input_gate_instance : public ComponentBase {
     std::shared_ptr<name_of_gate_instance> mem1;
     std::shared_ptr<expression> mem2;
     std::shared_ptr<expression> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem4;
 
   T_n_input_gate_instance( 
        std::shared_ptr<name_of_gate_instance> i1
  ,     std::shared_ptr<expression> i2
  ,     std::shared_ptr<expression> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< expression>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<expression>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4079,13 +3615,13 @@ class T_n_output_gate_instance : public ComponentBase {
   public :
     std::shared_ptr<name_of_gate_instance> mem1;
     std::shared_ptr<expression> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem3;
     std::shared_ptr<expression> mem4;
 
   T_n_output_gate_instance( 
        std::shared_ptr<name_of_gate_instance> i1
  ,     std::shared_ptr<expression> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< expression>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<expression>>> i3
  ,     std::shared_ptr<expression> i4
   ):
        mem1(i1)
@@ -4132,11 +3668,11 @@ class T_pass_enable_switch_instance : public ComponentBase {
 class T_pull_gate_instance : public ComponentBase {
   public :
     std::shared_ptr<name_of_gate_instance> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem2;
 
   T_pull_gate_instance( 
        std::shared_ptr<name_of_gate_instance> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< expression>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<expression>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4171,12 +3707,12 @@ class T_pulldown_strength_NOSPEC : public ComponentBase {
 };
 class T_pulldown_strength01 : public ComponentBase {
   public :
-    std::shared_ptr<strength> mem1;
-    std::shared_ptr<strength> mem2;
+    strength mem1;
+    strength mem2;
 
   T_pulldown_strength01( 
-       std::shared_ptr<strength> i1
- ,     std::shared_ptr<strength> i2
+       strength i1
+ ,     strength i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4184,12 +3720,12 @@ class T_pulldown_strength01 : public ComponentBase {
 };
 class T_pulldown_strength10 : public ComponentBase {
   public :
-    std::shared_ptr<strength> mem1;
-    std::shared_ptr<strength> mem2;
+    strength mem1;
+    strength mem2;
 
   T_pulldown_strength10( 
-       std::shared_ptr<strength> i1
- ,     std::shared_ptr<strength> i2
+       strength i1
+ ,     strength i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4197,10 +3733,10 @@ class T_pulldown_strength10 : public ComponentBase {
 };
 class T_pulldown_strength0 : public ComponentBase {
   public :
-    std::shared_ptr<strength> mem1;
+    strength mem1;
 
   T_pulldown_strength0( 
-       std::shared_ptr<strength> i1
+       strength i1
   ):
        mem1(i1)
   {}
@@ -4214,12 +3750,12 @@ class T_pullup_strength_NOSPEC : public ComponentBase {
 };
 class T_pullup_strength01 : public ComponentBase {
   public :
-    std::shared_ptr<strength> mem1;
-    std::shared_ptr<strength> mem2;
+    strength mem1;
+    strength mem2;
 
   T_pullup_strength01( 
-       std::shared_ptr<strength> i1
- ,     std::shared_ptr<strength> i2
+       strength i1
+ ,     strength i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4227,12 +3763,12 @@ class T_pullup_strength01 : public ComponentBase {
 };
 class T_pullup_strength10 : public ComponentBase {
   public :
-    std::shared_ptr<strength> mem1;
-    std::shared_ptr<strength> mem2;
+    strength mem1;
+    strength mem2;
 
   T_pullup_strength10( 
-       std::shared_ptr<strength> i1
- ,     std::shared_ptr<strength> i2
+       strength i1
+ ,     strength i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4240,180 +3776,12 @@ class T_pullup_strength10 : public ComponentBase {
 };
 class T_pullup_strength1 : public ComponentBase {
   public :
-    std::shared_ptr<strength> mem1;
+    strength mem1;
 
   T_pullup_strength1( 
-       std::shared_ptr<strength> i1
+       strength i1
   ):
        mem1(i1)
-  {}
-};
-class T_cmos_switchtype_CMOS : public ComponentBase {
-  public :
-
-  T_cmos_switchtype_CMOS( 
-  )
-  {}
-};
-class T_cmos_switchtype_RCMOS : public ComponentBase {
-  public :
-
-  T_cmos_switchtype_RCMOS( 
-  )
-  {}
-};
-class T_enable_gatetype__BUFIF0 : public ComponentBase {
-  public :
-
-  T_enable_gatetype__BUFIF0( 
-  )
-  {}
-};
-class T_enable_gatetype__BUFIF1 : public ComponentBase {
-  public :
-
-  T_enable_gatetype__BUFIF1( 
-  )
-  {}
-};
-class T_enable_gatetype__NOTIF0 : public ComponentBase {
-  public :
-
-  T_enable_gatetype__NOTIF0( 
-  )
-  {}
-};
-class T_enable_gatetype__NOTIF1 : public ComponentBase {
-  public :
-
-  T_enable_gatetype__NOTIF1( 
-  )
-  {}
-};
-class T_mos_switchtype_NMOS : public ComponentBase {
-  public :
-
-  T_mos_switchtype_NMOS( 
-  )
-  {}
-};
-class T_mos_switchtype_PMOS : public ComponentBase {
-  public :
-
-  T_mos_switchtype_PMOS( 
-  )
-  {}
-};
-class T_mos_switchtype_RNMOS : public ComponentBase {
-  public :
-
-  T_mos_switchtype_RNMOS( 
-  )
-  {}
-};
-class T_mos_switchtype_RPMOS : public ComponentBase {
-  public :
-
-  T_mos_switchtype_RPMOS( 
-  )
-  {}
-};
-class T_n_input_gatetype_AND : public ComponentBase {
-  public :
-
-  T_n_input_gatetype_AND( 
-  )
-  {}
-};
-class T_n_input_gatetype_NAND : public ComponentBase {
-  public :
-
-  T_n_input_gatetype_NAND( 
-  )
-  {}
-};
-class T_n_input_gatetype_OR : public ComponentBase {
-  public :
-
-  T_n_input_gatetype_OR( 
-  )
-  {}
-};
-class T_n_input_gatetype_NOR : public ComponentBase {
-  public :
-
-  T_n_input_gatetype_NOR( 
-  )
-  {}
-};
-class T_n_input_gatetype_XOR : public ComponentBase {
-  public :
-
-  T_n_input_gatetype_XOR( 
-  )
-  {}
-};
-class T_n_input_gatetype_XNOR : public ComponentBase {
-  public :
-
-  T_n_input_gatetype_XNOR( 
-  )
-  {}
-};
-class T_n_output_gatetype_BUF : public ComponentBase {
-  public :
-
-  T_n_output_gatetype_BUF( 
-  )
-  {}
-};
-class T_n_output_gatetype_NOT : public ComponentBase {
-  public :
-
-  T_n_output_gatetype_NOT( 
-  )
-  {}
-};
-class T_pass_en_switchtype_TRANIF0 : public ComponentBase {
-  public :
-
-  T_pass_en_switchtype_TRANIF0( 
-  )
-  {}
-};
-class T_pass_en_switchtype_TRANIF1 : public ComponentBase {
-  public :
-
-  T_pass_en_switchtype_TRANIF1( 
-  )
-  {}
-};
-class T_pass_en_switchtype_RTRANIF1 : public ComponentBase {
-  public :
-
-  T_pass_en_switchtype_RTRANIF1( 
-  )
-  {}
-};
-class T_pass_en_switchtype_RTRANIF0 : public ComponentBase {
-  public :
-
-  T_pass_en_switchtype_RTRANIF0( 
-  )
-  {}
-};
-class T_pass_switchtype_TRAN : public ComponentBase {
-  public :
-
-  T_pass_switchtype_TRAN( 
-  )
-  {}
-};
-class T_pass_switchtype_RTRAN : public ComponentBase {
-  public :
-
-  T_pass_switchtype_RTRAN( 
-  )
   {}
 };
 class T_module_instantiation : public ComponentBase {
@@ -4421,13 +3789,13 @@ class T_module_instantiation : public ComponentBase {
     std::shared_ptr<identifier> mem1;
     std::shared_ptr<drive_strength> mem2;
     std::shared_ptr<parameter_value_assignment> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< module_instance>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<module_instance>>> mem4;
 
   T_module_instantiation( 
        std::shared_ptr<identifier> i1
  ,     std::shared_ptr<drive_strength> i2
  ,     std::shared_ptr<parameter_value_assignment> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< module_instance>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<module_instance>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4477,20 +3845,20 @@ class T_parameter_value_assignment_NOSPEC : public ComponentBase {
 };
 class T_parameter_value_assignment_order : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< mintypmax_expression>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<mintypmax_expression>>> mem1;
 
   T_parameter_value_assignment_order( 
-       std::shared_ptr<std::list<std::shared_ptr< mintypmax_expression>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<mintypmax_expression>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_parameter_value_assignment_named : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< named_parameter_assignment>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<named_parameter_assignment>>> mem1;
 
   T_parameter_value_assignment_named( 
-       std::shared_ptr<std::list<std::shared_ptr< named_parameter_assignment>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<named_parameter_assignment>>> i1
   ):
        mem1(i1)
   {}
@@ -4510,31 +3878,31 @@ class T_named_parameter_assignment : public ComponentBase {
 };
 class T_list_of_port_connections_ordered : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< ordered_port_connection>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<ordered_port_connection>>> mem1;
 
   T_list_of_port_connections_ordered( 
-       std::shared_ptr<std::list<std::shared_ptr< ordered_port_connection>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<ordered_port_connection>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_list_of_port_connections_named : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< named_port_connection>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<named_port_connection>>> mem1;
 
   T_list_of_port_connections_named( 
-       std::shared_ptr<std::list<std::shared_ptr< named_port_connection>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<named_port_connection>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_ordered_port_connection : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<expression> mem2;
 
   T_ordered_port_connection( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<expression> i2
   ):
        mem1(i1)
@@ -4543,12 +3911,12 @@ class T_ordered_port_connection : public ComponentBase {
 };
 class T_named_port_connection : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<identifier> mem2;
     std::shared_ptr<expression> mem3;
 
   T_named_port_connection( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<identifier> i2
  ,     std::shared_ptr<expression> i3
   ):
@@ -4559,10 +3927,10 @@ class T_named_port_connection : public ComponentBase {
 };
 class T_generate_region_1 : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< module_item>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<module_item>>> mem1;
 
   T_generate_region_1( 
-       std::shared_ptr<std::list<std::shared_ptr< module_item>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<module_item>>> i1
   ):
        mem1(i1)
   {}
@@ -4570,11 +3938,11 @@ class T_generate_region_1 : public ComponentBase {
 class T_generate_region_2 : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< module_item>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<module_item>>> mem2;
 
   T_generate_region_2( 
        std::shared_ptr<identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< module_item>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<module_item>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4582,10 +3950,10 @@ class T_generate_region_2 : public ComponentBase {
 };
 class T_genvar_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem1;
 
   T_genvar_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< identifier>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<identifier>>> i1
   ):
        mem1(i1)
   {}
@@ -4658,11 +4026,11 @@ class T_conditional_generate_construct_case : public ComponentBase {
 class T_case_generate_construct : public ComponentBase {
   public :
     std::shared_ptr<expression> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< case_generate_item>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<case_generate_item>>> mem2;
 
   T_case_generate_construct( 
        std::shared_ptr<expression> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< case_generate_item>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<case_generate_item>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4670,11 +4038,11 @@ class T_case_generate_construct : public ComponentBase {
 };
 class T_case_generate_item_case : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem1;
     std::shared_ptr<generate_block> mem2;
 
   T_case_generate_item_case( 
-       std::shared_ptr<std::list<std::shared_ptr< expression>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<expression>>> i1
  ,     std::shared_ptr<generate_block> i2
   ):
        mem1(i1)
@@ -4727,11 +4095,11 @@ class T_generate_block_mgi : public ComponentBase {
 class T_generate_block_begin : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< module_item>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<module_item>>> mem2;
 
   T_generate_block_begin( 
        std::shared_ptr<identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< module_item>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<module_item>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4739,17 +4107,17 @@ class T_generate_block_begin : public ComponentBase {
 };
 class T_udp_declaration_1 : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<identifier> mem2;
     std::shared_ptr<udp_port_list> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< udp_port_declaration>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<udp_port_declaration>>> mem4;
     std::shared_ptr<udp_body> mem5;
 
   T_udp_declaration_1( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<identifier> i2
  ,     std::shared_ptr<udp_port_list> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< udp_port_declaration>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<udp_port_declaration>>> i4
  ,     std::shared_ptr<udp_body> i5
   ):
        mem1(i1)
@@ -4761,13 +4129,13 @@ class T_udp_declaration_1 : public ComponentBase {
 };
 class T_udp_declaration_2 : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<identifier> mem2;
     std::shared_ptr<udp_declaration_port_list> mem3;
     std::shared_ptr<udp_body> mem4;
 
   T_udp_declaration_2( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<identifier> i2
  ,     std::shared_ptr<udp_declaration_port_list> i3
  ,     std::shared_ptr<udp_body> i4
@@ -4781,11 +4149,11 @@ class T_udp_declaration_2 : public ComponentBase {
 class T_udp_port_list : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem2;
 
   T_udp_port_list( 
        std::shared_ptr<identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4794,11 +4162,11 @@ class T_udp_port_list : public ComponentBase {
 class T_udp_declaration_port_list : public ComponentBase {
   public :
     std::shared_ptr<udp_output_declaration> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< udp_input_declaration_sigular>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<udp_input_declaration_sigular>>> mem2;
 
   T_udp_declaration_port_list( 
        std::shared_ptr<udp_output_declaration> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< udp_input_declaration_sigular>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<udp_input_declaration_sigular>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4836,11 +4204,11 @@ class T_udp_port_declaration_reg : public ComponentBase {
 };
 class T_udp_output_declaration_output : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<identifier> mem2;
 
   T_udp_output_declaration_output( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<identifier> i2
   ):
        mem1(i1)
@@ -4849,12 +4217,12 @@ class T_udp_output_declaration_output : public ComponentBase {
 };
 class T_udp_output_declaration_reg : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<identifier> mem2;
     std::shared_ptr<expression> mem3;
 
   T_udp_output_declaration_reg( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<identifier> i2
  ,     std::shared_ptr<expression> i3
   ):
@@ -4865,12 +4233,12 @@ class T_udp_output_declaration_reg : public ComponentBase {
 };
 class T_udp_input_declaration_singular : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     int mem2;
     std::shared_ptr<identifier> mem3;
 
   T_udp_input_declaration_singular( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     int i2
  ,     std::shared_ptr<identifier> i3
   ):
@@ -4881,12 +4249,12 @@ class T_udp_input_declaration_singular : public ComponentBase {
 };
 class T_udp_input_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< identifier>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<identifier>>> mem2;
 
   T_udp_input_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< identifier>>> i2
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<identifier>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4894,11 +4262,11 @@ class T_udp_input_declaration : public ComponentBase {
 };
 class T_udp_reg_declaration : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<identifier> mem2;
 
   T_udp_reg_declaration( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<identifier> i2
   ):
        mem1(i1)
@@ -4907,10 +4275,10 @@ class T_udp_reg_declaration : public ComponentBase {
 };
 class T_udp_body_comb : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< combinational_entry>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<combinational_entry>>> mem1;
 
   T_udp_body_comb( 
-       std::shared_ptr<std::list<std::shared_ptr< combinational_entry>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<combinational_entry>>> i1
   ):
        mem1(i1)
   {}
@@ -4927,11 +4295,11 @@ class T_udp_body_seq : public ComponentBase {
 };
 class T_combinational_entry : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< level_symbol>>> mem1;
+    std::shared_ptr<std::list<level_symbol>> mem1;
     std::shared_ptr<output_symbol> mem2;
 
   T_combinational_entry( 
-       std::shared_ptr<std::list<std::shared_ptr< level_symbol>>> i1
+       std::shared_ptr<std::list<level_symbol>> i1
  ,     std::shared_ptr<output_symbol> i2
   ):
        mem1(i1)
@@ -4941,11 +4309,11 @@ class T_combinational_entry : public ComponentBase {
 class T_sequential_body : public ComponentBase {
   public :
     std::shared_ptr<udp_initial_statement> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< sequential_entry>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<sequential_entry>>> mem2;
 
   T_sequential_body( 
        std::shared_ptr<udp_initial_statement> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< sequential_entry>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<sequential_entry>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -4974,13 +4342,13 @@ class T_udp_initial_statement : public ComponentBase {
 class T_init_val_bin : public ComponentBase {
   public :
     int mem1;
-    std::string mem2;
-    std::string mem3;
+    string mem2;
+    string mem3;
 
   T_init_val_bin( 
        int i1
- ,     std::string i2
- ,     std::string i3
+ ,     string i2
+ ,     string i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5000,13 +4368,13 @@ class T_init_val_unsigned : public ComponentBase {
 class T_sequential_entry : public ComponentBase {
   public :
     std::shared_ptr<seq_input_list> mem1;
-    std::shared_ptr<level_symbol> mem2;
-    std::shared_ptr<level_symbol> mem3;
+    level_symbol mem2;
+    level_symbol mem3;
 
   T_sequential_entry( 
        std::shared_ptr<seq_input_list> i1
- ,     std::shared_ptr<level_symbol> i2
- ,     std::shared_ptr<level_symbol> i3
+ ,     level_symbol i2
+ ,     level_symbol i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5016,11 +4384,11 @@ class T_sequential_entry : public ComponentBase {
 class T_sequential_entry_comb : public ComponentBase {
   public :
     std::shared_ptr<seq_input_list> mem1;
-    std::shared_ptr<level_symbol> mem2;
+    level_symbol mem2;
 
   T_sequential_entry_comb( 
        std::shared_ptr<seq_input_list> i1
- ,     std::shared_ptr<level_symbol> i2
+ ,     level_symbol i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5028,10 +4396,10 @@ class T_sequential_entry_comb : public ComponentBase {
 };
 class T_seq_input_list_level : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< level_symbol>>> mem1;
+    std::shared_ptr<std::list<level_symbol>> mem1;
 
   T_seq_input_list_level( 
-       std::shared_ptr<std::list<std::shared_ptr< level_symbol>>> i1
+       std::shared_ptr<std::list<level_symbol>> i1
   ):
        mem1(i1)
   {}
@@ -5048,14 +4416,14 @@ class T_seq_input_list_edge : public ComponentBase {
 };
 class T_edge_input_list : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< level_symbol>>> mem1;
+    std::shared_ptr<std::list<level_symbol>> mem1;
     std::shared_ptr<edge_indicator> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< level_symbol>>> mem3;
+    std::shared_ptr<std::list<level_symbol>> mem3;
 
   T_edge_input_list( 
-       std::shared_ptr<std::list<std::shared_ptr< level_symbol>>> i1
+       std::shared_ptr<std::list<level_symbol>> i1
  ,     std::shared_ptr<edge_indicator> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< level_symbol>>> i3
+ ,     std::shared_ptr<std::list<level_symbol>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5064,12 +4432,12 @@ class T_edge_input_list : public ComponentBase {
 };
 class T_edge_indicator_level : public ComponentBase {
   public :
-    std::shared_ptr<level_symbol> mem1;
-    std::shared_ptr<level_symbol> mem2;
+    level_symbol mem1;
+    level_symbol mem2;
 
   T_edge_indicator_level( 
-       std::shared_ptr<level_symbol> i1
- ,     std::shared_ptr<level_symbol> i2
+       level_symbol i1
+ ,     level_symbol i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5077,10 +4445,10 @@ class T_edge_indicator_level : public ComponentBase {
 };
 class T_edge_indicator_edge : public ComponentBase {
   public :
-    std::shared_ptr<edge_symbol> mem1;
+    edge_symbol mem1;
 
   T_edge_indicator_edge( 
-       std::shared_ptr<edge_symbol> i1
+       edge_symbol i1
   ):
        mem1(i1)
   {}
@@ -5090,13 +4458,13 @@ class T_udp_instantiation : public ComponentBase {
     std::shared_ptr<identifier> mem1;
     std::shared_ptr<drive_strength> mem2;
     std::shared_ptr<delay2> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< udp_instance>>> mem4;
+    std::shared_ptr<std::list<std::shared_ptr<udp_instance>>> mem4;
 
   T_udp_instantiation( 
        std::shared_ptr<identifier> i1
  ,     std::shared_ptr<drive_strength> i2
  ,     std::shared_ptr<delay2> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< udp_instance>>> i4
+ ,     std::shared_ptr<std::list<std::shared_ptr<udp_instance>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5108,12 +4476,12 @@ class T_udp_instance : public ComponentBase {
   public :
     std::shared_ptr<name_of_udp_instance> mem1;
     std::shared_ptr<expression> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem3;
 
   T_udp_instance( 
        std::shared_ptr<name_of_udp_instance> i1
  ,     std::shared_ptr<expression> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< expression>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<expression>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5144,12 +4512,12 @@ class T_continuous_assign : public ComponentBase {
   public :
     std::shared_ptr<drive_strength> mem1;
     std::shared_ptr<delay3> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< net_assignment>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<net_assignment>>> mem3;
 
   T_continuous_assign( 
        std::shared_ptr<drive_strength> i1
  ,     std::shared_ptr<delay3> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< net_assignment>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<net_assignment>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5284,11 +4652,11 @@ class T_procedural_continuous_assignments_release2 : public ComponentBase {
 class T_par_block : public ComponentBase {
   public :
     std::shared_ptr<colon_block_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< statement_or_block_item>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<statement_or_block_item>>> mem2;
 
   T_par_block( 
        std::shared_ptr<colon_block_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< statement_or_block_item>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<statement_or_block_item>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5314,11 +4682,11 @@ class T_colon_block_identifier : public ComponentBase {
 class T_seq_block : public ComponentBase {
   public :
     std::shared_ptr<colon_block_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< statement_or_block_item>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<statement_or_block_item>>> mem2;
 
   T_seq_block( 
        std::shared_ptr<colon_block_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< statement_or_block_item>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<statement_or_block_item>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5326,21 +4694,21 @@ class T_seq_block : public ComponentBase {
 };
 class T_statement_NOSPEC : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
 
   T_statement_NOSPEC( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_statement_blocking_assignment : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<blocking_assignment> mem2;
 
   T_statement_blocking_assignment( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<blocking_assignment> i2
   ):
        mem1(i1)
@@ -5349,11 +4717,11 @@ class T_statement_blocking_assignment : public ComponentBase {
 };
 class T_statement_case_statement : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<case_statement> mem2;
 
   T_statement_case_statement( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<case_statement> i2
   ):
        mem1(i1)
@@ -5362,11 +4730,11 @@ class T_statement_case_statement : public ComponentBase {
 };
 class T_statement_conditional_statement : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<conditional_statement> mem2;
 
   T_statement_conditional_statement( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<conditional_statement> i2
   ):
        mem1(i1)
@@ -5375,11 +4743,11 @@ class T_statement_conditional_statement : public ComponentBase {
 };
 class T_statement_disable_statement : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<disable_statement> mem2;
 
   T_statement_disable_statement( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<disable_statement> i2
   ):
        mem1(i1)
@@ -5388,11 +4756,11 @@ class T_statement_disable_statement : public ComponentBase {
 };
 class T_statement_event_trigger : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<event_trigger> mem2;
 
   T_statement_event_trigger( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<event_trigger> i2
   ):
        mem1(i1)
@@ -5401,11 +4769,11 @@ class T_statement_event_trigger : public ComponentBase {
 };
 class T_statement_loop_statement : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<loop_statement> mem2;
 
   T_statement_loop_statement( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<loop_statement> i2
   ):
        mem1(i1)
@@ -5414,11 +4782,11 @@ class T_statement_loop_statement : public ComponentBase {
 };
 class T_statement_nonblocking_assignment : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<nonblocking_assignment> mem2;
 
   T_statement_nonblocking_assignment( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<nonblocking_assignment> i2
   ):
        mem1(i1)
@@ -5427,11 +4795,11 @@ class T_statement_nonblocking_assignment : public ComponentBase {
 };
 class T_statement_par_block : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<par_block> mem2;
 
   T_statement_par_block( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<par_block> i2
   ):
        mem1(i1)
@@ -5440,11 +4808,11 @@ class T_statement_par_block : public ComponentBase {
 };
 class T_statement_procedural_continuous_assignments : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<procedural_continuous_assignments> mem2;
 
   T_statement_procedural_continuous_assignments( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<procedural_continuous_assignments> i2
   ):
        mem1(i1)
@@ -5453,11 +4821,11 @@ class T_statement_procedural_continuous_assignments : public ComponentBase {
 };
 class T_statement_procedural_timing_control_statement : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<procedural_timing_control_statement> mem2;
 
   T_statement_procedural_timing_control_statement( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<procedural_timing_control_statement> i2
   ):
        mem1(i1)
@@ -5466,11 +4834,11 @@ class T_statement_procedural_timing_control_statement : public ComponentBase {
 };
 class T_statement_seq_block : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<seq_block> mem2;
 
   T_statement_seq_block( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<seq_block> i2
   ):
        mem1(i1)
@@ -5479,11 +4847,11 @@ class T_statement_seq_block : public ComponentBase {
 };
 class T_statement_system_task_enable : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<system_task_enable> mem2;
 
   T_statement_system_task_enable( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<system_task_enable> i2
   ):
        mem1(i1)
@@ -5492,11 +4860,11 @@ class T_statement_system_task_enable : public ComponentBase {
 };
 class T_statement_task_enable : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<task_enable> mem2;
 
   T_statement_task_enable( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<task_enable> i2
   ):
        mem1(i1)
@@ -5505,11 +4873,11 @@ class T_statement_task_enable : public ComponentBase {
 };
 class T_statement_wait_statement : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
     std::shared_ptr<wait_statement> mem2;
 
   T_statement_wait_statement( 
-       std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
  ,     std::shared_ptr<wait_statement> i2
   ):
        mem1(i1)
@@ -5598,10 +4966,10 @@ class T_event_control_eventid : public ComponentBase {
 };
 class T_event_control_event_exp : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< event_expression>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<event_expression>>> mem1;
 
   T_event_control_event_exp( 
-       std::shared_ptr<std::list<std::shared_ptr< event_expression>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<event_expression>>> i1
   ):
        mem1(i1)
   {}
@@ -5732,13 +5100,13 @@ class T_conditional_statement_ifelseif : public ComponentBase {
   public :
     std::shared_ptr<expression> mem1;
     std::shared_ptr<statement> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< else_if_lp_expression_rp_statement_or_null>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<else_if_lp_expression_rp_statement_or_null>>> mem3;
     std::shared_ptr<statement> mem4;
 
   T_conditional_statement_ifelseif( 
        std::shared_ptr<expression> i1
  ,     std::shared_ptr<statement> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< else_if_lp_expression_rp_statement_or_null>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<else_if_lp_expression_rp_statement_or_null>>> i3
  ,     std::shared_ptr<statement> i4
   ):
        mem1(i1)
@@ -5763,11 +5131,11 @@ class T_elseif : public ComponentBase {
 class T_case_statement_case : public ComponentBase {
   public :
     std::shared_ptr<expression> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< case_item>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<case_item>>> mem2;
 
   T_case_statement_case( 
        std::shared_ptr<expression> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< case_item>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<case_item>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5776,11 +5144,11 @@ class T_case_statement_case : public ComponentBase {
 class T_case_statement_casez : public ComponentBase {
   public :
     std::shared_ptr<expression> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< case_item>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<case_item>>> mem2;
 
   T_case_statement_casez( 
        std::shared_ptr<expression> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< case_item>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<case_item>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5789,11 +5157,11 @@ class T_case_statement_casez : public ComponentBase {
 class T_case_statement_casex : public ComponentBase {
   public :
     std::shared_ptr<expression> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< case_item>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<case_item>>> mem2;
 
   T_case_statement_casex( 
        std::shared_ptr<expression> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< case_item>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<case_item>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5801,11 +5169,11 @@ class T_case_statement_casex : public ComponentBase {
 };
 class T_case_item : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem1;
     std::shared_ptr<statement> mem2;
 
   T_case_item( 
-       std::shared_ptr<std::list<std::shared_ptr< expression>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<expression>>> i1
  ,     std::shared_ptr<statement> i2
   ):
        mem1(i1)
@@ -5897,11 +5265,11 @@ class T_loop_statement_for : public ComponentBase {
 class T_system_task_enable : public ComponentBase {
   public :
     std::shared_ptr<system_function_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem2;
 
   T_system_task_enable( 
        std::shared_ptr<system_function_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< expression>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<expression>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5910,11 +5278,11 @@ class T_system_task_enable : public ComponentBase {
 class T_task_enable : public ComponentBase {
   public :
     std::shared_ptr<hierarchical_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem2;
 
   T_task_enable( 
        std::shared_ptr<hierarchical_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< expression>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<expression>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -5922,10 +5290,10 @@ class T_task_enable : public ComponentBase {
 };
 class T_specify_block : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< specify_item>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<specify_item>>> mem1;
 
   T_specify_block( 
-       std::shared_ptr<std::list<std::shared_ptr< specify_item>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<specify_item>>> i1
   ):
        mem1(i1)
   {}
@@ -5982,40 +5350,40 @@ class T_specify_item_system : public ComponentBase {
 };
 class T_pulsestyle_declaration_oneevent : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> mem1;
 
   T_pulsestyle_declaration_oneevent( 
-       std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_pulsestyle_declaration_onedetect : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> mem1;
 
   T_pulsestyle_declaration_onedetect( 
-       std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_showcancelled_declaration_show : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> mem1;
 
   T_showcancelled_declaration_show( 
-       std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> i1
   ):
        mem1(i1)
   {}
 };
 class T_showcancelled_declaration_noshow : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> mem1;
 
   T_showcancelled_declaration_noshow( 
-       std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> i1
   ):
        mem1(i1)
   {}
@@ -6078,15 +5446,15 @@ class T_simple_path_declaration_full : public ComponentBase {
 };
 class T_parallel_path_description : public ComponentBase {
   public :
-    std::shared_ptr<edge_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem2;
-    std::shared_ptr<polarity_operator> mem3;
+    edge_identifier mem1;
+    std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> mem2;
+    polarity_operator mem3;
     std::shared_ptr<specify_inout_terminal_descriptor> mem4;
 
   T_parallel_path_description( 
-       std::shared_ptr<edge_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i2
- ,     std::shared_ptr<polarity_operator> i3
+       edge_identifier i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> i2
+ ,     polarity_operator i3
  ,     std::shared_ptr<specify_inout_terminal_descriptor> i4
   ):
        mem1(i1)
@@ -6097,16 +5465,16 @@ class T_parallel_path_description : public ComponentBase {
 };
 class T_full_path_description : public ComponentBase {
   public :
-    std::shared_ptr<edge_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem2;
-    std::shared_ptr<polarity_operator> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem4;
+    edge_identifier mem1;
+    std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> mem2;
+    polarity_operator mem3;
+    std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> mem4;
 
   T_full_path_description( 
-       std::shared_ptr<edge_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i2
- ,     std::shared_ptr<polarity_operator> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i4
+       edge_identifier i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> i2
+ ,     polarity_operator i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> i4
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -6262,19 +5630,19 @@ class T_edge_sensitive_path_declaration_full : public ComponentBase {
 };
 class T_parallel_edge_sensitive_path_description : public ComponentBase {
   public :
-    std::shared_ptr<edge_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem2;
-    std::shared_ptr<polarity_operator> mem3;
+    edge_identifier mem1;
+    std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> mem2;
+    polarity_operator mem3;
     std::shared_ptr<specify_inout_terminal_descriptor> mem4;
-    std::shared_ptr<polarity_operator> mem5;
+    polarity_operator mem5;
     std::shared_ptr<expression> mem6;
 
   T_parallel_edge_sensitive_path_description( 
-       std::shared_ptr<edge_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i2
- ,     std::shared_ptr<polarity_operator> i3
+       edge_identifier i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> i2
+ ,     polarity_operator i3
  ,     std::shared_ptr<specify_inout_terminal_descriptor> i4
- ,     std::shared_ptr<polarity_operator> i5
+ ,     polarity_operator i5
  ,     std::shared_ptr<expression> i6
   ):
        mem1(i1)
@@ -6287,19 +5655,19 @@ class T_parallel_edge_sensitive_path_description : public ComponentBase {
 };
 class T_full_edge_sensitive_path_description : public ComponentBase {
   public :
-    std::shared_ptr<edge_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem2;
-    std::shared_ptr<polarity_operator> mem3;
-    std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> mem4;
-    std::shared_ptr<polarity_operator> mem5;
+    edge_identifier mem1;
+    std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> mem2;
+    polarity_operator mem3;
+    std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> mem4;
+    polarity_operator mem5;
     std::shared_ptr<expression> mem6;
 
   T_full_edge_sensitive_path_description( 
-       std::shared_ptr<edge_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i2
- ,     std::shared_ptr<polarity_operator> i3
- ,     std::shared_ptr<std::list<std::shared_ptr< specify_inout_terminal_descriptor>>> i4
- ,     std::shared_ptr<polarity_operator> i5
+       edge_identifier i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> i2
+ ,     polarity_operator i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<specify_inout_terminal_descriptor>>> i4
+ ,     polarity_operator i5
  ,     std::shared_ptr<expression> i6
   ):
        mem1(i1)
@@ -6348,10 +5716,10 @@ class T_state_dependent_path_declaration_ifnone : public ComponentBase {
 };
 class T_concatenation : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem1;
 
   T_concatenation( 
-       std::shared_ptr<std::list<std::shared_ptr< expression>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<expression>>> i1
   ):
        mem1(i1)
   {}
@@ -6371,10 +5739,10 @@ class T_module_path_multiple_concatenation : public ComponentBase {
 };
 class T_module_path_concatenation : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< module_path_expression>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<module_path_expression>>> mem1;
 
   T_module_path_concatenation( 
-       std::shared_ptr<std::list<std::shared_ptr< module_path_expression>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<module_path_expression>>> i1
   ):
        mem1(i1)
   {}
@@ -6395,13 +5763,13 @@ class T_multiple_concatenation : public ComponentBase {
 class T_function_call : public ComponentBase {
   public :
     std::shared_ptr<hierarchical_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem3;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem3;
 
   T_function_call( 
        std::shared_ptr<hierarchical_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< expression>>> i3
+ ,     std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<expression>>> i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -6411,11 +5779,11 @@ class T_function_call : public ComponentBase {
 class T_system_function_call : public ComponentBase {
   public :
     std::shared_ptr<system_function_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem2;
 
   T_system_function_call( 
        std::shared_ptr<system_function_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< expression>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<expression>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -6424,13 +5792,13 @@ class T_system_function_call : public ComponentBase {
 class T_conditional_expression : public ComponentBase {
   public :
     std::shared_ptr<expression> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem2;
     std::shared_ptr<expression> mem3;
     std::shared_ptr<expression> mem4;
 
   T_conditional_expression( 
        std::shared_ptr<expression> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i2
  ,     std::shared_ptr<expression> i3
  ,     std::shared_ptr<expression> i4
   ):
@@ -6459,13 +5827,13 @@ class T_expression_prim : public ComponentBase {
 };
 class T_expression_op1 : public ComponentBase {
   public :
-    std::shared_ptr<unary_operator> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem2;
+    unary_operator mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem2;
     std::shared_ptr<primary> mem3;
 
   T_expression_op1( 
-       std::shared_ptr<unary_operator> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i2
+       unary_operator i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i2
  ,     std::shared_ptr<primary> i3
   ):
        mem1(i1)
@@ -6476,14 +5844,14 @@ class T_expression_op1 : public ComponentBase {
 class T_expression_op2 : public ComponentBase {
   public :
     std::shared_ptr<expression> mem1;
-    std::shared_ptr<binary_operator> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem3;
+    binary_operator mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem3;
     std::shared_ptr<expression> mem4;
 
   T_expression_op2( 
        std::shared_ptr<expression> i1
- ,     std::shared_ptr<binary_operator> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i3
+ ,     binary_operator i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i3
  ,     std::shared_ptr<expression> i4
   ):
        mem1(i1)
@@ -6538,13 +5906,13 @@ class T_mintypmax_expression_3 : public ComponentBase {
 class T_module_path_conditional_expression : public ComponentBase {
   public :
     std::shared_ptr<module_path_expression> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem2;
     std::shared_ptr<module_path_expression> mem3;
     std::shared_ptr<module_path_expression> mem4;
 
   T_module_path_conditional_expression( 
        std::shared_ptr<module_path_expression> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i2
  ,     std::shared_ptr<module_path_expression> i3
  ,     std::shared_ptr<module_path_expression> i4
   ):
@@ -6566,13 +5934,13 @@ class T_module_path_expression_prim : public ComponentBase {
 };
 class T_module_path_expression_op1 : public ComponentBase {
   public :
-    std::shared_ptr<unary_operator> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem2;
+    unary_operator mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem2;
     std::shared_ptr<module_path_primary> mem3;
 
   T_module_path_expression_op1( 
-       std::shared_ptr<unary_operator> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i2
+       unary_operator i1
+ ,     std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i2
  ,     std::shared_ptr<module_path_primary> i3
   ):
        mem1(i1)
@@ -6583,14 +5951,14 @@ class T_module_path_expression_op1 : public ComponentBase {
 class T_module_path_expression_op2 : public ComponentBase {
   public :
     std::shared_ptr<module_path_expression> mem1;
-    std::shared_ptr<binary_module_path_operator> mem2;
-    std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> mem3;
+    binary_module_path_operator mem2;
+    std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem3;
     std::shared_ptr<module_path_expression> mem4;
 
   T_module_path_expression_op2( 
        std::shared_ptr<module_path_expression> i1
- ,     std::shared_ptr<binary_module_path_operator> i2
- ,     std::shared_ptr<std::list<std::shared_ptr< attribute_instance>>> i3
+ ,     binary_module_path_operator i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i3
  ,     std::shared_ptr<module_path_expression> i4
   ):
        mem1(i1)
@@ -6854,12 +6222,12 @@ class T_net_lvalue_id : public ComponentBase {
 class T_net_lvalue_idexp : public ComponentBase {
   public :
     std::shared_ptr<hierarchical_identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< expression>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<expression>>> mem2;
     std::shared_ptr<range_expression> mem3;
 
   T_net_lvalue_idexp( 
        std::shared_ptr<hierarchical_identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< expression>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<expression>>> i2
  ,     std::shared_ptr<range_expression> i3
   ):
        mem1(i1)
@@ -6869,10 +6237,10 @@ class T_net_lvalue_idexp : public ComponentBase {
 };
 class T_net_lvalue_lvlist : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< net_lvalue>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<net_lvalue>>> mem1;
 
   T_net_lvalue_lvlist( 
-       std::shared_ptr<std::list<std::shared_ptr< net_lvalue>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<net_lvalue>>> i1
   ):
        mem1(i1)
   {}
@@ -6889,10 +6257,10 @@ class T_delay_value_UNSIGNED_NUMBER : public ComponentBase {
 };
 class T_delay_value_REAL_NUMBER : public ComponentBase {
   public :
-    std::string mem1;
+    string mem1;
 
   T_delay_value_REAL_NUMBER( 
-       std::string i1
+       string i1
   ):
        mem1(i1)
   {}
@@ -6909,10 +6277,10 @@ class T_delay_value_id : public ComponentBase {
 };
 class T_attribute_instance : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< attr_spec>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<attr_spec>>> mem1;
 
   T_attribute_instance( 
-       std::shared_ptr<std::list<std::shared_ptr< attr_spec>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<attr_spec>>> i1
   ):
        mem1(i1)
   {}
@@ -6932,10 +6300,10 @@ class T_attr_spec : public ComponentBase {
 };
 class T_hierarchical_identifier : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< identifier_lsq_expression_rsq>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<identifier_lsq_expression_rsq>>> mem1;
 
   T_hierarchical_identifier( 
-       std::shared_ptr<std::list<std::shared_ptr< identifier_lsq_expression_rsq>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<identifier_lsq_expression_rsq>>> i1
   ):
        mem1(i1)
   {}
@@ -6943,35 +6311,14 @@ class T_hierarchical_identifier : public ComponentBase {
 class T_identifier_lsq_expression_rsq : public ComponentBase {
   public :
     std::shared_ptr<identifier> mem1;
-    std::shared_ptr<std::list<std::shared_ptr< range_expression>>> mem2;
+    std::shared_ptr<std::list<std::shared_ptr<range_expression>>> mem2;
 
   T_identifier_lsq_expression_rsq( 
        std::shared_ptr<identifier> i1
- ,     std::shared_ptr<std::list<std::shared_ptr< range_expression>>> i2
+ ,     std::shared_ptr<std::list<std::shared_ptr<range_expression>>> i2
   ):
        mem1(i1)
  ,     mem2(i2)
-  {}
-};
-class T_polarity_operator_NOSPEC : public ComponentBase {
-  public :
-
-  T_polarity_operator_NOSPEC( 
-  )
-  {}
-};
-class T_polarity_operator_ADD : public ComponentBase {
-  public :
-
-  T_polarity_operator_ADD( 
-  )
-  {}
-};
-class T_polarity_operator_SUB : public ComponentBase {
-  public :
-
-  T_polarity_operator_SUB( 
-  )
   {}
 };
 class T_system_timing_check_dollor_setup_timing_check : public ComponentBase {
@@ -7634,10 +6981,10 @@ class T_specify_terminal_descriptor_in : public ComponentBase {
 };
 class T_edge_control_specifier : public ComponentBase {
   public :
-    std::shared_ptr<std::list<std::shared_ptr< edge_descriptor>>> mem1;
+    std::shared_ptr<std::list<std::shared_ptr<edge_descriptor>>> mem1;
 
   T_edge_control_specifier( 
-       std::shared_ptr<std::list<std::shared_ptr< edge_descriptor>>> i1
+       std::shared_ptr<std::list<std::shared_ptr<edge_descriptor>>> i1
   ):
        mem1(i1)
   {}
@@ -7658,12 +7005,12 @@ class T_edge_descriptor_10 : public ComponentBase {
 };
 class T_edge_descriptor_zx01 : public ComponentBase {
   public :
-    std::shared_ptr<z_or_x> mem1;
-    std::shared_ptr<zero_or_one> mem2;
+    z_or_x mem1;
+    zero_or_one mem2;
 
   T_edge_descriptor_zx01( 
-       std::shared_ptr<z_or_x> i1
- ,     std::shared_ptr<zero_or_one> i2
+       z_or_x i1
+ ,     zero_or_one i2
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -7671,57 +7018,15 @@ class T_edge_descriptor_zx01 : public ComponentBase {
 };
 class T_edge_descriptor_01zx : public ComponentBase {
   public :
-    std::shared_ptr<zero_or_one> mem1;
-    std::shared_ptr<z_or_x> mem2;
+    zero_or_one mem1;
+    z_or_x mem2;
 
   T_edge_descriptor_01zx( 
-       std::shared_ptr<zero_or_one> i1
- ,     std::shared_ptr<z_or_x> i2
+       zero_or_one i1
+ ,     z_or_x i2
   ):
        mem1(i1)
  ,     mem2(i2)
-  {}
-};
-class T_zero_or_one_0 : public ComponentBase {
-  public :
-
-  T_zero_or_one_0( 
-  )
-  {}
-};
-class T_zero_or_one_1 : public ComponentBase {
-  public :
-
-  T_zero_or_one_1( 
-  )
-  {}
-};
-class T_z_or_x__x : public ComponentBase {
-  public :
-
-  T_z_or_x__x( 
-  )
-  {}
-};
-class T_z_or_x__X : public ComponentBase {
-  public :
-
-  T_z_or_x__X( 
-  )
-  {}
-};
-class T_z_or_x__z : public ComponentBase {
-  public :
-
-  T_z_or_x__z( 
-  )
-  {}
-};
-class T_z_or_x__Z : public ComponentBase {
-  public :
-
-  T_z_or_x__Z( 
-  )
   {}
 };
 class T_timing_check_condition_NOSPEC : public ComponentBase {
@@ -7826,13 +7131,13 @@ class T_scalar_constant_unsigned : public ComponentBase {
 class T_scalar_constant_binary : public ComponentBase {
   public :
     int mem1;
-    std::string mem2;
-    std::string mem3;
+    string mem2;
+    string mem3;
 
   T_scalar_constant_binary( 
        int i1
- ,     std::string i2
- ,     std::string i3
+ ,     string i2
+ ,     string i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -7869,453 +7174,6 @@ class T_delayed_data_idmtmexp : public ComponentBase {
  ,     mem2(i2)
   {}
 };
-class T_edge_identifier_NOSPEC : public ComponentBase {
-  public :
-
-  T_edge_identifier_NOSPEC( 
-  )
-  {}
-};
-class T_edge_identifier_POS : public ComponentBase {
-  public :
-
-  T_edge_identifier_POS( 
-  )
-  {}
-};
-class T_edge_identifier_NEG : public ComponentBase {
-  public :
-
-  T_edge_identifier_NEG( 
-  )
-  {}
-};
-class T_unary_operator_LOGIC_NEG : public ComponentBase {
-  public :
-
-  T_unary_operator_LOGIC_NEG( 
-  )
-  {}
-};
-class T_unary_operator_BITWISE_NEG : public ComponentBase {
-  public :
-
-  T_unary_operator_BITWISE_NEG( 
-  )
-  {}
-};
-class T_unary_operator_REDUCE_NOR : public ComponentBase {
-  public :
-
-  T_unary_operator_REDUCE_NOR( 
-  )
-  {}
-};
-class T_unary_operator_REDUCE_NAND : public ComponentBase {
-  public :
-
-  T_unary_operator_REDUCE_NAND( 
-  )
-  {}
-};
-class T_unary_operator_ADD : public ComponentBase {
-  public :
-
-  T_unary_operator_ADD( 
-  )
-  {}
-};
-class T_unary_operator_SUB : public ComponentBase {
-  public :
-
-  T_unary_operator_SUB( 
-  )
-  {}
-};
-class T_unary_operator_REDUCE_AND : public ComponentBase {
-  public :
-
-  T_unary_operator_REDUCE_AND( 
-  )
-  {}
-};
-class T_unary_operator_REDUCE_OR : public ComponentBase {
-  public :
-
-  T_unary_operator_REDUCE_OR( 
-  )
-  {}
-};
-class T_unary_operator_REDUCE_XOR : public ComponentBase {
-  public :
-
-  T_unary_operator_REDUCE_XOR( 
-  )
-  {}
-};
-class T_unary_operator_REDUCE_XNOR : public ComponentBase {
-  public :
-
-  T_unary_operator_REDUCE_XNOR( 
-  )
-  {}
-};
-class T_binary_operator_MUL : public ComponentBase {
-  public :
-
-  T_binary_operator_MUL( 
-  )
-  {}
-};
-class T_binary_operator_DIV : public ComponentBase {
-  public :
-
-  T_binary_operator_DIV( 
-  )
-  {}
-};
-class T_binary_operator_MOD : public ComponentBase {
-  public :
-
-  T_binary_operator_MOD( 
-  )
-  {}
-};
-class T_binary_operator_EQU2 : public ComponentBase {
-  public :
-
-  T_binary_operator_EQU2( 
-  )
-  {}
-};
-class T_binary_operator_NEQ2 : public ComponentBase {
-  public :
-
-  T_binary_operator_NEQ2( 
-  )
-  {}
-};
-class T_binary_operator_EQU3 : public ComponentBase {
-  public :
-
-  T_binary_operator_EQU3( 
-  )
-  {}
-};
-class T_binary_operator_NEQ3 : public ComponentBase {
-  public :
-
-  T_binary_operator_NEQ3( 
-  )
-  {}
-};
-class T_binary_operator_POWER : public ComponentBase {
-  public :
-
-  T_binary_operator_POWER( 
-  )
-  {}
-};
-class T_binary_operator_LT : public ComponentBase {
-  public :
-
-  T_binary_operator_LT( 
-  )
-  {}
-};
-class T_binary_operator_LE : public ComponentBase {
-  public :
-
-  T_binary_operator_LE( 
-  )
-  {}
-};
-class T_binary_operator_GT : public ComponentBase {
-  public :
-
-  T_binary_operator_GT( 
-  )
-  {}
-};
-class T_binary_operator_GE : public ComponentBase {
-  public :
-
-  T_binary_operator_GE( 
-  )
-  {}
-};
-class T_binary_operator_LOGICAL_RIGHTSHIFT : public ComponentBase {
-  public :
-
-  T_binary_operator_LOGICAL_RIGHTSHIFT( 
-  )
-  {}
-};
-class T_binary_operator_LOGICAL_LEFTSHIFT : public ComponentBase {
-  public :
-
-  T_binary_operator_LOGICAL_LEFTSHIFT( 
-  )
-  {}
-};
-class T_binary_operator_ARITHMETIC_RIGHTSHIFT : public ComponentBase {
-  public :
-
-  T_binary_operator_ARITHMETIC_RIGHTSHIFT( 
-  )
-  {}
-};
-class T_binary_operator_ARITHMETIC_LEFTSHIFT : public ComponentBase {
-  public :
-
-  T_binary_operator_ARITHMETIC_LEFTSHIFT( 
-  )
-  {}
-};
-class T_binary_operator_ADD : public ComponentBase {
-  public :
-
-  T_binary_operator_ADD( 
-  )
-  {}
-};
-class T_binary_operator_SUB : public ComponentBase {
-  public :
-
-  T_binary_operator_SUB( 
-  )
-  {}
-};
-class T_binary_operator_AND : public ComponentBase {
-  public :
-
-  T_binary_operator_AND( 
-  )
-  {}
-};
-class T_binary_operator_OR : public ComponentBase {
-  public :
-
-  T_binary_operator_OR( 
-  )
-  {}
-};
-class T_binary_operator_AND2 : public ComponentBase {
-  public :
-
-  T_binary_operator_AND2( 
-  )
-  {}
-};
-class T_binary_operator_OR2 : public ComponentBase {
-  public :
-
-  T_binary_operator_OR2( 
-  )
-  {}
-};
-class T_binary_operator_XOR : public ComponentBase {
-  public :
-
-  T_binary_operator_XOR( 
-  )
-  {}
-};
-class T_binary_operator_XNOR : public ComponentBase {
-  public :
-
-  T_binary_operator_XNOR( 
-  )
-  {}
-};
-class T_binary_operator_1 : public ComponentBase {
-  public :
-    std::shared_ptr<binary_operator1> mem1;
-
-  T_binary_operator_1( 
-       std::shared_ptr<binary_operator1> i1
-  ):
-       mem1(i1)
-  {}
-};
-class T_binary_operator_2 : public ComponentBase {
-  public :
-    std::shared_ptr<binary_operator2> mem1;
-
-  T_binary_operator_2( 
-       std::shared_ptr<binary_operator2> i1
-  ):
-       mem1(i1)
-  {}
-};
-class T_unary_module_path_operator_GANTANHAO : public ComponentBase {
-  public :
-
-  T_unary_module_path_operator_GANTANHAO( 
-  )
-  {}
-};
-class T_unary_module_path_operator_BOLANGHAO : public ComponentBase {
-  public :
-
-  T_unary_module_path_operator_BOLANGHAO( 
-  )
-  {}
-};
-class T_unary_module_path_operator_AND : public ComponentBase {
-  public :
-
-  T_unary_module_path_operator_AND( 
-  )
-  {}
-};
-class T_unary_module_path_operator_NAND : public ComponentBase {
-  public :
-
-  T_unary_module_path_operator_NAND( 
-  )
-  {}
-};
-class T_unary_module_path_operator_OR : public ComponentBase {
-  public :
-
-  T_unary_module_path_operator_OR( 
-  )
-  {}
-};
-class T_unary_module_path_operator_NOR : public ComponentBase {
-  public :
-
-  T_unary_module_path_operator_NOR( 
-  )
-  {}
-};
-class T_unary_module_path_operator_XOR : public ComponentBase {
-  public :
-
-  T_unary_module_path_operator_XOR( 
-  )
-  {}
-};
-class T_unary_module_path_operator_XNOR : public ComponentBase {
-  public :
-
-  T_unary_module_path_operator_XNOR( 
-  )
-  {}
-};
-class T_binary_module_path_operator_EQU2 : public ComponentBase {
-  public :
-
-  T_binary_module_path_operator_EQU2( 
-  )
-  {}
-};
-class T_binary_module_path_operator_NEQ2 : public ComponentBase {
-  public :
-
-  T_binary_module_path_operator_NEQ2( 
-  )
-  {}
-};
-class T_binary_module_path_operator_AND2 : public ComponentBase {
-  public :
-
-  T_binary_module_path_operator_AND2( 
-  )
-  {}
-};
-class T_binary_module_path_operator_OR2 : public ComponentBase {
-  public :
-
-  T_binary_module_path_operator_OR2( 
-  )
-  {}
-};
-class T_binary_module_path_operator_AND1 : public ComponentBase {
-  public :
-
-  T_binary_module_path_operator_AND1( 
-  )
-  {}
-};
-class T_binary_module_path_operator_OR1 : public ComponentBase {
-  public :
-
-  T_binary_module_path_operator_OR1( 
-  )
-  {}
-};
-class T_binary_module_path_operator_XOR : public ComponentBase {
-  public :
-
-  T_binary_module_path_operator_XOR( 
-  )
-  {}
-};
-class T_binary_module_path_operator_XNOR : public ComponentBase {
-  public :
-
-  T_binary_module_path_operator_XNOR( 
-  )
-  {}
-};
-class T_level_symbol_0 : public ComponentBase {
-  public :
-
-  T_level_symbol_0( 
-  )
-  {}
-};
-class T_level_symbol_1 : public ComponentBase {
-  public :
-
-  T_level_symbol_1( 
-  )
-  {}
-};
-class T_level_symbol_x : public ComponentBase {
-  public :
-
-  T_level_symbol_x( 
-  )
-  {}
-};
-class T_level_symbol_X : public ComponentBase {
-  public :
-
-  T_level_symbol_X( 
-  )
-  {}
-};
-class T_level_symbol_QUESTION : public ComponentBase {
-  public :
-
-  T_level_symbol_QUESTION( 
-  )
-  {}
-};
-class T_level_symbol_b : public ComponentBase {
-  public :
-
-  T_level_symbol_b( 
-  )
-  {}
-};
-class T_level_symbol_B : public ComponentBase {
-  public :
-
-  T_level_symbol_B( 
-  )
-  {}
-};
-class T_level_symbol_SUB : public ComponentBase {
-  public :
-
-  T_level_symbol_SUB( 
-  )
-  {}
-};
 class T_output_symbol_UNSIGNED_NUMBER : public ComponentBase {
   public :
     int mem1;
@@ -8328,10 +7186,10 @@ class T_output_symbol_UNSIGNED_NUMBER : public ComponentBase {
 };
 class T_output_symbol_SIMID : public ComponentBase {
   public :
-    std::string mem1;
+    string mem1;
 
   T_output_symbol_SIMID( 
-       std::string i1
+       string i1
   ):
        mem1(i1)
   {}
@@ -8349,13 +7207,13 @@ class T_number_UNSIGNED_NUMBER : public ComponentBase {
 class T_number_UNSIGNED_NUMBER_size : public ComponentBase {
   public :
     int mem1;
-    std::string mem2;
-    std::string mem3;
+    string mem2;
+    string mem3;
 
   T_number_UNSIGNED_NUMBER_size( 
        int i1
- ,     std::string i2
- ,     std::string i3
+ ,     string i2
+ ,     string i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -8365,13 +7223,13 @@ class T_number_UNSIGNED_NUMBER_size : public ComponentBase {
 class T_number_OCTAL_NUMBER : public ComponentBase {
   public :
     int mem1;
-    std::string mem2;
-    std::string mem3;
+    string mem2;
+    string mem3;
 
   T_number_OCTAL_NUMBER( 
        int i1
- ,     std::string i2
- ,     std::string i3
+ ,     string i2
+ ,     string i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -8381,13 +7239,13 @@ class T_number_OCTAL_NUMBER : public ComponentBase {
 class T_number_BINARY_NUMBER : public ComponentBase {
   public :
     int mem1;
-    std::string mem2;
-    std::string mem3;
+    string mem2;
+    string mem3;
 
   T_number_BINARY_NUMBER( 
        int i1
- ,     std::string i2
- ,     std::string i3
+ ,     string i2
+ ,     string i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -8397,13 +7255,13 @@ class T_number_BINARY_NUMBER : public ComponentBase {
 class T_number_HEX_NUMBER : public ComponentBase {
   public :
     int mem1;
-    std::string mem2;
-    std::string mem3;
+    string mem2;
+    string mem3;
 
   T_number_HEX_NUMBER( 
        int i1
- ,     std::string i2
- ,     std::string i3
+ ,     string i2
+ ,     string i3
   ):
        mem1(i1)
  ,     mem2(i2)
@@ -8412,10 +7270,10 @@ class T_number_HEX_NUMBER : public ComponentBase {
 };
 class T_number_REAL_NUMBER : public ComponentBase {
   public :
-    std::string mem1;
+    string mem1;
 
   T_number_REAL_NUMBER( 
-       std::string i1
+       string i1
   ):
        mem1(i1)
   {}
@@ -8432,10 +7290,10 @@ class T_next_state_UNSIGNED_NUMBER : public ComponentBase {
 };
 class T_next_state_SIMID : public ComponentBase {
   public :
-    std::string mem1;
+    string mem1;
 
   T_next_state_SIMID( 
-       std::string i1
+       string i1
   ):
        mem1(i1)
   {}
@@ -8447,94 +7305,38 @@ class T_next_state_SUB : public ComponentBase {
   )
   {}
 };
-class T_edge_symbol_r : public ComponentBase {
-  public :
-
-  T_edge_symbol_r( 
-  )
-  {}
-};
-class T_edge_symbol_R : public ComponentBase {
-  public :
-
-  T_edge_symbol_R( 
-  )
-  {}
-};
-class T_edge_symbol_f : public ComponentBase {
-  public :
-
-  T_edge_symbol_f( 
-  )
-  {}
-};
-class T_edge_symbol_F : public ComponentBase {
-  public :
-
-  T_edge_symbol_F( 
-  )
-  {}
-};
-class T_edge_symbol_p : public ComponentBase {
-  public :
-
-  T_edge_symbol_p( 
-  )
-  {}
-};
-class T_edge_symbol_P : public ComponentBase {
-  public :
-
-  T_edge_symbol_P( 
-  )
-  {}
-};
-class T_edge_symbol_n : public ComponentBase {
-  public :
-
-  T_edge_symbol_n( 
-  )
-  {}
-};
-class T_edge_symbol_N : public ComponentBase {
-  public :
-
-  T_edge_symbol_N( 
-  )
-  {}
-};
 class T_string : public ComponentBase {
   public :
-    std::string mem1;
+    string mem1;
 
   T_string( 
-       std::string i1
+       string i1
   ):
        mem1(i1)
   {}
 };
 class T_system_function_identifier : public ComponentBase {
   public :
-    std::string mem1;
+    string mem1;
 
   T_system_function_identifier( 
-       std::string i1
+       string i1
   ):
        mem1(i1)
   {}
 };
 class T_io_declaration_net : public ComponentBase {
   public :
-    std::shared_ptr<io_type> mem1;
-    std::shared_ptr<netreg_type> mem2;
-    std::shared_ptr<signedType> mem3;
+    io_type mem1;
+    netreg_type mem2;
+    signedType mem3;
     std::shared_ptr<range> mem4;
     std::shared_ptr<port_identifier_equ1_expression_opt> mem5;
 
   T_io_declaration_net( 
-       std::shared_ptr<io_type> i1
- ,     std::shared_ptr<netreg_type> i2
- ,     std::shared_ptr<signedType> i3
+       io_type i1
+ ,     netreg_type i2
+ ,     signedType i3
  ,     std::shared_ptr<range> i4
  ,     std::shared_ptr<port_identifier_equ1_expression_opt> i5
   ):
@@ -8543,111 +7345,6 @@ class T_io_declaration_net : public ComponentBase {
  ,     mem3(i3)
  ,     mem4(i4)
  ,     mem5(i5)
-  {}
-};
-class T_netreg_type__NOSPEC : public ComponentBase {
-  public :
-
-  T_netreg_type__NOSPEC( 
-  )
-  {}
-};
-class T_netreg_type__KEY_SUPPLY0 : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_SUPPLY0( 
-  )
-  {}
-};
-class T_netreg_type__KEY_SUPPLY1 : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_SUPPLY1( 
-  )
-  {}
-};
-class T_netreg_type__KEY_TRI : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_TRI( 
-  )
-  {}
-};
-class T_netreg_type__KEY_TRIAND : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_TRIAND( 
-  )
-  {}
-};
-class T_netreg_type__KEY_TRIOR : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_TRIOR( 
-  )
-  {}
-};
-class T_netreg_type__KEY_TRI0 : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_TRI0( 
-  )
-  {}
-};
-class T_netreg_type__KEY_TRI1 : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_TRI1( 
-  )
-  {}
-};
-class T_netreg_type__KEY_UWIRE : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_UWIRE( 
-  )
-  {}
-};
-class T_netreg_type__KEY_WIRE : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_WIRE( 
-  )
-  {}
-};
-class T_netreg_type__KEY_WAND : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_WAND( 
-  )
-  {}
-};
-class T_netreg_type__KEY_WOR : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_WOR( 
-  )
-  {}
-};
-class T_netreg_type__KEY_REG : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_REG( 
-  )
-  {}
-};
-class T_netreg_type__KEY_INTEGER : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_INTEGER( 
-  )
-  {}
-};
-class T_netreg_type__KEY_TIME : public ComponentBase {
-  public :
-
-  T_netreg_type__KEY_TIME( 
-  )
   {}
 };
 class T_statement_or_block_item_statement : public ComponentBase {
@@ -8672,16 +7369,16 @@ class T_statement_or_block_item_block : public ComponentBase {
 };
 class T_tf_io_declaration_gen1 : public ComponentBase {
   public :
-    std::shared_ptr<io_type> mem1;
-    std::shared_ptr<reg> mem2;
-    std::shared_ptr<signedType> mem3;
+    io_type mem1;
+    reg mem2;
+    signedType mem3;
     std::shared_ptr<range> mem4;
     std::shared_ptr<identifier> mem5;
 
   T_tf_io_declaration_gen1( 
-       std::shared_ptr<io_type> i1
- ,     std::shared_ptr<reg> i2
- ,     std::shared_ptr<signedType> i3
+       io_type i1
+ ,     reg i2
+ ,     signedType i3
  ,     std::shared_ptr<range> i4
  ,     std::shared_ptr<identifier> i5
   ):
@@ -8694,60 +7391,18 @@ class T_tf_io_declaration_gen1 : public ComponentBase {
 };
 class T_tf_io_declaration_gen2 : public ComponentBase {
   public :
-    std::shared_ptr<io_type> mem1;
-    std::shared_ptr<task_port_type> mem2;
+    io_type mem1;
+    task_port_type mem2;
     std::shared_ptr<identifier> mem3;
 
   T_tf_io_declaration_gen2( 
-       std::shared_ptr<io_type> i1
- ,     std::shared_ptr<task_port_type> i2
+       io_type i1
+ ,     task_port_type i2
  ,     std::shared_ptr<identifier> i3
   ):
        mem1(i1)
  ,     mem2(i2)
  ,     mem3(i3)
-  {}
-};
-class T_io_type_NOSPEC : public ComponentBase {
-  public :
-
-  T_io_type_NOSPEC( 
-  )
-  {}
-};
-class T_io_type_output : public ComponentBase {
-  public :
-
-  T_io_type_output( 
-  )
-  {}
-};
-class T_io_type_input : public ComponentBase {
-  public :
-
-  T_io_type_input( 
-  )
-  {}
-};
-class T_io_type_inout : public ComponentBase {
-  public :
-
-  T_io_type_inout( 
-  )
-  {}
-};
-class T_reg_false : public ComponentBase {
-  public :
-
-  T_reg_false( 
-  )
-  {}
-};
-class T_reg_true : public ComponentBase {
-  public :
-
-  T_reg_true( 
-  )
   {}
 };
 class T_identifier_NOSPEC : public ComponentBase {
@@ -8759,40 +7414,12 @@ class T_identifier_NOSPEC : public ComponentBase {
 };
 class T_identifier : public ComponentBase {
   public :
-    std::string mem1;
+    string mem1;
 
   T_identifier( 
-       std::string i1
+       string i1
   ):
        mem1(i1)
-  {}
-};
-class T_colon_config_opt_FALSE : public ComponentBase {
-  public :
-
-  T_colon_config_opt_FALSE( 
-  )
-  {}
-};
-class T_colon_config_opt_TRUE : public ComponentBase {
-  public :
-
-  T_colon_config_opt_TRUE( 
-  )
-  {}
-};
-class T_signed_FALSE : public ComponentBase {
-  public :
-
-  T_signed_FALSE( 
-  )
-  {}
-};
-class T_signed_TRUE : public ComponentBase {
-  public :
-
-  T_signed_TRUE( 
-  )
   {}
 };
 }
