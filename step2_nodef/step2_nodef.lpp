@@ -276,6 +276,7 @@
 		return;
 	}
 	
+	vector<string> includePath;
 	void usage() {
 		cerr<<"step2_nodef [input filename] -I [head file dir] -I ..."<<endl;
 		return;
@@ -286,6 +287,14 @@
 		return foo.is_open();
 	}
 
+	string findFile(string filename) {
+		for(auto & path : includePath) {
+			string dirname_filename=path+filename;
+			if(testFileExistenceInDir(dirname_filename)) 
+				return dirname_filename;
+		}
+		return "";
+	}
 	//related to `line
 	int ln;
 %}
@@ -314,7 +323,7 @@ identifier_comb {escaped_identifier}|{simple_identifier}
 useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_distributed"|"`delay_mode_path"|"`delay_mode_unit"|"`delay_mode_zero"|"`accelerate"|"`autoexpand_vectornets"|"`begin_keywords"|"`celldefine"|"`default_nettype"|"`endcelldefine"|"`end_keywords"|"`endprotect"|"`endprotected"|"`expand_vectornets"|"`noaccelerate"|"`noexpand_vectornets"|"`noremove_gatenames"|"`noremove_netnames"|"`nounconnected_drive"|"`pragma"|"`protect"|"`protected"|"`remove_gatenames"|"`remove_netnames"|"`resetall"|"`timescale"|"`unconnected_drive"
 
 
-%x macro proc_ifdef do_then proc_ifndef line_skip_blank line_number line_skip_blank2 line_filename endofline proc_undef do_else do_else_in skip_else proc_ifdef_inskip stringSCin stringSCnotin comment
+%x macro proc_ifdef do_then proc_ifndef line_skip_blank line_number line_skip_blank2 line_filename endofline proc_undef do_else do_else_in skip_else proc_ifdef_inskip stringSCin stringSCnotin comment include
 
 %%
  /*INITIAL do_then do_else_in common*/
@@ -385,6 +394,7 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	"`undef"				{
 		yy_push_state(proc_undef);
 	}
+
 	"`define"{blank}+{identifier_comb} {
 		string s(yytext);
 	
@@ -409,6 +419,10 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		yy_push_state(line_skip_blank);
 	}
 	
+	"`include"{blank}* {
+		yy_push_state(include);
+	}
+
 	[`]{identifier_comb}{blank}*[(]({blank}*[^\n\r,]+{blank}*[,])*{blank}*[^\n\r,]+{blank}*[)] {
 		//replacing macros
 		string s(yytext);
@@ -454,13 +468,6 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		incCharNumber(s.size());
 	}
 	
-	
-	"`include"{blank}*"\"".*"\""+ {
-		string s{yytext};
-		prt_fatal("PREPROC_1014","can not found included file\n"+s);
-		print_pos_cerr ();
-		exit(1);
-	}
 	. {
 		ECHO;
 		string s(yytext);
@@ -625,11 +632,10 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 }
 
 <macro>{
-	[(]({blank}*{simple_identifier}{blank}*[,])*{blank}*{simple_identifier}{blank}*[)]([^\n]|"\\\n")*\n {
+	[(]({blank}*{simple_identifier}{blank}*[,])*{blank}*{simple_identifier}{blank}*[)]([^\n]|"\\\n")* {
 		// (arg1,arg2,...) <macro body> 
 		// where <macro body> contains < backslash +\n>
 		string s(yytext);
-		s.pop_back();//removing the return
 		deleteblank(s);//removing all blanks
 		auto num_del_backslash=deleteBackslach(s); //deleting backslash before \n
 		assert(s[0]=='(');
@@ -654,10 +660,9 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		yy_pop_state();
 	}
 
-	([^\n]|"\\\n")*\n {
+	([^\n]|"\\\n")* {
 		// <macro body> only
 		string s {yytext};
-		s.pop_back();//removing return
 		deleteblank(s);//removing blank
 		auto num_del_backslash=deleteBackslach(s); //deleting backslash before \n
 		//should not replace now, verilog 2005 
@@ -673,19 +678,30 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		print_pos_cout();
 		yy_pop_state();
 	}
-
+	
 	\n {
-		cerr<<"macro name : "<<currentMacroName<<endl;
-		cerr<<"macro body without param "<<endl;
+		//. match non-newline char, so if I dont specify \n 
+		// then it will automatically echoed and ignored
+		// so I must specify it here
+		// this means nothing for body
 		macrobody mb;
 		mb.params.clear();
 		mb.body="";
 		insertMacro(currentMacroName,mb);
-		incLineNumber();
+		cerr<<"macro name : "<<currentMacroName<<endl;
+		cerr<<"empty body "<<endl;
+		incLineNumber(1);
+		print_pos_cout();
 		yy_pop_state();
+
+	}
+	. {
+		string s {yytext};
+		prt_fatal("PREPROC_1032","improper define : "+ s);
+		print_pos_cerr();
+		exit(1);
 	}
 
-	. {prt_fatal("PREPROC_1032","improper define");exit(1);}
 }
 
 <stringSCin>{
@@ -711,6 +727,50 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	"\\\"" { }
 	\" { yy_pop_state(); } 
 	. { }
+}
+
+<include>{
+	\r 
+
+	\n	{
+		/*counting lines*/
+		this->incLineNumber();
+		ECHO;
+	}
+	
+	"//"[^\n]* /*discard one line comment*/
+	
+	"/*" {
+		yy_push_state(comment);
+	}
+
+	[ \t]+ 
+
+	"\""[ \t]*[a-zA-Z0-9\._\/]+[ \t]*"\"" {
+		string s {yytext};
+		s.erase(0,1);
+		s.erase(s.length()-1,1);
+		while(s[0]==' ') {s.erase(0,1);}
+		while(s[s.length()-1]==' ') {s.erase(s.length()-1,1);}
+		prt_info ("PREPROC_1038", "finding "+s ) ;
+		string fullpathname = findFile( s );
+		if( "" == fullpathname ) {
+			prt_fatal("PREPROC_1037","can not find included file "+s );
+			exit(1);
+		} else  {
+			prt_info ("PREPROC_1036", "including "+fullpathname ) ;
+			cout<<"\n`line 1 "<<fullpathname<<" 1 \n";
+			ifstream foo( fullpathname );
+			step2_nodefScanner * lexer= new step2_nodefScanner(fullpathname,&foo);
+			while(lexer->yylex()!=0);
+		}
+
+		cout<<"\n`line "<< (linenumber + 1) << " " <<filename<<" 2 \n";
+
+		yy_pop_state();
+	}
+
+	.
 }
 
 <comment>{
@@ -751,11 +811,19 @@ int main ( int argc, char * argv[] ) {
 	std::time_t st_time = std::chrono::system_clock::to_time_t(start);
 	std::cerr << "  step2 start computation at " << std::ctime(&st_time);
 
+	//adding current dir to includePath
+	includePath.push_back("");
 	//handling options
 	int c;
-	while ((c = getopt (argc, argv, "D:")) != -1) {
+	while ((c = getopt (argc, argv, "D:I:")) != -1) {
 		switch (c)
 		{
+		case 'I': {
+			string pathname{optarg};
+			if(pathname[pathname.length()-1]!='/') pathname.push_back('/');
+			includePath.push_back(pathname);
+			}
+			break;
 		case 'D': {
 			string macroname{optarg};
 			macrobody mb;

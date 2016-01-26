@@ -646,6 +646,16 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 	prt_info("COMPILING_0002","deprecated directive "+s);
 }
 
+ /*non-standard directive*/
+"`enable_portfaults" |
+"`disable_portfaults" |
+"`suppress_faults" |
+"`nosuppress_faults" {
+	string s{yytext};
+	prt_info("COMPILING_0002","deprecated directive "+s);
+}
+
+
 "`line"			{
 //	ECHO;
 	yy_push_state(line_skip_blank);

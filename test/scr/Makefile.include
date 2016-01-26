@@ -13,13 +13,13 @@ sdf.v : nodef.v
 	checker $< > step3.v 2>>error
 	mv step3.v $@
 
-nodef.v : noinclude.v
-	step2_nodef $< > step2.v 2>>error
+nodef.v : ${SRCFILE}
+	step2_nodef $<  ${OPTIONS} > step2.v 2>>error
 	mv step2.v $@
 
-noinclude.v : ${SRCFILE}
-	step1_noinc_comment $< ${OPTIONS} > step1.v 2>error
-	mv step1.v $@
+#noinclude.v : ${SRCFILE}
+#	step1_noinc_comment $< ${OPTIONS} > step1.v 2>error
+#	mv step1.v $@
 
 # tokenrize parser result and step2 result
 sdf.v.tok : sdf.v

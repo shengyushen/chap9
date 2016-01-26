@@ -42,7 +42,14 @@ if [ $remainNumArgs -ne 1 ]; then
 fi
 
 fname=$@
-step2_nodef         ${incdir} ${fname} > ${fname}.step2.v || exit 1
+# step1
+step1_noinc_comment ${incdir} ${fname} > ${fname}.step1.v || exit 1
+# I can add sed macros to remove unintended macros here
+sed -e 's/`suppress_faults//g' ${fname}.step1.v | 
+sed -e 's/`enable_portfaults//g' |
+sed -e 's/`nosuppress_faults//g' |
+sed -e 's/`disable_portfaults//g' > ${fname}.step1_1.v
+step2_nodef         ${fname}.step1_1.v > ${fname}.step2.v || exit 1
 checker             ${fname}.step2.v   > ${fname}.step3.v || exit 1
 
 # End of file
