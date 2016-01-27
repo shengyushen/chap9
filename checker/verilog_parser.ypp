@@ -3474,7 +3474,7 @@ specify_item_list :
 	{
 		$$=SHR_LIST_SHR(specify_item)();
 	}
-	| specify_item_list specify_item 
+	| specify_item_list specify_item
 		{
 			auto p=$1;
 			p->push_back($2);
@@ -3614,9 +3614,18 @@ edge_sensitive_path_declaration :
 
 
 parallel_edge_sensitive_path_description :
-LPARENT edge_identifier_opt  list_of_path_inouts polarity_operator_opt IMPLY2
-LPARENT specify_inout_terminal_descriptor polarity_operator_opt COLON data_source_expression RPARENT RPARENT
+  LPARENT edge_identifier_opt  list_of_path_inouts polarity_operator_opt IMPLY2 LPARENT specify_inout_terminal_descriptor polarity_operator_opt COLON data_source_expression RPARENT RPARENT
 		{$$=SHR2(parallel_edge_sensitive_path_description,T_parallel_edge_sensitive_path_description,($2,$3,$4,$7,$8,$10));}
+| LPARENT edge_identifier_opt  list_of_path_inouts polarity_operator_opt IMPLY2 LPARENT specify_inout_terminal_descriptor ADDRANGE data_source_expression RPARENT RPARENT
+		{
+			auto x=T_polarity_operator_ADD;
+			$$=SHR2(parallel_edge_sensitive_path_description,T_parallel_edge_sensitive_path_description,($2,$3,$4,$7,x,$9));
+		}
+| LPARENT edge_identifier_opt  list_of_path_inouts polarity_operator_opt IMPLY2 LPARENT specify_inout_terminal_descriptor SUBRANGE data_source_expression RPARENT RPARENT
+		{
+			auto x=T_polarity_operator_SUB;
+			$$=SHR2(parallel_edge_sensitive_path_description,T_parallel_edge_sensitive_path_description,($2,$3,$4,$7,x,$9));
+		}
 ;
 
 edge_identifier_opt :
@@ -3625,9 +3634,12 @@ edge_identifier_opt :
 ;
 
 full_edge_sensitive_path_description :
-	LPARENT edge_identifier_opt list_of_path_inouts polarity_operator_opt IMPLYSTART
-LPARENT list_of_path_inouts polarity_operator_opt COLON data_source_expression RPARENT RPARENT
+	LPARENT edge_identifier_opt list_of_path_inouts polarity_operator_opt IMPLYSTART LPARENT list_of_path_inouts polarity_operator_opt COLON data_source_expression RPARENT RPARENT
 		{$$=SHR2(full_edge_sensitive_path_description,T_full_edge_sensitive_path_description,($2,$3,$4,$7,$8,$10));}
+|	LPARENT edge_identifier_opt list_of_path_inouts polarity_operator_opt IMPLYSTART LPARENT list_of_path_inouts ADDRANGE data_source_expression RPARENT RPARENT
+		{$$=SHR2(full_edge_sensitive_path_description,T_full_edge_sensitive_path_description,($2,$3,$4,$7,T_polarity_operator_ADD,$9));}
+|	LPARENT edge_identifier_opt list_of_path_inouts polarity_operator_opt IMPLYSTART LPARENT list_of_path_inouts SUBRANGE data_source_expression RPARENT RPARENT
+		{$$=SHR2(full_edge_sensitive_path_description,T_full_edge_sensitive_path_description,($2,$3,$4,$7,T_polarity_operator_SUB,$9));}
 ;
 
 data_source_expression :
