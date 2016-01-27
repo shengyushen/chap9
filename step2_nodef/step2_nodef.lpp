@@ -299,10 +299,22 @@
 			return;
 		}
 	}
+	void deleteReturn(string & body) {
+		while(true) {
+			auto p1=body.find('\r');
+			if(p1!=string::npos) {
+				body.erase(p1);
+			} else {
+				return;
+			}
+		}
+	}
 	void deleteComment(string & body , int pos) {
 		cerr<<"deleteComment "<<body<<endl;
+		cerr<<"body length "<<body.length()<<endl;
 		cerr<<"at "<<pos<<endl;
-		auto p1=body.find('/');
+		assert(pos<=body.size()-1);
+		auto p1=body.find('/',pos);
 		if(p1==string::npos) {
 			//no more comments
 			return;
@@ -311,10 +323,10 @@
 			return;
 		} else if(body[p1+1]=='/') {
 			//one line comment
-			int p2=body.find("\\\n");
+			int p2=body.find("\\\n",p1);
 			if(p2==string::npos) {
 				//not found back slash new line
-				int p3=body.find("\n");
+				int p3=body.find("\n",p1);
 				if(p3==string::npos) {
 					//not found newline
 					body.erase(p1,body.size()-1-p1+1);
@@ -332,13 +344,15 @@
 			//a double comment
 			matchingMultilineComment(body,p1);
 		}
-		assert(pos<=(body.size()));//shortest body may delete the pos
-		if(pos==(body.size()) ) { 
+		assert(p1<=(body.size()));//shortest body may delete the pos
+		if(p1==(body.size()) ) { 
 			//pos deleted
 			return;
+		} else if(p1==(body.size()-1)){
+			return ;
 		} else {
 			//pos still there
-			deleteComment(body,pos);
+			deleteComment(body,p1+1);
 		}
 	}
 	
@@ -375,19 +389,57 @@
 %option yyclass="step2_nodefScanner"
 %option header-file="step2_nodef.h"
 
-alpha [A-Za-z]
-digit [0-9]
-blank [ \t]
-alnum {alpha}|{digit}
-alnum_ {alnum}|[_]
-alpha_ {alpha}|[_]
 
-escaped_identifier     \\[^ \t\n]+[ \t\n\r]
+  /*A.8.7 Numbers */
+x_digit       [xX]
+z_digit       [zZ\?]
+binary_digit  {x_digit}|{z_digit}|[01]
+octal_digit   {x_digit}|{z_digit}|[0-7]
+decimal_digit [0-9]
+hex_digit     {x_digit}|{z_digit}|[0-9A-Fa-f]
+non_zero_decimal_digit  [1-9]
+decimal_base  (\'[sS]?d)|(\'[sS]?D)
+binary_base   (\'[sS]?b)|(\'[sS]?B)
+octal_base    (\'[sS]?o)|(\'[sS]?O)
+hex_base      (\'[sS]?h)|(\'[sS]?H)
+binary_value  {binary_digit}(_|{binary_digit})*
+octal_value   {octal_digit}(_|{octal_digit})*
+hex_value     {hex_digit}(_|{hex_digit})*
+unsigned_number  {decimal_digit}(_|{decimal_digit})*
+non_zero_unsigned_number  {non_zero_decimal_digit}(_|{decimal_digit})*
+size          {non_zero_unsigned_number}
+sign          [+-]
+exp           [eE]
+real_number     ({unsigned_number}\.{unsigned_number})|({unsigned_number}(\.{unsigned_number})?{exp}{sign}?{unsigned_number})
+time_precision "s"|"ms"|"us"|"ns"|"ps"|"fs"a
+ /*used on predetermine the ( */
+strength0  "supply0"|"strong0"|"pull0"|"weak0"
+strength1  "supply1"|"strong1"|"pull1"|"weak1"
+highz      "highz0"|"highz1"
+strength   {strength0}|{strength1}|{highz}
+  /*A.8.8 Strings*/
+  /*already deal with below*/
+
+  /*A.9.2 Comments*/
+  /*already deal with below*/
+
+
+  /*A.9.3 Identifiers*/
+escaped_identifier     \\[^ \t\n]+{blankrn}
+system_task_function_identifier [\$][a-zA-Z0-9_\$]+
 simple_identifier  [a-zA-Z_][a-zA-Z0-9_\$]*
+  /*A.9.4 White space*/
+  /*white space only used in escaped_identifier*/
+
+useless_directives "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_distributed"|"`delay_mode_path"|"`delay_mode_unit"|"`delay_mode_zero"|"`accelerate"|"`autoexpand_vectornets"|"`begin_keywords"|"`celldefine"|"`default_nettype"|"`endcelldefine"|"`end_keywords"|"`endprotect"|"`endprotected"|"`expand_vectornets"|"`include"|"`noaccelerate"|"`noexpand_vectornets"|"`noremove_gatenames"|"`noremove_netnames"|"`nounconnected_drive"|"`pragma"|"`protect"|"`protected"|"`remove_gatenames"|"`remove_netnames"|"`resetall"|"`timescale"|"`unconnected_drive"
+
+harful_directives "`define"|"`else"|"`elsif"|"`endif"|"`ifdef"|"`ifndef"|"`resetall"|"`undef"
+
+blank [ \t]
+blankrn [ \t\r\n]
+digit [0-9]
+
 identifier_comb {escaped_identifier}|{simple_identifier}
-
-useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_distributed"|"`delay_mode_path"|"`delay_mode_unit"|"`delay_mode_zero"|"`accelerate"|"`autoexpand_vectornets"|"`begin_keywords"|"`celldefine"|"`default_nettype"|"`endcelldefine"|"`end_keywords"|"`endprotect"|"`endprotected"|"`expand_vectornets"|"`noaccelerate"|"`noexpand_vectornets"|"`noremove_gatenames"|"`noremove_netnames"|"`nounconnected_drive"|"`pragma"|"`protect"|"`protected"|"`remove_gatenames"|"`remove_netnames"|"`resetall"|"`timescale"|"`unconnected_drive"
-
 
 %x macro proc_ifdef do_then proc_ifndef line_skip_blank line_number line_skip_blank2 line_filename endofline proc_undef do_else do_else_in skip_else proc_ifdef_inskip stringSCin stringSCnotin comment include commentNotAddMacro commentOnelineNotAdd
 
@@ -412,6 +464,66 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		incLineNumber();
 	}
 	
+   /*2005 standard directive*/
+	"`default_decay_time"{blankrn}+{unsigned_number} |
+	"`default_decay_time"{blankrn}+{real_number} |
+	"`default_decay_time"{blankrn}+"infinite" |
+	"`default_trireg_strength"{blankrn}+{unsigned_number} |
+	"`delay_mode_distributed" |
+	"`delay_mode_path" |
+	"`delay_mode_unit" |
+	"`delay_mode_zero" |
+	"`begin_keywords"{blankrn}+"1364-1995" |
+	"`begin_keywords"{blankrn}+"1364-2001-noconfig" |
+	"`begin_keywords"{blankrn}+"1364-2001" |
+	"`begin_keywords"{blankrn}+"1364-2005" |
+	"`end_keywords" |
+	"`celldefine" |
+	"`endcelldefine" |
+	"`default_nettype"{blankrn}+"wire" |
+	"`default_nettype"{blankrn}+"tri0" |
+	"`default_nettype"{blankrn}+"tri1" |
+	"`default_nettype"{blankrn}+"wand" |
+	"`default_nettype"{blankrn}+"triand" |
+	"`default_nettype"{blankrn}+"wor" |
+	"`default_nettype"{blankrn}+"trior" |
+	"`default_nettype"{blankrn}+"trireg" |
+	"`default_nettype"{blankrn}+"uwire" |
+	"`default_nettype"{blankrn}+"none" |
+	"`default_nettype"{blankrn}+"tri" |
+	"`nounconnected_drive" |
+	"`pragma"[^\n]* |
+	"`resetall" |
+	"`timescale"{blankrn}+{unsigned_number}{blankrn}*{time_precision}{blankrn}*"/"{blankrn}*{unsigned_number}{blankrn}*{time_precision} |
+	"`unconnected_drive"{blankrn}+"pull1" |
+	"`unconnected_drive"{blankrn}+"pull0" {
+		ECHO;
+	}
+	
+	"`accelerate" |
+	"`noaccelerate" |
+	"`autoexpand_vectornets" |
+	"`endprotect" |
+	"`endprotected" |
+	"`expand_vectornets" |
+	"`noexpand_vectornets" |
+	"`noremove_gatenames" |
+	"`noremove_netnames" |
+	"`protect" |
+	"`protected" |
+	"`remove_gatenames" |
+	"`remove_netnames" {
+		ECHO;
+	}
+	
+	 /*non-standard directive*/
+	"`enable_portfaults" |
+	"`disable_portfaults" |
+	"`suppress_faults" |
+	"`nosuppress_faults" {
+		ECHO;
+	}
+
 	"`ifdef" {
 		yy_push_state(proc_ifdef);
 	}
@@ -466,19 +578,11 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 	
 		s.erase(0,7);
 		deleteblank(s);
-		cerr<<"defiing "<<s<<endl;
+		cerr<<"defining "<<s<<endl;
 		currentMacroName=s;
 		currentMacrobody="";
 	
 		yy_push_state(macro);
-	}
-	
-	{useless_directive} {
-		string s(yytext);
-		incCharNumber(s.size());
-		prt_warning("PREPROC_1013","useless_directive "+s);
-		print_pos_cerr ();
-		ECHO;
 	}
 	
 	"`line"			{
@@ -722,13 +826,14 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 
 	<<EOF>> |
 	\n {
-		if((currentMacrobody.size()>0) && currentMacrobody[0]=='(') {
-			// (arg1,arg2,...) <macro body> 
-			// where <macro body> contains < backslash +\n>
 			string s(currentMacrobody);
+			deleteReturn(s);
 			deleteComment(s,0);
 			auto num_del_backslash=deleteBackslach(s); //deleting backslash before \n
 			deleteblank(s);//removing all blanks
+		if((currentMacrobody.size()>0) && currentMacrobody[0]=='(') {
+			// (arg1,arg2,...) <macro body> 
+			// where <macro body> contains < backslash +\n>
 			assert(s[0]=='(');
 			size_t rppos = searchRParentMatched(s,0);//find )
 			string paramlist = s.substr(1,rppos-1); // arg1,arg2,...
@@ -751,10 +856,6 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 			yy_pop_state();
 		} else {
 			// <macro body> only
-			string s {currentMacrobody};
-			deleteComment(s,0);
-			auto num_del_backslash=deleteBackslach(s); //deleting backslash before \n
-			deleteblank(s);//removing blank
 			//should not replace now, verilog 2005 
 			// require us to replace only when using this macro
 			//replaceMacro(s , filename , linenumber );
@@ -898,6 +999,10 @@ useless_directive "`default_decay_time"|"`default_trireg_strength"|"`delay_mode_
 		string s {yytext};
 		incLineNumber();
 		currentMacrobody=currentMacrobody+s;
+		yy_pop_state();
+	}
+
+	<<EOF>> {
 		yy_pop_state();
 	}
 
