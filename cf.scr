@@ -1,3 +1,4 @@
 #!/bin/bash -v
 autoreconf --install
-./configure --prefix=/home/syshen/local CXXFLAGS="-O2"
+#./configure --prefix=/home/syshen/local CXXFLAGS="-O2"
+./configure --prefix=/home/syshen/local 

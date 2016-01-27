@@ -281,11 +281,13 @@ digit [0-9]
 
 
 {size}?{decimal_base}{blank}*{x_digit}[_]* {
-	assert(false);
+	string s{yytext};
+	cout<<s<<endl;
 }
 
 {size}?{decimal_base}{blank}*{z_digit}[_]* {
-	assert(false);
+	string s{yytext};
+	cout<<s<<endl;
 }
 
 {size}?{octal_base}{blank}*{octal_value} {

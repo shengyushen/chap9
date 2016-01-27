@@ -1161,7 +1161,7 @@ public :
 
 	OPERATOR(T_task_enable,p) { 
 		printcell(p->mem1); 
-		printlist(p->mem2 , prt_lparent , prt_comma , prt_lparent);  
+		printlist(p->mem2 , prt_lparent , prt_comma , prt_rparent);  
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_wait_statement,p) { 
