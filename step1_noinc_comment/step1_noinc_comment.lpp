@@ -95,6 +95,9 @@ digit [0-9]a
 		print_pos();
 		exit(1);
 	}
+	"\\\\" { /*\\ as a whole so \\" is end of string*/
+		ECHO;
+	}
 	"\\\"" {
 		ECHO;
 	}

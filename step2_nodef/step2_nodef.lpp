@@ -879,9 +879,12 @@ identifier_comb {escaped_identifier}|{simple_identifier}
 
 <stringSCin>{
 	\n {
-		prt_fatal("","incomplet string");
+		prt_fatal("PREPROC_1046","incomplet string");
 		print_pos_cerr();
 		exit(1);
+	}
+	"\\\\" { /*\\ as a whole so \\" is end of string*/
+		ECHO;
 	}
 	"\\\"" { ECHO; }
 	\" {
@@ -893,9 +896,11 @@ identifier_comb {escaped_identifier}|{simple_identifier}
 
 <stringSCnotin>{
 	\n {
-		prt_fatal("","incomplet string");
+		prt_fatal("PREPROC_1047","incomplet string");
 		print_pos_cerr();
 		exit(1);
+	}
+	"\\\\" { /*\\ as a whole so \\" is end of string*/
 	}
 	"\\\"" { }
 	\" { yy_pop_state(); } 
@@ -918,6 +923,55 @@ identifier_comb {escaped_identifier}|{simple_identifier}
 	}
 
 	[ \t]+ 
+	
+
+	[`]{identifier_comb} {
+		string s(yytext);
+		int oldsize = s.size();
+	
+		s.erase(0,1);
+		deleteblank(s);
+		if(isInMacro(s) == false) {
+			prt_fatal("PREPROC_1041","undefined macro in include "+s);
+			print_pos_cerr ();
+			exit(1);
+		}
+		//now we have defined
+		auto mp = (macros.find(s))->second;
+		if((mp.params).size()!=0) {
+			prt_fatal("PREPROC_1042","mismatching parameter length of macro "+s);
+			print_pos_cerr ();
+			exit(1);
+		}
+		string oldbody = mp.body;
+		replaceMacro(oldbody , filename , linenumber);
+		deleteblank(oldbody);
+		if(oldbody[0]!='\"' || oldbody[oldbody.length()-1]!='\"') {
+			prt_fatal("PREPROC_1043","improper file name"+oldbody+" expaned from macro "+s);
+			print_pos_cerr ();
+			exit(1);
+		}
+		oldbody.erase(0);
+		oldbody.pop_back();
+		deleteblank(oldbody);
+		//now oldbody is the filename
+
+		string fullpathname = findFile( oldbody );
+		if( "" == fullpathname ) {
+			prt_fatal("PREPROC_1044","can not find included file "+oldbody );
+			exit(1);
+		} else  {
+			prt_info ("PREPROC_1045", "including "+fullpathname ) ;
+			cout<<"\n`line 1 "<<fullpathname<<" 1 \n";
+			ifstream foo( fullpathname );
+			step2_nodefScanner * lexer= new step2_nodefScanner(fullpathname,&foo);
+			while(lexer->yylex()!=0);
+		}
+
+		cout<<"\n`line "<< (linenumber + 1) << " " <<filename<<" 2 \n";
+
+		yy_pop_state();
+	}
 
 	"\""[ \t]*[a-zA-Z0-9\._\/]+[ \t]*"\"" {
 		string s {yytext};
@@ -1078,6 +1132,7 @@ int main ( int argc, char * argv[] ) {
 	}
 
 	cerr<<"step2 working on "<<argv[argc-1]<<endl;
+	cout<< "`line 1 " << argv[argc-1] << " 1" << endl << flush;
 	ifstream foo( argv[argc-1] );
 	//creating files handler and scanner
 	step2_nodefScanner * lexer= new step2_nodefScanner(argv[argc-1],&foo);

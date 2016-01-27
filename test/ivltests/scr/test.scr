@@ -28,6 +28,9 @@ do
 	   [[ ${file1} == pr2395378b ]] ||  # buf must have at least two ports
 	   [[ ${file1} == pr2395378c  ]] ||  # not must have at least two ports
 	   [[ ${file1} == pr2794144  ]] ||  # space between reduce operator such as ~& changed to ~ &
+	   [[ ${file1} == pr3015421  ]] ||  # sv function type of int 
+	   [[ ${file1} == pr3112073a  ]] ||  # sv reg real 
+	   [[ ${file1} == real_invalid_ops  ]] ||  # using reduced operator as binary operator
 	   [[ ${file1} == function4 ]] ||  # function with zero parameter
 	   [[ ${file1} == *br_gh79* ]] ; then # sv with _ following 'b
 		echo "ignoring " ${file1}

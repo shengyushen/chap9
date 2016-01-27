@@ -743,9 +743,13 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 
 <stringssy>{
 	\n {
-		prt_fatal("COMPILING_0008","incomplet string"+stringssy_string);
+		prt_fatal("COMPILING_0008","incomplet string "+stringssy_string);
 		print_pos();
 		exit(1);
+	}
+	"\\\\" { /*\\ as a whole so \\" is end of string*/
+		string s{yytext};
+		stringssy_string = stringssy_string+s;
 	}
 	"\\\"" {
 		string s{yytext};
