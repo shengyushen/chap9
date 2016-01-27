@@ -190,7 +190,7 @@ CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g -O2
+CXXFLAGS = -g -ggdb 
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
@@ -598,7 +598,7 @@ uninstall-am: uninstall-binPROGRAMS
 	uninstall-am uninstall-binPROGRAMS
 
 clean-local:
-	-rm -f very.cpp very.h verilog_parser.cpp verilog_parser.h location.hh position.hh stack.hh haha* gg* sdf* xx*
+	-rm -f very.cpp very.h verilog_parser.cpp verilog_parser.h location.hh position.hh stack.hh haha* gg* sdf* xx* verilog_parser.output
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

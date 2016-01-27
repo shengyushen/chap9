@@ -16,7 +16,7 @@
 # endif
 	using namespace std;
   #include"vast.h"
-  #include"verilog_parser.h"
+  #include"verilog_parser.hpp"
 	#include"veryscanner.h"
 
 
@@ -330,7 +330,7 @@ digit [0-9]
 
 "PATHPULSE\$"				 {
 	string s{yytext};
-	cout<<"KEY_PATHPULSE"<<endl;
+	cerr<<"KEY_PATHPULSE"<<endl;
 	return yy::verilog_parser::make_KEY_PATHPULSE(loc);
 }
 
@@ -443,7 +443,10 @@ digit [0-9]
 	while(s[x]!='d'&& s[x]!='D') {x++;}
 	const string db=s.substr(dbstart,x-dbstart+1);
 
-	while(s[x]!='z' && s[x]!='Z') {x++;}
+	while(s[x]!='z' && s[x]!='Z' && s[x]!='?') {
+		assert(x<s.size());
+		x++;
+	}
 	assert(x<s.size());
 	string numstr =s.substr(x,(s.size()-1-x+1));
 	deleteblank(numstr);
@@ -712,7 +715,6 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 
 
 "`line"			{
-//	ECHO;
 	yy_push_state(line_skip_blank);
 }
 
@@ -726,7 +728,6 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 
 <line_skip_blank>{
 	{blank}+ {
-//		ECHO;
 		yy_pop_state();
 		yy_push_state(line_number);
 	}
@@ -741,7 +742,6 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 <line_number>{
 	{digit}+ {
 		sscanf(yytext,"%d",&ln);
-//		ECHO;
 		yy_pop_state();
 		yy_push_state(line_skip_blank2);
 	}
@@ -756,7 +756,6 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 
 <line_skip_blank2>{
 	{blank}+ {
-//		ECHO;
 		yy_pop_state();
 		yy_push_state(line_filename);
 	}
@@ -774,7 +773,6 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 		if(ps) {delete ps;}
 		ps=new std::string(s);
 		loc.initialize(ps,ln-1,1);
-//		ECHO;
 //		cout<<endl<<"getting line "<<s<<endl;
 		yy_pop_state();
 		yy_push_state(endofline);
@@ -791,7 +789,6 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 
 <endofline>{
 	[^\n]*\n {
-//		ECHO;
 		yy_pop_state();
 	}
 }

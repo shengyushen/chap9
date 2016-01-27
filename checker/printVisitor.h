@@ -1469,6 +1469,7 @@ public :
 		printlist(p->mem3 , prt_comma , prt_comma , prt_nothing);//
 		prt_keyword_space(",");
 		printcell(p->mem4); 
+		prt_keyword_space(")");
 	}
 
 	OPERATOR(T_gate_instantiation_output,p) {

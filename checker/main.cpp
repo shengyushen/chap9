@@ -7,7 +7,7 @@
 #include<boost/variant.hpp>
 using namespace std;
 #include"vast.h"
-#include"verilog_parser.h"
+#include"verilog_parser.hpp"
 
 using namespace Verilogast;
 
@@ -50,13 +50,14 @@ int main ( int argc, char * argv[] ) {
 	ifstream foo( filename );
 	vs.open(&filename , &foo);
 	yy::verilog_parser vp(&filename);
+	cout<<"haha1";
 	int res=vp.parse();
+	cout<<"haha2";
 	if(0!=res) {
 		cerr<<"  improper structure"<<endl;
 	} else {
 		cerr<<"  all done!!!"<<endl;
 	}
-
 	printVerilog(ptr_source_text);
 	
 	return 0;

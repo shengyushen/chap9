@@ -2,7 +2,7 @@
  /*%require "3.0.4"*/
  /*as of writing this, I am using 3.0.2*/
 /*creating .h file*/
-%defines "verilog_parser.h"
+%defines "verilog_parser.hpp"
 /*new parser class name and its constructor's parameter*/
 %define parser_class_name {verilog_parser}
 /*it will automatically creat a copy member of the same name , so we can refer to it latter*/

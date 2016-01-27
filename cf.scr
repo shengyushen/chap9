@@ -1,4 +1,6 @@
 #!/bin/bash -v
 autoreconf --install
 #./configure --prefix=/home/syshen/local CXXFLAGS="-O2"
-./configure --prefix=/home/syshen/local 
+#./configure --prefix=/home/syshen/local CXXFLAGS="-g -ggdb -gdwarf-2"
+./configure --prefix=/home/syshen/local CXXFLAGS="-g -ggdb "
+
