@@ -195,6 +195,7 @@
 %token TABLESC_EDGE_SYMBOL_P;
 %token TABLESC_EDGE_SYMBOL_n;
 %token TABLESC_EDGE_SYMBOL_N;
+%token TABLESC_EDGE_SYMBOL_MUL;
 
 %token
 /*op for both unary and binary*/
@@ -2968,6 +2969,7 @@ edge_symbol :
  | TABLESC_EDGE_SYMBOL_P {$$=T_edge_symbol_P;}
  | TABLESC_EDGE_SYMBOL_n {$$=T_edge_symbol_n;}
  | TABLESC_EDGE_SYMBOL_N {$$=T_edge_symbol_N;}
+ | TABLESC_EDGE_SYMBOL_MUL {$$=T_edge_symbol_MUL;}
 ;
 
 level_symbol :

@@ -148,6 +148,7 @@ and edge_symbol =
 	| T_edge_symbol_P
 	| T_edge_symbol_n
 	| T_edge_symbol_N
+	| T_edge_symbol_MUL
 and netreg_type =
 	T_netreg_type__NOSPEC
 	| T_netreg_type__KEY_SUPPLY0

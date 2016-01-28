@@ -50,9 +50,7 @@ int main ( int argc, char * argv[] ) {
 	ifstream foo( filename );
 	vs.open(&filename , &foo);
 	yy::verilog_parser vp(&filename);
-	cout<<"haha1";
 	int res=vp.parse();
-	cout<<"haha2";
 	if(0!=res) {
 		cerr<<"  improper structure"<<endl;
 	} else {

@@ -842,12 +842,19 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 	"P"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_P(loc);}
 	"n"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_n(loc);}
 	"N"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_N(loc);}
+	"*"		{return yy::verilog_parser::make_TABLESC_EDGE_SYMBOL_MUL(loc);}
 	
 	"endtable"           { 
 		yy_pop_state();
 		return yy::verilog_parser::make_KEY_ENDTABLE(loc);
 	}
 
+	.	{
+		string s{yytext};
+		prt_fatal("COMPILING_0011","unrecognized token : "+s);
+		print_pos();
+		exit(1);
+	}
 }
 
 <edgeSC>{
@@ -866,6 +873,13 @@ return yy::verilog_parser::make_LPARENT_STRENGTH(loc);}
 		return yy::verilog_parser::make_RSQUARE(loc); 
 	}
 	","		{return yy::verilog_parser::make_COMMA(loc);}
+
+	.	{
+		string s{yytext};
+		prt_fatal("COMPILING_0012","unrecognized token : "+s);
+		print_pos();
+		exit(1);
+	}
 }
 %%
 

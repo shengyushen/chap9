@@ -1,0 +1,8 @@
+1	one time, I find the output of checher have two redundent **
+finally I find that there miss a default rule in tableSC start condition in very.lpp, 
+and I miss spell the rule for "*",
+while a miss rule's default action is to print it out,
+so It just print the two * in table endtable out to cout.
+I add the rule for "*" , and add a default rule to signal a fail for future problems
+
+

@@ -405,7 +405,7 @@ public :
 		if(((p->mem4)->size())>0) {
 			printlist(p->mem4 , prt_lparent , prt_comma , prt_rparent);//ports
 		}
-		cout<<";";
+		prt_keyword_space(";");
 		printlist(p->mem5 , prt_return , prt_return , prt_return);//module_item
 		prt_keyword_space("\n endmodule\n");
 	}
@@ -417,7 +417,7 @@ public :
 		prt_keyword_space("\n");
 		printlist(p->mem3 , prt_jinglparent , prt_comma , prt_rparent); // parameter list
 		printlist(p->mem4 , prt_lparent , prt_comma , prt_rparent);//port_declaration
-		cout<<";";
+		prt_keyword_space(";");
 		printlist(p->mem5 , prt_return , prt_return , prt_return);//module_item
 		prt_keyword_space("\n endmodule\n");
 	}
@@ -504,7 +504,7 @@ public :
 		prt_keyword_space("\n generate\n");
 		prt_keyword_space("begin\n");
 		if(false==(boost::apply_visitor(is_T_identifier_NOSPEC(),*(p->mem1)))) {
-			cout<<":  ";
+			prt_keyword_space(":");
 			printcell(p->mem1); 
 		}
 		printlist(p->mem2 , prt_return , prt_return , prt_return);//module_item_list
@@ -1329,7 +1329,7 @@ public :
 	OPERATOR(T_generate_block_begin,p) {  
 		prt_keyword_space("\n begin");
 		if(false==(boost::apply_visitor(is_T_identifier_NOSPEC(),*(p->mem1)))) {
-			cout<<":  ";
+			prt_keyword_space(":");
 			printcell(p->mem1); 
 		}
 		prt_keyword_space("\n");
@@ -2151,28 +2151,29 @@ public :
 	void printcell(level_symbol p) const {
 		prt_keyword_space("");
 		switch(p) {
-		case T_level_symbol_0       : {cout<<"0";break;}
-		case T_level_symbol_1       : {cout<<"1";break;}
-		case T_level_symbol_x       : {cout<<"x";break;}
-		case T_level_symbol_X       : {cout<<"X";break;}
-		case T_level_symbol_QUESTION: {cout<<"?";break;}
-		case T_level_symbol_b       : {cout<<"b";break;}
-		case T_level_symbol_B       : {cout<<"B";break;}
-		case T_level_symbol_SUB     : {cout<<"-";break;}
+		case T_level_symbol_0       : {prt_keyword_space("0");break;}
+		case T_level_symbol_1       : {prt_keyword_space("1");break;}
+		case T_level_symbol_x       : {prt_keyword_space("x");break;}
+		case T_level_symbol_X       : {prt_keyword_space("X");break;}
+		case T_level_symbol_QUESTION: {prt_keyword_space("?");break;}
+		case T_level_symbol_b       : {prt_keyword_space("b");break;}
+		case T_level_symbol_B       : {prt_keyword_space("B");break;}
+		case T_level_symbol_SUB     : {prt_keyword_space("-");break;}
 		}
 		prt_keyword_space("");
 	}
 	void printcell(edge_symbol p) const {
 		prt_keyword_space("");
 		switch(p) {
-		case T_edge_symbol_r : {cout<<"r";break;}
-		case T_edge_symbol_R : {cout<<"R";break;}
-		case T_edge_symbol_f : {cout<<"f";break;}
-		case T_edge_symbol_F : {cout<<"F";break;}
-		case T_edge_symbol_p : {cout<<"p";break;}
-		case T_edge_symbol_P : {cout<<"P";break;}
-		case T_edge_symbol_n : {cout<<"n";break;}
-		case T_edge_symbol_N : {cout<<"N";break;}
+		case T_edge_symbol_r :   {prt_keyword_space("r");break;}
+		case T_edge_symbol_R :   {prt_keyword_space("R");break;}
+		case T_edge_symbol_f :   {prt_keyword_space("f");break;}
+		case T_edge_symbol_F :   {prt_keyword_space("F");break;}
+		case T_edge_symbol_p :   {prt_keyword_space("p");break;}
+		case T_edge_symbol_P :   {prt_keyword_space("P");break;}
+		case T_edge_symbol_n :   {prt_keyword_space("n");break;}
+		case T_edge_symbol_N :   {prt_keyword_space("N");break;}
+		case T_edge_symbol_MUL : {prt_keyword_space("*");break;}
 		}
 		prt_keyword_space("");
 	}
