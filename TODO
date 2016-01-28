@@ -41,3 +41,89 @@ don't use
 	git clone git@github.com/shengyushen/chap9.git
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK	check ECHO appear all the time
+OK	check first pop then push
+OK	line number
+OK	char number
+OK	. no display
+OK	elsif
+OK	all directive
+
+line not use in do_else**
+
+check $$ use in all components
+replacing signed 
+
+
+bring in line number
+
+trying  sparc t1 t2 and openrics 2000
+leon
+
+fixing port and parameter declaration
+elaborate top
+	change all udp and module instance that are recongnized incorrectly
+		transform genvar
+			check and change all sequential_entry back into combinal_entry when only 1 :
+
+
+			OK	make -c in test
+			OK	step1 expanding include and comment, when met with undefined files, just leave it there,
+			OK	step2 met with such include files will signal a FATAL
+			OK	macro used in supermacro should be expanded when super is expanded
+			OK	if error then delete current files
+			OK create standard answer dir
+			OK  then comepare
+			OK	text_macro_ide should be identifier , not simple one
+			OK	add more test for \xxx the like
+			OK	add space and return for each file when step1 to avoid meeting eof in parsing
+			OK	macro can be multi line, procede with \ \n
+			OK	tool for pre processing
+			OK	adding error and warning type
+			OK	only one error file
+			OK	can not distinguish i=#1 'b00 and  i=1 'b00
+			OK	how tp merge 1 with # or 'b00?
+			OK	做一个bash脚本chap9.sh
+			OK	pritnt  specify and specparam
+			OK	$setuphold_timing_check的[stamptime_condition]是可选的 并不是顺序的
+			OK	test step2 without step1
+			OK	reduce the complexity of boost variant
+			OK	expand macro in include before expand include
+
+			top level module to be elaborated
+			why am my code is so slow, reading ""17 Performance Considerations
+
+			integrate ivlpp into my codebase
+			line number is not correct
+			blankrn have return should be count
+
+
+
+			A.1.1 Library source text
+			macro body have string should not be replaced macro in it
+
+			gcov
+			gdb
+			gprof
+			make dist
+
