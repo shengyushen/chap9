@@ -66,7 +66,7 @@ public :
 
 	
 	OPERATOR(T_udp_declaration_1,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_comma , prt_nothing);//attribute_instance_list
 		prt_keyword_space("primitive");
 		printcell(p->mem2);
 		printcell(p->mem3);//udp_port_list
@@ -76,7 +76,7 @@ public :
 		prt_keyword_space("endprimitive");
 	}
 	OPERATOR(T_udp_declaration_2,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("primitive");
 		printcell(p->mem2);
 		printcell(p->mem3);
@@ -131,12 +131,12 @@ public :
 		cout<<p->mem1<<endl;
 	}
 	OPERATOR(T_udp_output_declaration_output,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("output");
 		printcell(p->mem2);
 	}
 	OPERATOR(T_udp_output_declaration_reg,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("output");
 		prt_keyword_space("reg");
 		printcell(p->mem2);
@@ -147,13 +147,13 @@ public :
 		}
 	}
 	OPERATOR(T_udp_reg_declaration,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("reg");
 		printcell(p->mem2);
 	}
 
 	OPERATOR(T_udp_input_declaration,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("input");
 		printlist(p->mem2 , prt_nothing , prt_comma , prt_nothing);//list_of_port_identifiers
 	}
@@ -165,7 +165,7 @@ public :
 	}
 
 	OPERATOR(T_udp_input_declaration_singular,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		if((p->mem2 )== 1) {
 			prt_keyword_space("input");
 		}
@@ -231,13 +231,13 @@ public :
 	OPERATOR(T_expression_prim,p) { printcell(p->mem1); }
 	OPERATOR(T_expression_op1,p) {
 		printcell(p->mem1);//op
-		printlist(p->mem2 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem2 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem3);//primary
 	}
 	OPERATOR(T_expression_op2,p) {
 		printcell(p->mem1);//exp1
 		printcell(p->mem2);//op
-		printlist(p->mem3 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem3 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem4);//exp2
 	}
 	OPERATOR(T_expression_condition,p) { printcell(p->mem1); }
@@ -315,7 +315,7 @@ public :
 	}
 	OPERATOR(T_function_call     ,p) { 
 		printcell(p->mem1);//func name
-		printlist(p->mem2 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem2 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printlist(p->mem3 , prt_lparent , prt_comma , prt_rparent);//exp list for parameter
 	}
 	OPERATOR(T_system_function_call     ,p) { 
@@ -333,7 +333,7 @@ public :
 	OPERATOR(T_conditional_expression,p) {
 		printcell(p->mem1);
 		prt_keyword_space("?");
-		printlist(p->mem2 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem2 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem3);
 		prt_keyword_space(":");
 		printcell(p->mem4);
@@ -396,7 +396,7 @@ public :
 		}//ports refs
 	}
 	OPERATOR(T_module_declaration__1,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 
 		prt_keyword_space("module");
 		printcell(p->mem2); //module name
@@ -410,7 +410,7 @@ public :
 		prt_keyword_space("\n endmodule\n");
 	}
 	OPERATOR(T_module_declaration__2,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 
 		prt_keyword_space("module");
 		printcell(p->mem2); //module name
@@ -429,15 +429,15 @@ public :
 		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_port_declaration__inout_declaration,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_port_declaration__input_declaration,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_port_declaration__output_declaration,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_inout_declaration,p) {  
@@ -734,17 +734,17 @@ public :
 
 	OPERATOR(T_task_item_declaration_block,p) { printcell(p->mem1); }
 	OPERATOR(T_task_item_declaration_input,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_task_item_declaration_output,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_task_item_declaration_inout,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 		prt_keyword_space(";\n");
 	}
@@ -798,7 +798,7 @@ public :
 	}
 
 	OPERATOR(T_task_port_item_input,p)     {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_tf_io_declaration_gen1,p) {  
@@ -828,7 +828,7 @@ public :
 		printlist(p->mem2 , prt_nothing, prt_nothing, prt_nothing);//dimension_list
 	}
 	OPERATOR(T_block_item_declaration_reg,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("\n reg");
 		printcell(p->mem2); 
 		prt_keyword_space(" ");
@@ -838,39 +838,39 @@ public :
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_block_item_declaration_integer,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("\n integer");
 		printlist(p->mem2 , prt_nothing , prt_comma , prt_nothing );// block_variable_type
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_block_item_declaration_time,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("\n time");
 		printlist(p->mem2 , prt_nothing , prt_comma , prt_nothing );// block_variable_type
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_block_item_declaration_real,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("\n real");
 		printlist(p->mem2 , prt_nothing , prt_comma , prt_nothing );// block_variable_type
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_block_item_declaration_realtime,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("\n realtime");
 		printlist(p->mem2 , prt_nothing , prt_comma , prt_nothing );// block_variable_type
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_block_item_declaration_event,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_block_item_declaration_local_param,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_block_item_declaration_param,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_event_expression_exp,p) { printcell(p->mem1); }
@@ -922,7 +922,7 @@ public :
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_statement_blocking_assignment,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 		prt_keyword_space(";\n");
 	}
@@ -1011,57 +1011,57 @@ public :
 	}
 
 	OPERATOR(T_statement_case_statement,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_statement_conditional_statement,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_statement_disable_statement,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_statement_event_trigger,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_statement_loop_statement,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_statement_nonblocking_assignment,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_statement_par_block,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_statement_procedural_continuous_assignments,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_statement_procedural_timing_control_statement,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_statement_seq_block,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_statement_system_task_enable,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_statement_task_enable,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_statement_wait_statement,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
 	}
 	
@@ -1209,13 +1209,13 @@ public :
 	OPERATOR(T_function_range_or_type_REALTIME,p) { prt_keyword_space("realtime"); }
 	OPERATOR(T_function_range_or_type_TIME,p) { prt_keyword_space("time"); }
 	OPERATOR(T_attribute_instance_list_tf_input_declaration,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space(" ");
 		printcell(p->mem2); 
 	}
 	OPERATOR(T_function_item_declaration_block,p) { printcell(p->mem1); }
 	OPERATOR(T_function_item_declaration_input,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space(" ");
 		printcell(p->mem2); 
 		prt_keyword_space(";\n");
@@ -2060,92 +2060,92 @@ public :
 	}
 
 	OPERATOR(T_module_item__parameter_declaration,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_module_item__specparam_declaration,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__net_declaration,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__reg_declaration,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__integer_declaration,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__real_declaration,p) {
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__time_declaration,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__realtime_declaration,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__event_declaration,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__genvar_declaration,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__task_declaration,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__function_declaration,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__local_parameter_declaration,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_module_item__parameter_override,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("defparam");
 		printlist(p->mem2 , prt_nothing , prt_comma , prt_nothing);//attribute_instance_list
 		prt_keyword_space(";\n");
 	}
 	OPERATOR(T_module_item__continuous_assign,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__gate_instantiation,p) { 
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__udp_instantiation,p) {  assert(false); }
 	OPERATOR(T_module_item__module_instantiation,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__initial_construct,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__always_construct,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__loop_generate_construct,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	OPERATOR(T_module_item__conditional_generate_construct,p) {  
-		printlist(p->mem1 , prt_lp_star , prt_comma , prt_star_rp);//attribute_instance_list
+		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2);
 	}
 	void printcell(level_symbol p) const {
