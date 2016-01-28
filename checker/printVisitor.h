@@ -69,7 +69,9 @@ public :
 		printlist(p->mem1 , prt_nothing , prt_comma , prt_nothing);//attribute_instance_list
 		prt_keyword_space("primitive");
 		printcell(p->mem2);
+		prt_keyword_space("(");
 		printcell(p->mem3);//udp_port_list
+		prt_keyword_space(")");
 		prt_keyword_space(";");
 		printlist(p->mem4 , prt_nothing , prt_nothing , prt_nothing);//udp_port_declaration_list
 		printcell(p->mem5);
@@ -79,7 +81,9 @@ public :
 		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		prt_keyword_space("primitive");
 		printcell(p->mem2);
+		prt_keyword_space("(");
 		printcell(p->mem3);
+		prt_keyword_space(")");
 		prt_keyword_space(";");
 		printcell(p->mem4);
 		prt_keyword_space("endprimitive");
@@ -91,9 +95,9 @@ public :
 		printlist(p->mem2 , prt_nothing, prt_comma , prt_nothing);//comma_input_port_identifier_list
 	}
 
-	OPERATOR(T_udp_port_declaration_out,p) { printcell(p->mem1); }
-	OPERATOR(T_udp_port_declaration_input,p) { printcell(p->mem1); }
-	OPERATOR(T_udp_port_declaration_reg,p) { printcell(p->mem1); }
+	OPERATOR(T_udp_port_declaration_out,p)   { printcell(p->mem1);prt_keyword_space(";"); }
+	OPERATOR(T_udp_port_declaration_input,p) { printcell(p->mem1);prt_keyword_space(";"); }
+	OPERATOR(T_udp_port_declaration_reg,p)   { printcell(p->mem1);prt_keyword_space(";"); }
 
 	OPERATOR(T_identifier_NOSPEC,p) {  }
 	OPERATOR(T_identifier,       p) { prt_keyword_space(p->mem1); }
@@ -1195,8 +1199,8 @@ public :
 		printlist(p->mem4 , prt_lparent , prt_comma , prt_rparent);  
 		prt_keyword_space(";\n");
 		printlist(p->mem5 , prt_nothing , prt_nothing, prt_nothing);  
-		prt_keyword_space(";\n");
 		printcell(p->mem6); 
+		prt_keyword_space("\n endfunction");
 	}
 
 	OPERATOR(T_function_range_or_type_NOSPEC,p) {  }
@@ -1751,7 +1755,7 @@ public :
 	}
 
 	OPERATOR(T_dollor_recrem_timing_check , p ) {
-		prt_keyword_space("\\$recrem");
+		prt_keyword_space("$recrem");
 		prt_keyword_space("(");
 		printcell(p->mem1); 
 		prt_keyword_space(",");
@@ -1774,7 +1778,7 @@ public :
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_dollor_removal_timing_check , p) {
-		prt_keyword_space("\\$removal");
+		prt_keyword_space("$removal");
 		prt_keyword_space("(");
 		printcell(p->mem1);
 		prt_keyword_space(",");
@@ -1787,7 +1791,7 @@ public :
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_dollor_recovery_timing_check ,p ) {
-		prt_keyword_space("\\$recovery");
+		prt_keyword_space("$recovery");
 		prt_keyword_space("(");
 		printcell(p->mem1); 
 		prt_keyword_space(",");
@@ -1800,7 +1804,7 @@ public :
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_dollor_setuphold_timing_check,p) {
-		prt_keyword_space("\\$setuphold");
+		prt_keyword_space("$setuphold");
 		prt_keyword_space("(");
 		printcell(p->mem1);
 		prt_keyword_space(",");
@@ -1823,7 +1827,7 @@ public :
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_dollor_hold_timing_check,p) {
-		prt_keyword_space("\\$hold");
+		prt_keyword_space("$hold");
 		prt_keyword_space("(");
 		printcell(p->mem1);
 		prt_keyword_space(",");
@@ -1835,7 +1839,7 @@ public :
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_dollor_setup_timing_check,p) {
-		prt_keyword_space("\\$setup");
+		prt_keyword_space("$setup");
 		prt_keyword_space("(");
 		printcell(p->mem1); 
 		prt_keyword_space(",");
@@ -1915,18 +1919,23 @@ public :
 	}
 	OPERATOR(T_list_of_mintypmax_expressions_1,p) { printcell(p->mem1); }
 	OPERATOR(T_list_of_mintypmax_expressions_2,p) {
+		prt_keyword_space("(");
 		printcell(p->mem1); 
 		prt_keyword_space(",");
 		printcell(p->mem2); 
+		prt_keyword_space(")");
 	}
 	OPERATOR(T_list_of_mintypmax_expressions_3,p) {
+		prt_keyword_space("(");
 		printcell(p->mem1); 
 		prt_keyword_space(",");
 		printcell(p->mem2); 
 		prt_keyword_space(",");
 		printcell(p->mem3); 
+		prt_keyword_space(")");
 	}
 	OPERATOR(T_list_of_mintypmax_expressions_6,p) {
+		prt_keyword_space("(");
 		printcell(p->mem1); 
 		prt_keyword_space(",");
 		printcell(p->mem2); 
@@ -1938,8 +1947,10 @@ public :
 		printcell(p->mem5); 
 		prt_keyword_space(",");
 		printcell(p->mem6); 
+		prt_keyword_space(")");
 	}
 	OPERATOR(T_list_of_mintypmax_expressions_12,p) {
+		prt_keyword_space("(");
 		printcell(p->mem1); 
 		prt_keyword_space(",");
 		printcell(p->mem2); 
@@ -1963,6 +1974,7 @@ public :
 		printcell(p->mem11); 
 		prt_keyword_space(",");
 		printcell(p->mem12); 
+		prt_keyword_space(")");
 	}
 	OPERATOR(T_full_path_description,p) {
 		prt_keyword_space("(");
