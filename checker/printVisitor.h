@@ -872,10 +872,12 @@ public :
 	OPERATOR(T_block_item_declaration_local_param,p) {  
 		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
+		prt_keyword_space(";");
 	}
 	OPERATOR(T_block_item_declaration_param,p) {  
 		printlist(p->mem1 , prt_nothing , prt_nothing , prt_nothing);//attribute_instance_list
 		printcell(p->mem2); 
+		prt_keyword_space(";");
 	}
 	OPERATOR(T_event_expression_exp,p) { printcell(p->mem1); }
 	OPERATOR(T_event_expression_pos,p) { 
@@ -1551,9 +1553,25 @@ public :
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_pullup_strength_NOSPEC,p) {}
-	OPERATOR(T_pullup_strength01,p) {prt_keyword_space(" ( strength0 , strength1 ) ");}
-	OPERATOR(T_pullup_strength10,p) {prt_keyword_space(" ( strength1 , strength1 ) ");}
-	OPERATOR(T_pullup_strength1 ,p) {prt_keyword_space(" ( strength1 ) ");}
+	OPERATOR(T_pullup_strength01,p) {
+		prt_keyword_space("(");
+		printcell(p->mem1); 
+		prt_keyword_space(",");
+		printcell(p->mem2); 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_pullup_strength10,p) {
+		prt_keyword_space("(");
+		printcell(p->mem1); 
+		prt_keyword_space(",");
+		printcell(p->mem2); 
+		prt_keyword_space(")");
+	}
+	OPERATOR(T_pullup_strength1 ,p) {
+		prt_keyword_space("(");
+		printcell(p->mem1); 
+		prt_keyword_space(")");
+	}
 	OPERATOR(T_gate_instantiation_pullup,p) {
 		prt_keyword_space("pullup");
 		printcell(p->mem1); 
@@ -1836,6 +1854,7 @@ public :
 		printcell(p->mem3);
 		prt_keyword_space(",");
 		printcell(p->mem4);
+		prt_keyword_space(")");
 		prt_keyword_space(";");
 	}
 	OPERATOR(T_dollor_setup_timing_check,p) {
@@ -1848,6 +1867,7 @@ public :
 		printcell(p->mem3); 
 		prt_keyword_space(",");
 		printcell(p->mem4); 
+		prt_keyword_space(")");
 		prt_keyword_space(";");
 	}
 

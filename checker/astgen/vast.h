@@ -4235,12 +4235,12 @@ class T_udp_output_declaration_reg : public ComponentBase {
 class T_udp_input_declaration_singular : public ComponentBase {
   public :
     std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> mem1;
-    int mem2;
+    unsigned mem2;
     std::shared_ptr<identifier> mem3;
 
   T_udp_input_declaration_singular( 
        std::shared_ptr<std::list<std::shared_ptr<attribute_instance>>> i1
- ,     int i2
+ ,     unsigned i2
  ,     std::shared_ptr<identifier> i3
   ):
        mem1(i1)
@@ -4342,12 +4342,12 @@ class T_udp_initial_statement : public ComponentBase {
 };
 class T_init_val_bin : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
     string mem2;
     string mem3;
 
   T_init_val_bin( 
-       int i1
+       unsigned i1
  ,     string i2
  ,     string i3
   ):
@@ -4358,10 +4358,10 @@ class T_init_val_bin : public ComponentBase {
 };
 class T_init_val_unsigned : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
 
   T_init_val_unsigned( 
-       int i1
+       unsigned i1
   ):
        mem1(i1)
   {}
@@ -6248,10 +6248,10 @@ class T_net_lvalue_lvlist : public ComponentBase {
 };
 class T_delay_value_UNSIGNED_NUMBER : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
 
   T_delay_value_UNSIGNED_NUMBER( 
-       int i1
+       unsigned i1
   ):
        mem1(i1)
   {}
@@ -7121,22 +7121,22 @@ class T_scalar_timing_check_condition_neq3 : public ComponentBase {
 };
 class T_scalar_constant_unsigned : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
 
   T_scalar_constant_unsigned( 
-       int i1
+       unsigned i1
   ):
        mem1(i1)
   {}
 };
 class T_scalar_constant_binary : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
     string mem2;
     string mem3;
 
   T_scalar_constant_binary( 
-       int i1
+       unsigned i1
  ,     string i2
  ,     string i3
   ):
@@ -7177,10 +7177,10 @@ class T_delayed_data_idmtmexp : public ComponentBase {
 };
 class T_output_symbol_UNSIGNED_NUMBER : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
 
   T_output_symbol_UNSIGNED_NUMBER( 
-       int i1
+       unsigned i1
   ):
        mem1(i1)
   {}
@@ -7197,22 +7197,22 @@ class T_output_symbol_SIMID : public ComponentBase {
 };
 class T_number_UNSIGNED_NUMBER : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
 
   T_number_UNSIGNED_NUMBER( 
-       int i1
+       unsigned i1
   ):
        mem1(i1)
   {}
 };
 class T_number_UNSIGNED_NUMBER_size : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
     string mem2;
     string mem3;
 
   T_number_UNSIGNED_NUMBER_size( 
-       int i1
+       unsigned i1
  ,     string i2
  ,     string i3
   ):
@@ -7223,12 +7223,12 @@ class T_number_UNSIGNED_NUMBER_size : public ComponentBase {
 };
 class T_number_OCTAL_NUMBER : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
     string mem2;
     string mem3;
 
   T_number_OCTAL_NUMBER( 
-       int i1
+       unsigned i1
  ,     string i2
  ,     string i3
   ):
@@ -7239,12 +7239,12 @@ class T_number_OCTAL_NUMBER : public ComponentBase {
 };
 class T_number_BINARY_NUMBER : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
     string mem2;
     string mem3;
 
   T_number_BINARY_NUMBER( 
-       int i1
+       unsigned i1
  ,     string i2
  ,     string i3
   ):
@@ -7255,12 +7255,12 @@ class T_number_BINARY_NUMBER : public ComponentBase {
 };
 class T_number_HEX_NUMBER : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
     string mem2;
     string mem3;
 
   T_number_HEX_NUMBER( 
-       int i1
+       unsigned i1
  ,     string i2
  ,     string i3
   ):
@@ -7281,10 +7281,10 @@ class T_number_REAL_NUMBER : public ComponentBase {
 };
 class T_next_state_UNSIGNED_NUMBER : public ComponentBase {
   public :
-    int mem1;
+    unsigned mem1;
 
   T_next_state_UNSIGNED_NUMBER( 
-       int i1
+       unsigned i1
   ):
        mem1(i1)
   {}

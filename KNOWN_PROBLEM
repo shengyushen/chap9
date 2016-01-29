@@ -5,4 +5,11 @@ while a miss rule's default action is to print it out,
 so It just print the two * in table endtable out to cout.
 I add the rule for "*" , and add a default rule to signal a fail for future problems
 
+2 one time, I find all diff* is empty, but the *.add and *.tok are all empty, 
+it is because tok.sh have following :
+sed xxx |
+> $1.add
+
+the additional | lead to empty
+
 

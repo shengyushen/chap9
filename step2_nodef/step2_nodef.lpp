@@ -25,7 +25,7 @@
 		{ }
 		int yylex();
 		void print_pos_cerr () { cerr<< "  print_pos_cerr " << filename << " : " << linenumber << " : " << charnumber << endl << flush; }
-		void print_pos_cout () { cout<< "`line "<< (linenumber+1) << " " << filename << " 1" << endl << flush; }
+		void print_pos_cout () { cout<<endl<< "`line "<< (linenumber+1) << " " << filename << " 1" << endl << flush; }
 		void incLineNumber (unsigned i=1) { linenumber=linenumber+i; charnumber=0 ; }
 		void incCharNumber (int n) { charnumber+=n ; }
 		void setPosition(int ln , string fn) {linenumber=ln;filename=fn;charnumber=0;}
@@ -951,7 +951,10 @@ identifier_comb {escaped_identifier}|{simple_identifier}
 			print_pos_cerr ();
 			exit(1);
 		}
-		oldbody.erase(0);
+		oldbody.erase(0,1);
+		if(oldbody.size()==0) {
+			prt_fatal("PREPROC_1048","empty string : "+oldbody);
+		}
 		oldbody.pop_back();
 		deleteblank(oldbody);
 		//now oldbody is the filename
@@ -1132,7 +1135,7 @@ int main ( int argc, char * argv[] ) {
 	}
 
 	cerr<<"step2 working on "<<argv[argc-1]<<endl;
-	cout<< "`line 1 " << argv[argc-1] << " 1" << endl << flush;
+	cout<<endl<< "`line 1 " << argv[argc-1] << " 1" << endl << flush;
 	ifstream foo( argv[argc-1] );
 	//creating files handler and scanner
 	step2_nodefScanner * lexer= new step2_nodefScanner(argv[argc-1],&foo);

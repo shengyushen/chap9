@@ -284,7 +284,7 @@ and	udp_output_declaration =
 	T_udp_output_declaration_output of (attribute_instance list)*identifier
 	| T_udp_output_declaration_reg of (attribute_instance list)*identifier*expression
 and udp_input_declaration_sigular = 
-	T_udp_input_declaration_singular of (attribute_instance list)*int*identifier
+	T_udp_input_declaration_singular of (attribute_instance list)*unsigned*identifier
 and	udp_input_declaration =
 	T_udp_input_declaration of (attribute_instance list)*(identifier list)
 and	udp_reg_declaration =
@@ -300,8 +300,8 @@ and	udp_initial_statement =
 	T_udp_initial_statement_NOSPEC
 	| T_udp_initial_statement of identifier*init_val
 and init_val =
-	T_init_val_bin of int*string*string
-	| T_init_val_unsigned of int
+	T_init_val_bin of unsigned*string*string
+	| T_init_val_unsigned of unsigned
 and	sequential_entry =
 	T_sequential_entry of seq_input_list*level_symbol*level_symbol
 	| T_sequential_entry_comb of seq_input_list*level_symbol
@@ -520,7 +520,7 @@ and	net_lvalue =
 	| T_net_lvalue_idexp of hierarchical_identifier*(expression list)*range_expression
 	| T_net_lvalue_lvlist of (net_lvalue list)
 and	delay_value =
-	T_delay_value_UNSIGNED_NUMBER of int
+	T_delay_value_UNSIGNED_NUMBER of unsigned
 	| T_delay_value_REAL_NUMBER of  string
 	| T_delay_value_id of identifier
 and	attribute_instance =
@@ -631,24 +631,24 @@ and scalar_timing_check_condition =
 	| T_scalar_timing_check_condition_neq2 of expression*expression
 	| T_scalar_timing_check_condition_neq3 of expression*expression
 and scalar_constant =
-	T_scalar_constant_unsigned of int
-	| T_scalar_constant_binary of int*string*string
+	T_scalar_constant_unsigned of unsigned
+	| T_scalar_constant_binary of unsigned*string*string
 and delayed_data =
 	T_delayed_data_NOSPEC 
 	| T_delayed_data_id of identifier
 	| T_delayed_data_idmtmexp of identifier*mintypmax_expression
 and output_symbol =
-	T_output_symbol_UNSIGNED_NUMBER of int
+	T_output_symbol_UNSIGNED_NUMBER of unsigned
 	| T_output_symbol_SIMID of string
 and number =
-	T_number_UNSIGNED_NUMBER of int
-	| T_number_UNSIGNED_NUMBER_size of int*string*string
-	| T_number_OCTAL_NUMBER of int*string*string
-	| T_number_BINARY_NUMBER of int*string*string
-	| T_number_HEX_NUMBER of int*string*string
+	T_number_UNSIGNED_NUMBER of unsigned
+	| T_number_UNSIGNED_NUMBER_size of unsigned*string*string
+	| T_number_OCTAL_NUMBER of unsigned*string*string
+	| T_number_BINARY_NUMBER of unsigned*string*string
+	| T_number_HEX_NUMBER of unsigned*string*string
 	| T_number_REAL_NUMBER of string
 and next_state =
-	T_next_state_UNSIGNED_NUMBER of int
+	T_next_state_UNSIGNED_NUMBER of unsigned
 	| T_next_state_SIMID of  string
 	| T_next_state_SUB
 and	string_typedef =

@@ -5,7 +5,7 @@ function disp_error() {
 }
 
 function ispod(str) {
-	if(str=="int") {return 1;}
+	if(str=="unsigned") {return 1;}
 	else if(str=="string") {return 1;}
 	else if(str=="colon_config_opt") {return 1;}
 	else if(str=="signedType") {return 1;}

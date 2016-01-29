@@ -3,3 +3,6 @@ grep WARNING */error
 grep Assertion */error
 grep fault */error
 
+grep "No such file or directory" */error
+grep Aborted */error
+grep "(core dumped)" */error
