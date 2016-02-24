@@ -21,7 +21,7 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 after AM_INIT
 
 
-git command
+2 git command
 
 reset to recent uncommit version
 git reset --hard HEAD
@@ -40,7 +40,11 @@ clone with
 don't use
 	git clone git@github.com/shengyushen/chap9.git
 
+to find out the current url and username and so on
+	git config -l 
 
+to relocate the url to void pasword
+	git config  remote.origin.url  git@github.com:shengyushen/learnEDA.git
 
 
 
